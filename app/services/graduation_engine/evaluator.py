@@ -2,12 +2,15 @@ from collections import Counter
 
 from app.schemas.course import Course
 from app.schemas.evaluation import (
-    CreditEntry, EvaluationResponse, LiberalSummary, NonacademicRecord, RequirementCounts, RequirementResult,
+    CreditEntry, EarlyGraduationAssessment, EvaluationResponse, LiberalSummary, NonacademicRecord,
+    ProgressNotice, RequirementCounts, RequirementResult,
 )
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 from app.schemas.student import StudentProfile
 
-from .course_areas import COMPUTED_IDS, area_results, auto_satisfied, course_labels
+from .course_areas import (
+    COMPUTED_IDS, FIELD_PRACTICE_ID, area_results, auto_satisfied, course_labels, describe, field_practice_courses,
+)
 from .credit_checker import check_credits
 from .gpa import GPA_REQUIREMENT_ID, gpa_result
 from .required_course_checker import check_required_courses
@@ -46,8 +49,74 @@ def checklist_requirements(rule: GraduationRule) -> list[NonacademicRequirement]
             if item.id != GPA_REQUIREMENT_ID and item.id not in COMPUTED_IDS]
 
 
+def recorded_amount(requirement: NonacademicRequirement, records: list[NonacademicRecord]) -> float | None:
+    return max((record.amount for record in records
+                if record.requirement_id == requirement.id and record.status == "satisfied"), default=None)
+
+
 def equivalent_codes(rule: GraduationRule) -> dict[str, str]:
     return {alias: code for code, aliases in rule.equivalent_courses.items() for alias in aliases}
+
+
+def rule_notices(rule: GraduationRule) -> list[ProgressNotice]:
+    return [ProgressNotice(id=item.id, name=item.name, sources=item.sources)
+            for item in rule.verification_requirements]
+
+
+def early_graduation_assessment(
+    rule: GraduationRule, profile: StudentProfile, requirements: list[RequirementResult],
+) -> EarlyGraduationAssessment | None:
+    policy = rule.early_graduation
+    if policy is None:
+        return None
+    gpa = next((item.current for item in requirements
+                if item.id == GPA_REQUIREMENT_ID and item.status != "verification_required"), None)
+    semesters = profile.registered_semesters
+    requirements_met = all(item.status == "satisfied" for item in requirements)
+    if policy.not_for_transfer and (profile.transfer_student or profile.student_status in
+                                   {"general_transfer", "bachelor_transfer"}):
+        status = "not_applicable"
+    elif (semesters is not None and semesters < policy.min_semesters) or (gpa is not None and gpa < policy.min_gpa):
+        status = "criteria_not_met"
+    elif semesters is None or gpa is None:
+        status = "verification_required"
+    else:
+        status = "criteria_met" if requirements_met else "criteria_not_met"
+    return EarlyGraduationAssessment(
+        status=status, registered_semesters=semesters, gpa=gpa,
+        graduation_requirements_met=requirements_met, policy=policy,
+    )
+
+
+def evaluate_checklist(
+    item: NonacademicRequirement, courses: list[Course], equivalents: dict[str, str],
+    records: list[NonacademicRecord],
+) -> tuple[RequirementResult, float | None, bool]:
+    matches = [record for record in records if record.requirement_id == item.id]
+    # Manual entries and transcript credits are independent confirmations of the same requirement.
+    recorded = recorded_amount(item, matches)
+    evidence = None
+    automatic = 0.0
+    if item.id == FIELD_PRACTICE_ID:
+        counted = field_practice_courses(courses, equivalents)
+        automatic = sum(course.credits for course in counted)
+        if counted:
+            evidence = "이수 과목에서 인정한 현장실습: " + ", ".join(map(describe, counted))
+    else:
+        evidence = auto_satisfied(item, courses, equivalents)
+        if evidence:
+            automatic = item.minimum
+    current = max(automatic, recorded or 0)
+    shortfall = max(0, item.minimum - current)
+    status = "satisfied" if not shortfall else next(
+        (state for state in ("verification_required", "approval_required")
+         if any(record.status == state for record in matches)), "unsatisfied",
+    )
+    return RequirementResult(
+        id=item.id, name=item.name, status=status, current=current, required=item.minimum,
+        shortfall=shortfall, reason=evidence or "학생이 입력한 비교과 기록으로 확인",
+        sources=item.sources, details=([evidence] if evidence else []) + item.details,
+    ), recorded, evidence is not None and automatic >= item.minimum
 
 
 def evaluate_course_requirements(
@@ -80,37 +149,8 @@ def evaluate_graduation(
     )
     equivalents = equivalent_codes(rule)
 
-    for item in checklist_requirements(rule):
-        evidence = auto_satisfied(item, completed_courses, equivalents)
-        if evidence:
-            requirements.append(RequirementResult(
-                id=item.id, name=item.name, status="satisfied", current=item.minimum, required=item.minimum,
-                shortfall=0, reason=evidence, sources=item.sources, details=[evidence],
-            ))
-            continue
-        records = [record for record in nonacademic_records if record.requirement_id == item.id]
-        # Each record is a snapshot of the requirement, so repeated submissions are not summed.
-        current = max((record.amount for record in records if record.status == "satisfied"), default=0)
-        shortfall = max(0, item.minimum - current)
-        if not shortfall:
-            status = "satisfied"
-        elif any(record.status == "verification_required" for record in records):
-            status = "verification_required"
-        elif any(record.status == "approval_required" for record in records):
-            status = "approval_required"
-        else:
-            status = "unsatisfied"
-        requirements.append(RequirementResult(
-            id=item.id, name=item.name, status=status, current=current, required=item.minimum,
-            shortfall=shortfall, reason="Compared with submitted nonacademic records", sources=item.sources,
-        ))
-
-    requirements.extend(RequirementResult(
-        id=item.id, name=item.name, status="verification_required",
-        current=0, required=1, shortfall=1,
-        reason="Additional evidence or interpretation is needed to automate this requirement",
-        sources=item.sources,
-    ) for item in rule.verification_requirements)
+    requirements.extend(evaluate_checklist(item, completed_courses, equivalents, nonacademic_records)[0]
+                        for item in checklist_requirements(rule))
 
     states = Counter(item.status for item in requirements)
     status = next((state for state in ("verification_required", "approval_required", "unsatisfied")
@@ -119,4 +159,6 @@ def evaluate_graduation(
         rule_id=rule.id, dataset=rule.dataset, eligible=status == "satisfied", status=status,
         requirements=requirements, credit_entries=entries, progress=completion_percent(requirements),
         requirement_counts=RequirementCounts(**states),
+        notices=rule_notices(rule),
+        early_graduation=early_graduation_assessment(rule, student_profile, requirements),
     )

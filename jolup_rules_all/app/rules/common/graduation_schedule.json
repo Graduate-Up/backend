@@ -1,0 +1,153 @@
+{
+  "sources": {
+    "plsop-portfolio": {
+      "title": "플솝 2027년 2월 졸업포트폴리오 제출 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29490"
+    },
+    "plsop-interview": {
+      "title": "플솝 2027년 2월 졸업예정자 대면 인터뷰 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29504"
+    },
+    "glsop-graduation": {
+      "title": "글솝 2027년 2월 졸업예정자 준비 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29384"
+    },
+    "glsop-classification": {
+      "title": "글솝 교과구분 및 교양 초과이수자 변경 신청 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&sca=%EA%B8%80%EC%86%9D&wr_id=28589"
+    },
+    "aicom-classification": {
+      "title": "인컴 교과구분 변경 신청 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&sca=%EC%9D%B8%EC%BB%B4&wr_id=29159"
+    },
+    "plsop-classification": {
+      "title": "플솝 2026년 8월 졸업예정자 교과구분 변경 신청 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29318"
+    },
+    "plsop-liberal-conversion": {
+      "title": "플솝 2026년 8월 졸업예정자 교양 초과학점 변경 신청 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29319"
+    },
+    "classification-form": {
+      "title": "컴퓨터학부 교과구분 변경 온라인 신청 및 첨부 양식",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=eng5_1&wr_id=25804"
+    },
+    "deferral-tuition": {
+      "title": "경북대 학사학위취득유예자 수강학점별 등록금 안내",
+      "url": "https://www.knu.ac.kr/wbbs/wbbs/bbs/btin/viewBtin.action?bbs_cde=1&btin.appl_no=000000&btin.doc_no=1338577&menu_idx=67"
+    }
+  },
+  "events": [
+    {
+      "kind": "portfolio_submission",
+      "graduation": "2027-02",
+      "major": "plsop",
+      "start_date": "2026-11-18",
+      "end_date": "2026-11-25",
+      "status": "confirmed",
+      "source": ["plsop-portfolio"]
+    },
+    {
+      "kind": "graduation_interview",
+      "graduation": "2027-02",
+      "major": "plsop",
+      "start_date": "2026-12-10",
+      "end_date": "2026-12-10",
+      "status": "confirmed",
+      "note": "대면 인터뷰 대상자에 한해 14:00~15:30. 개별 시간은 공지 확인.",
+      "source": ["plsop-interview"]
+    },
+    {
+      "kind": "portfolio_submission",
+      "graduation": "2027-02",
+      "major": "glsop",
+      "end_date": "2026-11-30",
+      "status": "confirmed",
+      "source": ["glsop-graduation"]
+    },
+    {
+      "kind": "graduation_interview",
+      "graduation": "2027-02",
+      "major": "glsop",
+      "status": "tentative",
+      "note": "2026년 12월 기말고사 직전 예정. 세부 일정은 별도 공지.",
+      "source": ["glsop-graduation"]
+    },
+    {
+      "kind": "classification_change",
+      "graduation": "2027-02",
+      "major": "glsop",
+      "status": "standing_rule",
+      "note": "성적증명서에 성적이 등재된 뒤 졸업 전까지 신청 가능.",
+      "source": ["glsop-classification"]
+    },
+    {
+      "kind": "general_elective_conversion",
+      "graduation": "2027-02",
+      "major": "glsop",
+      "admission_from": 2018,
+      "admission_to": 2022,
+      "start_date": "2027-01-20",
+      "end_date": "2027-01-25",
+      "status": "standing_rule",
+      "note": "교양 42학점 초과로 졸업이 불가한 학생 대상. 계절학기 성적 확정 전후 일반 안내 기준.",
+      "source": ["glsop-classification"]
+    },
+    {
+      "kind": "classification_change",
+      "graduation": "2027-02",
+      "major": "aicom",
+      "status": "standing_rule",
+      "note": "성적증명서에 성적이 등재된 뒤 졸업 전까지 신청 가능.",
+      "source": ["aicom-classification"]
+    },
+    {
+      "kind": "classification_change",
+      "graduation": "2026-08",
+      "major": "plsop",
+      "start_date": "2026-06-25",
+      "end_date": "2026-07-10",
+      "status": "confirmed",
+      "note": "여름 계절학기 수강자는 7월 24일 성적 확정 뒤 즉시 신청.",
+      "source": ["plsop-classification"]
+    },
+    {
+      "kind": "general_elective_conversion",
+      "graduation": "2026-08",
+      "major": "plsop",
+      "admission_from": 2018,
+      "admission_to": 2022,
+      "end_date": "2026-07-24",
+      "status": "confirmed",
+      "note": "교양 42학점 초과로 졸업이 불가한 학생 대상. 신청 마감 13:00.",
+      "source": ["plsop-liberal-conversion"]
+    },
+    {
+      "kind": "graduation_review_result",
+      "graduation": "2027-02",
+      "status": "unverified",
+      "source": []
+    }
+  ],
+  "classification_change": {
+    "department_code": "1O02",
+    "major_department_codes": {"glsop": "1O0204", "aicom": "1O0208"},
+    "major_source": {"glsop": ["glsop-classification"], "aicom": ["aicom-classification"]},
+    "form_url": "https://cse.knu.ac.kr/bbs/download.php?bo_table=eng5_1&no=0&wr_id=25804",
+    "form_name": "서식_교과구분변경신청.xls",
+    "source": ["classification-form"]
+  },
+  "deferral": {
+    "max_semesters": 2,
+    "min_completed_semesters": 8,
+    "facility_fee_percent": 5,
+    "tuition_by_credits": [
+      {"min_credits": 1, "max_credits": 3, "tuition_fraction": "1/6"},
+      {"min_credits": 4, "max_credits": 6, "tuition_fraction": "1/3"},
+      {"min_credits": 7, "max_credits": 9, "tuition_fraction": "1/2"},
+      {"min_credits": 10, "tuition_fraction": "1"}
+    ],
+    "note": "졸업요건을 모두 충족해야 하며, 조기졸업 신청자와 이미 수료한 학생은 신청 대상에서 제외. 수강 시 먼저 낸 시설사용료를 제외하고 수강학점별 등록금 차액을 납부.",
+    "source": ["S15", "deferral-tuition"]
+  }
+}

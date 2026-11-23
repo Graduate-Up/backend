@@ -28,3 +28,4 @@ class StudentProfile(BaseModel):
     student_status: StudentStatus | None = None
     international_student: bool = False
     disabled_student: bool = False
+    registered_semesters: int | None = Field(default=None, ge=0, le=100, description="정규학기 등록 횟수")

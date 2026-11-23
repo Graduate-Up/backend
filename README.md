@@ -93,7 +93,8 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
   "major": "aicom",
   "track": null,
   "multi_major": "none",
-  "expected_graduation_date": "2028-02"
+  "expected_graduation_date": "2028-02",
+  "registered_semesters": 6
 }
 ```
 
@@ -111,12 +112,22 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 | 메서드와 경로 | 입력과 응답 |
 | --- | --- |
-| `GET /api/v1/courses?admission_year=2024&major=aicom&q=자료구조` | 코드 또는 과목명 검색. 로컬 교육과정의 학점·교과구분과 자료 기준·추정 여부를 반환. `limit`과 `offset`으로 페이지 이동 |
+| `GET /api/v1/courses?admission_year=2024&major=aicom&q=자료구조` | 판정과 같은 학번별 교육과정표에서 과목을 검색. 학점·교과구분과 적용 표의 제목(`basis`), 출처(`curriculum_source`), 해당 학번의 원문이 없어 다른 표를 적용했는지(`inferred`)를 반환. `limit`과 `offset`으로 페이지 이동 |
 | `GET /api/v1/me/records` | 저장된 과목 목록과 비교과 기록 반환 |
 | `PUT /api/v1/me/records` | `completed_courses`, `nonacademic_records` 전체 목록을 교체 |
 | `GET /api/v1/me/evaluation` | 저장된 학생 설정과 이수 내역으로 진행률, 상태별 요건 수, 각 요건의 판정 근거와 학점 인정 내역을 계산. 학생 설정이 없으면 409 |
 
+과목 검색의 `career_tags`는 졸UP에서 과목코드별로 지정한 추천 분류입니다. `prerequisite_groups`는 바깥 배열의 각 그룹을 모두 고려하고, 같은 그룹 안에서는 과목 중 하나를 선택합니다. `prerequisite_kind`로 필수와 권장을 구분합니다. 플솝에서 필수 선수과목 데이터를 요청할 때는 `abeek=true`를 보냅니다. 확인된 관계가 없는 과목의 `prerequisite_groups`는 `null`입니다.
+
 검색 결과의 학년·학기는 교육과정상 권장값입니다. 실제 수강 학기, 이수 여부, 성적표 교과구분을 입력해 저장합니다. 목록에 없는 과목도 동일한 입력 형식으로 직접 등록할 수 있습니다. 학교 포털의 개인 성적 자동 가져오기와 `sy.knu.ac.kr` 실시간 강좌 검색은 연동되어 있지 않습니다.
+
+### 과목·다전공 추천
+
+`POST /api/v1/me/recommendations`에 로그인 토큰과 `{"career":"ai_data","use_ai":true}`를 보냅니다. 진로는 `ai_data`, `backend`, `security`, `graduate_study` 또는 `null`(아직 모름)입니다. 특정 수강 학기를 알려줄 때는 `target_semester`에 `2027-1` 같은 값을 보냅니다. 응답의 `recommended`는 카드 3개까지, `alternatives`는 나머지 후보이며, `gains`는 과목 하나를 이수했다고 가정했을 때 줄어드는 부족량입니다. 여러 후보의 효과를 단순 합산하지 마세요. `curriculum_source`와 `inferred`는 화면의 교육과정 출처·추정 여부에 사용합니다.
+
+OpenAI Responses API의 `gpt-5.4-mini`는 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 백엔드 환경의 `OPENAI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 선택적으로 `JOLUP_OPENAI_MODEL`로 설정합니다.
+
+융합·복수전공 자료를 추가할 때는 `data/recommendation_programs.json`에 배열을 저장하고 백엔드를 다시 시작합니다. 각 전공에 `id`, `name`, `kind`(`convergence` 또는 `double_major`), `source`(`title`, `url`), `courses`(과목별 `code`, `name`, `credits`, 선택 `career_tags`)를 넣습니다. `programs`는 이미 이수한 과목과 관련 분야를 근거로 제시하는 탐색 후보입니다. 해당 전공의 선발 여부와 중복 학점 인정은 이 데이터로 확정하지 않습니다.
 
 ### 대시보드 진행률
 
@@ -124,6 +135,16 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 | --- | --- |
 | `GET /api/v1/me/progress` | 대시보드용 진행률. `items`, `progress`, `course_progress`, `notices`, `credit_entries` 반환. 학생 설정이 없으면 409 |
 | `PUT /api/v1/me/checklist` | 비교과 항목 하나를 저장하고 갱신된 진행률 반환. `{"requirement_id": "department-english", "checked": true}`는 기준값(예: 700점)으로 저장되어 충족, `{"requirement_id": "department-english", "amount": 650}`은 실제 수치로 저장되어 기준 이상일 때만 충족, `checked: false`는 기록 삭제. `checked`와 `amount` 중 하나만 보냄. 자동 계산 항목이나 없는 ID는 422 |
+
+영어 원본을 저장할 때는 `department-english` 또는 `practical-english`의 기존 판정용 `amount`와 함께 `english_test`를 보냅니다. `PUT /api/v1/me/checklist`와 `PUT /api/v1/me/records`가 받고, `GET /api/v1/me/records`의 `nonacademic_records`에서 다시 읽을 수 있습니다. 원점수는 숫자 또는 등급 문자열입니다.
+
+```json
+{
+  "requirement_id": "department-english",
+  "amount": 750,
+  "english_test": {"test_type": "TOEIC", "raw_score": 750, "taken_month": "2026-11"}
+}
+```
 
 서버는 이수 과목으로 판정되는 요건만 계산합니다. 총·전공·교양 학점, 필수과목, 평점평균이 여기에 해당하며 `kind: "course"`로 내려갑니다. 평점평균은 과목의 `grade`로 계산하고 기준은 공통 규정(`min_gpa`, 4.3 만점 1.7 이상, F 포함)을 따릅니다. P/NP 과목은 제외하고, 재이수 과목(동일과목 포함)은 마지막 성적만 반영합니다. 성적등급이 있는 과목이 없으면 `verification_required`입니다. 평점평균은 기준 이상인지만 보므로 진행률에서 충족이면 1, 미달이면 0으로 반영합니다(학점·필수과목처럼 부분 반영하지 않음). TOEIC, 상담, 현장실습, 졸업심사 같은 비교과 요건은 `kind: "checklist"`이고, 학생이 화면에서 체크합니다. 체크 상태는 `nonacademic_records`에 저장되어 다시 로그인해도 유지됩니다.
 
@@ -150,7 +171,8 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 | ABEEK 설계 | 규칙의 설계 과목별 설계학점 (`course_credits`) | 이수한 설계 과목의 설계학점 합계 |
 | 교양 영역 (첨성인기초·첨성인핵심, 인컴 2023학번~ 등) | `liberal_areas.csv`: 공식 "이수영역별 교양과목 목록(SDG교양 포함, 2025)" 327과목 (글솝 졸업요건 공지 28595 참고자료2), SDG 목록 2차(2024.5.1.). 목록에 없으면 성적표 교과구분의 영역 표기 사용 | 경북대 개설 과목만 인정. 매핑에 없는 교양이 있고 기준 미달이면 미충족 대신 확인 필요로 표시하고 과목을 나열 |
 | SDG 교양 | 위 목록의 SDG 표시 72과목 | 목록 과목 학점 합계 |
-| 창업교과목 (글솝 기술창업역량) | `startup_courses.csv`: 창업교과목 인정목록(2023~2026, ~2022, 공지 28591 참고자료3) | 목록 과목 또는 과목명에 "창업"이 들어간 과목의 학점 합계 |
+| 창업교과목 (글솝 기술창업역량) | `startup_courses.csv`: 창업교과목 인정목록(2023~2026, ~2022, 공지 28591 참고자료3) | `FUTR`로 시작하는 과목, 목록 과목, 과목명에 "창업"이 포함된 과목을 학점 합계에 반영 |
+| 현장실습 | 이수 과목명과 성적표 교과구분 | 과목명에 현장실습·인턴십이 들어 있거나 교과구분이 현장실습이면 자동 집계. 별도 승인이 필요한 `STUP0311`은 승인된 대체 실적을 입력 |
 | 전공학점 (전 전공) | `curricula.csv` (플솝 공학전공, 그 외 전공) | 본인 학번 표의 전공 교과목만 전공으로 인정 (글솝 공지 28594). 2023 개편으로 삭제된 과목은 2022학번까지만, 심컴 교육과정 과목은 글솝 전공 불인정 |
 | SW 졸업자격인정 | 컴퓨터학부 지정 대체과목 (`course_codes`, 붙임3), 첨성인기초 소프트웨어 영역 | 대체과목 또는 소프트웨어 영역 3학점 이수 시 체크리스트에서 자동 충족(`auto_checked`) |
 | 실용영어 졸업자격인정 | 첨성인기초 실용영어 영역 | 실용영어 영역 4학점 이수 시 자동 충족. 아니면 시험 점수로 체크 |
@@ -160,7 +182,7 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 성적표 교과구분이 부전공·복수전공·연계전공·융합전공·다전공인 과목은 졸업학점에는 포함하고 주전공 학점에는 포함하지 않습니다 (글솝 공지 28594·28595).
 
-학교 공통 항목(졸업자격인정제 실용영어·SW·상담, 현장실습 대체 범위)은 경북대 학사안내, 컴퓨터학부 졸업요건 붙임3과 **학생 본인 전공의 공지**만 근거로 표시합니다. 다른 전공 공지가 근거로 붙지 않는지 `tests/test_notice_fixes.py`가 전공·학번 조합별로 확인합니다.
+요건의 `sources`에는 경북대 학사안내, 학부 공통 공지와 **학생 본인 전공에 해당하는 공지**가 내려갑니다. 학부 확인 메모는 판정과 대시보드 모두 `notices`로 제공하며, 충족률과 졸업 가능 판정에는 반영하지 않습니다. `credit_entries[].offered_by_computer_science`는 학부 개설 여부이고, 주전공 학점 인정 여부는 `recognized_category`에서 확인합니다.
 
 [내 학생 설정](http://127.0.0.1:8002/account)에 로그인하면 저장된 설정 기준으로 대시보드가 바로 표시됩니다. 과목을 저장하면 대시보드도 다시 계산됩니다.
 
@@ -168,13 +190,15 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 ## API
 
-프런트의 졸업 일정·절차 화면은 `GET /api/v1/graduation/schedule`을 사용합니다. `qualification_deadlines`는 날짜가 알려진 졸업 연·월만 반환하고, `department_deadline`과 `early_graduation`은 기준과 출처를 반환합니다.
+프런트의 졸업 일정·절차 화면은 `GET /api/v1/graduation/schedule`을 사용합니다. `graduation=2027-02&major=glsop&admission_year=2022`처럼 필터를 붙일 수 있습니다. `events`는 일정별 적용 대상을 담고, 날짜 확정 여부는 `status`를 사용합니다. `classification_change`는 신청학과 코드와 양식 링크를, `deferral`은 유예 횟수와 수강학점별 납부 기준을 반환합니다.
+
+학생이 입력한 `registered_semesters`와 이수 내역의 평점으로 조기졸업 기준을 비교합니다. 미리보기, 내 졸업 판정, 대시보드의 `early_graduation.status`로 기준 충족 여부를 표시할 수 있습니다. 신청 및 승인 절차는 학교에서 진행합니다.
 
 | API | 역할 |
 | --- | --- |
 | `GET /api/v1/majors?admission_year=2024` | 2017~2026학번의 선택 가능한 전공 조회 |
 | `GET /api/v1/requirements` | `admission_year`, `major` 및 선택 입력 `track`, `abeek`, `multi_major`, `expected_graduation_date`, `transfer_student`, `international_student`에 맞는 요건 조회 |
-| `POST /api/v1/evaluations/preview` | 학생 프로필, 전체 과목, 비교과 기록으로 졸업 판정 미리보기 |
+| `POST /api/v1/evaluations/preview` | 학생 프로필, 전체 과목, 비교과 기록으로 졸업 판정 미리보기. 저장된 `liberal_summary`를 함께 보내면 첨성인 교양 네 영역에 적용 |
 | `GET /`, `GET /health` | 기존 서버 메시지와 상태 확인 |
 
 잘못된 프로필 조합은 422입니다. 공식 규칙이 없거나 적용할 입학년도·전공 데이터가 없으면 `rules_unavailable`, 파일이나 선택된 규칙 구성이 올바르지 않으면 `invalid_rule_data`와 함께 503을 반환합니다.

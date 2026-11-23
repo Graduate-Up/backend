@@ -3,6 +3,7 @@ import sqlite3
 
 from fastapi.testclient import TestClient
 
+from app.main import app
 from app.services.accounts import get_account_store
 from tests.demo_app import create_demo_app
 
@@ -24,6 +25,33 @@ def register(client, mailbox, credentials=CREDENTIALS):
     email = credentials["email"]
     assert client.post("/api/v1/auth/email-code", json={"email": email}).status_code == 204
     return client.post("/api/v1/auth/register", json={**credentials, "code": mailbox[email.lower()]})
+
+
+def test_english_test_details_survive_a_new_login(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    test = {"test_type": "OPIc", "raw_score": "IM2", "taken_month": "2026-11"}
+    record = {"requirement_id": "department-english", "amount": 750, "status": "satisfied"}
+    profile = {**PROFILE, "major": "glsop", "track": "multi_major", "registered_semesters": 6}
+    with TestClient(app) as client:
+        assert register(client, verification_mailbox).status_code == 201
+        headers = sign_in(client)
+        assert client.put("/api/v1/me/profile", headers=headers, json=profile).status_code == 200
+        update = {"requirement_id": record["requirement_id"], "amount": record["amount"], "english_test": test}
+        assert client.put("/api/v1/me/checklist", headers=headers, json=update).status_code == 200
+        # An older client knows only the converted amount.
+        assert client.put("/api/v1/me/records", headers=headers,
+                          json={"nonacademic_records": [record]}).status_code == 200
+        assert client.post("/api/v1/auth/logout", headers=headers).status_code == 204
+    with TestClient(app) as client:
+        headers = sign_in(client)
+        assert client.get("/api/v1/me", headers=headers).json()["profile"]["registered_semesters"] == 6
+        records = client.get("/api/v1/me/records", headers=headers).json()["nonacademic_records"]
+        assert records == [{**record, "english_test": test}]
+        evaluation = client.get("/api/v1/me/evaluation", headers=headers).json()
+        english = next(item for item in evaluation["requirements"] if item["id"] == "department-english")
+        assert (english["current"], english["status"]) == (750, "satisfied")
+        assert evaluation["early_graduation"]["registered_semesters"] == 6
+        assert evaluation["early_graduation"]["status"] == "verification_required"
 
 
 def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp_path, verification_mailbox):

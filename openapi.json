@@ -89,6 +89,66 @@
         ],
         "summary": "Graduation Schedule",
         "operationId": "graduation_schedule_api_v1_graduation_schedule_get",
+        "parameters": [
+          {
+            "name": "graduation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{4}-(02|08)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Graduation"
+            }
+          },
+          {
+            "name": "major",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "glsop",
+                    "plsop",
+                    "aicom",
+                    "simcom",
+                    "chumcom"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Major"
+            }
+          },
+          {
+            "name": "admission_year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 2200,
+                  "minimum": 1900
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Admission Year"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -96,6 +156,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GraduationSchedule"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -344,6 +414,26 @@
               "default": false,
               "title": "Disabled Student"
             }
+          },
+          {
+            "name": "registered_semesters",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 100,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "정규학기 등록 횟수",
+              "title": "Registered Semesters"
+            },
+            "description": "정규학기 등록 횟수"
           }
         ],
         "responses": {
@@ -1154,6 +1244,75 @@
         ]
       }
     },
+    "/api/v1/me/recommendations": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Recommendations",
+        "operationId": "my_recommendations_api_v1_me_recommendations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recommendations"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
     "/api/v1/me/checklist": {
       "put": {
         "tags": [
@@ -1292,6 +1451,22 @@
               "default": 0,
               "title": "Offset"
             }
+          },
+          {
+            "name": "abeek",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Abeek"
+            }
           }
         ],
         "responses": {
@@ -1391,6 +1566,69 @@
               }
             ],
             "title": "Note"
+          },
+          "offered_by_computer_science": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offered By Computer Science"
+          },
+          "career_tags": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai_data",
+                "backend",
+                "security",
+                "graduate_study"
+              ]
+            },
+            "type": "array",
+            "title": "Career Tags"
+          },
+          "prerequisite_groups": {
+            "anyOf": [
+              {
+                "items": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prerequisite Groups"
+          },
+          "prerequisite_kind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "required",
+                  "recommended"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prerequisite Kind"
+          },
+          "prerequisite_sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Prerequisite Sources"
           }
         },
         "type": "object",
@@ -1398,7 +1636,9 @@
           "course_code",
           "course_name",
           "credits",
-          "curriculum_category"
+          "curriculum_category",
+          "career_tags",
+          "prerequisite_sources"
         ],
         "title": "CatalogCourse"
       },
@@ -1433,6 +1673,16 @@
             ],
             "title": "Amount",
             "description": "실제 수치. 기준 이상이면 충족"
+          },
+          "english_test": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnglishTestResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -1442,6 +1692,75 @@
         ],
         "title": "ChecklistUpdate",
         "description": "체크박스(`checked`) 또는 실제 수치(`amount`, 예: TOEIC 점수, 상담 횟수) 중 하나로 저장한다.\n\n`checked: true`는 기준값(예: 700점, 8회)으로 저장되어 충족이다. `amount`는 그대로 저장되며\n기준 이상일 때만 충족이다. `checked: false`는 기록을 지운다."
+      },
+      "ClassificationChange": {
+        "properties": {
+          "department_code": {
+            "type": "string",
+            "title": "Department Code",
+            "description": "학부 온라인 신청 안내에 기재된 컴퓨터학부 코드"
+          },
+          "major_department_codes": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "enum": [
+                "glsop",
+                "plsop",
+                "aicom",
+                "simcom",
+                "chumcom"
+              ]
+            },
+            "type": "object",
+            "title": "Major Department Codes"
+          },
+          "major_sources": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/Source"
+              },
+              "type": "array"
+            },
+            "propertyNames": {
+              "enum": [
+                "glsop",
+                "plsop",
+                "aicom",
+                "simcom",
+                "chumcom"
+              ]
+            },
+            "type": "object",
+            "title": "Major Sources"
+          },
+          "form_url": {
+            "type": "string",
+            "title": "Form Url"
+          },
+          "form_name": {
+            "type": "string",
+            "title": "Form Name"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "department_code",
+          "major_department_codes",
+          "major_sources",
+          "form_url",
+          "form_name",
+          "sources"
+        ],
+        "title": "ClassificationChange"
       },
       "Conditions": {
         "properties": {
@@ -1730,6 +2049,92 @@
         ],
         "title": "CourseOption"
       },
+      "CourseRecommendation": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "course_name": {
+            "type": "string",
+            "title": "Course Name"
+          },
+          "credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Credits"
+          },
+          "curriculum_category": {
+            "type": "string",
+            "title": "Curriculum Category"
+          },
+          "recommended_year": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Year"
+          },
+          "recommended_semester": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Semester"
+          },
+          "gains": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementGain"
+            },
+            "type": "array",
+            "title": "Gains"
+          },
+          "career_tags": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai_data",
+                "backend",
+                "security",
+                "graduate_study"
+              ]
+            },
+            "type": "array",
+            "title": "Career Tags"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "program_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Program Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code",
+          "course_name",
+          "credits",
+          "curriculum_category",
+          "gains",
+          "career_tags",
+          "reason"
+        ],
+        "title": "CourseRecommendation"
+      },
       "CourseRequirement": {
         "properties": {
           "id": {
@@ -1829,6 +2234,9 @@
             "type": "boolean",
             "title": "Inferred"
           },
+          "curriculum_source": {
+            "$ref": "#/components/schemas/Source"
+          },
           "total": {
             "type": "integer",
             "title": "Total"
@@ -1845,6 +2253,7 @@
         "required": [
           "basis",
           "inferred",
+          "curriculum_source",
           "total",
           "items"
         ],
@@ -1959,6 +2368,17 @@
           "transcript_category": {
             "type": "string",
             "title": "Transcript Category"
+          },
+          "offered_by_computer_science": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offered By Computer Science"
           },
           "recognized_category": {
             "anyOf": [
@@ -2107,6 +2527,35 @@
         ],
         "title": "CreditTreatment"
       },
+      "DeferralTuition": {
+        "properties": {
+          "min_credits": {
+            "type": "integer",
+            "title": "Min Credits"
+          },
+          "max_credits": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Credits"
+          },
+          "tuition_fraction": {
+            "type": "string",
+            "title": "Tuition Fraction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "min_credits",
+          "tuition_fraction"
+        ],
+        "title": "DeferralTuition"
+      },
       "DepartmentDeadline": {
         "properties": {
           "label": {
@@ -2127,6 +2576,59 @@
           "sources"
         ],
         "title": "DepartmentDeadline"
+      },
+      "EarlyGraduationAssessment": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "criteria_met",
+              "criteria_not_met",
+              "verification_required",
+              "not_applicable"
+            ],
+            "title": "Status"
+          },
+          "registered_semesters": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registered Semesters"
+          },
+          "gpa": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gpa"
+          },
+          "graduation_requirements_met": {
+            "type": "boolean",
+            "title": "Graduation Requirements Met"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/EarlyGraduationPolicy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "registered_semesters",
+          "gpa",
+          "graduation_requirements_met",
+          "policy"
+        ],
+        "title": "EarlyGraduationAssessment"
       },
       "EarlyGraduationPolicy": {
         "properties": {
@@ -2193,6 +2695,52 @@
         ],
         "title": "EmailCodeRequest"
       },
+      "EnglishTestResult": {
+        "properties": {
+          "test_type": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "title": "Test Type",
+            "examples": [
+              "TOEIC",
+              "OPIc"
+            ]
+          },
+          "raw_score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Raw Score",
+            "examples": [
+              750,
+              "IM2"
+            ]
+          },
+          "taken_month": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$",
+            "title": "Taken Month",
+            "examples": [
+              "2026-11"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "test_type",
+          "raw_score",
+          "taken_month"
+        ],
+        "title": "EnglishTestResult"
+      },
       "ErrorResponse": {
         "properties": {
           "detail": {
@@ -2224,6 +2772,35 @@
             },
             "type": "array",
             "title": "Nonacademic Records"
+          },
+          "liberal_summary": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0.0
+                },
+                "propertyNames": {
+                  "enum": [
+                    "독서와토론",
+                    "사고교육",
+                    "글쓰기",
+                    "외국어",
+                    "수리",
+                    "기초과학",
+                    "인문·사회",
+                    "자연과학"
+                  ]
+                },
+                "type": "object",
+                "maxProperties": 8,
+                "minProperties": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liberal Summary"
           }
         },
         "additionalProperties": false,
@@ -2291,6 +2868,23 @@
             },
             "type": "array",
             "title": "Credit Entries"
+          },
+          "notices": {
+            "items": {
+              "$ref": "#/components/schemas/ProgressNotice"
+            },
+            "type": "array",
+            "title": "Notices"
+          },
+          "early_graduation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EarlyGraduationAssessment"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2305,6 +2899,169 @@
           "credit_entries"
         ],
         "title": "EvaluationResponse"
+      },
+      "GraduationDeferral": {
+        "properties": {
+          "max_semesters": {
+            "type": "integer",
+            "title": "Max Semesters"
+          },
+          "min_completed_semesters": {
+            "type": "integer",
+            "title": "Min Completed Semesters"
+          },
+          "facility_fee_percent": {
+            "type": "integer",
+            "title": "Facility Fee Percent"
+          },
+          "tuition_by_credits": {
+            "items": {
+              "$ref": "#/components/schemas/DeferralTuition"
+            },
+            "type": "array",
+            "title": "Tuition By Credits"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max_semesters",
+          "min_completed_semesters",
+          "facility_fee_percent",
+          "tuition_by_credits",
+          "note",
+          "sources"
+        ],
+        "title": "GraduationDeferral"
+      },
+      "GraduationEvent": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "portfolio_submission",
+              "graduation_interview",
+              "classification_change",
+              "general_elective_conversion",
+              "graduation_review_result"
+            ],
+            "title": "Kind"
+          },
+          "graduation": {
+            "type": "string",
+            "title": "Graduation"
+          },
+          "major": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "glsop",
+                  "plsop",
+                  "aicom",
+                  "simcom",
+                  "chumcom"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Major"
+          },
+          "admission_from": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admission From"
+          },
+          "admission_to": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admission To"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "tentative",
+              "standing_rule",
+              "unverified"
+            ],
+            "title": "Status"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "graduation",
+          "status",
+          "sources"
+        ],
+        "title": "GraduationEvent"
       },
       "GraduationRule": {
         "properties": {
@@ -2497,6 +3254,16 @@
             },
             "type": "array",
             "title": "Credit Caps"
+          },
+          "early_graduation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EarlyGraduationPolicy"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -2528,13 +3295,29 @@
           },
           "early_graduation": {
             "$ref": "#/components/schemas/EarlyGraduationPolicy"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/GraduationEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "classification_change": {
+            "$ref": "#/components/schemas/ClassificationChange"
+          },
+          "deferral": {
+            "$ref": "#/components/schemas/GraduationDeferral"
           }
         },
         "type": "object",
         "required": [
           "qualification_deadlines",
           "department_deadline",
-          "early_graduation"
+          "early_graduation",
+          "events",
+          "classification_change",
+          "deferral"
         ],
         "title": "GraduationSchedule"
       },
@@ -2641,6 +3424,16 @@
               "verification_required"
             ],
             "title": "Status"
+          },
+          "english_test": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EnglishTestResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -2762,6 +3555,55 @@
         ],
         "title": "PasswordReset",
         "description": "password는 새 비밀번호."
+      },
+      "ProgramRecommendation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "convergence",
+              "double_major"
+            ],
+            "title": "Kind"
+          },
+          "overlapping_course_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Overlapping Course Codes"
+          },
+          "related_course_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Related Course Codes"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "overlapping_course_codes",
+          "related_course_codes",
+          "source"
+        ],
+        "title": "ProgramRecommendation"
       },
       "ProgressItem": {
         "properties": {
@@ -2980,6 +3822,16 @@
             },
             "type": "array",
             "title": "Credit Entries"
+          },
+          "early_graduation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EarlyGraduationAssessment"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -3030,6 +3882,110 @@
           "sources"
         ],
         "title": "QualificationDeadline"
+      },
+      "RecommendationRequest": {
+        "properties": {
+          "career": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ai_data",
+                  "backend",
+                  "security",
+                  "graduate_study"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "use_ai": {
+            "type": "boolean",
+            "title": "Use Ai",
+            "default": false
+          },
+          "target_semester": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[12]$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Semester"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "RecommendationRequest"
+      },
+      "Recommendations": {
+        "properties": {
+          "curriculum_source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "inferred": {
+            "type": "boolean",
+            "title": "Inferred"
+          },
+          "missing_course_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementGain"
+            },
+            "type": "array",
+            "title": "Missing Course Requirements"
+          },
+          "recommended": {
+            "items": {
+              "$ref": "#/components/schemas/CourseRecommendation"
+            },
+            "type": "array",
+            "title": "Recommended"
+          },
+          "alternatives": {
+            "items": {
+              "$ref": "#/components/schemas/CourseRecommendation"
+            },
+            "type": "array",
+            "title": "Alternatives"
+          },
+          "programs": {
+            "items": {
+              "$ref": "#/components/schemas/ProgramRecommendation"
+            },
+            "type": "array",
+            "title": "Programs"
+          },
+          "program_data_available": {
+            "type": "boolean",
+            "title": "Program Data Available"
+          },
+          "ranking": {
+            "type": "string",
+            "enum": [
+              "rules",
+              "openai"
+            ],
+            "title": "Ranking",
+            "default": "rules"
+          }
+        },
+        "type": "object",
+        "required": [
+          "curriculum_source",
+          "inferred",
+          "missing_course_requirements",
+          "recommended",
+          "alternatives",
+          "programs",
+          "program_data_available"
+        ],
+        "title": "Recommendations"
       },
       "Registration": {
         "properties": {
@@ -3135,6 +4091,30 @@
         },
         "type": "object",
         "title": "RequirementCounts"
+      },
+      "RequirementGain": {
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "title": "Requirement Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Amount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "name",
+          "amount"
+        ],
+        "title": "RequirementGain"
       },
       "RequirementResult": {
         "properties": {
@@ -3406,6 +4386,20 @@
             "type": "boolean",
             "title": "Disabled Student",
             "default": false
+          },
+          "registered_semesters": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registered Semesters",
+            "description": "정규학기 등록 횟수"
           }
         },
         "additionalProperties": false,
@@ -3586,6 +4580,20 @@
             "type": "boolean",
             "title": "Disabled Student",
             "default": false
+          },
+          "registered_semesters": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Registered Semesters",
+            "description": "정규학기 등록 횟수"
           },
           "student_number": {
             "type": "string",

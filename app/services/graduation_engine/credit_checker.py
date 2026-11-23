@@ -4,6 +4,7 @@ from decimal import Decimal
 from app.schemas.course import Course
 from app.schemas.evaluation import CreditEntry, RequirementResult
 from app.schemas.rules import CreditTreatment, GraduationRule
+from app.services.course_metadata import computer_science_offering
 
 
 # 성적표 교과구분이 이 값이면 학부 개설 과목이어도 주전공 학점으로 보지 않는다 (다전공·현장실습 등).
@@ -15,7 +16,8 @@ def check_credits(
 ) -> tuple[list[RequirementResult], list[CreditEntry]]:
     entries = [
         CreditEntry(course_code=c.course_code, course_name=c.course_name,
-                    semester=c.semester, transcript_category=c.transcript_category)
+                    semester=c.semester, transcript_category=c.transcript_category,
+                    offered_by_computer_science=computer_science_offering(c.course_code, c.offered_by_computer_science))
         for c in courses
     ]
     totals = defaultdict(Decimal)
@@ -52,13 +54,14 @@ def check_credits(
         if category in NON_MAJOR_CATEGORIES:
             return treatment, None
         general = CreditTreatment(category="general")
+        department = computer_science_offering(course.course_code, course.offered_by_computer_science)
         if category in rule.major_transcript_categories:
-            return (general if course.offered_by_computer_science is False else CreditTreatment(category="major")), None
+            return (general if department is False else CreditTreatment(category="major")), None
         if canonical not in rule.department_major_codes:
             return treatment, None
-        if course.offered_by_computer_science is False:
+        if department is False:
             return general, None
-        if course.offered_by_computer_science is True:
+        if department is True:
             return treatment or general, "approval_required"
         return treatment or general, None
     cap_codes = [
@@ -78,7 +81,7 @@ def check_credits(
             continue
         if course.course_code in uncertain_retake_codes or (
             transfer_limit is not None and course.prior_institution is None
-            and course.offered_by_computer_science is not True
+            and entry.offered_by_computer_science is not True
         ):
             entry.reason = "verification_required"
             for area in ("total", "major", "liberal_arts"):

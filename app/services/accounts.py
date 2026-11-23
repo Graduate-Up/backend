@@ -245,10 +245,18 @@ class AccountStore:
     def save_records(self, user_id: int, records: StudentRecords) -> StudentRecords:
         with self.connect() as conn:
             conn.execute("BEGIN IMMEDIATE")
-            if "liberal_summary" not in records.model_fields_set:
-                row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
-                if row is not None:
-                    records.liberal_summary = StudentRecords.model_validate_json(row["records_json"]).liberal_summary
+            row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+            if row is not None:
+                saved = StudentRecords.model_validate_json(row["records_json"])
+                if "liberal_summary" not in records.model_fields_set:
+                    records.liberal_summary = saved.liberal_summary
+                # Existing clients can resubmit the amount without the original test result.
+                english_tests = {(rec.requirement_id, rec.amount, rec.status): rec.english_test
+                                 for rec in saved.nonacademic_records if rec.english_test is not None}
+                for record in records.nonacademic_records:
+                    key = (record.requirement_id, record.amount, record.status)
+                    if "english_test" not in record.model_fields_set and key in english_tests:
+                        record.english_test = english_tests[key]
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
                 ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",

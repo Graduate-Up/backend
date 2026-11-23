@@ -95,6 +95,7 @@
           <label>연도 <select name="graduation_year"><option value="">미선택</option></select></label>
           <label>월 <select name="graduation_month"><option value="02">2월</option><option value="08">8월</option></select></label>
         </fieldset>
+        <label>정규학기 등록 횟수 (선택) <input name="registered_semesters" type="number" min="0" max="100" step="1"></label>
         <div><button type="submit">설정 확인 및 저장</button> <button type="button" id="logout">로그아웃</button></div>
       </form>
       <p id="saved-settings" hidden></p>
@@ -444,7 +445,7 @@
       currentAccountId = me.account.id;
       const stored = me.profile || {};
       profile.reset();
-      for (const key of ["student_number", "admission_year", "student_status", "multi_major"]) {
+      for (const key of ["student_number", "admission_year", "student_status", "multi_major", "registered_semesters"]) {
         if (stored[key] != null) fields[key].value = stored[key];
       }
       if (stored.expected_graduation_date) {
@@ -747,6 +748,7 @@
         abeek: fields.abeek.value ? fields.abeek.value === "true" : null,
         student_status: fields.student_status.value,
         multi_major: fields.multi_major.value,
+        registered_semesters: fields.registered_semesters.value === "" ? null : Number(fields.registered_semesters.value),
         expected_graduation_date: fields.graduation_year.value
           ? fields.graduation_year.value + "-" + fields.graduation_month.value : null,
       };

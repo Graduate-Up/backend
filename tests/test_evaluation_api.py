@@ -42,6 +42,8 @@ def test_preview(client, student, course):
     assert result["dataset"] == "test"
     assert result["eligible"] is True
     assert result["progress"] == 100
+    assert [item["id"] for item in result["notices"]] == ["test-rule-note"]
+    assert result["requirement_counts"]["verification_required"] == 0
     assert all(item["sources"] for item in result["requirements"])
 
 

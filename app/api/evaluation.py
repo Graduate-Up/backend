@@ -19,4 +19,5 @@ def preview(
     validate_major(request.student_profile)
     return evaluate_graduation(
         request.student_profile, request.completed_courses, request.nonacademic_records, provide_rules(),
+        request.liberal_summary,
     )

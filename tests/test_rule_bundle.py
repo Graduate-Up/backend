@@ -26,6 +26,78 @@ def test_graduation_schedule_exposes_only_known_dates_and_sources():
     assert all(item["sources"] for item in [
         *data["qualification_deadlines"], data["department_deadline"], data["early_graduation"],
     ])
+    assert data["deferral"]["max_semesters"] == 2
+    assert data["deferral"]["facility_fee_percent"] == 5
+    assert data["classification_change"]["major_department_codes"]["glsop"] == "1O0204"
+
+
+def test_schedule_filters_out_other_cohorts_and_marks_unverified_dates():
+    with TestClient(app) as client:
+        events = client.get("/api/v1/graduation/schedule", params={
+            "graduation": "2027-02", "major": "glsop", "admission_year": 2023,
+        }).json()["events"]
+    assert {(item["kind"], item["status"], item["end_date"]) for item in events} == {
+        ("portfolio_submission", "confirmed", "2026-11-30"),
+        ("graduation_interview", "tentative", None),
+        ("classification_change", "standing_rule", None),
+        ("graduation_review_result", "unverified", None),
+    }
+
+
+def test_catalog_distinguishes_required_and_recommended_prerequisites():
+    with TestClient(app) as client:
+        def catalog(major, year, code, **params):
+            response = client.get("/api/v1/courses", params={
+                "major": major, "admission_year": year, "q": code, **params,
+            })
+            assert response.status_code == 200, response.text
+            return response.json()["items"][0]
+
+        design = catalog("plsop", 2025, "ITEC0401", abeek=True)
+        assert design["offered_by_computer_science"] is True
+        assert design["prerequisite_kind"] == "required"
+        assert design["prerequisite_groups"] == [["COMP0205"], ["COMP0217"]]
+        assert catalog("plsop", 2025, "ITEC0401", abeek=False)["prerequisite_groups"] is None
+        security = catalog("simcom", 2026, "COMP0341")
+        assert security["career_tags"] == ["security"]
+        assert security["prerequisite_kind"] == "recommended"
+
+
+def test_glsop_catalog_and_evaluation_cite_the_same_cohort_document():
+    params = {"major": "glsop", "admission_year": 2023}
+    with TestClient(app) as client:
+        search = client.get("/api/v1/courses", params={**params, "q": "ITEC0401"})
+        rule = client.get("/api/v1/requirements", params={**params, "track": "multi_major"})
+        evaluation = client.post("/api/v1/evaluations/preview", json={
+            "student_profile": {**params, "track": "multi_major"}, "completed_courses": [],
+        })
+    assert all(response.status_code == 200 for response in (search, rule, evaluation))
+    data = search.json()
+    source = data["curriculum_source"]
+    assert data["inferred"] is False
+    assert data["basis"] == source["title"] == "글솝 교육과정 (2023학년도 기준)"
+    assert source["url"] == "https://cse.knu.ac.kr/file/global_2023.pdf"
+    assert data["items"][0]["credits"] == 4
+    assert data["items"][0]["curriculum_category"] == "전공"
+    assert [item for item in rule.json()["sources"] if item["title"].startswith("글솝 교육과정")] == [source]
+    major = next(item for item in evaluation.json()["requirements"] if item["id"] == "major")
+    assert source in major["sources"]
+
+
+def test_catalog_uses_each_cohorts_course_classification_and_fallback():
+    with TestClient(app) as client:
+        older, newer = [
+            client.get("/api/v1/courses", params={"major": "aicom", "admission_year": year, "q": "FUTR0208"}).json()
+            for year in (2024, 2025)
+        ]
+        removed_course = client.get("/api/v1/courses", params={
+            "major": "plsop", "admission_year": 2025, "q": "CLTR0264",
+        }).json()
+    assert older["inferred"] is True and "2023학년도" in older["basis"]
+    assert older["items"][0]["curriculum_category"] == "교양"
+    assert newer["inferred"] is False and "2025학년도" in newer["basis"]
+    assert newer["items"][0]["curriculum_category"] == "일반선택"
+    assert removed_course["total"] == 0
 
 
 @pytest.mark.parametrize("name", ["SW융합설계1", "SW 융합설계 2", "종합설계프로젝트1", "종합설계프로젝트 2"])

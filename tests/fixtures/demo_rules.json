@@ -10,6 +10,12 @@
         null,
         "test-track"
       ],
+      "verification_requirements": [
+        {
+          "id": "test-rule-note",
+          "name": "테스트 규칙 메모"
+        }
+      ],
       "sources": [
         {
           "title": "가상 테스트 규칙 (공식 규정 아님)"

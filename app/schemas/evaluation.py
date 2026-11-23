@@ -20,12 +20,36 @@ class Source(BaseModel):
     reference: str | None = None
 
 
+ENGLISH_REQUIREMENT_IDS = {"department-english", "practical-english"}
+
+
+class EnglishTestResult(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    test_type: str = Field(min_length=1, max_length=50, examples=["TOEIC", "OPIc"])
+    raw_score: Amount | str = Field(examples=[750, "IM2"])
+    taken_month: str = Field(pattern=r"^[0-9]{4}-(0[1-9]|1[0-2])$", examples=["2026-11"])
+
+    @model_validator(mode="after")
+    def valid_raw_score(self):
+        if isinstance(self.raw_score, str) and not 1 <= len(self.raw_score) <= 30:
+            raise ValueError("영어 시험 원점수 또는 등급을 입력해 주세요.")
+        return self
+
+
 class NonacademicRecord(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     requirement_id: str = Field(min_length=1)
     amount: Amount
     status: Status
+    english_test: EnglishTestResult | None = None
+
+    @model_validator(mode="after")
+    def english_test_only(self):
+        if self.english_test is not None and self.requirement_id not in ENGLISH_REQUIREMENT_IDS:
+            raise ValueError("영어 요건에만 영어 시험 정보를 저장할 수 있어요.")
+        return self
 
 
 class EvaluationRequest(BaseModel):
@@ -34,6 +58,7 @@ class EvaluationRequest(BaseModel):
     student_profile: StudentProfile
     completed_courses: list[Course]
     nonacademic_records: list[NonacademicRecord] = Field(default_factory=list)
+    liberal_summary: LiberalSummary | None = Field(default=None, min_length=8, max_length=8)
 
 
 class StudentRecords(BaseModel):
@@ -69,6 +94,7 @@ class CreditEntry(BaseModel):
     course_name: str | None = None
     semester: str
     transcript_category: str
+    offered_by_computer_science: bool | None = None
     recognized_category: Category | None = None
     recognized_credits: Amount = 0
     counts_toward_total: bool = False
@@ -89,6 +115,28 @@ class RequirementCounts(BaseModel):
     verification_required: int = 0
 
 
+class ProgressNotice(BaseModel):
+    id: str
+    name: str
+    sources: list[Source]
+
+
+class EarlyGraduationPolicy(BaseModel):
+    min_semesters: int = Field(ge=1)
+    min_gpa: float = Field(ge=0, le=4.3)
+    rule: str
+    not_for_transfer: bool
+    sources: list[Source]
+
+
+class EarlyGraduationAssessment(BaseModel):
+    status: Literal["criteria_met", "criteria_not_met", "verification_required", "not_applicable"]
+    registered_semesters: int | None
+    gpa: Amount | None
+    graduation_requirements_met: bool
+    policy: EarlyGraduationPolicy
+
+
 class EvaluationResponse(BaseModel):
     rule_id: str
     dataset: Literal["official", "test"]
@@ -99,6 +147,8 @@ class EvaluationResponse(BaseModel):
     requirement_counts: RequirementCounts
     requirements: list[RequirementResult]
     credit_entries: list[CreditEntry]
+    notices: list[ProgressNotice] = Field(default_factory=list)
+    early_graduation: EarlyGraduationAssessment | None = None
 
 
 class ProgressItem(BaseModel):
@@ -122,12 +172,6 @@ class ProgressItem(BaseModel):
     sources: list[Source]
 
 
-class ProgressNotice(BaseModel):
-    id: str
-    name: str
-    sources: list[Source]
-
-
 class ProgressResponse(BaseModel):
     rule_id: str
     progress: float = Field(ge=0, le=100, description="course 항목 + 저장된 checklist 체크 상태로 계산한 전체 진행률")
@@ -138,6 +182,7 @@ class ProgressResponse(BaseModel):
         default_factory=list, description="규칙 해석 확인이 필요한 항목. 진행률에는 포함하지 않음",
     )
     credit_entries: list[CreditEntry]
+    early_graduation: EarlyGraduationAssessment | None = None
 
 
 class ChecklistUpdate(BaseModel):
@@ -152,9 +197,12 @@ class ChecklistUpdate(BaseModel):
     requirement_id: str = Field(min_length=1, max_length=200)
     checked: bool | None = None
     amount: Amount | None = Field(default=None, description="실제 수치. 기준 이상이면 충족")
+    english_test: EnglishTestResult | None = None
 
     @model_validator(mode="after")
     def one_value(self):
         if (self.checked is None) == (self.amount is None):
             raise ValueError("checked 또는 amount 중 하나만 보내 주세요.")
+        if self.english_test is not None and (self.amount is None or self.requirement_id not in ENGLISH_REQUIREMENT_IDS):
+            raise ValueError("영어 시험 정보는 영어 요건의 amount와 함께 보내 주세요.")
         return self

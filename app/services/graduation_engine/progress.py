@@ -7,13 +7,16 @@ toggles them and recomputes the overall percentage with the same formula as ``ov
 
 from app.schemas.course import Course
 from app.schemas.evaluation import (
-    LiberalSummary, NonacademicRecord, ProgressItem, ProgressNotice, ProgressResponse, RequirementResult,
+    EnglishTestResult, LiberalSummary, NonacademicRecord, ProgressItem, ProgressResponse, RequirementResult,
 )
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 from app.schemas.student import StudentProfile
 
-from .course_areas import COMPUTED_IDS, auto_satisfied
-from .evaluator import checklist_requirements, equivalent_codes, evaluate_course_requirements, requirement_fraction
+from .course_areas import COMPUTED_IDS
+from .evaluator import (
+    checklist_requirements, early_graduation_assessment, equivalent_codes, evaluate_checklist,
+    evaluate_course_requirements, recorded_amount, requirement_fraction, rule_notices,
+)
 from .gpa import GPA_REQUIREMENT_ID
 from .rule_selector import RuleSource, select_rules
 
@@ -32,12 +35,6 @@ def overall_percent(items: list[ProgressItem]) -> float:
 
 def is_complete(item: ProgressItem) -> bool:
     return bool(item.checked) if item.kind == "checklist" else item.status == "satisfied"
-
-
-def recorded_amount(requirement: NonacademicRequirement, records: list[NonacademicRecord]) -> float | None:
-    amounts = [record.amount for record in records
-               if record.requirement_id == requirement.id and record.status == "satisfied"]
-    return max(amounts) if amounts else None
 
 
 def is_checked(requirement: NonacademicRequirement, records: list[NonacademicRecord]) -> bool:
@@ -62,19 +59,18 @@ def unit_for(result: RequirementResult) -> str:
 
 
 def checklist_item(
-    requirement: NonacademicRequirement, records: list[NonacademicRecord], evidence: str | None,
+    requirement: NonacademicRequirement, result: RequirementResult, amount: float | None, auto_checked: bool,
 ) -> ProgressItem:
-    checked = evidence is not None or is_checked(requirement, records)
-    amount = recorded_amount(requirement, records)
-    current = requirement.minimum if evidence is not None else (amount or 0)
+    checked = result.status == "satisfied"
     return ProgressItem(
         id=requirement.id, name=requirement.name, kind="checklist",
-        status="satisfied" if checked else "unsatisfied",
-        current=current, required=requirement.minimum, unit=requirement.unit,
-        fraction=1.0 if checked else 0.0, checked=checked, auto_checked=evidence is not None,
+        status=result.status,
+        current=result.current, required=requirement.minimum, unit=requirement.unit,
+        fraction=float(checked),
+        checked=checked, auto_checked=auto_checked,
         recorded_amount=amount,
-        reason=evidence or "학생이 직접 충족 여부를 체크하는 항목",
-        details=[evidence] if evidence else requirement.details, sources=requirement.sources,
+        reason=result.reason,
+        details=result.details, sources=requirement.sources,
     )
 
 
@@ -91,21 +87,20 @@ def build_progress(
     )
     equivalents = equivalent_codes(rule)
     course_items = [course_item(result) for result in results]
-    items = course_items + [
-        checklist_item(item, nonacademic_records, auto_satisfied(item, completed_courses, equivalents))
-        for item in checklist_requirements(rule)
-    ]
+    checklist = [(item, *evaluate_checklist(item, completed_courses, equivalents, nonacademic_records))
+                 for item in checklist_requirements(rule)]
+    items = course_items + [checklist_item(*row) for row in checklist]
     return ProgressResponse(
         rule_id=rule.id, progress=overall_percent(items), course_progress=overall_percent(course_items),
         items=items, credit_entries=entries,
-        notices=[ProgressNotice(id=item.id, name=item.name, sources=item.sources)
-                 for item in rule.verification_requirements],
+        notices=rule_notices(rule),
+        early_graduation=early_graduation_assessment(rule, student_profile, results + [row[1] for row in checklist]),
     )
 
 
 def toggle_checklist(
     rule: GraduationRule, records: list[NonacademicRecord], requirement_id: str, checked: bool | None,
-    amount: float | None = None,
+    amount: float | None = None, english_test: EnglishTestResult | None = None,
 ) -> list[NonacademicRecord]:
     """Return the nonacademic records with one checklist item set, cleared, or set to a measured amount.
 
@@ -117,7 +112,9 @@ def toggle_checklist(
         raise KeyError(requirement_id)
     kept = [record for record in records if record.requirement_id != requirement_id]
     if amount is not None:
-        kept.append(NonacademicRecord(requirement_id=requirement_id, amount=amount, status="satisfied"))
+        kept.append(NonacademicRecord(
+            requirement_id=requirement_id, amount=amount, status="satisfied", english_test=english_test,
+        ))
     elif checked:
         kept.append(NonacademicRecord(requirement_id=requirement_id, amount=requirement.minimum, status="satisfied"))
     return kept
