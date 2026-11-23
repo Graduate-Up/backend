@@ -7,7 +7,9 @@ from app.services import graduation_chat
 from tests.test_accounts_api import CREDENTIALS, PROFILE, create_demo_app, register, sign_in
 
 
-def test_chat_uses_authenticated_student_evaluation_and_verified_sources(monkeypatch, tmp_path, verification_mailbox):
+def test_chat_uses_authenticated_student_evaluation_and_verified_sources(
+    monkeypatch, tmp_path, verification_mailbox, caplog,
+):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     path = "/api/v1/me/graduation-chat"
@@ -27,12 +29,14 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(monkeyp
         ]}
         assert client.put("/api/v1/me/records", headers=headers, json=records).status_code == 200
         assert client.post(path, headers=headers, json=question).status_code == 503
+        assert "OPENAI_API_KEY is missing" in caplog.text
         evaluation = client.get("/api/v1/me/evaluation", headers=headers).json()
         first_source = next(item["sources"][0] for item in evaluation["requirements"] if item["sources"])
 
         def post(url, **kwargs):
             body = kwargs["json"]
             assert body["store"] is False
+            assert body["model"] == "gpt-5.4-mini"
             assert PROFILE["student_number"] not in body["input"] and CREDENTIALS["email"] not in body["input"]
             chat_input = json.loads(body["input"])
             assert chat_input["question"] == question["question"]
@@ -58,6 +62,8 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(monkeyp
             })
 
         monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+        monkeypatch.setenv("JOLUP_OPENAI_CHAT_MODEL", " ")
+        monkeypatch.setenv("JOLUP_OPENAI_MODEL", " gpt-5.4-mini ")
         monkeypatch.setattr(graduation_chat.httpx, "post", post)
         response = client.post(path, headers=headers, json=question)
         assert response.status_code == 200, response.text
@@ -65,3 +71,14 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(monkeyp
         assert response.json() == {
             "answer": "테스트 답변", "rule_id": evaluation["rule_id"], "sources": [first_source],
         }
+
+        def quota_exhausted(url, **kwargs):
+            return httpx.Response(429, request=httpx.Request("POST", url), json={
+                "error": {"code": "insufficient_quota", "message": "private upstream details"},
+            })
+
+        monkeypatch.setattr(graduation_chat.httpx, "post", quota_exhausted)
+        failure = client.post(path, headers=headers, json=question)
+        assert failure.status_code == 503
+        assert "HTTP 429 (insufficient_quota)" in caplog.text
+        assert "private upstream details" not in caplog.text + failure.text
