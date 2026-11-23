@@ -19,14 +19,15 @@ from app.services.accounts import (
 )
 from app.services.course_metadata import CareerTag
 from app.services.email_delivery import EmailUnavailable, email_secret, email_sender
-from app.services.graduation_engine.evaluator import evaluate_graduation
+from app.services.graduation_chat import ChatUnavailable, GraduationAnswer, GraduationQuestion, answer_graduation_question
+from app.services.graduation_engine.evaluator import evaluate_graduation, evaluate_selected_rule
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_loader import RuleDataError
 from app.services.graduation_engine.rule_selector import RuleSource, select_rules
 from app.services.recommendations import Recommendations, programs_catalog, recommend
 from app.services.transcript import TranscriptImportInput, TranscriptInput, TranscriptPreview, parse_transcript
 
-from .requirements import get_rule_provider
+from .requirements import get_rule_provider, graduation_schedule
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["accounts"])
@@ -257,6 +258,38 @@ def my_evaluation(account: Account, store: Store, provide_rules: Rules) -> Evalu
     return evaluate_graduation(
         account.profile, records.completed_courses, records.nonacademic_records, provide_rules(), records.liberal_summary,
     )
+
+
+@router.post("/me/graduation-chat", responses={
+    **AUTH_ERROR, 409: {"model": ErrorResponse}, 503: {"model": ErrorResponse},
+})
+def my_graduation_chat(
+    request: GraduationQuestion, account: Account, store: Store, provide_rules: Rules,
+) -> GraduationAnswer:
+    profile = account.profile
+    if profile is None:
+        raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
+    rule = select_rules(profile, provide_rules())
+    records = store.get_records(account.account.id)
+    evaluation = evaluate_selected_rule(
+        profile, records.completed_courses, records.nonacademic_records, rule, records.liberal_summary,
+    )
+    try:
+        schedule = graduation_schedule(profile.expected_graduation_date, profile.major, profile.admission_year)
+    except RuleDataError:
+        logger.warning("Graduation schedule unavailable for chat")
+        schedule = None
+    schedule_data = schedule.model_dump(mode="json") if schedule is not None else None
+    if schedule_data is not None:
+        classification = schedule_data["classification_change"]
+        classification["sources"].extend(classification.pop("major_sources").get(profile.major, []))
+        classification["major_department_code"] = classification.pop("major_department_codes").get(profile.major)
+    try:
+        return answer_graduation_question(
+            request.question, evaluation, rule, schedule_data, profile.expected_graduation_date,
+        )
+    except ChatUnavailable as exc:
+        raise HTTPException(503, "지금은 졸업요건 AI 답변을 받을 수 없어요.") from exc
 
 
 @router.get(

@@ -1,0 +1,67 @@
+import json
+
+import httpx
+from fastapi.testclient import TestClient
+
+from app.services import graduation_chat
+from tests.test_accounts_api import CREDENTIALS, PROFILE, create_demo_app, register, sign_in
+
+
+def test_chat_uses_authenticated_student_evaluation_and_verified_sources(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    path = "/api/v1/me/graduation-chat"
+    question = {"question": "test0123 과목은 어떻게 인정됐고 졸업 제출 기한은 언제예요?"}
+
+    with TestClient(create_demo_app()) as client:
+        assert client.post(path, json=question).status_code == 401
+        assert register(client, verification_mailbox).status_code == 201
+        headers = sign_in(client)
+        assert client.post(path, headers=headers, json=question).status_code == 409
+        assert client.put("/api/v1/me/profile", headers=headers, json=PROFILE).status_code == 200
+        assert client.post(path, headers=headers, json={"question": " "}).status_code == 422
+        records = {"completed_courses": [
+            {"course_code": code, "course_name": name, "semester": "2024-1", "credits": 3,
+             "transcript_category": "전공", "status": "completed"}
+            for code, name in (("TEST0123", "테스트 과목"), ("TEST0456", "별도 과목"))
+        ]}
+        assert client.put("/api/v1/me/records", headers=headers, json=records).status_code == 200
+        assert client.post(path, headers=headers, json=question).status_code == 503
+        evaluation = client.get("/api/v1/me/evaluation", headers=headers).json()
+        first_source = next(item["sources"][0] for item in evaluation["requirements"] if item["sources"])
+
+        def post(url, **kwargs):
+            body = kwargs["json"]
+            assert body["store"] is False
+            assert PROFILE["student_number"] not in body["input"] and CREDENTIALS["email"] not in body["input"]
+            chat_input = json.loads(body["input"])
+            assert chat_input["question"] == question["question"]
+            context = chat_input["evaluation"]
+            assert "credit_entries" not in context
+            assert context["rule_id"] == evaluation["rule_id"]
+            assert context["requirements"][0]["shortfall"] == evaluation["requirements"][0]["shortfall"]
+            assert chat_input["applicable_rule"]["id"] == evaluation["rule_id"]
+            assert chat_input["applicable_rule"]["course_requirements"]
+            assert chat_input["expected_graduation_date"] == PROFILE["expected_graduation_date"]
+            schedule = chat_input["graduation_schedule"]
+            assert schedule["department_deadline"]["source_ids"]
+            assert all(event["graduation"] == PROFILE["expected_graduation_date"] for event in schedule["events"])
+            assert all(item["graduation"] == PROFILE["expected_graduation_date"]
+                       for item in schedule["qualification_deadlines"])
+            assert chat_input["course_credit_evidence"] == [
+                entry for entry in evaluation["credit_entries"] if entry["course_code"] == "TEST0123"
+            ]
+            return httpx.Response(200, request=httpx.Request("POST", url), json={
+                "status": "completed", "output": [{"type": "message", "content": [{
+                    "type": "output_text", "text": json.dumps({"answer": "테스트 답변", "source_ids": [0, 0, -1, 9999]}),
+                }]}],
+            })
+
+        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+        monkeypatch.setattr(graduation_chat.httpx, "post", post)
+        response = client.post(path, headers=headers, json=question)
+        assert response.status_code == 200, response.text
+        assert response.headers["cache-control"] == "no-store"
+        assert response.json() == {
+            "answer": "테스트 답변", "rule_id": evaluation["rule_id"], "sources": [first_source],
+        }

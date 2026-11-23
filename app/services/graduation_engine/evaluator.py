@@ -144,6 +144,16 @@ def evaluate_graduation(
     liberal_summary: LiberalSummary | None = None,
 ) -> EvaluationResponse:
     rule = select_rules(student_profile, rules)
+    return evaluate_selected_rule(student_profile, completed_courses, nonacademic_records, rule, liberal_summary)
+
+
+def evaluate_selected_rule(
+    student_profile: StudentProfile,
+    completed_courses: list[Course],
+    nonacademic_records: list[NonacademicRecord],
+    rule: GraduationRule,
+    liberal_summary: LiberalSummary | None = None,
+) -> EvaluationResponse:
     requirements, entries = evaluate_course_requirements(
         completed_courses, rule, student_profile.admission_year, liberal_summary,
     )
