@@ -1219,6 +1219,85 @@
         ]
       }
     },
+    "/api/v1/me/graduation-chat": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Graduation Chat",
+        "operationId": "my_graduation_chat_api_v1_me_graduation_chat_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GraduationQuestion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraduationAnswer"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
     "/api/v1/me/progress": {
       "get": {
         "tags": [
@@ -2925,6 +3004,33 @@
         ],
         "title": "EvaluationResponse"
       },
+      "GraduationAnswer": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Answer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answer",
+          "sources",
+          "rule_id"
+        ],
+        "title": "GraduationAnswer"
+      },
       "GraduationDeferral": {
         "properties": {
           "max_semesters": {
@@ -3087,6 +3193,22 @@
           "sources"
         ],
         "title": "GraduationEvent"
+      },
+      "GraduationQuestion": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "GraduationQuestion"
       },
       "GraduationRule": {
         "properties": {
