@@ -11,6 +11,8 @@
 | `app/services/graduation_engine/` | 규칙 로딩·선택, 학점 및 필수과목 계산, 전체 평가 |
 | `app/core/config.py`, `data/graduation_rules/` | 공식 규칙 경로와 데이터 위치 |
 | `tests/`, `tests/fixtures/` | pytest, 테스트 전용 앱, 가상 JSON 규칙 |
+| `jolup_rules_all/` | 팀이 따로 공유하는 졸업요건 규칙 데이터 폴더. 저장소 가장 바깥(루트)에 둡니다 |
+| `data/course_classification/` | 과목코드 → ABEEK·교양 영역, SDG 매핑표 (출처 포함) |
 
 ## Windows PowerShell에서 실행
 
