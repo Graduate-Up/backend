@@ -1,0 +1,93 @@
+{
+  "id": "knu-graduation-qualification",
+  "note": "경북대 졸업자격인정제. 학부 졸업요건과 별개로 모두 충족해야 졸업, 미충족 시 수료(S13). 학부 졸업요건(전공 영어 등)은 이 제도의 면제와 무관",
+  "items": {
+    "practical_english": {
+      "accepted_scores": [
+        {
+          "test": "TOEIC",
+          "min": 700
+        },
+        {
+          "test": "TOEIC Speaking",
+          "min": 120
+        },
+        {
+          "test": "TOEFL PBT",
+          "min": 529
+        },
+        {
+          "test": "TOEFL CBT",
+          "min": 197
+        },
+        {
+          "test": "TOEFL iBT",
+          "min": 71
+        },
+        {
+          "test": "TEPS",
+          "min": 600
+        },
+        {
+          "test": "New TEPS",
+          "min": 264
+        },
+        {
+          "test": "TEPS Speaking",
+          "min": 50
+        },
+        {
+          "test": "OPIc",
+          "min": "IM1"
+        },
+        {
+          "test": "G-TELP Level 2",
+          "min": 65
+        },
+        {
+          "test": "IELTS",
+          "min": 6.0
+        }
+      ],
+      "validity": "졸업자격인정원 제출일 기준 2년 이내, 입학 후 취득 성적만",
+      "source": [
+        "S10",
+        "S11"
+      ]
+    },
+    "software": {
+      "rule": "SW 3학점 또는 대체기준",
+      "department_substitute_codes": [
+        "COME0331",
+        "COMP0217",
+        "COMP0312",
+        "COMP0411"
+      ],
+      "source": [
+        "S10"
+      ]
+    },
+    "counseling": {
+      "min_sessions": 8,
+      "with": "지도교수",
+      "source": [
+        "S10",
+        "S11"
+      ]
+    },
+    "major_area": {
+      "rule": "전공별 졸업심사(포트폴리오·TOPCIT·학업역량평가 등)로 판정. 각 base 파일의 graduation_review 참고",
+      "source": [
+        "S10"
+      ]
+    }
+  },
+  "deadline": {
+    "qualification_form": "2026-12-31 (이후 추가 접수 연장 예정)",
+    "department_requirements": "최종 계절학기 성적 확정일",
+    "source": [
+      "S13",
+      "S14"
+    ]
+  }
+}

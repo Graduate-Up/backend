@@ -1,0 +1,242 @@
+{
+  "id": "plsop_2024-2025",
+  "schema_version": "1.1",
+  "major": {
+    "code": "plsop",
+    "name": "컴퓨터학부 플랫폼SW&데이터과학전공(구 심화컴퓨터공학)",
+    "short": "플솝",
+    "dept_code_in_course_lookup": "1002"
+  },
+  "admission_years": [
+    2024,
+    2025
+  ],
+  "selector": {
+    "abeek": false
+  },
+  "captured_at": "2026-11-22",
+  "uses": {
+    "sources": "common/sources.json",
+    "graduation_qualification": "common/graduation_qualification.json",
+    "statuses": "common/statuses.json",
+    "field_practice": "common/field_practice.json",
+    "policies": "common/policies.json",
+    "equivalences": "common/equivalences.csv"
+  },
+  "sources": [
+    "S10",
+    "S13",
+    "S14",
+    "S20",
+    "S22",
+    "S30",
+    "S24",
+    "S21"
+  ],
+  "status_values": [
+    "satisfied",
+    "unsatisfied",
+    "needs_approval",
+    "needs_confirmation"
+  ],
+  "curriculum": {
+    "catalog_file": "catalog/plsop_2025.csv",
+    "basis": "2025학년도 교육과정표 사용. 2024~2025학번 교육과정표(학부 홈페이지 PDF)는 아직 반영 안 함 (추정)",
+    "inferred": true,
+    "confirmation": "NC-CURR-PLSOP-OLD"
+  },
+  "credits": {
+    "total": {
+      "min": 140,
+      "source": [
+        "S10",
+        "S22"
+      ]
+    },
+    "major": {
+      "by_multi_major": {
+        "none": 65,
+        "double_or_linked_or_convergence": 65,
+        "minor_2plus": 65,
+        "minor_1_only": 77,
+        "teaching_course": 65
+      },
+      "rule": "65. 2023학번부터 부전공 1개만이면 소속 전공 +12 (77), 편입생도 동일",
+      "counting_scope": {
+        "include": "컴퓨터학부 개설 전공 과목",
+        "exclude": [
+          "타 학과 개설 동일 교과목",
+          "다중전공으로 이수한 학점",
+          "현장실습 학점",
+          "FUTR~·STUP~(일반선택)",
+          "CLTR~(교양)"
+        ],
+        "excluded_still_count_toward_total": true
+      },
+      "source": [
+        "S10",
+        "S13",
+        "S14"
+      ]
+    },
+    "liberal_arts": {
+      "min": 30,
+      "max_counted": null,
+      "areas": [
+        {
+          "id": "foundation_a",
+          "group": "첨성인기초",
+          "any_of": [
+            "독서와토론",
+            "사고교육",
+            "글쓰기",
+            "외국어"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "foundation_b",
+          "group": "첨성인기초",
+          "any_of": [
+            "수리",
+            "기초과학"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_humanities",
+          "group": "첨성인핵심",
+          "any_of": [
+            "인문·사회"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_science",
+          "group": "첨성인핵심",
+          "any_of": [
+            "자연과학"
+          ],
+          "min_credits": 3
+        }
+      ],
+      "sdg_min": 3,
+      "area_courses_must_be_offered_by_knu": true,
+      "area_mapping_confirmation": "NC-LIB-AREA-MAP",
+      "source": [
+        "S10",
+        "S21"
+      ]
+    }
+  },
+  "required_courses": {
+    "all_of": [
+      {
+        "code": "COMP0205",
+        "name": "기초창의공학설계",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0401",
+        "name": "종합설계프로젝트1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0402",
+        "name": "종합설계프로젝트2",
+        "equivalent_codes": [
+          "COMP0342"
+        ]
+      },
+      {
+        "code": "COME0301",
+        "name": "이산수학",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0204",
+        "name": "프로그래밍기초",
+        "equivalent_codes": [
+          "COMP0206"
+        ]
+      },
+      {
+        "code": "COME0331",
+        "name": "자료구조",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0217",
+        "name": "자바프로그래밍",
+        "equivalent_codes": [
+          "COMP0336"
+        ]
+      },
+      {
+        "code": "ELEC0462",
+        "name": "시스템프로그래밍",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0319",
+        "name": "알고리즘1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0312",
+        "name": "운영체제",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0411",
+        "name": "컴퓨터구조",
+        "equivalent_codes": []
+      }
+    ],
+    "offered_by": "컴퓨터학부만 인정",
+    "prerequisites_enforced": true,
+    "source": [
+      "S10",
+      "S22"
+    ]
+  },
+  "english": {
+    "department_requirement": true,
+    "min": {
+      "test": "TOEIC",
+      "min": 700
+    },
+    "alternative": "영어 강의·프로그램 120시간 이수로 대체",
+    "exempt_for_statuses": [],
+    "note": "학부 요건이라 졸업자격인정제 면제 대상도 충족해야 함",
+    "source": [
+      "S10",
+      "S13",
+      "S22"
+    ]
+  },
+  "field_practice": {
+    "min_credits": 3,
+    "ref": "common/field_practice.json",
+    "source": [
+      "S10",
+      "S22"
+    ]
+  },
+  "graduation_review": {
+    "items": [
+      "portfolio",
+      "topcit"
+    ],
+    "topcit_required": true,
+    "source": [
+      "S10",
+      "S22",
+      "S24"
+    ]
+  },
+  "needs_confirmation": [
+    "NC-CURR-PLSOP-OLD",
+    "NC-LIB-AREA-MAP"
+  ]
+}

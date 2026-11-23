@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.1",
+  "captured_at": "2026-11-22",
+  "selection": "major + admission_year(구간 포함) + (플솝만) abeek 로 base 파일 1개를 고른다. 트랙(글솝)·다전공 형태·신분은 그 파일 안에서 처리",
+  "multi_major_keys": {
+    "none": "단일전공",
+    "double_or_linked_or_convergence": "복수·연계·융합전공",
+    "minor_1_only": "부전공 1개만",
+    "minor_2plus": "부전공 2개 이상",
+    "teaching_course": "교직이수"
+  },
+  "status_keys": [
+    "new",
+    "general_transfer",
+    "bachelor_transfer",
+    "foreign",
+    "disabled"
+  ],
+  "track_keys": {
+    "multi_major": "① 다중전공",
+    "overseas_dual_degree": "② 해외복수학위",
+    "bs_ms_linked": "③ 학·석사연계"
+  },
+  "rule_sets": [
+    {
+      "id": "glsop_2017",
+      "file": "base/glsop_2017.json",
+      "major": "glsop",
+      "admission_from": 2017,
+      "admission_to": 2017,
+      "tracks": [
+        "multi_major",
+        "overseas_dual_degree",
+        "bs_ms_linked"
+      ]
+    },
+    {
+      "id": "glsop_2018-2021",
+      "file": "base/glsop_2018-2021.json",
+      "major": "glsop",
+      "admission_from": 2018,
+      "admission_to": 2021,
+      "tracks": [
+        "multi_major",
+        "overseas_dual_degree",
+        "bs_ms_linked"
+      ]
+    },
+    {
+      "id": "glsop_2022",
+      "file": "base/glsop_2022.json",
+      "major": "glsop",
+      "admission_from": 2022,
+      "admission_to": 2022,
+      "tracks": [
+        "multi_major",
+        "overseas_dual_degree",
+        "bs_ms_linked"
+      ]
+    },
+    {
+      "id": "glsop_2023",
+      "file": "base/glsop_2023.json",
+      "major": "glsop",
+      "admission_from": 2023,
+      "admission_to": 2023,
+      "tracks": [
+        "multi_major",
+        "overseas_dual_degree",
+        "bs_ms_linked"
+      ]
+    },
+    {
+      "id": "glsop_2024-2025",
+      "file": "base/glsop_2024-2025.json",
+      "major": "glsop",
+      "admission_from": 2024,
+      "admission_to": 2025,
+      "tracks": [
+        "multi_major",
+        "overseas_dual_degree",
+        "bs_ms_linked"
+      ]
+    },
+    {
+      "id": "plsop_abeek_2017-2020",
+      "file": "base/plsop_abeek_2017-2020.json",
+      "major": "plsop",
+      "admission_from": 2017,
+      "admission_to": 2020,
+      "abeek": true
+    },
+    {
+      "id": "plsop_abeek_2021-2022",
+      "file": "base/plsop_abeek_2021-2022.json",
+      "major": "plsop",
+      "admission_from": 2021,
+      "admission_to": 2022,
+      "abeek": true
+    },
+    {
+      "id": "plsop_abeek_2023-2025",
+      "file": "base/plsop_abeek_2023-2025.json",
+      "major": "plsop",
+      "admission_from": 2023,
+      "admission_to": 2025,
+      "abeek": true
+    },
+    {
+      "id": "plsop_2017",
+      "file": "base/plsop_2017.json",
+      "major": "plsop",
+      "admission_from": 2017,
+      "admission_to": 2017,
+      "abeek": false
+    },
+    {
+      "id": "plsop_2018-2020",
+      "file": "base/plsop_2018-2020.json",
+      "major": "plsop",
+      "admission_from": 2018,
+      "admission_to": 2020,
+      "abeek": false
+    },
+    {
+      "id": "plsop_2021-2022",
+      "file": "base/plsop_2021-2022.json",
+      "major": "plsop",
+      "admission_from": 2021,
+      "admission_to": 2022,
+      "abeek": false
+    },
+    {
+      "id": "plsop_2023",
+      "file": "base/plsop_2023.json",
+      "major": "plsop",
+      "admission_from": 2023,
+      "admission_to": 2023,
+      "abeek": false
+    },
+    {
+      "id": "plsop_2024-2025",
+      "file": "base/plsop_2024-2025.json",
+      "major": "plsop",
+      "admission_from": 2024,
+      "admission_to": 2025,
+      "abeek": false
+    },
+    {
+      "id": "aicom_2023",
+      "file": "base/aicom_2023.json",
+      "major": "aicom",
+      "admission_from": 2023,
+      "admission_to": 2023
+    },
+    {
+      "id": "aicom_2024-2025",
+      "file": "base/aicom_2024-2025.json",
+      "major": "aicom",
+      "admission_from": 2024,
+      "admission_to": 2025
+    },
+    {
+      "id": "aicom_2026",
+      "file": "base/aicom_2026.json",
+      "major": "aicom",
+      "admission_from": 2026,
+      "admission_to": 2026
+    },
+    {
+      "id": "simcom_2026",
+      "file": "base/simcom_2026.json",
+      "major": "simcom",
+      "admission_from": 2026,
+      "admission_to": 2026
+    },
+    {
+      "id": "chumcom_2026",
+      "file": "base/chumcom_2026.json",
+      "major": "chumcom",
+      "admission_from": 2026,
+      "admission_to": 2026
+    }
+  ],
+  "common": {
+    "sources": "common/sources.json",
+    "graduation_qualification": "common/graduation_qualification.json",
+    "statuses": "common/statuses.json",
+    "field_practice": "common/field_practice.json",
+    "policies": "common/policies.json",
+    "equivalences": "common/equivalences.csv"
+  },
+  "catalogs": {
+    "simcom": "catalog/simcom_2026.csv",
+    "chumcom": "catalog/chumcom_2026.csv",
+    "plsop": "catalog/plsop_2025.csv",
+    "glsop": "catalog/glsop_2025.csv",
+    "aicom": "catalog/aicom_2023-2026.csv"
+  }
+}

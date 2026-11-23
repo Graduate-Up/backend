@@ -1,0 +1,103 @@
+{
+  "id": "knu-statuses",
+  "note": "신분별 공통 처리. 전공학점처럼 전공마다 다른 값은 base 파일의 status_overrides가 우선",
+  "statuses": {
+    "new": {
+      "label": "신입학",
+      "qualification_exempt": []
+    },
+    "general_transfer": {
+      "label": "일반편입",
+      "qualification_exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "liberal_arts": {
+        "areas_required": false,
+        "sdg_required": false,
+        "rule": "최소 교양학점만 적용. 전적대 인정 교양이 모자라면 본교 교양 추가 이수"
+      },
+      "transfer_credit_cap": "전적대 학점은 졸업학점의 50%까지",
+      "required_courses_at_knu": true,
+      "early_graduation": false,
+      "source": [
+        "S11",
+        "S12",
+        "S13"
+      ]
+    },
+    "bachelor_transfer": {
+      "label": "학사편입",
+      "qualification_exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "liberal_arts": {
+        "all_recognized": true,
+        "rule": "교양 전부 이수 인정"
+      },
+      "transfer_credit_cap": "전적대 학점은 졸업학점의 50%까지",
+      "required_courses_at_knu": true,
+      "early_graduation": false,
+      "source": [
+        "S11",
+        "S12",
+        "S13"
+      ]
+    },
+    "foreign": {
+      "label": "외국인(편입생은 편입 기준 적용)",
+      "by_admission_year": [
+        {
+          "admission_years": [
+            2017,
+            2021
+          ],
+          "qualification_exempt": [
+            "practical_english",
+            "software",
+            "counseling"
+          ]
+        },
+        {
+          "admission_years": [
+            2022,
+            2099
+          ],
+          "qualification_exempt": [
+            "software"
+          ],
+          "practical_english_substitute": "TOPIK 4급 이상",
+          "counseling_required": true
+        }
+      ],
+      "liberal_arts": {
+        "areas_required": false,
+        "sdg_required": false
+      },
+      "field_practice_extra_alternative": "foreign_or_disabled_conference",
+      "source": [
+        "S3",
+        "S11",
+        "S13"
+      ]
+    },
+    "disabled": {
+      "label": "장애학생(장애학생지원센터 등록)",
+      "qualification_exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "field_practice_extra_alternative": "foreign_or_disabled_conference",
+      "source": [
+        "S9",
+        "S11",
+        "S13"
+      ]
+    }
+  },
+  "department_requirements_not_exempt": "졸업자격인정제 면제는 학부 졸업요건(전공 영어 700/800 등)을 면제하지 않음 (S13). 예외: 인컴은 영어 요건 자체가 '실용영어로 갈음'"
+}

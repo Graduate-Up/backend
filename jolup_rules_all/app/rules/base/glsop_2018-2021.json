@@ -1,0 +1,266 @@
+{
+  "id": "glsop_2018-2021",
+  "schema_version": "1.1",
+  "major": {
+    "code": "glsop",
+    "name": "컴퓨터학부 글로벌SW융합전공",
+    "short": "글솝",
+    "dept_code_in_course_lookup": "100204"
+  },
+  "admission_years": [
+    2018,
+    2021
+  ],
+  "selector": {},
+  "captured_at": "2026-11-22",
+  "uses": {
+    "sources": "common/sources.json",
+    "graduation_qualification": "common/graduation_qualification.json",
+    "statuses": "common/statuses.json",
+    "field_practice": "common/field_practice.json",
+    "policies": "common/policies.json",
+    "equivalences": "common/equivalences.csv"
+  },
+  "sources": [
+    "S10",
+    "S13",
+    "S14",
+    "S16",
+    "S17",
+    "S18",
+    "S19",
+    "S20",
+    "S29"
+  ],
+  "status_values": [
+    "satisfied",
+    "unsatisfied",
+    "needs_approval",
+    "needs_confirmation"
+  ],
+  "curriculum": {
+    "catalog_file": "catalog/glsop_2025.csv",
+    "basis": "2025학년도 교육과정표 사용. 2018~2021학번 교육과정표(학부 홈페이지 PDF)는 아직 반영 안 함 (추정)",
+    "inferred": true,
+    "confirmation": "NC-CURR-GLSOP-OLD"
+  },
+  "credits": {
+    "total": {
+      "min": 130,
+      "source": [
+        "S16",
+        "S17"
+      ]
+    },
+    "major": {
+      "by_multi_major": {
+        "none": 51,
+        "double_or_linked_or_convergence": 51,
+        "minor_2plus": 51,
+        "minor_1_only": 51,
+        "teaching_course": 51
+      },
+      "rule": "다전공·부전공 여부와 관계없이 51 (부전공 1개 +12 없음)",
+      "counting_scope": {
+        "include": "컴퓨터학부 개설 전공 과목",
+        "exclude": [
+          "타 학과 개설 동일 교과목",
+          "다중전공으로 이수한 학점",
+          "현장실습 학점",
+          "FUTR~·STUP~(일반선택)",
+          "CLTR~(교양)"
+        ],
+        "excluded_still_count_toward_total": true
+      },
+      "source": [
+        "S13",
+        "S17"
+      ]
+    },
+    "liberal_arts": {
+      "min": 24,
+      "max_counted": 42,
+      "areas": [],
+      "sdg_min": 0,
+      "rule": "최소 24, 42학점 초과분은 졸업학점 미포함",
+      "source": [
+        "S17"
+      ]
+    }
+  },
+  "required_courses": {
+    "all_of": [
+      {
+        "code": "COMP0204",
+        "name": "프로그래밍기초",
+        "equivalent_codes": [
+          "COMP0206"
+        ],
+        "credits": 6
+      },
+      {
+        "code": "COME0331",
+        "name": "자료구조",
+        "equivalent_codes": [],
+        "co_requisite": "COMP0216"
+      },
+      {
+        "code": "GLSO0216",
+        "name": "알고리즘실습",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0312",
+        "name": "운영체제",
+        "equivalent_codes": []
+      }
+    ],
+    "offered_by": "컴퓨터학부만 인정",
+    "source": [
+      "S16",
+      "S18"
+    ]
+  },
+  "english": {
+    "department_requirement": true,
+    "by_track": {
+      "multi_major": {
+        "test": "TOEIC",
+        "min": 700
+      },
+      "overseas_dual_degree": {
+        "test": "TOEIC",
+        "min": 800,
+        "vietnam_twinning_3plus1": {
+          "test": "TOEIC",
+          "min": 700
+        }
+      },
+      "bs_ms_linked": {
+        "test": "TOEIC",
+        "min": 700
+      }
+    },
+    "equivalent_scores": "학교 실용영어 환산표(TOEIC 700 상응) 사용, 800은 같은 비율로 환산 (추정)",
+    "equivalent_confirmation": "NC-GLSOP-800-EQUIV",
+    "exempt_for_statuses": [],
+    "note": "학부 요건이라 졸업자격인정제 면제 대상도 충족해야 함",
+    "source": [
+      "S13",
+      "S14",
+      "S16"
+    ]
+  },
+  "field_practice": {
+    "by_track": {
+      "multi_major": 3,
+      "overseas_dual_degree": 0,
+      "bs_ms_linked": 3
+    },
+    "ref": "common/field_practice.json",
+    "source": [
+      "S16"
+    ]
+  },
+  "graduation_review": {
+    "items": [
+      "portfolio",
+      "interview"
+    ],
+    "interview_exempt_if": "TOPCIT 응시(기준 충족)",
+    "source": [
+      "S16",
+      "S20",
+      "S13"
+    ]
+  },
+  "tracks": {
+    "multi_major": {
+      "label": "① 다중전공 트랙",
+      "requirements": [
+        {
+          "id": "overseas_credits",
+          "text": "해외 대학 학점 9학점",
+          "min_credits": 9
+        },
+        {
+          "id": "startup_credits",
+          "text": "창업 교과목 9학점",
+          "min_credits": 9
+        },
+        {
+          "id": "startup_activity",
+          "text": "스타트업 창업 활동"
+        },
+        {
+          "id": "multi_major_required",
+          "text": "다중전공(복수·연계·융합·부전공) 필수"
+        }
+      ],
+      "source": [
+        "S16"
+      ]
+    },
+    "overseas_dual_degree": {
+      "label": "② 해외복수학위 트랙",
+      "requirements": [
+        {
+          "id": "dual_degree_or_exchange",
+          "text": "해외복수학위 취득 또는 교환학생 1년"
+        },
+        {
+          "id": "startup_credits",
+          "text": "창업 교과목 3학점",
+          "min_credits": 3
+        },
+        {
+          "id": "multi_major_optional",
+          "text": "다중전공 선택"
+        }
+      ],
+      "variants": {
+        "vietnam_twinning_3plus1": {
+          "english": {
+            "test": "TOEIC",
+            "min": 700
+          },
+          "knu_credits_min": 33,
+          "text": "베트남 트위닝 3+1: 영어 700, 본교 33학점 이상"
+        }
+      },
+      "field_practice": 0,
+      "source": [
+        "S14",
+        "S16"
+      ]
+    },
+    "bs_ms_linked": {
+      "label": "③ 학·석사연계 트랙",
+      "eligibility": "일반대학원 컴퓨터학부 학·석사연계과정 선발자만",
+      "requirements": [
+        {
+          "id": "overseas_credits",
+          "text": "해외 대학 학점 6학점",
+          "min_credits": 6
+        },
+        {
+          "id": "grad_credits",
+          "text": "대학원 전공 6학점",
+          "min_credits": 6
+        },
+        {
+          "id": "research_report",
+          "text": "연구활동 보고서"
+        }
+      ],
+      "source": [
+        "S16",
+        "S19"
+      ]
+    }
+  },
+  "needs_confirmation": [
+    "NC-CURR-GLSOP-OLD",
+    "NC-GLSOP-800-EQUIV"
+  ]
+}

@@ -11,8 +11,18 @@
 | `app/services/graduation_engine/` | 규칙 로딩·선택, 학점 및 필수과목 계산, 전체 평가 |
 | `app/core/config.py`, `data/graduation_rules/` | 공식 규칙 경로와 데이터 위치 |
 | `tests/`, `tests/fixtures/` | pytest, 테스트 전용 앱, 가상 JSON 규칙 |
-| `jolup_rules_all/` | 팀이 따로 공유하는 졸업요건 규칙 데이터 폴더. 저장소 가장 바깥(루트)에 둡니다 |
+| `jolup_rules_all/` | 졸업요건 규칙 데이터 폴더. 저장소 가장 바깥(루트)에 있어야 합니다 |
 | `data/course_classification/` | 과목코드 → ABEEK·교양 영역, SDG 매핑표 (출처 포함) |
+| `render.yaml` | Render 배포 설정 |
+
+## 배포 (Render)
+
+`main` 브랜치에 푸시하면 [render.yaml](render.yaml) 설정대로 Render에 자동 재배포됩니다. 배포 주소의 `/docs`에서 Swagger를 볼 수 있습니다.
+
+- 무료 플랜이라 15분 동안 요청이 없으면 서버가 잠들고, 다음 첫 요청이 30초 정도 걸립니다.
+- 무료 플랜은 디스크가 유지되지 않아 **재배포·재시작 때 계정과 이수 내역(SQLite)이 초기화됩니다.** 데이터를 유지하려면 유료 디스크를 붙이거나 PostgreSQL로 옮겨야 합니다.
+- 프런트 주소는 Render 대시보드의 Environment에서 `JOLUP_FRONTEND_ORIGINS`에 쉼표로 추가합니다. 기본값은 `localhost:3000`, `localhost:5173`입니다.
+- HTTPS 프록시 뒤에서 로그인 쿠키와 같은 출처 검사가 동작하도록 `--proxy-headers`로 실행합니다.
 
 ## Windows PowerShell에서 실행
 
@@ -69,7 +79,7 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 }
 ```
 
-팀에서 규칙 묶음을 별도로 공유하는 경우 저장소 루트에 `jolup_rules_all/`을 추가합니다. 폴더 없이도 서버와 계정 API가 시작되며, 저장할 프로필에 적용되는 규칙이 없으면 503을 반환합니다.
+규칙 묶음 `jolup_rules_all/`은 저장소 루트에 포함되어 있습니다. 폴더가 없어도 서버와 계정 API는 시작되지만, 저장할 프로필에 적용되는 규칙이 없으면 503을 반환합니다.
 
 ### 대시보드와 이수 내역 연동
 

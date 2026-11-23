@@ -1,0 +1,40 @@
+{
+  "id": "cse-field-practice",
+  "credits_count_toward": "총 학점만(전공·교양 학점에는 미포함)",
+  "alternatives": [
+    {
+      "id": "program_4w",
+      "text": "4주 이상 현장실습 프로그램 수료(대기업 매출 10조+ 및 계열사, IT 중견 매출 5천억+·상시 1000명+, 공공기관, 학부·정부지원사업). 기업 프로그램은 시작 전 심층심의 승인, 매 학기 기말고사 종료일까지 신청",
+      "status_if_claimed": "needs_approval"
+    },
+    {
+      "id": "early_employment",
+      "text": "조기취업: 졸업 최소 1개 학기 전 확정, 졸업 시점까지 유지",
+      "status_if_claimed": "needs_approval"
+    },
+    {
+      "id": "paper",
+      "text": "SCIE·Scopus·KCI 주저자 + 학부 논문작성 프로그램 1개 학기 이상(우수학술대회는 2027-02 졸업예정자부터)",
+      "status_if_claimed": "needs_approval"
+    },
+    {
+      "id": "startup",
+      "text": "창업현장실습(STUP0311) 졸업 전 1개 학기 이수",
+      "status_if_claimed": "needs_approval"
+    },
+    {
+      "id": "foreign_or_disabled_conference",
+      "text": "외국인·장애학생: 국내외 학술대회 주저자 논문",
+      "status_if_claimed": "needs_approval",
+      "only_for": [
+        "foreign",
+        "disabled"
+      ]
+    }
+  ],
+  "source": [
+    "S1",
+    "S9"
+  ],
+  "scope_confirmation": "NC-FP-SCOPE"
+}

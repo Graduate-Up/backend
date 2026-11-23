@@ -1,0 +1,241 @@
+{
+  "id": "aicom_2023",
+  "schema_version": "1.1",
+  "major": {
+    "code": "aicom",
+    "name": "컴퓨터학부 인공지능컴퓨팅전공",
+    "short": "인컴",
+    "dept_code_in_course_lookup": "1O0208"
+  },
+  "admission_years": [
+    2023,
+    2023
+  ],
+  "selector": {},
+  "captured_at": "2026-11-22",
+  "uses": {
+    "sources": "common/sources.json",
+    "graduation_qualification": "common/graduation_qualification.json",
+    "statuses": "common/statuses.json",
+    "field_practice": "common/field_practice.json",
+    "policies": "common/policies.json",
+    "equivalences": "common/equivalences.csv"
+  },
+  "sources": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S13",
+    "S14",
+    "S27"
+  ],
+  "status_values": [
+    "satisfied",
+    "unsatisfied",
+    "needs_approval",
+    "needs_confirmation"
+  ],
+  "curriculum": {
+    "catalog_file": "catalog/aicom_2023-2026.csv",
+    "basis": "2023 기준표(S6)와 2026 기준표(S5)의 과목·학점이 같아 하나의 과목표 사용",
+    "rule": "본인 입학년도 인컴 교육과정에 포함된 과목만 전공 인정"
+  },
+  "credits": {
+    "total": {
+      "min": 140,
+      "source": [
+        "S1",
+        "S2",
+        "S27"
+      ]
+    },
+    "major": {
+      "by_multi_major": {
+        "none": 72,
+        "double_or_linked_or_convergence": 54,
+        "minor_2plus": 54,
+        "minor_1_only": 66,
+        "teaching_course": 54
+      },
+      "rule": "단일전공 72, 다전공·교직·편입 54, 부전공 1개만이면 66",
+      "counting_scope": {
+        "include": "본인 입학년도 교육과정에 있는 컴퓨터학부 개설 과목",
+        "exclude": [
+          "타 학과 개설 동일 교과목",
+          "다중전공(복수·융합·부전공)으로 이수한 학점",
+          "해외대학 학점",
+          "대학원 과정 학점",
+          "현장실습 학점",
+          "STUP~·FUTR~(일반선택)",
+          "CLTR~(교양)",
+          "융합전공 개설 교과목(주전공 기준으로는 일반선택)"
+        ],
+        "excluded_still_count_toward_total": true
+      },
+      "category_change": {
+        "rule": "컴퓨터학부 내 다른 전공 개설 과목은 개설 전공 기준 교과구분으로 표시됨. '교과구분 변경 신청'으로 정정",
+        "engine_hint": "교육과정 내 과목인데 성적표 교과구분이 다르면 needs_approval"
+      },
+      "no_double_counting": "같은 과목을 전공과 다전공에 중복 인정하지 않음. 필수과목을 다전공으로 교과구분 변경하면 필수 미이수",
+      "source": [
+        "S1",
+        "S2"
+      ]
+    },
+    "liberal_arts": {
+      "min": 30,
+      "max_counted": null,
+      "areas": [
+        {
+          "id": "foundation_a",
+          "group": "첨성인기초",
+          "any_of": [
+            "독서와토론",
+            "사고교육",
+            "글쓰기",
+            "외국어"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "foundation_b",
+          "group": "첨성인기초",
+          "any_of": [
+            "수리",
+            "기초과학"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_humanities",
+          "group": "첨성인핵심",
+          "any_of": [
+            "인문·사회"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_science",
+          "group": "첨성인핵심",
+          "any_of": [
+            "자연과학"
+          ],
+          "min_credits": 3
+        }
+      ],
+      "sdg_min": 0,
+      "area_courses_must_be_offered_by_knu": true,
+      "area_mapping_confirmation": "NC-LIB-AREA-MAP",
+      "source": [
+        "S1",
+        "S3",
+        "S4"
+      ]
+    }
+  },
+  "required_courses": {
+    "all_of": [
+      {
+        "code": "COMP0453",
+        "name": "컴퓨팅사고와 SW코딩",
+        "equivalent_codes": [
+          "COMP0333"
+        ]
+      },
+      {
+        "code": "COMP0454",
+        "name": "인공지능수학기초",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COME0331",
+        "name": "자료구조",
+        "equivalent_codes": [],
+        "co_requisite": "COMP0216"
+      },
+      {
+        "code": "COMP0319",
+        "name": "알고리즘1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0324",
+        "name": "인공지능",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0417",
+        "name": "기계학습개론",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0401",
+        "name": "종합설계프로젝트1",
+        "equivalent_codes": []
+      }
+    ],
+    "must_be_classified_as": "전공필수",
+    "offered_by": "컴퓨터학부만 인정",
+    "source": [
+      "S1",
+      "S2",
+      "S7"
+    ]
+  },
+  "english": {
+    "department_requirement": false,
+    "rule": "공인영어성적은 졸업자격인정제 실용영어 충족으로 갈음",
+    "exempt_for_statuses": [
+      "general_transfer",
+      "bachelor_transfer",
+      "disabled",
+      "foreign_2017_2021"
+    ],
+    "foreign_2022_plus": "TOPIK 4급",
+    "inferred": true,
+    "confirmation": "NC-AICOM-ENG-EXEMPT",
+    "source": [
+      "S1"
+    ]
+  },
+  "field_practice": {
+    "min_credits": 3,
+    "ref": "common/field_practice.json",
+    "source": [
+      "S1",
+      "S9"
+    ]
+  },
+  "graduation_review": {
+    "items": [],
+    "note": "별도 졸업심사 없음",
+    "major_area_confirmation": "NC-AICOM-MAJOR-AREA"
+  },
+  "status_overrides": {
+    "general_transfer": {
+      "major_credits": {
+        "default": 54,
+        "minor_1_only": 66
+      }
+    },
+    "bachelor_transfer": {
+      "major_credits": {
+        "default": 54,
+        "minor_1_only": 66
+      }
+    },
+    "_confirmation": "NC-TRANSFER-MINOR1"
+  },
+  "needs_confirmation": [
+    "NC-AICOM-ENG-EXEMPT",
+    "NC-AICOM-MAJOR-AREA",
+    "NC-LIB-AREA-MAP",
+    "NC-TRANSFER-MINOR1"
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "id": "plsop_2018-2020",
+  "schema_version": "1.1",
+  "major": {
+    "code": "plsop",
+    "name": "컴퓨터학부 플랫폼SW&데이터과학전공(구 심화컴퓨터공학)",
+    "short": "플솝",
+    "dept_code_in_course_lookup": "1002"
+  },
+  "admission_years": [
+    2018,
+    2020
+  ],
+  "selector": {
+    "abeek": false
+  },
+  "captured_at": "2026-11-22",
+  "uses": {
+    "sources": "common/sources.json",
+    "graduation_qualification": "common/graduation_qualification.json",
+    "statuses": "common/statuses.json",
+    "field_practice": "common/field_practice.json",
+    "policies": "common/policies.json",
+    "equivalences": "common/equivalences.csv"
+  },
+  "sources": [
+    "S10",
+    "S13",
+    "S14",
+    "S20",
+    "S22",
+    "S30"
+  ],
+  "status_values": [
+    "satisfied",
+    "unsatisfied",
+    "needs_approval",
+    "needs_confirmation"
+  ],
+  "curriculum": {
+    "catalog_file": "catalog/plsop_2025.csv",
+    "basis": "2025학년도 교육과정표 사용. 2018~2020학번 교육과정표(학부 홈페이지 PDF)는 아직 반영 안 함 (추정)",
+    "inferred": true,
+    "confirmation": "NC-CURR-PLSOP-OLD"
+  },
+  "credits": {
+    "total": {
+      "min": 150,
+      "source": [
+        "S10",
+        "S22"
+      ]
+    },
+    "major": {
+      "by_multi_major": {
+        "none": 65,
+        "double_or_linked_or_convergence": 65,
+        "minor_2plus": 65,
+        "minor_1_only": 65,
+        "teaching_course": 65
+      },
+      "rule": "65, 다전공 형태와 관계없이 동일",
+      "counting_scope": {
+        "include": "컴퓨터학부 개설 전공 과목",
+        "exclude": [
+          "타 학과 개설 동일 교과목",
+          "다중전공으로 이수한 학점",
+          "현장실습 학점",
+          "FUTR~·STUP~(일반선택)",
+          "CLTR~(교양)"
+        ],
+        "excluded_still_count_toward_total": true
+      },
+      "source": [
+        "S10",
+        "S13",
+        "S14"
+      ]
+    },
+    "liberal_arts": {
+      "min": 24,
+      "max_counted": 42,
+      "areas": [],
+      "sdg_min": 0,
+      "rule": "최소 24, 42학점 초과분은 졸업학점 미포함",
+      "source": [
+        "S10"
+      ]
+    }
+  },
+  "required_courses": {
+    "all_of": [
+      {
+        "code": "COMP0205",
+        "name": "기초창의공학설계",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0401",
+        "name": "종합설계프로젝트1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0402",
+        "name": "종합설계프로젝트2",
+        "equivalent_codes": [
+          "COMP0342"
+        ]
+      },
+      {
+        "code": "COME0301",
+        "name": "이산수학",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0204",
+        "name": "프로그래밍기초",
+        "equivalent_codes": [
+          "COMP0206"
+        ]
+      },
+      {
+        "code": "COME0331",
+        "name": "자료구조",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0217",
+        "name": "자바프로그래밍",
+        "equivalent_codes": [
+          "COMP0336"
+        ]
+      },
+      {
+        "code": "ELEC0462",
+        "name": "시스템프로그래밍",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0319",
+        "name": "알고리즘1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0312",
+        "name": "운영체제",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0411",
+        "name": "컴퓨터구조",
+        "equivalent_codes": []
+      }
+    ],
+    "offered_by": "컴퓨터학부만 인정",
+    "prerequisites_enforced": true,
+    "source": [
+      "S10",
+      "S22"
+    ]
+  },
+  "english": {
+    "department_requirement": true,
+    "min": {
+      "test": "TOEIC",
+      "min": 700
+    },
+    "alternative": "영어 강의·프로그램 120시간 이수로 대체",
+    "exempt_for_statuses": [],
+    "note": "학부 요건이라 졸업자격인정제 면제 대상도 충족해야 함",
+    "source": [
+      "S10",
+      "S13",
+      "S22"
+    ]
+  },
+  "field_practice": {
+    "min_credits": 3,
+    "ref": "common/field_practice.json",
+    "source": [
+      "S10",
+      "S22"
+    ]
+  },
+  "graduation_review": {
+    "items": [
+      "portfolio",
+      "interview"
+    ],
+    "interview_substitute": "TOPCIT",
+    "source": [
+      "S10",
+      "S20",
+      "S22"
+    ]
+  },
+  "needs_confirmation": [
+    "NC-CURR-PLSOP-OLD"
+  ]
+}

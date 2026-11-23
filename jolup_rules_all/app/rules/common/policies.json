@@ -1,0 +1,66 @@
+{
+  "id": "knu-policies",
+  "min_gpa": {
+    "value": 1.7,
+    "scale": 4.3,
+    "includes_F": true,
+    "source": [
+      "S15"
+    ]
+  },
+  "early_graduation": {
+    "rule": "졸업요건 충족 + 등록 6학기 이상 + 평점평균 3.7 이상(4.3 만점) + 졸업자격인정 + 신청서",
+    "not_for": [
+      "general_transfer",
+      "bachelor_transfer"
+    ],
+    "source": [
+      "S12",
+      "S13",
+      "S15"
+    ]
+  },
+  "retake_and_equivalence": {
+    "equivalence_file": "common/equivalences.csv",
+    "equivalence_effect": "동일과목 수강 시 재이수 처리",
+    "phase_in": {
+      "1학년": "2026-1학기 이후",
+      "2학년": "2027-1학기 이후",
+      "3학년": "2028-1학기 이후",
+      "4학년": "2029-1학기 이후"
+    },
+    "special_cases": [
+      {
+        "old": "COMP0204",
+        "new": "COMP0206",
+        "effect": "기존 6학점 삭제, 3학점 취득",
+        "source": [
+          "S13"
+        ]
+      }
+    ],
+    "which_grade_counts": "NC-RETAKE-GRADE",
+    "source": [
+      "S7",
+      "S13"
+    ]
+  },
+  "future_design": {
+    "prefix": "FUTR",
+    "category": "일반선택(KNU미래설계)",
+    "max_counted": 12,
+    "applies_from_admission_year": 2023,
+    "source": [
+      "S8"
+    ]
+  },
+  "academic_record_display": {
+    "rule": "플솝은 학적이 기본 'IT대학 컴퓨터학부'로 출력. 교직 학생만 '플랫폼소프트웨어전공', ABEEK 이수 졸업자는 세부전공란에 '심화컴퓨터공학' 추가",
+    "engine_hint": "성적표로 전공·ABEEK 여부를 판별하지 말고 온보딩 입력값 사용",
+    "source": [
+      "S13",
+      "S14"
+    ]
+  },
+  "transfer_curriculum_year": "편입생·재입학자는 부여된 학번 기준 입학연도의 교양·전공·졸업학점 적용"
+}
