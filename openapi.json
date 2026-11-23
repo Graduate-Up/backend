@@ -1244,6 +1244,75 @@
         ]
       }
     },
+    "/api/v1/me/recommendations": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Recommendations",
+        "operationId": "my_recommendations_api_v1_me_recommendations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recommendations"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
     "/api/v1/me/checklist": {
       "put": {
         "tags": [
@@ -1979,6 +2048,92 @@
           "course_name"
         ],
         "title": "CourseOption"
+      },
+      "CourseRecommendation": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "course_name": {
+            "type": "string",
+            "title": "Course Name"
+          },
+          "credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Credits"
+          },
+          "curriculum_category": {
+            "type": "string",
+            "title": "Curriculum Category"
+          },
+          "recommended_year": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Year"
+          },
+          "recommended_semester": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Semester"
+          },
+          "gains": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementGain"
+            },
+            "type": "array",
+            "title": "Gains"
+          },
+          "career_tags": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai_data",
+                "backend",
+                "security",
+                "graduate_study"
+              ]
+            },
+            "type": "array",
+            "title": "Career Tags"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "program_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Program Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code",
+          "course_name",
+          "credits",
+          "curriculum_category",
+          "gains",
+          "career_tags",
+          "reason"
+        ],
+        "title": "CourseRecommendation"
       },
       "CourseRequirement": {
         "properties": {
@@ -3401,6 +3556,55 @@
         "title": "PasswordReset",
         "description": "password는 새 비밀번호."
       },
+      "ProgramRecommendation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "convergence",
+              "double_major"
+            ],
+            "title": "Kind"
+          },
+          "overlapping_course_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Overlapping Course Codes"
+          },
+          "related_course_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Related Course Codes"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "overlapping_course_codes",
+          "related_course_codes",
+          "source"
+        ],
+        "title": "ProgramRecommendation"
+      },
       "ProgressItem": {
         "properties": {
           "id": {
@@ -3679,6 +3883,110 @@
         ],
         "title": "QualificationDeadline"
       },
+      "RecommendationRequest": {
+        "properties": {
+          "career": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ai_data",
+                  "backend",
+                  "security",
+                  "graduate_study"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "use_ai": {
+            "type": "boolean",
+            "title": "Use Ai",
+            "default": false
+          },
+          "target_semester": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9]{4}-[12]$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Semester"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "RecommendationRequest"
+      },
+      "Recommendations": {
+        "properties": {
+          "curriculum_source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "inferred": {
+            "type": "boolean",
+            "title": "Inferred"
+          },
+          "missing_course_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementGain"
+            },
+            "type": "array",
+            "title": "Missing Course Requirements"
+          },
+          "recommended": {
+            "items": {
+              "$ref": "#/components/schemas/CourseRecommendation"
+            },
+            "type": "array",
+            "title": "Recommended"
+          },
+          "alternatives": {
+            "items": {
+              "$ref": "#/components/schemas/CourseRecommendation"
+            },
+            "type": "array",
+            "title": "Alternatives"
+          },
+          "programs": {
+            "items": {
+              "$ref": "#/components/schemas/ProgramRecommendation"
+            },
+            "type": "array",
+            "title": "Programs"
+          },
+          "program_data_available": {
+            "type": "boolean",
+            "title": "Program Data Available"
+          },
+          "ranking": {
+            "type": "string",
+            "enum": [
+              "rules",
+              "openai"
+            ],
+            "title": "Ranking",
+            "default": "rules"
+          }
+        },
+        "type": "object",
+        "required": [
+          "curriculum_source",
+          "inferred",
+          "missing_course_requirements",
+          "recommended",
+          "alternatives",
+          "programs",
+          "program_data_available"
+        ],
+        "title": "Recommendations"
+      },
       "Registration": {
         "properties": {
           "email": {
@@ -3783,6 +4091,30 @@
         },
         "type": "object",
         "title": "RequirementCounts"
+      },
+      "RequirementGain": {
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "title": "Requirement Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Amount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "name",
+          "amount"
+        ],
+        "title": "RequirementGain"
       },
       "RequirementResult": {
         "properties": {

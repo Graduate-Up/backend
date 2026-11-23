@@ -4,7 +4,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response
 from fastapi.security import APIKeyCookie, HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.core.config import account_db_path
 from app.schemas.account import (
@@ -17,10 +17,13 @@ from app.schemas.rules import GraduationRule
 from app.services.accounts import (
     AccountStore, DuplicateUsername, EmailCodeRateLimit, InvalidEmailCode, InvalidLegacyAccount, get_account_store,
 )
+from app.services.course_metadata import CareerTag
 from app.services.email_delivery import EmailUnavailable, email_secret, email_sender
 from app.services.graduation_engine.evaluator import evaluate_graduation
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
+from app.services.graduation_engine.rule_loader import RuleDataError
 from app.services.graduation_engine.rule_selector import RuleSource, select_rules
+from app.services.recommendations import Recommendations, recommend
 from app.services.transcript import TranscriptImportInput, TranscriptInput, TranscriptPreview, parse_transcript
 
 from .requirements import get_rule_provider
@@ -34,6 +37,14 @@ browser_cookie = APIKeyCookie(name=SESSION_COOKIE, auto_error=False)
 
 class ErrorResponse(BaseModel):
     detail: str
+
+
+class RecommendationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    career: CareerTag | None = None
+    use_ai: bool = False
+    target_semester: str | None = Field(default=None, pattern=r"^[0-9]{4}-[12]$")
 
 
 class TranscriptImportResponse(BaseModel):
@@ -256,6 +267,20 @@ def my_progress(account: Account, store: Store, provide_rules: Rules) -> Progres
     return build_progress(
         account.profile, records.completed_courses, records.nonacademic_records, provide_rules(), records.liberal_summary,
     )
+
+
+@router.post("/me/recommendations", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}})
+def my_recommendations(
+    request: RecommendationRequest, account: Account, store: Store, provide_rules: Rules,
+) -> Recommendations:
+    if account.profile is None:
+        raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
+    rule = select_rules(account.profile, provide_rules())
+    try:
+        return recommend(account.profile, store.get_records(account.account.id), rule,
+                         request.career, request.use_ai, request.target_semester)
+    except (OSError, ValueError, KeyError) as exc:
+        raise RuleDataError("추천 교육과정 데이터를 읽을 수 없습니다.") from exc
 
 
 @router.put(

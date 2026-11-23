@@ -121,6 +121,14 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 검색 결과의 학년·학기는 교육과정상 권장값입니다. 실제 수강 학기, 이수 여부, 성적표 교과구분을 입력해 저장합니다. 목록에 없는 과목도 동일한 입력 형식으로 직접 등록할 수 있습니다. 학교 포털의 개인 성적 자동 가져오기와 `sy.knu.ac.kr` 실시간 강좌 검색은 연동되어 있지 않습니다.
 
+### 과목·다전공 추천
+
+`POST /api/v1/me/recommendations`에 로그인 토큰과 `{"career":"ai_data","use_ai":true}`를 보냅니다. 진로는 `ai_data`, `backend`, `security`, `graduate_study` 또는 `null`(아직 모름)입니다. 특정 수강 학기를 알려줄 때는 `target_semester`에 `2027-1` 같은 값을 보냅니다. 응답의 `recommended`는 카드 3개까지, `alternatives`는 나머지 후보이며, `gains`는 과목 하나를 이수했다고 가정했을 때 줄어드는 부족량입니다. 여러 후보의 효과를 단순 합산하지 마세요. `curriculum_source`와 `inferred`는 화면의 교육과정 출처·추정 여부에 사용합니다.
+
+OpenAI Responses API의 `gpt-5.4-mini`는 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 백엔드 환경의 `OPENAI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 선택적으로 `JOLUP_OPENAI_MODEL`로 설정합니다.
+
+융합·복수전공 자료를 추가할 때는 `data/recommendation_programs.json`에 배열을 저장하고 백엔드를 다시 시작합니다. 각 전공에 `id`, `name`, `kind`(`convergence` 또는 `double_major`), `source`(`title`, `url`), `courses`(과목별 `code`, `name`, `credits`, 선택 `career_tags`)를 넣습니다. `programs`는 이미 이수한 과목과 관련 분야를 근거로 제시하는 탐색 후보입니다. 해당 전공의 선발 여부와 중복 학점 인정은 이 데이터로 확정하지 않습니다.
+
 ### 대시보드 진행률
 
 | 메서드와 경로 | 입력과 응답 |
