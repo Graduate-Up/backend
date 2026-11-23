@@ -26,18 +26,16 @@ class ProgramCourse(BaseModel):
     code: Code
     name: str = Field(min_length=1)
     credits: Amount = Field(gt=0)
+    curriculum_category: str | None = Field(default=None, description="Original course category in the program source.")
     career_tags: list[CareerTag] = Field(default_factory=list)
 
 
-class ProgramSummary(BaseModel):
+class Program(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str = Field(min_length=1)
     name: str = Field(min_length=1)
     kind: Literal["convergence", "double_major"]
     source: Source
-
-
-class Program(ProgramSummary):
     courses: list[ProgramCourse] = Field(min_length=1)
 
 

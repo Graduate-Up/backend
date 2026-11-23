@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from app.schemas.student import Major
 from app.services.graduation_engine.rule_selector import MAJOR_NAMES, ProfileError, available_majors
-from app.services.recommendations import ProgramSummary, programs_catalog
+from app.services.recommendations import Program, programs_catalog
 
 router = APIRouter(tags=["majors"])
 
@@ -21,7 +21,7 @@ class MajorsResponse(BaseModel):
 
 
 @router.get("/convergence-programs")
-def get_convergence_programs() -> list[ProgramSummary]:
+def get_convergence_programs() -> list[Program]:
     return [program for program in programs_catalog() if program.kind == "convergence"]
 
 

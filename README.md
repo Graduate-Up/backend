@@ -79,7 +79,7 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 | `POST /api/v1/auth/login` | JSON `email`, `password`. 200과 `access_token`, `token_type`, `expires_in` 반환. 잘못된 자격 증명은 401 |
 | `GET /api/v1/me` | 계정과 저장된 `profile` 반환. 첫 로그인에서 `profile`은 `null` |
 | `PUT /api/v1/me/profile` | 전체 학생 설정을 검증한 뒤 저장하거나 교체하고 계정과 저장된 설정 반환 |
-| `GET /api/v1/convergence-programs` | 융합전공 선택 목록 반환 (로그인 불필요, 항목별 `id`, `name`, `kind`, `source`) |
+| `GET /api/v1/convergence-programs` | 융합전공과 소속 과목 목록 반환 (로그인 불필요, 항목별 `id`, `name`, `kind`, `source`, `courses`) |
 | `GET /api/v1/me/requirements` | 저장한 설정에 따른 졸업요건 반환. 설정이 없으면 409 |
 | `POST /api/v1/auth/logout` | 현재 세션을 폐기하고 204 반환 |
 
@@ -88,6 +88,8 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 아래는 `PUT /api/v1/me/profile`의 JSON 예시입니다. 졸업 경로는 전공별 `track`, `track_variant`, `abeek`, `multi_major` 필드를 사용합니다. 글솝 트랙과 플솝 ABEEK 선택지는 `GET /api/v1/requirements/tracks`를 참고합니다.
 
 융합전공을 선택할 때는 전체 프로필에 `convergence_program`으로 목록의 `id`를 보냅니다. 필드를 생략하면 기존 선택을 유지하고, `null`을 보내면 해제합니다. `GET /api/v1/me`의 `profile`에서 저장된 선택을 읽을 수 있습니다. 선택값은 프로필에 저장되며, 졸업요건 판정에 사용하는 졸업 경로는 기존 필드로 설정합니다.
+
+목록의 `courses`에는 과목별 `code`, `name`, `credits`, `curriculum_category`, `career_tags`가 들어 있습니다. `curriculum_category`는 해당 전공 자료에 표시된 교과구분이며, 학생 성적표상의 교과구분은 이 값과 다를 수 있습니다.
 
 ```json
 {
