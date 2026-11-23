@@ -37,6 +37,15 @@ def test_every_bundled_year_major_track_status_and_multi_major_resolves():
 
 def test_tracks_abeek_and_student_branches_in_api():
     with TestClient(app) as client:
+        catalog = client.get("/api/v1/courses", params={"major": "aicom", "admission_year": 2024, "q": "come0331"})
+        assert catalog.status_code == 200
+        result = catalog.json()
+        assert result["source"] == "local_curriculum"
+        assert result["inferred"] is True
+        assert result["total"] == 1
+        assert result["items"][0]["course_code"] == "COME0331"
+        assert result["items"][0]["course_name"] == "자료구조"
+
         def query(**params):
             response = client.get("/api/v1/requirements", params=params)
             assert response.status_code == 200, response.text

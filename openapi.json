@@ -517,6 +517,9 @@
         "security": [
           {
             "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
           }
         ]
       }
@@ -553,6 +556,9 @@
         "security": [
           {
             "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
           }
         ]
       }
@@ -609,6 +615,9 @@
         "security": [
           {
             "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
           }
         ]
       }
@@ -655,8 +664,380 @@
         "security": [
           {
             "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
           }
         ]
+      }
+    },
+    "/api/v1/me/records": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Records",
+        "operationId": "my_records_api_v1_me_records_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentRecords"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Save Records",
+        "description": "과목과 비교과 기록 전체를 교체합니다.",
+        "operationId": "save_records_api_v1_me_records_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentRecords"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentRecords"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/transcript/parse": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Preview Transcript",
+        "description": "복사한 성적표를 파싱합니다. 원문을 저장하지 않습니다.",
+        "operationId": "preview_transcript_api_v1_me_transcript_parse_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptPreview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/transcript/import": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Import Transcript",
+        "operationId": "import_transcript_api_v1_me_transcript_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptImportInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscriptImportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/evaluation": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Evaluation",
+        "operationId": "my_evaluation_api_v1_me_evaluation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v1/courses": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Search Courses",
+        "operationId": "search_courses_api_v1_courses_get",
+        "parameters": [
+          {
+            "name": "admission_year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2200,
+              "minimum": 1900,
+              "title": "Admission Year"
+            }
+          },
+          {
+            "name": "major",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "glsop",
+                "plsop",
+                "aicom",
+                "simcom",
+                "chumcom"
+              ],
+              "type": "string",
+              "title": "Major"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 100,
+              "default": "",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseSearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -682,6 +1063,67 @@
           "username"
         ],
         "title": "AccountResponse"
+      },
+      "CatalogCourse": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "title": "Course Code"
+          },
+          "course_name": {
+            "type": "string",
+            "title": "Course Name"
+          },
+          "credits": {
+            "type": "number",
+            "title": "Credits"
+          },
+          "curriculum_category": {
+            "type": "string",
+            "title": "Curriculum Category"
+          },
+          "recommended_year": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Year"
+          },
+          "recommended_semester": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Semester"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code",
+          "course_name",
+          "credits",
+          "curriculum_category"
+        ],
+        "title": "CatalogCourse"
       },
       "Conditions": {
         "properties": {
@@ -856,6 +1298,19 @@
             "minLength": 1,
             "title": "Course Code"
           },
+          "course_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Name"
+          },
           "semester": {
             "type": "string",
             "minLength": 1,
@@ -1022,6 +1477,43 @@
         ],
         "title": "CourseRequirement"
       },
+      "CourseSearchResponse": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "const": "local_curriculum",
+            "title": "Source",
+            "default": "local_curriculum"
+          },
+          "basis": {
+            "type": "string",
+            "title": "Basis"
+          },
+          "inferred": {
+            "type": "boolean",
+            "title": "Inferred"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogCourse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "basis",
+          "inferred",
+          "total",
+          "items"
+        ],
+        "title": "CourseSearchResponse"
+      },
       "Credentials": {
         "properties": {
           "username": {
@@ -1114,6 +1606,17 @@
             "minLength": 1,
             "title": "Course Code"
           },
+          "course_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Name"
+          },
           "semester": {
             "type": "string",
             "title": "Semester"
@@ -1165,6 +1668,11 @@
               }
             ],
             "title": "Reason"
+          },
+          "major_approval_required": {
+            "type": "boolean",
+            "title": "Major Approval Required",
+            "default": false
           }
         },
         "type": "object",
@@ -1326,15 +1834,20 @@
             "title": "Status"
           },
           "progress": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Progress"
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Progress",
+            "description": "서비스 진행률 (0~100%)"
+          },
+          "progress_policy": {
+            "type": "string",
+            "const": "equal_requirement_weight_v1",
+            "title": "Progress Policy",
+            "default": "equal_requirement_weight_v1"
+          },
+          "requirement_counts": {
+            "$ref": "#/components/schemas/RequirementCounts"
           },
           "requirements": {
             "items": {
@@ -1357,6 +1870,8 @@
           "dataset",
           "eligible",
           "status",
+          "progress",
+          "requirement_counts",
           "requirements",
           "credit_entries"
         ],
@@ -1770,6 +2285,32 @@
         ],
         "title": "RequiredCourseResult"
       },
+      "RequirementCounts": {
+        "properties": {
+          "satisfied": {
+            "type": "integer",
+            "title": "Satisfied",
+            "default": 0
+          },
+          "unsatisfied": {
+            "type": "integer",
+            "title": "Unsatisfied",
+            "default": 0
+          },
+          "approval_required": {
+            "type": "integer",
+            "title": "Approval Required",
+            "default": 0
+          },
+          "verification_required": {
+            "type": "integer",
+            "title": "Verification Required",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "RequirementCounts"
+      },
       "RequirementResult": {
         "properties": {
           "id": {
@@ -2042,6 +2583,29 @@
         ],
         "title": "StudentProfile"
       },
+      "StudentRecords": {
+        "properties": {
+          "completed_courses": {
+            "items": {
+              "$ref": "#/components/schemas/Course"
+            },
+            "type": "array",
+            "maxItems": 500,
+            "title": "Completed Courses"
+          },
+          "nonacademic_records": {
+            "items": {
+              "$ref": "#/components/schemas/NonacademicRecord"
+            },
+            "type": "array",
+            "maxItems": 500,
+            "title": "Nonacademic Records"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "StudentRecords"
+      },
       "StudentSettings": {
         "properties": {
           "admission_year": {
@@ -2223,6 +2787,182 @@
         ],
         "title": "TracksResponse"
       },
+      "TranscriptCourse": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "title": "Course Code"
+          },
+          "course_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Name"
+          },
+          "credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credits"
+          },
+          "semester": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Semester"
+          },
+          "semester_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Semester Label"
+          },
+          "transcript_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript Category"
+          },
+          "completed": {
+            "type": "boolean",
+            "title": "Completed",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code"
+        ],
+        "title": "TranscriptCourse"
+      },
+      "TranscriptImportInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 250000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "expected": {
+            "type": "integer",
+            "maximum": 500.0,
+            "minimum": 1.0,
+            "title": "Expected"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "expected"
+        ],
+        "title": "TranscriptImportInput"
+      },
+      "TranscriptImportResponse": {
+        "properties": {
+          "added": {
+            "type": "integer",
+            "title": "Added"
+          },
+          "scanned": {
+            "type": "integer",
+            "title": "Scanned"
+          },
+          "excluded_failed": {
+            "type": "integer",
+            "title": "Excluded Failed"
+          },
+          "needs_review": {
+            "type": "integer",
+            "title": "Needs Review"
+          }
+        },
+        "type": "object",
+        "required": [
+          "added",
+          "scanned",
+          "excluded_failed",
+          "needs_review"
+        ],
+        "title": "TranscriptImportResponse"
+      },
+      "TranscriptInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 250000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "TranscriptInput"
+      },
+      "TranscriptPreview": {
+        "properties": {
+          "courses": {
+            "items": {
+              "$ref": "#/components/schemas/TranscriptCourse"
+            },
+            "type": "array",
+            "title": "Courses"
+          },
+          "excluded_failed": {
+            "type": "integer",
+            "title": "Excluded Failed"
+          },
+          "duplicates_removed": {
+            "type": "integer",
+            "title": "Duplicates Removed"
+          },
+          "needs_review": {
+            "type": "integer",
+            "title": "Needs Review"
+          },
+          "completed_credits": {
+            "type": "number",
+            "title": "Completed Credits"
+          }
+        },
+        "type": "object",
+        "required": [
+          "courses",
+          "excluded_failed",
+          "duplicates_removed",
+          "needs_review",
+          "completed_credits"
+        ],
+        "title": "TranscriptPreview"
+      },
       "ValidationError": {
         "properties": {
           "loc": {
@@ -2299,6 +3039,11 @@
       "HTTPBearer": {
         "type": "http",
         "scheme": "bearer"
+      },
+      "APIKeyCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "jolup_session"
       }
     }
   }

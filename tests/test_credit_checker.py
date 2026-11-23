@@ -23,7 +23,7 @@ def test_cap_and_pending_credit(student, rules, course):
     assert approval.reason == "approval_required"
     assert result.status == "verification_required"
     assert not result.eligible
-    assert result.progress is None
+    assert 0 < result.progress < 100
 
 
 def test_conflicting_completed_attempts_require_verification(student, rules, course):

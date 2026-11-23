@@ -34,6 +34,13 @@ class EvaluationRequest(BaseModel):
     nonacademic_records: list[NonacademicRecord] = Field(default_factory=list)
 
 
+class StudentRecords(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    completed_courses: list[Course] = Field(default_factory=list, max_length=500)
+    nonacademic_records: list[NonacademicRecord] = Field(default_factory=list, max_length=500)
+
+
 class RequiredCourseResult(BaseModel):
     course_code: Code
     course_name: str
@@ -55,6 +62,7 @@ class RequirementResult(BaseModel):
 
 class CreditEntry(BaseModel):
     course_code: Code
+    course_name: str | None = None
     semester: str
     transcript_category: str
     recognized_category: Category | None = None
@@ -62,6 +70,14 @@ class CreditEntry(BaseModel):
     counts_toward_total: bool = False
     excluded_credits: Amount = 0
     reason: str | None = None
+    major_approval_required: bool = False
+
+
+class RequirementCounts(BaseModel):
+    satisfied: int = 0
+    unsatisfied: int = 0
+    approval_required: int = 0
+    verification_required: int = 0
 
 
 class EvaluationResponse(BaseModel):
@@ -69,6 +85,8 @@ class EvaluationResponse(BaseModel):
     dataset: Literal["official", "test"]
     eligible: bool
     status: Status
-    progress: float | None = None
+    progress: float = Field(ge=0, le=100, description="서비스 진행률 (0~100%)")
+    progress_policy: Literal["equal_requirement_weight_v1"] = "equal_requirement_weight_v1"
+    requirement_counts: RequirementCounts
     requirements: list[RequirementResult]
     credit_entries: list[CreditEntry]

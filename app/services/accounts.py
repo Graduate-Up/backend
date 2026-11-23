@@ -8,6 +8,8 @@ from functools import lru_cache
 from pathlib import Path
 
 from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
+from app.schemas.evaluation import StudentRecords
+from app.schemas.course import Course
 
 SESSION_SECONDS = 8 * 60 * 60
 PASSWORD_ROUNDS = 600_000
@@ -45,6 +47,10 @@ class AccountStore:
                     expires_at INTEGER NOT NULL
                 );
                 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
+                CREATE TABLE IF NOT EXISTS student_records (
+                    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+                    records_json TEXT NOT NULL
+                );
             """)
 
     @contextmanager
@@ -107,6 +113,39 @@ class AccountStore:
     def logout(self, token: str) -> None:
         with self.connect() as conn:
             conn.execute("DELETE FROM sessions WHERE token_hash = ?", (_token_digest(token),))
+
+    def get_records(self, user_id: int) -> StudentRecords:
+        with self.connect() as conn:
+            row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+        return StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
+
+    def save_records(self, user_id: int, records: StudentRecords) -> None:
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
+                ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
+                (user_id, records.model_dump_json()),
+            )
+
+    def append_courses(self, user_id: int, courses: list[Course]) -> int:
+        with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+            records = StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
+            existing = {course.course_code for course in records.completed_courses}
+            additions = [course for course in courses if course.course_code not in existing]
+            if not additions:
+                return 0
+            updated = StudentRecords(
+                completed_courses=[*records.completed_courses, *additions],
+                nonacademic_records=records.nonacademic_records,
+            )
+            conn.execute(
+                """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
+                ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
+                (user_id, updated.model_dump_json()),
+            )
+            return len(additions)
 
 
 @lru_cache(maxsize=1)

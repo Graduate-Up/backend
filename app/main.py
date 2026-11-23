@@ -7,7 +7,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 
-from app.api import accounts, evaluation, majors, requirements
+from app.api import accounts, courses, evaluation, majors, requirements
 from app.services.graduation_engine.rule_loader import RuleDataError, RuleUnavailableError
 from app.services.graduation_engine.rule_selector import ProfileError
 
@@ -22,6 +22,10 @@ def requirements_page():
 
 def requirements_view_script():
     return FileResponse(Path(__file__).with_name("requirements-view.js"), media_type="text/javascript")
+
+
+def transcript_bookmarklet_script():
+    return FileResponse(Path(__file__).with_name("transcript-bookmarklet.js"), media_type="text/plain")
 
 
 def account_page():
@@ -70,8 +74,9 @@ def create_app() -> FastAPI:
     app.get("/health")(health_check)
     app.get("/requirements", include_in_schema=False)(requirements_page)
     app.get("/requirements-view.js", include_in_schema=False)(requirements_view_script)
+    app.get("/transcript-bookmarklet.js", include_in_schema=False)(transcript_bookmarklet_script)
     app.get("/account", include_in_schema=False)(account_page)
-    for router in (majors.router, requirements.router, evaluation.router, accounts.router):
+    for router in (majors.router, requirements.router, evaluation.router, accounts.router, courses.router):
         app.include_router(router, prefix="/api/v1")
     app.add_exception_handler(ProfileError, profile_error)
     app.add_exception_handler(RuleDataError, rule_data_error)

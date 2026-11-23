@@ -10,7 +10,8 @@ def check_credits(
     courses: list[Course], rule: GraduationRule, equivalents: dict[str, str],
 ) -> tuple[list[RequirementResult], list[CreditEntry]]:
     entries = [
-        CreditEntry(course_code=c.course_code, semester=c.semester, transcript_category=c.transcript_category)
+        CreditEntry(course_code=c.course_code, course_name=c.course_name,
+                    semester=c.semester, transcript_category=c.transcript_category)
         for c in courses
     ]
     totals = defaultdict(Decimal)
@@ -100,11 +101,13 @@ def check_credits(
         if major_pending:
             pending["major"].add(major_pending)
             entry.reason = major_pending
+            entry.major_approval_required = major_pending == "approval_required"
         areas = [treatment.category]
         if treatment.counts_toward_total:
             areas.append("total")
         if treatment.status != "recognized":
             entry.reason = treatment.status
+            entry.major_approval_required = treatment.category == "major" and treatment.status == "approval_required"
             for area in set(areas).intersection({"total", "major", "liberal_arts"}) or {"total"}:
                 pending[area].add(treatment.status)
             continue

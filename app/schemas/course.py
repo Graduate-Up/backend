@@ -11,6 +11,7 @@ class Course(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     course_code: Code
+    course_name: str | None = Field(default=None, min_length=1, max_length=200)
     semester: str = Field(min_length=1)
     credits: Amount
     transcript_category: str = Field(min_length=1)

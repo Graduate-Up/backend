@@ -68,6 +68,14 @@ def _catalog(path: str) -> dict[str, dict]:
         return {row["code"]: row for row in csv.DictReader(stream)}
 
 
+def find_catalog(entries: list[loader.RuleSetEntry]) -> tuple[dict, list[dict]]:
+    loader = get_bundle_loader()
+    curricula = [loader.load_rule_set(entry.id)["curriculum"] for entry in entries]
+    if len({item["catalog_file"] for item in curricula}) != 1:
+        raise ValueError("The selected cohort has multiple different catalogs")
+    return curricula[0], list(_catalog(curricula[0]["catalog_file"]).values())
+
+
 def _retake_pairs() -> dict[str, list[str]]:
     loader = get_bundle_loader()
     with (loader.RULES_DIR / "common/equivalences.csv").open(encoding="utf-8-sig", newline="") as stream:

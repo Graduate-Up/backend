@@ -41,7 +41,7 @@ def test_preview(client, student, course):
     result = response.json()
     assert result["dataset"] == "test"
     assert result["eligible"] is True
-    assert result["progress"] is None
+    assert result["progress"] == 100
     assert all(item["sources"] for item in result["requirements"])
 
 

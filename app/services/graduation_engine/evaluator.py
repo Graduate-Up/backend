@@ -1,10 +1,24 @@
+from collections import Counter
+
 from app.schemas.course import Course
-from app.schemas.evaluation import EvaluationResponse, NonacademicRecord, RequirementResult
+from app.schemas.evaluation import EvaluationResponse, NonacademicRecord, RequirementCounts, RequirementResult
 from app.schemas.student import StudentProfile
 
 from .credit_checker import check_credits
 from .required_course_checker import check_required_courses
 from .rule_selector import RuleSource, select_rules
+
+
+def completion_percent(requirements: list[RequirementResult]) -> float:
+    if not requirements:
+        return 0
+    if all(item.status == "satisfied" for item in requirements):
+        return 100
+    fractions = [
+        1 if item.status == "satisfied" else min(1, item.current / item.required) if item.required else 0
+        for item in requirements
+    ]
+    return min(99, round(100 * sum(fractions) / len(fractions), 1))
 
 
 def evaluate_graduation(
@@ -44,10 +58,11 @@ def evaluate_graduation(
         sources=item.sources,
     ) for item in rule.verification_requirements)
 
-    states = {item.status for item in requirements}
+    states = Counter(item.status for item in requirements)
     status = next((state for state in ("verification_required", "approval_required", "unsatisfied")
                    if state in states), "satisfied")
     return EvaluationResponse(
         rule_id=rule.id, dataset=rule.dataset, eligible=status == "satisfied", status=status,
-        requirements=requirements, credit_entries=entries,
+        requirements=requirements, credit_entries=entries, progress=completion_percent(requirements),
+        requirement_counts=RequirementCounts(**states),
     )

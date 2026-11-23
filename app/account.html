@@ -16,6 +16,8 @@
     #status { min-height: 1.6em; }
     #my-requirements section, #my-requirements details { margin: .8rem 0; }
     #my-requirements summary { cursor: pointer; }
+    #course-records { margin-top: 1rem; }
+    #course-list li { margin-block: .5rem; }
   </style>
 </head>
 <body>
@@ -67,6 +69,65 @@
       </form>
       <p id="saved-settings" hidden></p>
       <button type="button" id="show-requirements" hidden>내 졸업요건 조회</button>
+      <button type="button" id="show-records">이수 내역</button>
+    </section>
+    <section id="course-records" hidden>
+      <h2>이수 내역</h2>
+      <p>성적표에 적힌 실제 이수 학기와 교과구분을 입력하세요.</p>
+      <p><a id="transcript-bookmark" hidden>졸UP으로 이수 과목 가져오기</a></p>
+      <p id="bookmark-help" hidden>링크를 브라우저의 즐겨찾기 바로 끌어다 놓으세요. 통합정보시스템의 이수성적조회에서 전체성적 표를 연 뒤, 그 즐겨찾기를 누르세요.</p>
+      <ul id="course-list"></ul>
+      <details>
+        <summary>통합정보시스템 이수 내역 붙여넣기</summary>
+        <p>이수성적조회에서 개인 정보 영역을 제외하고 전체성적 표 또는 과목 JSON을 복사하세요.</p>
+        <label>복사한 표 또는 JSON
+          <textarea id="transcript-text" rows="6" maxlength="250000" autocomplete="off"></textarea>
+        </label>
+        <button type="button" id="parse-transcript">미리보기</button>
+        <div id="transcript-preview" hidden>
+          <p id="transcript-summary"></p>
+          <ul id="transcript-courses"></ul>
+          <button type="button" id="save-transcript">이수 확인된 과목 저장</button>
+        </div>
+      </details>
+      <form id="course-form">
+        <label>과목코드 <input name="course_code" required placeholder="COME0331"></label>
+        <label>과목명 (선택) <input name="course_name" maxlength="200"></label>
+        <label>이수 학기 <input name="semester" required placeholder="2024-1"></label>
+        <label>학점 <input name="credits" type="number" min="0" step="any" required></label>
+        <label>성적표 교과구분 <select name="transcript_category" required>
+          <option value="">선택</option>
+          <optgroup label="전공">
+            <option>전공</option><option>전공기초</option><option>전공필수</option><option>전공선택</option><option>전공심화</option>
+          </optgroup>
+          <optgroup label="교양">
+            <option>교양</option><option>교양필수</option><option>교양선택</option><option>기초교양</option><option>핵심교양</option><option>일반교양</option>
+          </optgroup>
+          <optgroup label="다전공 및 기타">
+            <option>일반선택</option><option>다중전공</option><option>복수전공</option><option>부전공</option><option>연계전공</option>
+            <option>융합전공</option><option>교직</option><option>현장실습</option><option>해외대학</option>
+            <option>대학원</option><option>기본소양</option><option>전공기반</option><option>공학전공</option><option>설계</option>
+          </optgroup>
+          <option value="__other__">기타 (성적표 표기 직접 입력)</option>
+        </select></label>
+        <label id="custom-category-label" hidden>성적표 교과구분 직접 입력
+          <input name="custom_category" maxlength="100">
+        </label>
+        <label>이수 상태 <select name="status">
+          <option value="completed">이수 완료</option><option value="in_progress">수강 중</option>
+          <option value="failed">낙제</option><option value="incomplete">미이수</option>
+        </select></label>
+        <label>컴퓨터학부 개설 여부 (선택) <select name="offered_by_computer_science">
+          <option value="">모름</option><option value="true">예</option><option value="false">아니요</option>
+        </select></label>
+        <label>전적대 이수 여부 (선택) <select name="prior_institution">
+          <option value="">미선택</option><option value="true">예</option><option value="false">아니요</option>
+        </select></label>
+        <div>
+          <button type="submit" id="save-course">과목 추가</button>
+          <button type="button" id="cancel-edit" hidden>수정 취소</button>
+        </div>
+      </form>
     </section>
     <p id="status" role="status"></p>
     <article id="my-requirements" aria-labelledby="result-title" hidden></article>
@@ -82,12 +143,80 @@
     const saved = document.querySelector("#saved-settings");
     const showRequirements = document.querySelector("#show-requirements");
     const requirementResult = document.querySelector("#my-requirements");
+    const courseRecords = document.querySelector("#course-records");
+    const courseList = document.querySelector("#course-list");
+    const courseForm = document.querySelector("#course-form");
+    const saveCourse = document.querySelector("#save-course");
+    const cancelEdit = document.querySelector("#cancel-edit");
+    const transcriptText = document.querySelector("#transcript-text");
+    const transcriptPreview = document.querySelector("#transcript-preview");
+    const saveTranscript = document.querySelector("#save-transcript");
+    const customCategoryLabel = document.querySelector("#custom-category-label");
+    const transcriptBookmark = document.querySelector("#transcript-bookmark");
     const trackLabel = document.querySelector("#track-label");
     const variantLabel = document.querySelector("#variant-label");
     const abeekLabel = document.querySelector("#abeek-label");
     let token;
     let variants = {};
     let savedQuery;
+    let records;
+    let editingCourse = null;
+    let importedCourses = [];
+    let portalTranscript;
+    let currentAccountId;
+    const importChannel = typeof BroadcastChannel === "function" ? new BroadcastChannel("jolup-transcript-v2") : null;
+    const windowId = crypto.getRandomValues(new Uint32Array(4)).join("-");
+
+    async function prepareBookmark() {
+      const response = await fetch("/transcript-bookmarklet.js");
+      if (!response.ok) return;
+      const source = (await response.text()).trim();
+      transcriptBookmark.href = "javascript:" + encodeURIComponent("void " + source + "(" + JSON.stringify(location.origin) + ")");
+      transcriptBookmark.hidden = false;
+      document.querySelector("#bookmark-help").hidden = false;
+    }
+    transcriptBookmark.addEventListener("click", event => {
+      event.preventDefault();
+      status.textContent = "링크를 즐겨찾기 바에 추가하고 통합정보시스템의 전체성적 화면에서 실행해 주세요.";
+    });
+
+    const portalOrigins = ["https://knuin.knu.ac.kr", "https://yes.knu.ac.kr"];
+    const transcriptMode = new URLSearchParams(location.search).get("transcript");
+    const importQueue = "jolup.transcript.pending";
+    if (transcriptMode === "1" && window.opener) {
+      window.addEventListener("message", event => {
+        if (event.source !== window.opener || !portalOrigins.includes(event.origin) ||
+            event.data?.source !== "jolup-visible-transcript" || !Array.isArray(event.data.data) ||
+            event.data.data.length < 1 || event.data.data.length > 500) return;
+        try {
+          sessionStorage.setItem(importQueue, JSON.stringify(event.data));
+          window.opener = null;
+          location.replace("/account?transcript=resume");
+        } catch {
+          receivePortalTranscript(event.data);
+        }
+      });
+      for (const origin of portalOrigins) window.opener.postMessage("jolup-transcript-ready", origin);
+    }
+
+    function updateCustomCategory() {
+      const custom = courseForm.elements.transcript_category.value === "__other__";
+      customCategoryLabel.hidden = !custom;
+      courseForm.elements.custom_category.required = custom;
+    }
+
+    function fillCourseForm(course) {
+      resetCourseForm();
+      for (const field of courseForm.elements) {
+        if (field.name) field.value = course[field.name] ?? "";
+      }
+      if (course.transcript_category && !courseForm.elements.transcript_category.value) {
+        courseForm.elements.transcript_category.value = "__other__";
+        courseForm.elements.custom_category.value = course.transcript_category;
+      }
+      updateCustomCategory();
+      courseForm.elements.course_code.focus();
+    }
 
     for (let year = 2026; year >= 2017; year--) fields.admission_year.add(new Option(year, year));
     for (let year = 2017; year <= 2200; year++) fields.graduation_year.add(new Option(year, year));
@@ -109,17 +238,24 @@
       const headers = {};
       if (token) headers.Authorization = "Bearer " + token;
       if (body) headers["Content-Type"] = "application/json";
-      const response = await fetch("/api/v1" + path, {method, headers, body: body ? JSON.stringify(body) : undefined});
+      const response = await fetch("/api/v1" + path, {
+        method, headers, credentials: "same-origin", body: body ? JSON.stringify(body) : undefined,
+      });
       if (response.status === 204) return;
       const data = await response.json();
       if (!response.ok) {
-        if (response.status === 401 && token) {
+        if (response.status === 401 && path !== "/auth/login") {
           token = undefined;
+          currentAccountId = undefined;
+
           showSaved(null);
+          clearCourseRecords();
           settings.hidden = true;
           signIn.hidden = false;
         }
-        throw new Error(errorMessage(data.detail));
+        const error = new Error(errorMessage(data.detail));
+        error.status = response.status;
+        throw error;
       }
       return data;
     }
@@ -178,6 +314,68 @@
       saved.textContent = "저장된 설정 · " + values.join(" · ");
     }
 
+    function resetCourseForm() {
+      editingCourse = null;
+      courseForm.reset();
+      saveCourse.textContent = "과목 추가";
+      cancelEdit.hidden = true;
+      updateCustomCategory();
+    }
+
+    function clearCourseRecords() {
+      records = null;
+      courseRecords.hidden = true;
+      courseList.replaceChildren();
+      transcriptText.value = "";
+      transcriptPreview.hidden = true;
+      importedCourses = [];
+      resetCourseForm();
+    }
+
+    function renderCourseRecords() {
+      const labels = {completed: "이수 완료", in_progress: "수강 중", failed: "낙제", incomplete: "미이수"};
+      courseList.replaceChildren();
+      for (const [index, course] of records.completed_courses.entries()) {
+        const row = document.createElement("li");
+        const name = course.course_name ? " " + course.course_name : "";
+        row.textContent = course.course_code + name + " · " + course.semester + " · " +
+          course.credits + "학점 · " + course.transcript_category + " · " + labels[course.status] + " ";
+        const edit = document.createElement("button");
+        edit.type = "button";
+        edit.textContent = "수정";
+        edit.addEventListener("click", () => {
+          fillCourseForm(course);
+          editingCourse = index;
+          saveCourse.textContent = "수정 저장";
+          cancelEdit.hidden = false;
+        });
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "삭제";
+        remove.addEventListener("click", () => {
+          if (!window.confirm(course.course_code + " 이수 내역을 삭제할까요?")) return;
+          run(() => saveCourses(records.completed_courses.filter((_, position) => position !== index)));
+        });
+        row.append(edit, " ", remove);
+        courseList.append(row);
+      }
+    }
+
+    async function saveCourses(courses) {
+      // Preserve nonacademic records when replacing the course list.
+      const latest = await api("/me/records");
+      if (JSON.stringify(latest.completed_courses) !== JSON.stringify(records.completed_courses)) {
+        records = latest;
+        renderCourseRecords();
+        resetCourseForm();
+        throw new Error("다른 화면에서 이수 내역이 변경되었습니다. 목록을 확인하고 다시 저장해 주세요.");
+      }
+      records = await api("/me/records", "PUT", {...latest, completed_courses: courses});
+      renderCourseRecords();
+      resetCourseForm();
+      status.textContent = "이수 내역을 저장했습니다.";
+    }
+
     async function run(action) {
       status.textContent = "";
       const controls = [...document.querySelectorAll("button, select, input")];
@@ -189,6 +387,33 @@
       } finally {
         controls.forEach(control => control.disabled = false);
       }
+    }
+
+    async function restoreAccount(me) {
+      currentAccountId = me.account.id;
+      const stored = me.profile || {};
+      profile.reset();
+      for (const key of ["student_number", "admission_year", "student_status", "multi_major"]) {
+        if (stored[key] != null) fields[key].value = stored[key];
+      }
+      if (stored.expected_graduation_date) {
+        const [year, month] = stored.expected_graduation_date.split("-");
+        fields.graduation_year.value = year;
+        fields.graduation_month.value = month;
+      }
+      if (!stored.student_status && stored.international_student) fields.student_status.value = "foreign";
+      if (!stored.student_status && stored.disabled_student) fields.student_status.value = "disabled";
+      document.querySelector("#account-title").textContent = me.account.username + "님의 학생 설정";
+      signIn.hidden = true;
+      settings.hidden = false;
+      showSaved(me.profile);
+      if (portalTranscript) {
+        const incoming = portalTranscript;
+        portalTranscript = undefined;
+        status.textContent = await processPortalTranscript(incoming);
+      }
+      await loadMajors(stored);
+      showSaved(me.profile);
     }
 
     credentials.addEventListener("submit", event => {
@@ -203,32 +428,195 @@
         }
         const session = await api("/auth/login", "POST", data);
         token = session.access_token;
-        const me = await api("/me");
-        const stored = me.profile || {};
-        profile.reset();
-        for (const key of ["student_number", "admission_year", "student_status", "multi_major"]) {
-          if (stored[key] != null) fields[key].value = stored[key];
-        }
-        if (stored.expected_graduation_date) {
-          const [year, month] = stored.expected_graduation_date.split("-");
-          fields.graduation_year.value = year;
-          fields.graduation_month.value = month;
-        }
-        if (!stored.student_status && stored.international_student) fields.student_status.value = "foreign";
-        if (!stored.student_status && stored.disabled_student) fields.student_status.value = "disabled";
-        document.querySelector("#account-title").textContent = me.account.username + "님의 학생 설정";
-        signIn.hidden = true;
-        settings.hidden = false;
         credentials.elements.password.value = "";
-        showSaved(me.profile);
-        await loadMajors(stored);
-        showSaved(me.profile);
+        await restoreAccount(await api("/me"));
       });
     });
 
     fields.admission_year.addEventListener("change", () => run(loadMajors));
     fields.major.addEventListener("change", () => run(loadTracks));
     fields.track.addEventListener("change", () => loadVariants());
+
+    document.querySelector("#show-records").addEventListener("click", () => run(async () => {
+      records = await api("/me/records");
+      resetCourseForm();
+      renderCourseRecords();
+      courseRecords.hidden = false;
+      prepareBookmark().catch(() => {});
+      courseRecords.scrollIntoView({block: "start"});
+    }));
+    cancelEdit.addEventListener("click", resetCourseForm);
+
+    async function processPortalTranscript(capture) {
+      const text = JSON.stringify({data: capture.data});
+      const complete = Number.isInteger(capture.expected) && capture.expected > 0 &&
+        capture.scanned === capture.expected && capture.data.length === capture.expected;
+      if (complete) {
+        try {
+          const result = await api("/me/transcript/import", "POST", {text, expected: capture.expected});
+          records = await api("/me/records");
+          renderCourseRecords();
+          resetCourseForm();
+          transcriptPreview.hidden = true;
+          courseRecords.hidden = false;
+          if (result.needs_review) {
+            await previewTranscript(text, capture, true);
+            return "새 과목 " + result.added + "개를 저장했습니다. 아래 " + result.needs_review + "개만 확인해 주세요.";
+          }
+          return result.scanned + "건을 확인해 새 이수 과목 " + result.added + "개를 자동 저장했습니다.";
+        } catch (error) {
+          if (error.status !== 409) throw error;
+        }
+      }
+      records = await api("/me/records");
+      renderCourseRecords();
+      courseRecords.hidden = false;
+      await previewTranscript(text, capture);
+      saveTranscript.hidden = true;
+      return "전체 건수나 이수 정보를 확인하지 못해 자동 저장하지 않았습니다.";
+    }
+
+    async function receivePortalTranscript(capture) {
+      portalTranscript = capture;
+      await run(async () => {
+        try {
+          await restoreAccount(await api("/me"));
+        } catch (error) {
+          if (error.status !== 401) throw error;
+          if (await relayTranscript(capture)) {
+            portalTranscript = undefined;
+            return;
+          }
+          status.textContent = "졸UP 세션이 없습니다. 로그인하면 가져온 이수 내역을 처리합니다.";
+        }
+      });
+    }
+
+    async function relayTranscript(capture) {
+      if (!importChannel) return false;
+      const id = crypto.getRandomValues(new Uint32Array(4)).join("-");
+      const replies = [];
+      const collect = ({data}) => {
+        if (data?.id === id && data.type === "available") replies.push(data);
+      };
+      importChannel.addEventListener("message", collect);
+      importChannel.postMessage({type: "find", id});
+      await new Promise(resolve => setTimeout(resolve, 850));
+      importChannel.removeEventListener("message", collect);
+      if (new Set(replies.map(reply => reply.account)).size !== 1) return false;
+      status.textContent = "로그인된 졸UP 창에서 가져온 과목을 처리 중입니다.";
+      const result = await new Promise(resolve => {
+        const timeout = setTimeout(() => finish(null), 15000);
+        function finish(message) {
+          clearTimeout(timeout);
+          importChannel.removeEventListener("message", onResult);
+          resolve(message);
+        }
+        function onResult({data}) {
+          if (data?.id === id && data.type === "result") finish(data.message);
+        }
+        importChannel.addEventListener("message", onResult);
+        importChannel.postMessage({type: "capture", id, target: replies[0].window, capture});
+      });
+      status.textContent = result || "로그인된 졸UP 창에서 가져오기 결과를 확인해 주세요.";
+      return true;
+    }
+
+    importChannel?.addEventListener("message", ({data}) => {
+      if (!currentAccountId || !data) return;
+      if (data.type === "find") {
+        importChannel.postMessage({type: "available", id: data.id, account: currentAccountId, window: windowId});
+      } else if (data.type === "capture" && data.target === windowId) {
+        run(async () => {
+          try {
+            status.textContent = await processPortalTranscript(data.capture);
+          } catch (error) {
+            status.textContent = error.message;
+          }
+          importChannel.postMessage({type: "result", id: data.id, message: status.textContent});
+        });
+      }
+    });
+
+    courseForm.elements.transcript_category.addEventListener("change", updateCustomCategory);
+    async function previewTranscript(text, capture, reviewOnly = false) {
+      transcriptPreview.hidden = true;
+      importedCourses = [];
+      const preview = await api("/me/transcript/parse", "POST", {text});
+      const target = document.querySelector("#transcript-courses");
+      target.replaceChildren();
+      for (const item of preview.courses) {
+        const {completed, semester_label, ...course} = item;
+        course.status = completed ? "completed" : "incomplete";
+        const ready = completed && course.semester && course.transcript_category && course.credits !== null;
+        if (ready && reviewOnly) continue;
+        const row = document.createElement("li");
+        row.textContent = [course.course_code, course.course_name, course.semester,
+          course.credits == null ? null : course.credits + "학점", course.transcript_category].filter(Boolean).join(" · ");
+        if (ready) {
+          importedCourses.push(course);
+        } else {
+          if (!course.semester) row.append(" · 원래 학기: " + (semester_label || "표기 없음"));
+          const review = document.createElement("button");
+          review.type = "button";
+          review.textContent = " 항목 확인 및 입력";
+          review.addEventListener("click", () => fillCourseForm(course));
+          row.append(review);
+        }
+        target.append(row);
+      }
+      const total = Number.isInteger(capture?.expected) ? capture.expected : null;
+      const captureNotice = !capture ? "" : total === null
+        ? "전체 건수를 확인할 수 없어요. 학교 화면과 비교해 주세요. "
+        : capture.scanned !== total ? "학교 표 " + total + "건 중 " + capture.scanned + "건을 읽었습니다. "
+        : "학교 표 " + total + "건을 읽었습니다. ";
+      document.querySelector("#transcript-summary").textContent = captureNotice +
+        "저장 가능 " + importedCourses.length + "과목 · 확인 필요 " + preview.needs_review +
+        "과목 · 미이수 제외 " + preview.excluded_failed + "건 · 중복 제외 " + preview.duplicates_removed + "건";
+      if (capture?.diagnostics && capture.scanned !== total) {
+        const {initialRows, scrollTargets, wheelAttempts, gridMoves} = capture.diagnostics;
+        if ([initialRows, scrollTargets, wheelAttempts].every(Number.isInteger)) {
+          document.querySelector("#transcript-summary").textContent +=
+            " · 진단: 처음 " + initialRows + "행, 표 행 이동 " + (gridMoves ?? 0) +
+            "회, 스크롤 영역 " + scrollTargets + "개, 휠 시도 " + wheelAttempts + "회";
+        }
+      }
+      saveTranscript.hidden = importedCourses.length === 0;
+      transcriptPreview.hidden = false;
+      transcriptPreview.closest("details").open = true;
+    }
+    document.querySelector("#parse-transcript").addEventListener("click", () => run(async () => {
+      if (!transcriptText.value.trim()) throw new Error("복사한 이수 내역을 먼저 붙여넣어 주세요.");
+      await previewTranscript(transcriptText.value);
+      transcriptText.value = "";
+    }));
+    saveTranscript.addEventListener("click", () => run(async () => {
+      if (!records || importedCourses.length === 0) return;
+      const courseKey = course => course.course_code + ":" + course.semester;
+      const known = new Set(records.completed_courses.map(courseKey));
+      const additions = importedCourses.filter(course => !known.has(courseKey(course)));
+      if (additions.length) await saveCourses([...records.completed_courses, ...additions]);
+      status.textContent = additions.length + "과목을 추가했습니다. 이미 저장한 과목은 유지했습니다.";
+      importedCourses = [];
+      saveTranscript.hidden = true;
+    }));
+    courseForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!records) return;
+      const data = Object.fromEntries(new FormData(courseForm));
+      const course = {
+        course_code: data.course_code.trim(), course_name: data.course_name.trim() || null,
+        semester: data.semester.trim(), credits: Number(data.credits),
+        transcript_category: (data.transcript_category === "__other__" ? data.custom_category : data.transcript_category).trim(),
+        status: data.status,
+        offered_by_computer_science: data.offered_by_computer_science ? data.offered_by_computer_science === "true" : null,
+        prior_institution: data.prior_institution ? data.prior_institution === "true" : null,
+      };
+      const updated = [...records.completed_courses];
+      if (editingCourse === null) updated.push(course);
+      else updated[editingCourse] = course;
+      run(() => saveCourses(updated));
+    });
 
     showRequirements.addEventListener("click", () => run(async () => {
       if (!savedQuery) return;
@@ -262,10 +650,31 @@
       });
     });
 
+    if (transcriptMode === "resume") {
+      try {
+        const queued = sessionStorage.getItem(importQueue);
+        sessionStorage.removeItem(importQueue);
+        if (queued) receivePortalTranscript(JSON.parse(queued));
+      } finally {
+        history.replaceState(null, "", "/account");
+      }
+    } else if (!transcriptMode) {
+      run(async () => {
+        try {
+          await restoreAccount(await api("/me"));
+        } catch (error) {
+          if (error.status !== 401) throw error;
+        }
+      });
+    }
+
     document.querySelector("#logout").addEventListener("click", () => run(async () => {
       await api("/auth/logout", "POST");
       token = undefined;
+      currentAccountId = undefined;
+
       showSaved(null);
+      clearCourseRecords();
       settings.hidden = true;
       signIn.hidden = false;
       status.textContent = "로그아웃했습니다.";
