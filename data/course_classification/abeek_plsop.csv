@@ -1,0 +1,230 @@
+curriculum_year,code,name,area,source
+2021,CLTR0263,문화기술개론,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0210,대화형프로그래밍기초,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0003,실용화법,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0205,대학글쓰기,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0264,소셜네트워크,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0689,미래산업과 직업선택,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0329,SW융합커뮤니케이션,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0417,컴퓨터윤리,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0086,기업가정신과 벤처창업,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0208,심화글쓰기,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0330,SW프로젝트관리기법,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0045,논리와 비판적 사고,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0403,IT지식재산권,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0043,서양의 역사와 문화,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0428,IT기술경영개론,basic,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0211,수학 I,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0213,물리학 I,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0223,물리학실험 1,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COME0301,이산수학,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,CLTR0246,일반생명과학1,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ENGR0211,공학수학1,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COME0311,확률 및 통계,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,MTED0231,선형대수,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0419,데이터과학기초,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,STAT0452,수치해석,msc,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0209,소프트웨어와 문제해결,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0201,컴퓨터학개론,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0204,프로그래밍기초,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0205,기초창의공학설계,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COME0331,자료구조,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0216,자료구조응용,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0217,자바프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0315,오토마타 및 형식언어,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ELEC0247,논리회로,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0224,소프트웨어설계,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0225,디지털설계 및 실험,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0411,컴퓨터구조,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0432,소프트웨어 특강,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ELEC0462,시스템프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0423,자료구조프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0312,운영체제,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0319,알고리즘1,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0321,컴파일러,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0422,소프트웨어공학,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,EECS0312,네트워크프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0320,알고리즘2,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0322,데이터베이스,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0323,데이터통신,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0328,모바일앱프로그래밍1,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0423,프로그래밍언어론,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0401,종합설계프로젝트1,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0324,인공지능,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0413,컴퓨터그래픽스,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0414,컴퓨터망,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0419,정보검색,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0420,모바일앱프로그래밍2,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0402,종합설계프로젝트2,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0414,소프트웨어테스팅이론,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0415,고급문제해결,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0416,고급웹프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0420,모바일로봇프로그래밍,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0413,인간과 컴퓨터 상호작용 설계,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COME0368,정보보호론,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0424,무선네트워크,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,GLSO0229,SW창업프로젝트,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0418,대규모병렬컴퓨팅,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0421,소프트웨어디자인패턴,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0425,컴퓨터게임제작,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,COMP0435,디지털미디어아트,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0417,기계학습개론,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0422,의료융합소프트웨어,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2021,ITEC0424,컴퓨터비전,major,"심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf"
+2022,CLTR0045,논리와 비판적 사고,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0264,소셜네트워크,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0003,실용화법,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0205,대학글쓰기,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0689,미래산업과 직업선택,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0086,기업가정신과 벤처창업,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0732,창업과 경영,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0403,IT지식재산권,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0417,컴퓨터윤리,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0043,서양의역사와문화,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0428,IT기술경영개론,basic,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0211,수학 I,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0213,물리학 I,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0223,물리학실험 I,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COME0301,이산수학,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CLTR0246,일반생명과학 I,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0454,인공지능수학기초,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COME0311,확률및통계,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0419,데이터과학기초,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,MTED0231,선형대수,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,STAT0452,수치해석,msc,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,TCHR0499,컴퓨터 논리 및 논술지도,teaching,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,TCHR0593,컴퓨터교육론,teaching,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,TCHR0594,컴퓨터교재연구및지도법,teaching,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,TCHR0522,학교현장실습,teaching,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0453,컴퓨팅사고와 SW코딩,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0201,컴퓨터학개론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0204,프로그래밍기초,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0205,기초창의공학설계,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0217,자바프로그래밍,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0315,오토마타및형식언어,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ELEC0247,논리회로,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COME0331,자료구조,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0216,자료구조응용,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0224,소프트웨어설계,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0225,디지털설계및실험,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0411,컴퓨터구조,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0432,소프트웨어 특강,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ELEC0462,시스템프로그래밍,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0312,운영체제,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0319,알고리즘1,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0321,컴파일러,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0323,데이타통신,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0324,인공지능,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0422,소프트웨어공학,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0320,알고리즘2,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0322,데이타베이스,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0328,모바일앱프로그래밍1,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0423,프로그래밍언어론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,EECS0312,네트워크프로그래밍,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0417,기계학습개론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0401,종합설계프로젝트1,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0413,컴퓨터그래픽스,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0414,컴퓨터망,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0419,정보검색,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0420,모바일앱프로그래밍2,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0462,데이터마이닝이론및응용,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0460,문제해결기반 공학연수실습(컴퓨터학),major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,GLSO0215,오픈소스프로그래밍,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,GLSO0224,사물인터넷,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0402,종합설계프로젝트2,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0414,소프트웨어테스팅 이론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0415,고급문제해결,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0416,고급웹프로그래밍,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,MBIO0402,생물정보학개론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,MOBI0224,딥러닝,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,CAIB0211,자연어처리개론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COME0368,정보보호론,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0435,디지털미디어아트,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0436,증강현실,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0455,지능HCI,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0457,의료인공지능,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0458,모바일네트워크,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,GLSO0227,클라우드컴퓨팅,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,GLSO0229,SW창업프로젝트,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0418,대규모병렬컴퓨팅,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0424,컴퓨터비전,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2022,ITEC0425,컴퓨터게임제작,major,심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+2023,CLTR0045,논리와 비판적 사고,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0003,실용화법,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0112,생활속의통계,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0205,대학글쓰기,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0819,기초수학2,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COME0301,이산수학,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0211,수학Ⅰ,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0453,컴퓨팅사고와 SW코딩,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0204,프로그래밍기초,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0201,컴퓨터학개론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0205,기초창의공학설계,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,FUTR0208,미래산업과 직업선택,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0213,물리학Ⅰ,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COME0311,확률및통계,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,MTED0231,선형대수,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0419,데이터과학기초,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0246,일반생명과학Ⅰ,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0217,자바프로그래밍,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0224,소프트웨어설계,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0315,오토마타및형식언어,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0225,디지털설계및실험,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ELEC0247,논리회로,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0411,컴퓨터구조,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COME0331,자료구조,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0432,소프트웨어특강,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0216,자료구조응용,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ELEC0462,시스템프로그래밍,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,FUTR0201,기업가정신과 벤처창업,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,FUTR0214,창업과 경영,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0264,소셜네트워크,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,STAT0452,수치해석,msc,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,TCHR0499,컴퓨터 논리 및 논술지도,teaching,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,TCHR0593,컴퓨터교육론,teaching,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,TCHR0594,컴퓨터교재연구및지도법,teaching,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0312,운영체제,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0320,알고리즘2,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0319,알고리즘1,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0322,데이타베이스,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0321,컴파일러,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0328,모바일앱프로그래밍1,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0323,데이타통신,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0423,프로그래밍언어론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0324,인공지능,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,EECS0312,네트워크프로그래밍,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0422,소프트웨어공학,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0417,기계학습개론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0401,종합설계프로젝트1,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0403,IT지식재산권,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CLTR0043,서양의 역사와 문화,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0417,컴퓨터윤리,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0428,IT기술경영개론,basic,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,TCHR0522,학교현장실습,teaching,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0413,컴퓨터그래픽스,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,CAIB0211,자연어처리개론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0414,컴퓨터망,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COME0368,정보보호론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0419,정보검색,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0435,디지털미디어아트,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0420,모바일앱프로그래밍2,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0436,증강현실,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0462,데이터마이닝이론및응용,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0455,지능HCI,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,GLSO0215,오픈소스프로그래밍,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0457,의료인공지능,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,GLSO0224,사물인터넷,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0458,모바일네트워크,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0460,문제해결기반 공학연수실습(컴퓨터학),major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0402,종합설계프로젝트2,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,GLSO0227,클라우드컴퓨팅,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0414,소프트웨어테스팅이론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0418,대규모병렬컴퓨팅,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0415,고급문제해결,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0424,컴퓨터비전,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0416,고급웹프로그래밍,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,ITEC0425,컴퓨터게임제작,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,MBIO0402,생물정보학개론,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)
+2023,MOBI0224,딥러닝,major,컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf (2025 기준표와 동일)

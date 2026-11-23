@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>졸업요건 조회</title>
+  <style>
+    body { margin: 2rem auto; padding: 0 1rem; max-width: 48rem; font: 1rem/1.5 system-ui, sans-serif; }
+    form { display: grid; gap: 1rem; }
+    label { display: grid; gap: .25rem; }
+    [hidden] { display: none; }
+    select, button { font: inherit; padding: .45rem; }
+    fieldset { display: flex; flex-wrap: wrap; gap: .75rem; }
+    button { justify-self: start; }
+    #result { margin-top: 1.5rem; }
+    #result section, #result details { border: 1px solid #d4d4d8; border-radius: .5rem; margin: 1rem 0; padding: 1rem; }
+    #result h2, #result h3 { margin: 0 0 .5rem; }
+    #result ul { padding-inline-start: 1.4rem; margin-block: .5rem; }
+    #result li + li { margin-top: .35rem; }
+    summary { cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>졸업요건 조회</h1>
+  <form id="requirements">
+    <label>입학년도 <select id="admission-year"></select></label>
+    <label>전공 <select id="major" required disabled></select></label>
+    <label>트랙 <select id="track" disabled></select></label>
+    <label id="variant-label" hidden>트랙 세부 유형 <select id="track-variant"></select></label>
+    <label id="abeek-label" hidden>ABEEK <select id="abeek" disabled required>
+      <option value="">선택</option><option value="false">미이수</option><option value="true">이수</option>
+    </select></label>
+    <label>학생 구분 <select id="student-status">
+      <option value="new">신입학</option><option value="general_transfer">일반편입</option>
+      <option value="bachelor_transfer">학사편입</option><option value="foreign">외국인</option>
+      <option value="disabled">등록 장애학생</option>
+    </select></label>
+    <label>다전공 <select id="multi-major">
+      <option value="none">단일전공</option><option value="double_or_linked_or_convergence">복수·연계·융합전공</option>
+      <option value="minor_1_only">부전공 1개</option><option value="minor_2plus">부전공 2개 이상</option>
+      <option value="teaching_course">교직이수</option>
+    </select></label>
+    <fieldset>
+      <legend>졸업 예정 연·월 (선택)</legend>
+      <label>연도 <select id="graduation-year"><option value="">미선택</option></select></label>
+      <label>월 <select id="graduation-month" disabled>
+        <option value="02">2월</option>
+        <option value="08">8월</option>
+      </select></label>
+    </fieldset>
+    <button id="submit" disabled>조회</button>
+  </form>
+  <p id="status" role="status"></p>
+  <article id="result" aria-labelledby="result-title" hidden></article>
+  <p><a href="/account">내 학생 설정</a> · <a href="/docs">Swagger API 문서</a></p>
+  <script type="module">
+    import { renderRequirements } from "/requirements-view.js";
+    const form = document.querySelector("#requirements");
+    const admissionYear = document.querySelector("#admission-year");
+    const major = document.querySelector("#major");
+    const track = document.querySelector("#track");
+    const variant = document.querySelector("#track-variant");
+    const variantLabel = document.querySelector("#variant-label");
+    const abeek = document.querySelector("#abeek");
+    const abeekLabel = document.querySelector("#abeek-label");
+    const studentStatus = document.querySelector("#student-status");
+    const multiMajor = document.querySelector("#multi-major");
+    const graduationYear = document.querySelector("#graduation-year");
+    const graduationMonth = document.querySelector("#graduation-month");
+    const submit = document.querySelector("#submit");
+    const status = document.querySelector("#status");
+    const result = document.querySelector("#result");
+    let revision = 0;
+    let trackVariants = {};
+
+    for (let year = 2017; year <= 2026; year++) admissionYear.add(new Option(year + "학번", year));
+    admissionYear.value = "2024";
+
+    async function readJson(path, params) {
+      const response = await fetch(path + "?" + params);
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.code === "rules_unavailable") throw new Error("이 학번과 전공에 등록된 규칙이 없습니다.");
+        throw new Error(typeof data.detail === "string" ? data.detail : "입력값을 확인해 주세요.");
+      }
+      return data;
+    }
+
+    function clearResult() {
+      result.hidden = true;
+      status.textContent = "";
+    }
+
+    function updateVariants() {
+      variant.replaceChildren(new Option("일반", ""));
+      const options = Object.entries(trackVariants[track.value] || {});
+      for (const [key, label] of options) variant.add(new Option(label, key));
+      variantLabel.hidden = options.length === 0;
+      variant.disabled = variantLabel.hidden;
+    }
+
+    function resetTrackOptions() {
+      trackVariants = {};
+      updateVariants();
+      abeek.value = "";
+      abeek.disabled = true;
+      abeekLabel.hidden = true;
+    }
+
+    async function loadTracks() {
+      const request = ++revision;
+      clearResult();
+      submit.disabled = true;
+      track.disabled = true;
+      resetTrackOptions();
+      track.replaceChildren(new Option(major.value ? "조회 중" : "전공을 먼저 선택", ""));
+      if (!major.value) return;
+      try {
+        const params = new URLSearchParams({admission_year: admissionYear.value, major: major.value});
+        const data = await readJson("/api/v1/requirements/tracks", params);
+        if (request !== revision) return;
+        track.replaceChildren();
+        if (data.allows_no_track) track.add(new Option("트랙 없음", ""));
+        if (!data.allows_no_track) track.add(new Option("트랙 선택", ""));
+        for (const name of data.tracks) track.add(new Option(data.track_labels?.[name] || name, name));
+        track.disabled = data.tracks.length === 0;
+        track.required = !data.allows_no_track;
+        trackVariants = data.track_variants || {};
+        updateVariants();
+        abeek.disabled = !data.requires_abeek;
+        abeekLabel.hidden = abeek.disabled;
+        submit.disabled = false;
+      } catch (error) {
+        if (request !== revision) return;
+        track.replaceChildren(new Option("선택할 수 없음", ""));
+        status.textContent = error.message;
+      }
+    }
+
+    async function loadMajors() {
+      const request = ++revision;
+      clearResult();
+      graduationYear.replaceChildren(new Option("미선택", ""));
+      for (let year = Number(admissionYear.value); year <= 2200; year++) {
+        graduationYear.add(new Option(year + "년", year));
+      }
+      graduationMonth.disabled = true;
+      major.disabled = true;
+      submit.disabled = true;
+      track.disabled = true;
+      resetTrackOptions();
+      major.replaceChildren(new Option("조회 중", ""));
+      track.replaceChildren(new Option("전공을 먼저 선택", ""));
+      try {
+        const data = await readJson("/api/v1/majors", new URLSearchParams({admission_year: admissionYear.value}));
+        if (request !== revision) return;
+        major.replaceChildren(new Option("전공 선택", ""));
+        for (const item of data.majors) major.add(new Option(item.name, item.code));
+        major.disabled = false;
+      } catch (error) {
+        if (request === revision) status.textContent = error.message;
+      }
+    }
+
+    admissionYear.addEventListener("change", loadMajors);
+    major.addEventListener("change", loadTracks);
+    track.addEventListener("change", updateVariants);
+    graduationYear.addEventListener("change", () => {
+      graduationMonth.disabled = !graduationYear.value;
+    });
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const request = ++revision;
+      clearResult();
+      submit.disabled = true;
+      const params = new URLSearchParams({admission_year: admissionYear.value, major: major.value});
+      if (track.value) params.set("track", track.value);
+      if (variant.value) params.set("track_variant", variant.value);
+      if (!abeek.disabled) params.set("abeek", abeek.value);
+      if (studentStatus.value !== "new") params.set("student_status", studentStatus.value);
+      if (multiMajor.value !== "none") params.set("multi_major", multiMajor.value);
+      if (graduationYear.value) {
+        params.set("expected_graduation_date", graduationYear.value + "-" + graduationMonth.value);
+      }
+      try {
+        const data = await readJson("/api/v1/requirements", params);
+        if (request !== revision) return;
+        renderRequirements(result, data, {
+          admissionYear: params.get("admission_year"),
+          majorName: major.selectedOptions[0].text,
+          term: params.get("expected_graduation_date"),
+          trackName: params.has("track") ? track.selectedOptions[0].text : null,
+        });
+      } catch (error) {
+        if (request === revision) status.textContent = error.message;
+      } finally {
+        if (request === revision) submit.disabled = false;
+      }
+    });
+    loadMajors();
+  </script>
+</body>
+</html>

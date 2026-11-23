@@ -1,0 +1,108 @@
+import csv
+import re
+
+import pytest
+
+from app.schemas.course import Course
+from app.schemas.rules import NonacademicRequirement
+from app.services.graduation_engine import course_areas
+from app.services.graduation_engine.course_areas import (
+    DATA_DIRECTORY, abeek_area, abeek_result, abeek_table_year, auto_satisfied, design_result, liberal_result,
+    sdg_result,
+)
+
+SOURCE = [{"title": "test"}]
+
+
+def requirement(key, minimum=3, **extra):
+    return NonacademicRequirement(id=key, name=key, minimum=minimum, sources=SOURCE, **extra)
+
+
+def done(code, credits=3, category="교양", prior=None, semester="2024-1"):
+    return Course(course_code=code, credits=credits, transcript_category=category, semester=semester,
+                  status="completed", prior_institution=prior)
+
+
+@pytest.mark.parametrize("name", ["abeek_plsop.csv", "liberal_areas.csv"])
+def test_mapping_files_are_well_formed_and_sourced(name):
+    with open(DATA_DIRECTORY / name, encoding="utf-8") as file:
+        rows = list(csv.DictReader(file))
+    assert rows
+    for row in rows:
+        assert re.fullmatch(r"[A-Z]{4}[0-9]{4}", row["code"]), row
+        assert row["source"].strip(), row
+    if name == "abeek_plsop.csv":
+        assert {row["area"] for row in rows} <= {"basic", "msc", "major", "teaching"}
+        keys = [(row["curriculum_year"], row["code"]) for row in rows]
+        assert len(keys) == len(set(keys))
+    else:
+        assert sum(row["sdg"] == "true" for row in rows) == 59  # 공식 목록 2024.5.1. 기준
+
+
+def test_curriculum_follows_admission_year():
+    assert [abeek_table_year(year) for year in (2017, 2020, 2021, 2022, 2023, 2025)] == [
+        2021, 2021, 2021, 2022, 2023, 2023]
+    # 2021 표에만 있는 과목, 코드가 바뀐 과목(CLTR0689 → FUTR0208)
+    assert abeek_area("CLTR0263", 2021) == ("basic", 2021)
+    assert abeek_area("CLTR0689", 2021) == ("basic", 2021)
+    assert abeek_area("FUTR0208", 2021) == ("basic", 2023)
+    assert abeek_area("ENGR0211", 2021) == ("msc", 2021)
+    assert abeek_area("COMP0454", 2022) == ("msc", 2022)
+    assert abeek_area("ABCD0000", 2023) == (None, None)
+
+
+def test_abeek_area_credits():
+    courses = [done("CLTR0045"), done("CLTR0205"), done("FUTR0208"), done("COME0301", category="전공")]
+    basic = abeek_result(requirement("abeek-basic_literacy", 9), courses, 2021)
+    assert basic.status == "satisfied" and basic.current == 9
+    assert any("FUTR0208(2023학년도 표 기준)" in line for line in basic.details)
+    msc = abeek_result(requirement("abeek-msc", 18), courses, 2021)
+    assert msc.status == "unsatisfied" and msc.current == 3
+    # 학부 사이트에 표가 없는 학번은 추정이므로 확인 필요
+    assert abeek_result(requirement("abeek-msc", 18), courses, 2018).status == "verification_required"
+
+
+def test_design_credits_come_from_rule():
+    rule = requirement("abeek-design_min", 14, course_credits={"COMP0205": 2, "ITEC0401": 4})
+    result = design_result(rule, [done("COMP0205"), done("ITEC0401", 4), done("COMP0312")])
+    assert result.current == 6 and result.status == "unsatisfied"
+
+
+def test_liberal_area_mapping_transcript_label_and_unknown_courses():
+    writing = requirement("foundation_a")
+    assert liberal_result(writing, [done("CLTR0205")]).status == "satisfied"
+    # 매핑표에 없지만 성적표 교과구분에 영역이 적혀 있으면 사용
+    labeled = done("CLTR0700", category="교양(첨성인기초-글쓰기)")
+    assert liberal_result(writing, [labeled]).status == "satisfied"
+    # 영역을 모르는 교양이 있으면 미충족으로 단정하지 않는다
+    unknown = liberal_result(requirement("core_science"), [done("CLTR0999")])
+    assert unknown.status == "verification_required"
+    assert any("CLTR0999" in line for line in unknown.details)
+    assert liberal_result(requirement("core_science"), [done("COMP0312", category="전공")]).status == "unsatisfied"
+    # 전적대 과목은 영역 필수과목으로 인정하지 않는다
+    assert liberal_result(writing, [done("CLTR0205", prior=True)]).status == "unsatisfied"
+
+
+def test_sdg_uses_official_list():
+    rule = requirement("sdg")
+    assert sdg_result(rule, [done("CLTR0043")]).status == "satisfied"
+    assert sdg_result(rule, [done("CLTR0205")]).status == "unsatisfied"
+
+
+def test_software_is_confirmed_by_substitute_course_or_sw_area():
+    software = requirement("software", 1, course_codes=["COME0331", "COMP0217"])
+    assert "COME0331" in auto_satisfied(software, [done("COME0331", category="전공필수")], {})
+    assert "첨성인기초(SW)" in auto_satisfied(software, [done("CLTR0264")], {})
+    assert auto_satisfied(software, [done("CLTR0205")], {}) is None
+    assert auto_satisfied(requirement("counseling", 8), [done("COME0331")], {}) is None
+
+
+def test_computed_requirements_leave_the_checklist():
+    from app.services.graduation_engine.evaluator import checklist_requirements
+
+    class Rule:
+        nonacademic_requirements = [requirement(key) for key in
+                                    ("gpa", "sdg", "foundation_a", "abeek-msc", "software", "counseling")]
+
+    assert [item.id for item in checklist_requirements(Rule())] == ["software", "counseling"]
+    assert course_areas.COMPUTED_IDS >= {"sdg", "foundation_a", "abeek-msc", "abeek-design_min"}
