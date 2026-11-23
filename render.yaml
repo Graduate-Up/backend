@@ -25,6 +25,6 @@ services:
         sync: false
       - key: JOLUP_EMAIL_CODE_SECRET
         sync: false
-      # 프런트 개발 서버 주소. 프런트를 배포하면 그 주소를 쉼표로 추가한다.
+      # 프런트 배포 주소(Vercel)와 개발 서버 주소. 프런트 주소가 바뀌면 쉼표로 추가한다.
       - key: JOLUP_FRONTEND_ORIGINS
-        value: http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173
+        value: https://frontend-xi-indol-43.vercel.app,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173
