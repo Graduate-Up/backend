@@ -23,7 +23,7 @@ from app.services.graduation_engine.evaluator import evaluate_graduation
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_loader import RuleDataError
 from app.services.graduation_engine.rule_selector import RuleSource, select_rules
-from app.services.recommendations import Recommendations, recommend
+from app.services.recommendations import Recommendations, programs_catalog, recommend
 from app.services.transcript import TranscriptImportInput, TranscriptInput, TranscriptPreview, parse_transcript
 
 from .requirements import get_rule_provider
@@ -193,8 +193,13 @@ def me(account: Account) -> MeResponse:
 @router.put("/me/profile", responses=AUTH_ERROR)
 def save_profile(profile: StudentSettings, account: Account, store: Store, provide_rules: Rules) -> MeResponse:
     select_rules(profile, provide_rules())
-    store.save_profile(account.account.id, profile)
-    return MeResponse(account=account.account, profile=profile)
+    if profile.convergence_program is not None and not any(
+        program.kind == "convergence" and program.id == profile.convergence_program
+        for program in programs_catalog()
+    ):
+        raise HTTPException(422, "등록된 융합전공 ID를 선택해 주세요.")
+    saved = store.save_profile(account.account.id, profile)
+    return MeResponse(account=account.account, profile=saved)
 
 
 @router.get("/me/requirements", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}})

@@ -29,12 +29,15 @@ class ProgramCourse(BaseModel):
     career_tags: list[CareerTag] = Field(default_factory=list)
 
 
-class Program(BaseModel):
+class ProgramSummary(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str = Field(min_length=1)
     name: str = Field(min_length=1)
     kind: Literal["convergence", "double_major"]
     source: Source
+
+
+class Program(ProgramSummary):
     courses: list[ProgramCourse] = Field(min_length=1)
 
 

@@ -81,6 +81,18 @@ def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp
         assert response.headers["cache-control"] == "no-store"
         saved = response.json()["profile"]
         assert {key: saved[key] for key in PROFILE} == PROFILE
+        assert saved["convergence_program"] is None
+        catalog = client.get("/api/v1/convergence-programs")
+        assert catalog.status_code == 200
+        assert any(item["id"] == "big-data" for item in catalog.json())
+        assert all(set(item) == {"id", "name", "kind", "source"} and item["kind"] == "convergence"
+                   for item in catalog.json())
+        invalid = client.put("/api/v1/me/profile", json={**PROFILE, "convergence_program": "unknown"}, headers=headers)
+        assert invalid.status_code == 422
+        response = client.put("/api/v1/me/profile", json={**PROFILE, "convergence_program": "big-data"}, headers=headers)
+        assert response.status_code == 200, response.text
+        saved = response.json()["profile"]
+        assert saved["convergence_program"] == "big-data"
         assert client.get("/api/v1/me/requirements", headers=headers).json()["id"] == "test-aicom"
         assert client.get("/api/v1/me/records", headers=headers).json()["completed_courses"] == []
         assert client.get("/api/v1/me/evaluation", headers=headers).json()["progress"] == 0
@@ -126,6 +138,10 @@ def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp
         assert evaluation["requirement_counts"]["unsatisfied"] > 0
         assert client.put("/api/v1/me/profile", json={**PROFILE, "track": None}, headers=headers).status_code == 200
         assert client.get("/api/v1/me", headers=headers).json()["profile"]["track"] is None
+        assert client.get("/api/v1/me", headers=headers).json()["profile"]["convergence_program"] == "big-data"
+        cleared = client.put("/api/v1/me/profile", json={**PROFILE, "convergence_program": None}, headers=headers)
+        assert cleared.status_code == 200
+        assert client.get("/api/v1/me", headers=headers).json()["profile"]["convergence_program"] is None
         other = {**CREDENTIALS, "email": "student-two@knu.ac.kr"}
         assert register(client, verification_mailbox, other).status_code == 201
         other_headers = sign_in(client, other)
