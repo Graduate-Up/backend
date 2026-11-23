@@ -13,9 +13,19 @@ from app.schemas.rules import (
 )
 from app.schemas.student import StudentProfile
 
+from .course_areas import (
+    MAJOR_CATEGORIES, curricula, curriculum_is_sourced, curriculum_year, known_course_name, major_courses,
+)
+
 STATUS_LABELS = {"portfolio": "졸업 포트폴리오", "interview": "졸업 면담", "topcit": "TOPCIT",
                  "research_report": "연구보고서", "presentation": "연구 발표",
                  "major_competency_assessment": "전공 학업역량평가"}
+# 전공별 졸업요건 공지. 학교 공통 항목(졸업자격인정제, 현장실습 대체 등)의 근거로 다른 전공 공지가
+# 붙지 않도록 학생 전공의 공지와 학교 학사안내(S11)를 함께 인용한다.
+MAJOR_NOTICES = {"glsop": ["S16", "S17"], "plsop": ["S22", "S10"], "aicom": ["S1", "S27"],
+                 "simcom": ["S25"], "chumcom": ["S26"]}
+QUALIFICATION_SOURCE = "S11"  # 경북대 학사안내: 졸업자격인정제
+QUALIFICATION_CRITERIA_SOURCE = "S34"  # IT대학 컴퓨터학부 졸업요건 [붙임3] (인정영역별 기준, SW 지정 대체과목)
 MULTI_MAJOR_KEYS = {"double_major": "double_or_linked_or_convergence",
                    "interdisciplinary": "double_or_linked_or_convergence", "minor": "minor_1_only"}
 
@@ -117,6 +127,9 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
     sources = {item["id"]: Source(title=item["title"], url=item.get("url"), reference=item.get("date"))
                for item in source_items}
 
+    def course_name(code):
+        return catalog.get(code, {}).get("name") or known_course_name(code) or code
+
     def cite(section):
         return [sources[key] for key in section.get("source", raw["sources"])]
 
@@ -149,7 +162,13 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
 
     records = []
     verification = []
-    notes = [curriculum["basis"]]
+    if student.major in curricula():
+        table = curriculum_year(student.major, student.admission_year)
+        sourced = curriculum_is_sourced(student.major, student.admission_year)
+        notes = [f"{student.admission_year}학번: {table}학년도 기준 교육과정표 적용" + ("" if sourced else
+                 f" ({student.admission_year}학번 원문이 없어 추정)")]
+    else:
+        notes = [curriculum["basis"]]
     if liberal.get("rule"):
         notes.append(liberal["rule"])
 
@@ -196,21 +215,25 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
                unit="점", details=details)
 
     exempt = resolved.qualification_exempt
+    notices = MAJOR_NOTICES.get(student.major, [])
+    # 졸업자격인정제는 학교 공통 제도: 학교 학사안내 + 컴퓨터학부 졸업요건 붙임3 + 본인 전공 공지
+    qualification = {"source": [QUALIFICATION_SOURCE, QUALIFICATION_CRITERIA_SOURCE, *notices]}
     practical = qualifications["practical_english"]
     if english.topik4_instead:
-        record("practical-english", "실용영어 대체 (TOPIK)", 4, practical, unit="급")
+        record("practical-english", "실용영어 대체 (TOPIK)", 4, qualification, unit="급")
     elif "practical_english" not in exempt:
         scores = [f"{item['test']} {item['min']}" for item in practical["accepted_scores"]]
-        record("practical-english", "실용영어 졸업자격인정", 1, practical,
-               details=[practical["validity"], "시험별 기준: " + ", ".join(scores)])
+        record("practical-english", "실용영어 졸업자격인정", 1, qualification,
+               details=[practical["validity"], "시험별 기준: " + ", ".join(scores),
+                        "또는 첨성인기초 실용영어 영역 4학점 이상 이수"])
     if "software" not in exempt:
         software = qualifications["software"]
-        record("software", "소프트웨어 졸업자격인정", 1, software,
-               details=[software["rule"], "인정 대체 과목: " + ", ".join(software["department_substitute_codes"])],
+        record("software", "소프트웨어 졸업자격인정", 1, qualification,
+               details=[software["rule"], "컴퓨터학부 지정 대체과목: " + ", ".join(software["department_substitute_codes"])],
                course_codes=software["department_substitute_codes"])
     if "counseling" not in exempt:
         counseling = qualifications["counseling"]
-        record("counseling", "지도교수 상담", counseling["min_sessions"], counseling, unit="회")
+        record("counseling", "지도교수 상담", counseling["min_sessions"], qualification, unit="회")
 
     gpa = policies["min_gpa"]
     record("gpa", "평점평균", gpa["value"], gpa, details=[f"{gpa['scale']} 만점, F 포함"])
@@ -248,20 +271,22 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         key = item["id"]
         if key == "multi_major_optional":
             notes.append(item["text"])
-        elif key == "multi_major_required":
+            continue
+        section = item if item.get("source") else track
+        if key == "multi_major_required":
             # The selected plan is not evidence that the other major was completed.
-            record("track-" + key, item["text"], 1, track)
+            record("track-" + key, item["text"], 1, section)
         elif item.get("one_of"):
-            options = [CourseOption(course_code=code, course_name=catalog.get(code, {}).get("name", code))
-                       for code in item["one_of"]]
+            options = [CourseOption(course_code=code, course_name=course_name(code)) for code in item["one_of"]]
             course_groups.append(CourseRequirement(
                 id="track-" + key, name=item["text"], courses=options, choose=1,
-                minimum_course_credits=item.get("min_credits", 0), require_department=True, sources=cite(track),
+                minimum_course_credits=item.get("min_credits", 0), require_department=True, sources=cite(section),
                 reject_transfer_courses=status in {"general_transfer", "bachelor_transfer"},
-                accept_equivalent_codes=False,
+                accept_equivalent_codes=False, match_by_course_name=key == "capstone",
             ))
         else:
-            record("track-" + key, item["text"], item.get("min_credits", 1), track)
+            record("track-" + key, item["text"], item.get("min_credits", 1), section,
+                   unit="학점" if item.get("min_credits") else None)
     if variant:
         notes.append(variant["text"])
         record("track-knu-credits", "본교 이수", variant["knu_credits_min"], track, unit="학점")
@@ -272,14 +297,23 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         "NC-TRANSFER-MINOR1": status in {"general_transfer", "bachelor_transfer"} and multi == "minor_1_only",
         "NC-GLSOP-800-EQUIV": english.department_min_toeic == 800 and not variant,
         "NC-PLSOP-ABEEK-BACH-BASIC": status == "bachelor_transfer",
-        "NC-LIB-AREA-MAP": resolved.liberal_arts_areas_required,
+        # 교양 영역은 수강 학기의 분류(data/curricula/raw/cltr_areas.json)와 2025 공식 목록으로 판정한다.
+        "NC-LIB-AREA-MAP": False,
+        "NC-CURR-GLSOP-OLD": not curriculum_is_sourced("glsop", student.admission_year),
+        "NC-CURR-PLSOP-OLD": not curriculum_is_sourced("plsop", student.admission_year),
+        # 2025학년도 표(ai_2025)로 확인됨. 2024학년도 표만 미확인
+        "NC-CURR-AICOM-2024": student.major == "aicom" and not curriculum_is_sourced("aicom", student.admission_year),
     }
     for item in loader._read("needs_confirmation.json")["items"]:
         key = item["id"]
         if key in active and relevant.get(key, True):
-            confirm(key, item["question"], {"source": item["sources"]})
+            cited = item["sources"]
+            if student.major != "plsop" and "S10" in cited:
+                # 플솝 공지에 실린 붙임3(학부 공통 졸업자격인정 기준)은 붙임3 자체와 본인 전공 공지로 인용
+                cited = [QUALIFICATION_CRITERIA_SOURCE if ref == "S10" else ref for ref in cited] + notices
+            confirm(key, item["question"], {"source": cited})
     if resolved.field_practice_credits and student.major != "aicom":
-        confirm("NC-FP-SCOPE", "현장실습 대체 기준의 전공별 적용 범위", field)
+        confirm("NC-FP-SCOPE", "현장실습 대체 기준의 전공별 적용 범위", {"source": ["S9", *notices]})
     for item in required["all_of"]:
         if item.get("co_requisite"):
             confirm("corequisite-" + item["code"], f"{item['name']} 관련 과목 {item['co_requisite']} 이수 기준", required)
@@ -297,7 +331,11 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         caps.append(CreditCap(maximum=liberal["max_counted"], category="liberal_arts"))
 
     major_codes = {item["code"] for item in required["all_of"] if not item["code"].startswith("CLTR")}
-    if not curriculum.get("inferred"):
+    if student.major in curricula():
+        # 본인 학번에 적용되는 교육과정표의 전공 교과목만 전공으로 인정 (글솝 공지 28594).
+        # 플솝(심화컴퓨터공학 ABEEK)은 공학전공, 그 외 전공은 '전공' 구분.
+        major_codes.update(major_courses(student.major, student.admission_year, MAJOR_CATEGORIES[student.major]))
+    elif not curriculum.get("inferred"):
         major_codes.update(code for code, row in catalog.items() if row["counts_toward"] == "major")
     treatments = {}
     if student.major == "glsop" and student.admission_year >= 2023:
@@ -329,6 +367,8 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
                 "교양": "liberal_arts", "교양필수": "liberal_arts", "교양선택": "liberal_arts",
                 "일반선택": "general", "다중전공": "general", "현장실습": "general",
                 "해외대학": "general", "대학원": "general", "융합전공": "general",
+                # 다전공(복수·연계·융합·부전공) 학점은 졸업학점에 포함되지만 주전공 학점에는 포함되지 않음
+                "부전공": "general", "복수전공": "general", "연계전공": "general", "다전공": "general",
             }.items()
         },
         major_transcript_categories=["전공필수", "전공선택", "전공"],

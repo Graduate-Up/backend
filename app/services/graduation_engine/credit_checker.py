@@ -6,6 +6,10 @@ from app.schemas.evaluation import CreditEntry, RequirementResult
 from app.schemas.rules import CreditTreatment, GraduationRule
 
 
+# 성적표 교과구분이 이 값이면 학부 개설 과목이어도 주전공 학점으로 보지 않는다 (다전공·현장실습 등).
+NON_MAJOR_CATEGORIES = {"다중전공", "현장실습", "해외대학", "대학원", "융합전공", "부전공", "복수전공", "연계전공", "다전공"}
+
+
 def check_credits(
     courses: list[Course], rule: GraduationRule, equivalents: dict[str, str],
 ) -> tuple[list[RequirementResult], list[CreditEntry]]:
@@ -45,19 +49,18 @@ def check_credits(
 
         category = course.transcript_category.strip()
         treatment = rule.transcript_categories.get(category)
-        if category in {"다중전공", "현장실습", "해외대학", "대학원", "융합전공"} or not rule.department_major_codes:
-            return treatment, None
-        known_major = canonical in rule.department_major_codes
-        if not known_major and category not in rule.major_transcript_categories:
+        if category in NON_MAJOR_CATEGORIES:
             return treatment, None
         general = CreditTreatment(category="general")
+        if category in rule.major_transcript_categories:
+            return (general if course.offered_by_computer_science is False else CreditTreatment(category="major")), None
+        if canonical not in rule.department_major_codes:
+            return treatment, None
         if course.offered_by_computer_science is False:
             return general, None
-        if not known_major or course.offered_by_computer_science is None:
-            return treatment or general, "verification_required"
-        if category not in rule.major_transcript_categories:
+        if course.offered_by_computer_science is True:
             return treatment or general, "approval_required"
-        return CreditTreatment(category="major"), None
+        return treatment or general, None
     cap_codes = [
         {equivalents.get(code, code) for code in cap.course_codes} if cap.course_codes is not None else None
         for cap in rule.credit_caps

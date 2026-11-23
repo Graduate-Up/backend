@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from math import isfinite
 
 from pydantic import BaseModel, ConfigDict, Field
+from app.schemas.evaluation import LiberalSummary
 
 from app.schemas.course import normalize_grade
 
@@ -48,6 +49,7 @@ class TranscriptPreview(BaseModel):
 
 class TranscriptImportInput(TranscriptInput):
     expected: int = Field(ge=1, le=500)
+    liberal_summary: LiberalSummary | None = Field(default=None, min_length=8, max_length=8)
 
 
 def field(row: dict, *keys: str) -> str:

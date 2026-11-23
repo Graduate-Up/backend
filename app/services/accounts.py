@@ -8,16 +8,35 @@ from contextlib import closing, contextmanager
 from functools import lru_cache
 from pathlib import Path
 
-from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
-from app.schemas.evaluation import NonacademicRecord, StudentRecords
+from app.schemas.account import AccountResponse, Credentials, MeResponse, Registration, SessionResponse, StudentSettings
+from app.schemas.evaluation import LiberalSummary, NonacademicRecord, StudentRecords
 from app.schemas.course import Course
 
 SESSION_SECONDS = 8 * 60 * 60
 PASSWORD_ROUNDS = 600_000
+EMAIL_CODE_TTL = 600
+EMAIL_CODE_COOLDOWN = 60
+EMAIL_CODE_ATTEMPTS = 5
 
 
 class DuplicateUsername(ValueError):
     pass
+
+
+class InvalidEmailCode(ValueError):
+    pass
+
+
+class InvalidLegacyAccount(ValueError):
+    pass
+
+
+class EmailCodeRateLimit(ValueError):
+    pass
+
+
+def _email_code_digest(secret: bytes, email: str, nonce: str, code: str) -> bytes:
+    return hmac.digest(secret, f"{email}:{nonce}:{code}".encode(), "sha256")
 
 
 def _password_digest(password: str, salt: bytes, rounds: int) -> bytes:
@@ -48,6 +67,18 @@ class AccountStore:
                     expires_at INTEGER NOT NULL
                 );
                 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
+                CREATE TABLE IF NOT EXISTS verified_accounts (
+                    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE
+                );
+                CREATE TABLE IF NOT EXISTS registration_codes (
+                    email TEXT PRIMARY KEY,
+                    nonce TEXT NOT NULL,
+                    digest BLOB NOT NULL,
+                    issuer TEXT NOT NULL,
+                    sent_at INTEGER NOT NULL,
+                    attempts INTEGER NOT NULL DEFAULT 0
+                );
+                CREATE INDEX IF NOT EXISTS registration_codes_issuer ON registration_codes(issuer, sent_at);
                 CREATE TABLE IF NOT EXISTS student_records (
                     user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
                     records_json TEXT NOT NULL
@@ -62,22 +93,69 @@ class AccountStore:
             with conn:
                 yield conn
 
-    def register(self, credentials: Credentials) -> AccountResponse:
-        salt = secrets.token_bytes(16)
-        password_hash = _password_digest(credentials.password.get_secret_value(), salt, PASSWORD_ROUNDS)
+    def issue_email_code(self, email: str, issuer: str, secret: bytes) -> str:
+        code = f"{secrets.randbelow(1_000_000):06d}"
+        nonce = secrets.token_hex(16)
+        now = int(time.time())
         with self.connect() as conn:
-            row = conn.execute(
-                """INSERT INTO users (username, password_salt, password_hash, password_rounds)
-                VALUES (?, ?, ?, ?) ON CONFLICT(username) DO NOTHING RETURNING id, username""",
-                (credentials.username, salt, password_hash, PASSWORD_ROUNDS),
-            ).fetchone()
-            if row is None:
-                raise DuplicateUsername("이미 사용 중인 사용자 이름입니다.")
-            return AccountResponse(**dict(row))
+            conn.execute("BEGIN IMMEDIATE")
+            conn.execute("DELETE FROM registration_codes WHERE sent_at <= ?", (now - 3600,))
+            previous = conn.execute("SELECT sent_at FROM registration_codes WHERE email = ?", (email,)).fetchone()
+            recent = conn.execute("SELECT COUNT(*) FROM registration_codes WHERE issuer = ?", (issuer,)).fetchone()[0]
+            if (previous and now - previous["sent_at"] < EMAIL_CODE_COOLDOWN) or (previous is None and recent >= 10):
+                raise EmailCodeRateLimit()
+            conn.execute(
+                """INSERT INTO registration_codes (email, nonce, digest, issuer, sent_at)
+                VALUES (?, ?, ?, ?, ?) ON CONFLICT(email) DO UPDATE SET nonce = excluded.nonce,
+                digest = excluded.digest, issuer = excluded.issuer, sent_at = excluded.sent_at, attempts = 0""",
+                (email, nonce, _email_code_digest(secret, email, nonce, code), issuer, now),
+            )
+        return code
+
+    def register(self, credentials: Registration, secret: bytes) -> AccountResponse:
+        salt = secrets.token_bytes(16)
+        password = credentials.password.get_secret_value()
+        password_hash = _password_digest(password, salt, PASSWORD_ROUNDS)
+        with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            pending = conn.execute("SELECT * FROM registration_codes WHERE email = ?", (credentials.email,)).fetchone()
+            if (pending is None or time.time() >= pending["sent_at"] + EMAIL_CODE_TTL
+                    or pending["attempts"] >= EMAIL_CODE_ATTEMPTS):
+                raise InvalidEmailCode()
+            digest = _email_code_digest(secret, credentials.email, pending["nonce"], credentials.code.get_secret_value())
+            if not hmac.compare_digest(digest, pending["digest"]):
+                conn.execute("UPDATE registration_codes SET attempts = attempts + 1 WHERE email = ?", (credentials.email,))
+                conn.commit()
+                raise InvalidEmailCode()
+            if conn.execute("SELECT 1 FROM users WHERE username = ?", (credentials.email,)).fetchone():
+                raise DuplicateUsername("이미 가입된 학교 이메일입니다.")
+            if credentials.legacy_username is not None:
+                legacy = conn.execute(
+                    """SELECT * FROM users WHERE username = ? AND id NOT IN (SELECT user_id FROM verified_accounts)""",
+                    (credentials.legacy_username,),
+                ).fetchone()
+                if legacy is None or not hmac.compare_digest(
+                    _password_digest(password, legacy["password_salt"], legacy["password_rounds"]), legacy["password_hash"],
+                ):
+                    raise InvalidLegacyAccount()
+                user_id = legacy["id"]
+                conn.execute("UPDATE users SET username = ? WHERE id = ?", (credentials.email, user_id))
+                conn.execute("DELETE FROM sessions WHERE user_id = ?", (user_id,))
+            else:
+                user_id = conn.execute(
+                    "INSERT INTO users (username, password_salt, password_hash, password_rounds) VALUES (?, ?, ?, ?)",
+                    (credentials.email, salt, password_hash, PASSWORD_ROUNDS),
+                ).lastrowid
+            conn.execute("INSERT INTO verified_accounts (user_id) VALUES (?)", (user_id,))
+            conn.execute("DELETE FROM registration_codes WHERE email = ?", (credentials.email,))
+            return AccountResponse(id=user_id, username=credentials.email)
 
     def login(self, credentials: Credentials) -> SessionResponse | None:
         with self.connect() as conn:
-            user = conn.execute("SELECT * FROM users WHERE username = ?", (credentials.username,)).fetchone()
+            user = conn.execute(
+                "SELECT users.* FROM users JOIN verified_accounts ON users.id = verified_accounts.user_id WHERE username = ?",
+                (credentials.email,),
+            ).fetchone()
         salt = user["password_salt"] if user else bytes(16)
         rounds = user["password_rounds"] if user else PASSWORD_ROUNDS
         digest = _password_digest(credentials.password.get_secret_value(), salt, rounds)
@@ -99,6 +177,7 @@ class AccountStore:
             row = conn.execute(
                 """SELECT users.id, users.username, users.profile_json FROM sessions
                 JOIN users ON users.id = sessions.user_id
+                JOIN verified_accounts ON users.id = verified_accounts.user_id
                 WHERE sessions.token_hash = ? AND sessions.expires_at > ?""",
                 (_token_digest(token), int(time.time())),
             ).fetchone()
@@ -120,15 +199,23 @@ class AccountStore:
             row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
         return StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
 
-    def save_records(self, user_id: int, records: StudentRecords) -> None:
+    def save_records(self, user_id: int, records: StudentRecords) -> StudentRecords:
         with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            if "liberal_summary" not in records.model_fields_set:
+                row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+                if row is not None:
+                    records.liberal_summary = StudentRecords.model_validate_json(row["records_json"]).liberal_summary
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
                 ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
                 (user_id, records.model_dump_json()),
             )
+        return records
 
-    def append_courses(self, user_id: int, courses: list[Course]) -> tuple[int, int]:
+    def append_courses(
+        self, user_id: int, courses: list[Course], liberal_summary: LiberalSummary | None = None,
+    ) -> tuple[int, int]:
         """Add courses whose code is new and fill in missing grades of already saved courses.
 
         Returns (added, grades_filled).
@@ -148,11 +235,12 @@ class AccountStore:
                 saved.append(course)
             existing = {course.course_code for course in saved}
             additions = [course for course in courses if course.course_code not in existing]
-            if not additions and not filled:
+            if not additions and not filled and (liberal_summary is None or liberal_summary == records.liberal_summary):
                 return 0, 0
             updated = StudentRecords(
                 completed_courses=[*saved, *additions],
                 nonacademic_records=records.nonacademic_records,
+                liberal_summary=liberal_summary if liberal_summary is not None else records.liberal_summary,
             )
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
@@ -173,6 +261,7 @@ class AccountStore:
             updated = StudentRecords(
                 completed_courses=records.completed_courses,
                 nonacademic_records=change(records.nonacademic_records),
+                liberal_summary=records.liberal_summary,
             )
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)

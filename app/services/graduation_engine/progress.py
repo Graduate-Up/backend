@@ -7,7 +7,7 @@ toggles them and recomputes the overall percentage with the same formula as ``ov
 
 from app.schemas.course import Course
 from app.schemas.evaluation import (
-    NonacademicRecord, ProgressItem, ProgressNotice, ProgressResponse, RequirementResult,
+    LiberalSummary, NonacademicRecord, ProgressItem, ProgressNotice, ProgressResponse, RequirementResult,
 )
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 from app.schemas.student import StudentProfile
@@ -34,9 +34,15 @@ def is_complete(item: ProgressItem) -> bool:
     return bool(item.checked) if item.kind == "checklist" else item.status == "satisfied"
 
 
+def recorded_amount(requirement: NonacademicRequirement, records: list[NonacademicRecord]) -> float | None:
+    amounts = [record.amount for record in records
+               if record.requirement_id == requirement.id and record.status == "satisfied"]
+    return max(amounts) if amounts else None
+
+
 def is_checked(requirement: NonacademicRequirement, records: list[NonacademicRecord]) -> bool:
-    return any(record.requirement_id == requirement.id and record.status == "satisfied"
-               and record.amount >= requirement.minimum for record in records)
+    amount = recorded_amount(requirement, records)
+    return amount is not None and amount >= requirement.minimum
 
 
 def course_item(result: RequirementResult) -> ProgressItem:
@@ -59,11 +65,14 @@ def checklist_item(
     requirement: NonacademicRequirement, records: list[NonacademicRecord], evidence: str | None,
 ) -> ProgressItem:
     checked = evidence is not None or is_checked(requirement, records)
+    amount = recorded_amount(requirement, records)
+    current = requirement.minimum if evidence is not None else (amount or 0)
     return ProgressItem(
         id=requirement.id, name=requirement.name, kind="checklist",
         status="satisfied" if checked else "unsatisfied",
-        current=requirement.minimum if checked else 0, required=requirement.minimum, unit=requirement.unit,
+        current=current, required=requirement.minimum, unit=requirement.unit,
         fraction=1.0 if checked else 0.0, checked=checked, auto_checked=evidence is not None,
+        recorded_amount=amount,
         reason=evidence or "학생이 직접 충족 여부를 체크하는 항목",
         details=[evidence] if evidence else requirement.details, sources=requirement.sources,
     )
@@ -74,9 +83,12 @@ def build_progress(
     completed_courses: list[Course],
     nonacademic_records: list[NonacademicRecord],
     rules: RuleSource,
+    liberal_summary: LiberalSummary | None = None,
 ) -> ProgressResponse:
     rule = select_rules(student_profile, rules)
-    results, entries = evaluate_course_requirements(completed_courses, rule, student_profile.admission_year)
+    results, entries = evaluate_course_requirements(
+        completed_courses, rule, student_profile.admission_year, liberal_summary,
+    )
     equivalents = equivalent_codes(rule)
     course_items = [course_item(result) for result in results]
     items = course_items + [
@@ -92,13 +104,20 @@ def build_progress(
 
 
 def toggle_checklist(
-    rule: GraduationRule, records: list[NonacademicRecord], requirement_id: str, checked: bool,
+    rule: GraduationRule, records: list[NonacademicRecord], requirement_id: str, checked: bool | None,
+    amount: float | None = None,
 ) -> list[NonacademicRecord]:
-    """Return the nonacademic records with one checklist item set or cleared."""
+    """Return the nonacademic records with one checklist item set, cleared, or set to a measured amount.
+
+    `checked=True` stores the requirement minimum (e.g. 700 for TOEIC), so it is satisfied.
+    `amount` stores the measured value and is satisfied only when it reaches the minimum.
+    """
     requirement = next((item for item in checklist_requirements(rule) if item.id == requirement_id), None)
     if requirement is None:
         raise KeyError(requirement_id)
     kept = [record for record in records if record.requirement_id != requirement_id]
-    if checked:
+    if amount is not None:
+        kept.append(NonacademicRecord(requirement_id=requirement_id, amount=amount, status="satisfied"))
+    elif checked:
         kept.append(NonacademicRecord(requirement_id=requirement_id, amount=requirement.minimum, status="satisfied"))
     return kept

@@ -6,7 +6,7 @@ from app.schemas.rules import NonacademicRequirement
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_selector import select_rules
 from tests.demo_app import create_demo_app
-from tests.test_accounts_api import CREDENTIALS, PROFILE, sign_in
+from tests.test_accounts_api import PROFILE, register, sign_in
 
 
 def test_only_course_requirements_are_calculated_and_checklist_follows_records(rules, student, course):
@@ -37,11 +37,11 @@ def test_toggle_checklist_replaces_only_that_requirement(rules, student):
     assert toggle_checklist(rule, on, "test-english", False) == [other]
 
 
-def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path):
+def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     with TestClient(create_demo_app()) as client:
         assert client.get("/dashboard-view.js").status_code == 200
-        assert client.post("/api/v1/auth/register", json=CREDENTIALS).status_code == 201
+        assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
         assert client.get("/api/v1/me/progress", headers=headers).status_code == 409
         assert client.put("/api/v1/me/profile", json=PROFILE, headers=headers).status_code == 200
@@ -68,10 +68,10 @@ def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path):
         assert cleared["progress"] == before["progress"]
 
 
-def test_import_keeps_grades_failed_courses_and_fills_missing_grades(monkeypatch, tmp_path):
+def test_import_keeps_grades_failed_courses_and_fills_missing_grades(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     with TestClient(create_demo_app()) as client:
-        assert client.post("/api/v1/auth/register", json=CREDENTIALS).status_code == 201
+        assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
         assert client.put("/api/v1/me/profile", json=PROFILE, headers=headers).status_code == 200
         ungraded = {"course_code": "TEST0001", "semester": "2024-1", "credits": 3,
@@ -99,3 +99,29 @@ def test_gpa_requirement_becomes_course_item(rules, student, course):
     assert gpa.details[0] == "4.3 만점, F 포함"
     with pytest.raises(KeyError):
         toggle_checklist(select_rules(student, rules), [], "gpa", True)
+
+
+def test_checklist_stores_minimum_when_checked_and_real_amount_when_given(rules, student):
+    from app.services.graduation_engine.progress import is_checked
+
+    rule = select_rules(student, rules)
+    requirement = next(item for item in rule.nonacademic_requirements if item.id == "test-english")
+    rule.nonacademic_requirements[rule.nonacademic_requirements.index(requirement)] = requirement.model_copy(
+        update={"minimum": 700})
+    requirement = requirement.model_copy(update={"minimum": 700})
+    checked = toggle_checklist(rule, [], "test-english", True)
+    assert checked[0].amount == 700 and is_checked(requirement, checked)
+    low = toggle_checklist(rule, [], "test-english", None, 650)
+    assert low[0].amount == 650 and not is_checked(requirement, low)
+    assert is_checked(requirement, toggle_checklist(rule, low, "test-english", None, 750))
+
+
+def test_checklist_update_needs_exactly_one_value():
+    from pydantic import ValidationError
+
+    from app.schemas.evaluation import ChecklistUpdate
+
+    assert ChecklistUpdate(requirement_id="x", amount=750).amount == 750
+    for payload in ({"requirement_id": "x"}, {"requirement_id": "x", "checked": True, "amount": 1}):
+        with pytest.raises(ValidationError):
+            ChecklistUpdate(**payload)

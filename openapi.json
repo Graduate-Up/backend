@@ -82,6 +82,27 @@
         }
       }
     },
+    "/api/v1/graduation/schedule": {
+      "get": {
+        "tags": [
+          "requirements"
+        ],
+        "summary": "Graduation Schedule",
+        "operationId": "graduation_schedule_api_v1_graduation_schedule_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraduationSchedule"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/requirements/tracks": {
       "get": {
         "tags": [
@@ -390,6 +411,60 @@
         }
       }
     },
+    "/api/v1/auth/email-code": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Send Email Code",
+        "operationId": "send_email_code_api_v1_auth_email_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailCodeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/auth/register": {
       "post": {
         "tags": [
@@ -401,7 +476,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Credentials"
+                "$ref": "#/components/schemas/Registration"
               }
             }
           },
@@ -418,8 +493,28 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "409": {
             "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
             "content": {
               "application/json": {
                 "schema": {
@@ -1171,9 +1266,8 @@
           },
           "username": {
             "type": "string",
-            "maxLength": 64,
-            "minLength": 3,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
+            "maxLength": 75,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_+.-]{0,63}@([kK][nN][uU]\\.[aA][cC]\\.[kK][rR])$",
             "title": "Username"
           }
         },
@@ -1254,17 +1348,37 @@
             "title": "Requirement Id"
           },
           "checked": {
-            "type": "boolean",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Checked"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount",
+            "description": "실제 수치. 기준 이상이면 충족"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "requirement_id",
-          "checked"
+          "requirement_id"
         ],
-        "title": "ChecklistUpdate"
+        "title": "ChecklistUpdate",
+        "description": "체크박스(`checked`) 또는 실제 수치(`amount`, 예: TOEIC 점수, 상담 횟수) 중 하나로 저장한다.\n\n`checked: true`는 기준값(예: 700점, 8회)으로 저장되어 충족이다. `amount`는 그대로 저장되며\n기준 이상일 때만 충족이다. `checked: false`는 기록을 지운다."
       },
       "Conditions": {
         "properties": {
@@ -1619,6 +1733,11 @@
             "type": "boolean",
             "title": "Accept Equivalent Codes",
             "default": true
+          },
+          "match_by_course_name": {
+            "type": "boolean",
+            "title": "Match By Course Name",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -1670,12 +1789,11 @@
       },
       "Credentials": {
         "properties": {
-          "username": {
+          "email": {
             "type": "string",
-            "maxLength": 64,
-            "minLength": 3,
-            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
-            "title": "Username"
+            "maxLength": 75,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_+.-]{0,63}@([kK][nN][uU]\\.[aA][cC]\\.[kK][rR])$",
+            "title": "Email"
           },
           "password": {
             "type": "string",
@@ -1689,7 +1807,7 @@
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "username",
+          "email",
           "password"
         ],
         "title": "Credentials"
@@ -1827,6 +1945,14 @@
             "type": "boolean",
             "title": "Major Approval Required",
             "default": false
+          },
+          "course_areas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Course Areas",
+            "description": "입학년도 교육과정표·수강 학기 교양 영역 기준 구분. 예: 기본소양, 공학전공, 설계, 첨성인기초(글쓰기), 첨성인핵심(인문·사회), 첨성인일반, SDG, 창업교과목"
           }
         },
         "type": "object",
@@ -1917,6 +2043,82 @@
           "category"
         ],
         "title": "CreditTreatment"
+      },
+      "DepartmentDeadline": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "sources"
+        ],
+        "title": "DepartmentDeadline"
+      },
+      "EarlyGraduationPolicy": {
+        "properties": {
+          "min_semesters": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Min Semesters"
+          },
+          "min_gpa": {
+            "type": "number",
+            "maximum": 4.3,
+            "minimum": 0.0,
+            "title": "Min Gpa"
+          },
+          "rule": {
+            "type": "string",
+            "title": "Rule"
+          },
+          "not_for_transfer": {
+            "type": "boolean",
+            "title": "Not For Transfer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "min_semesters",
+          "min_gpa",
+          "rule",
+          "not_for_transfer",
+          "sources"
+        ],
+        "title": "EarlyGraduationPolicy"
+      },
+      "EmailCodeRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 75,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_+.-]{0,63}@([kK][nN][uU]\\.[aA][cC]\\.[kK][rR])$",
+            "title": "Email"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "EmailCodeRequest"
       },
       "ErrorResponse": {
         "properties": {
@@ -2239,6 +2441,30 @@
         ],
         "title": "GraduationRule"
       },
+      "GraduationSchedule": {
+        "properties": {
+          "qualification_deadlines": {
+            "items": {
+              "$ref": "#/components/schemas/QualificationDeadline"
+            },
+            "type": "array",
+            "title": "Qualification Deadlines"
+          },
+          "department_deadline": {
+            "$ref": "#/components/schemas/DepartmentDeadline"
+          },
+          "early_graduation": {
+            "$ref": "#/components/schemas/EarlyGraduationPolicy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "qualification_deadlines",
+          "department_deadline",
+          "early_graduation"
+        ],
+        "title": "GraduationSchedule"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -2504,6 +2730,19 @@
             "description": "이수 과목으로 충족이 확인된 checklist 항목 (예: SW 대체 과목 이수)",
             "default": false
           },
+          "recorded_amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recorded Amount",
+            "description": "checklist 항목에 저장된 수치 (없으면 null)"
+          },
           "reason": {
             "type": "string",
             "title": "Reason"
@@ -2644,6 +2883,93 @@
           "credit_entries"
         ],
         "title": "ProgressResponse"
+      },
+      "QualificationDeadline": {
+        "properties": {
+          "graduation": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(02|08)$",
+            "title": "Graduation"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "graduation",
+          "date",
+          "sources"
+        ],
+        "title": "QualificationDeadline"
+      },
+      "Registration": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 75,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_+.-]{0,63}@([kK][nN][uU]\\.[aA][cC]\\.[kK][rR])$",
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "format": "password",
+            "title": "Password",
+            "writeOnly": true
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "format": "password",
+            "title": "Code",
+            "writeOnly": true
+          },
+          "legacy_username": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 3,
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legacy Username"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "code"
+        ],
+        "title": "Registration"
       },
       "RequiredCourseResult": {
         "properties": {
@@ -2999,6 +3325,35 @@
             "type": "array",
             "maxItems": 500,
             "title": "Nonacademic Records"
+          },
+          "liberal_summary": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0.0
+                },
+                "propertyNames": {
+                  "enum": [
+                    "독서와토론",
+                    "사고교육",
+                    "글쓰기",
+                    "외국어",
+                    "수리",
+                    "기초과학",
+                    "인문·사회",
+                    "자연과학"
+                  ]
+                },
+                "type": "object",
+                "maxProperties": 8,
+                "minProperties": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liberal Summary"
           }
         },
         "additionalProperties": false,
@@ -3283,6 +3638,35 @@
             "maximum": 500.0,
             "minimum": 1.0,
             "title": "Expected"
+          },
+          "liberal_summary": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0.0
+                },
+                "propertyNames": {
+                  "enum": [
+                    "독서와토론",
+                    "사고교육",
+                    "글쓰기",
+                    "외국어",
+                    "수리",
+                    "기초과학",
+                    "인문·사회",
+                    "자연과학"
+                  ]
+                },
+                "type": "object",
+                "maxProperties": 8,
+                "minProperties": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liberal Summary"
           }
         },
         "additionalProperties": false,
@@ -3315,6 +3699,11 @@
             "type": "integer",
             "title": "Grades Filled",
             "default": 0
+          },
+          "liberal_summary_saved": {
+            "type": "boolean",
+            "title": "Liberal Summary Saved",
+            "default": false
           }
         },
         "type": "object",

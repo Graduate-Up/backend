@@ -1,0 +1,1326 @@
+major,admission_year,curriculum_year,code,name,credits,grade_year,semester,category,required,design,tags,inferred,source
+aicom,2023,2023,CLTR0045,논리와 비판적 사고,3,1,1,교양,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0819,기초수학2,3,1,1,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COME0301,이산수학,3,1,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,false,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움)"
+aicom,2023,2023,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,전공,true,false,,false,이미지 판독
+aicom,2023,2023,CLTR0003,실용화법,3,1,2,교양,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0211,수학 I,3,1,2,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0204,프로그래밍기초,6,1,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0205,기초창의공학설계,3,1,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0454,인공지능수학기초,3,1,2,전공,true,false,,false,이미지 판독
+aicom,2023,2023,COME0331,자료구조,3,2,1,전공,true,false,,false,이미지 판독
+aicom,2023,2023,COMP0216,자료구조응용,3,2,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0315,오토마타및형식언어,3,2,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,FUTR0208,미래산업과 직업선택,3,2,1,교양,false,false,KNU미래설계,false,이미지 판독
+aicom,2023,2023,MTED0231,선형대수,3,2,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0246,일반생명과학 I,3,2,2,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COME0311,확률및통계,3,2,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0312,운영체제,3,2,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0324,인공지능,3,2,2,전공,true,false,,false,이미지 판독
+aicom,2023,2023,ELEC0462,시스템프로그래밍,3,2,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0233,영상이해,3,3,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0264,소셜네트워크,3,3,1,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0319,알고리즘1,3,3,1,전공,true,false,,false,이미지 판독
+aicom,2023,2023,COMP0321,컴파일러,3,3,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0323,데이타통신,3,3,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,GLSO0215,오픈소스프로그래밍,3,3,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,ITEC0417,기계학습개론,3,3,1,전공,true,false,,false,이미지 판독
+aicom,2023,2023,CAIB0211,자연어처리개론,3,3,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0216,강화학습개론,3,3,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0212,수학 II,3,3,2,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,ITEC0401,종합설계프로젝트1,4,3,2,전공,true,false,,false,이미지 판독
+aicom,2023,2023,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,MOBI0224,딥러닝,3,3,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0222,인공지능시스템,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0225,음성인식,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0234,신경망개론,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0219,인공지능수학심화,3,4,1,전공,false,false,,false,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움)"
+aicom,2023,2023,COMP0414,컴퓨터망,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0419,정보검색,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,FUTR0201,기업가정신과 벤처창업,3,4,1,교양,false,false,KNU미래설계,false,이미지 판독
+aicom,2023,2023,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CAIB0224,정보이론기초,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,CLTR0078,심리학의 이해,3,4,2,교양,false,false,,false,이미지 판독
+aicom,2023,2023,COME0368,정보보호론,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0220,AI심화글쓰기,3,4,2,전공,false,false,,false,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움)"
+aicom,2023,2023,COMP0328,모바일앱프로그래밍1,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0436,증강현실,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0455,지능HCI,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2023,2023,ITEC0514,뇌인지공학개론,3,4,2,전공,false,false,,false,이미지 판독
+aicom,2024,2023,CLTR0045,논리와 비판적 사고,3,1,1,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0819,기초수학2,3,1,1,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COME0301,이산수학,3,1,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,true,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움; 2024학번 원문 없음 → 2023 교육과정 적용)"
+aicom,2024,2023,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0003,실용화법,3,1,2,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0211,수학 I,3,1,2,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0204,프로그래밍기초,6,1,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0205,기초창의공학설계,3,1,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0454,인공지능수학기초,3,1,2,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COME0331,자료구조,3,2,1,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0216,자료구조응용,3,2,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0315,오토마타및형식언어,3,2,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,FUTR0208,미래산업과 직업선택,3,2,1,교양,false,false,KNU미래설계,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,MTED0231,선형대수,3,2,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0246,일반생명과학 I,3,2,2,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COME0311,확률및통계,3,2,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0312,운영체제,3,2,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0324,인공지능,3,2,2,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ELEC0462,시스템프로그래밍,3,2,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0233,영상이해,3,3,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0264,소셜네트워크,3,3,1,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0319,알고리즘1,3,3,1,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0321,컴파일러,3,3,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0323,데이타통신,3,3,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,GLSO0215,오픈소스프로그래밍,3,3,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0417,기계학습개론,3,3,1,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0211,자연어처리개론,3,3,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0216,강화학습개론,3,3,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0212,수학 II,3,3,2,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0322,데이타베이스,3,3,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0401,종합설계프로젝트1,4,3,2,전공,true,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,MOBI0224,딥러닝,3,3,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0222,인공지능시스템,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0225,음성인식,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0234,신경망개론,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0219,인공지능수학심화,3,4,1,전공,false,false,,true,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움; 2024학번 원문 없음 → 2023 교육과정 적용)"
+aicom,2024,2023,COMP0414,컴퓨터망,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0419,정보검색,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,FUTR0201,기업가정신과 벤처창업,3,4,1,교양,false,false,KNU미래설계,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0415,고급문제해결,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CAIB0224,정보이론기초,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,CLTR0078,심리학의 이해,3,4,2,교양,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COME0368,정보보호론,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0220,AI심화글쓰기,3,4,2,전공,false,false,,true,"이미지 판독 (원문 '신규'(코드 없음), 2025 교육과정 코드로 채움; 2024학번 원문 없음 → 2023 교육과정 적용)"
+aicom,2024,2023,COMP0328,모바일앱프로그래밍1,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0436,증강현실,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0455,지능HCI,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,COMP0457,의료인공지능,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2024,2023,ITEC0514,뇌인지공학개론,3,4,2,전공,false,false,,true,이미지 판독 (2024학번 원문 없음 → 2023 교육과정 적용)
+aicom,2025,2025,CLTR0045,논리와 비판적 사고,3,1,1,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COME0301,이산수학,3,1,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0003,실용화법,3,1,2,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0211,수학Ⅰ,3,1,2,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0819,기초수학2,3,1,2,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0204,프로그래밍기초,6,1,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0205,기초창의공학설계,3,1,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0454,인공지능수학기초,3,1,2,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0246,일반생명과학Ⅰ,3,2,1,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COME0331,자료구조,3,2,1,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0216,자료구조응용,3,2,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0315,오토마타및형식언어,3,2,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,MTED0231,선형대수,3,2,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COME0311,확률및통계,3,2,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0312,운영체제,3,2,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0324,인공지능,3,2,2,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,ELEC0462,시스템프로그래밍,3,2,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,FUTR0208,미래산업과 직업선택,3,2,2,일반선택,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0233,영상이해,3,3,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0264,소셜네트워크,3,3,1,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0319,알고리즘1,3,3,1,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0321,컴파일러,3,3,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0323,데이타통신,3,3,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,GLSO0215,오픈소스프로그래밍,3,3,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0417,기계학습개론,3,3,1,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0211,자연어처리개론,3,3,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0216,강화학습개론,3,3,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0212,수학Ⅱ,3,3,2,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0401,종합설계프로젝트1,4,3,2,전공,true,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,MOBI0224,딥러닝,3,3,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0222,인공지능시스템,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0225,음성인식,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0234,신경망개론,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CLTR0078,심리학의 이해,3,4,1,교양,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0219,인공지능수학심화,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0414,컴퓨터망,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0419,정보검색,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,CAIB0224,정보이론기초,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COME0368,정보보호론,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0220,AI심화글쓰기,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0328,모바일앱프로그래밍1,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0436,증강현실,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0455,지능HCI,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,FUTR0201,기업가정신과 벤처창업,3,4,2,일반선택,false,false,,false,PDF 텍스트
+aicom,2025,2025,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2025,2025,ITEC0514,뇌인지공학개론,3,4,2,전공,false,false,,false,PDF 텍스트
+aicom,2026,2026,CLTR0045,논리와 비판적 사고,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0819,기초수학2,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COME0301,이산수학,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0003,실용화법,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0211,수학 I,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0204,프로그래밍기초,6,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0205,기초창의공학설계,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0454,인공지능수학기초,3,1,2,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COME0331,자료구조,3,2,1,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0216,자료구조응용,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0315,오토마타및형식언어,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,FUTR0208,미래산업과 직업선택,3,2,1,일반선택,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,MTED0231,선형대수,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0246,일반생명과학 I,3,2,2,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COME0311,확률및통계,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0312,운영체제,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0324,인공지능,3,2,2,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ELEC0462,시스템프로그래밍,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0233,영상이해,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0319,알고리즘1,3,3,1,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0321,컴파일러,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0323,데이타통신,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,GLSO0215,오픈소스프로그래밍,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0417,기계학습개론,3,3,1,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0211,자연어처리개론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0216,강화학습개론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0212,수학 II,3,3,2,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0401,종합설계프로젝트1,4,3,2,전공,true,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,MOBI0224,딥러닝,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0222,인공지능시스템,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0225,음성인식,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0234,신경망개론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0219,인공지능수학심화,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0414,컴퓨터망,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0419,정보검색,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,FUTR0201,기업가정신과 벤처창업,3,4,1,일반선택,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CAIB0224,정보이론기초,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,CLTR0078,심리학의 이해,3,4,2,교양,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COME0368,정보보호론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0220,AI심화글쓰기,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0328,모바일앱프로그래밍1,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0436,증강현실,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0455,지능HCI,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+aicom,2026,2026,ITEC0514,뇌인지공학개론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_4_b)
+chumcom,2026,2026,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CLTR0819,기초수학 2,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COME0301,이산수학,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0206,기초프로그래밍,3,1,1,전공,true,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0332,프로그래밍연습1,1,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CLTR0003,실용화법,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CLTR0211,수학 I,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COME0331,자료구조,3,1,2,전공,true,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0334,프로그래밍연습2,1,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0336,객체지향프로그래밍기초,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ELEC0247,논리회로,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,MTED0231,선형대수,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COME0311,확률및통계,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0224,소프트웨어설계,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0315,오토마타및형식언어,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0337,프로그래밍연습3,1,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0344,첨단컴퓨팅특강,1,2,1,전공,true,false,,false,학부 홈페이지 표(sub3_3_b) (S/U평가)
+chumcom,2026,2026,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0225,디지털설계및실험,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0312,운영체제,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0319,알고리즘1,3,2,2,전공,true,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0323,데이타통신,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0324,인공지능,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0338,프로그래밍연습4,1,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CAIB0223,인공지능프로그래밍실습,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COME0427,데이터베이스,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0414,컴퓨터망,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0422,소프트웨어공학,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0462,데이터마이닝이론및응용,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ITEC0415,고급문제해결,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ITEC0417,기계학습개론,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0340,모바일컴퓨팅,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0345,정보보안개론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0413,컴퓨터그래픽스,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0423,프로그래밍언어론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b) (S/U평가)
+chumcom,2026,2026,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,MOBI0224,딥러닝,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CAIB0211,자연어처리개론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0321,컴파일러,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0342,인공지능융합응용특강,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b) (S/U평가)
+chumcom,2026,2026,ITEC0401,종합설계프로젝트1,4,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ITEC0414,소프트웨어테스팅이론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,ITEC0418,대규모병렬컴퓨팅,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,CAIB0216,강화학습개론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0226,양자컴퓨팅개론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0343,컴퓨터융합응용특강,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0436,증강현실,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0455,지능HCI,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,COMP0510,고급컴퓨터구조,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+chumcom,2026,2026,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_3_b)
+glsop,2019,2019,CLTR0211,수학 I,3,1,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0266,SW사고기법,3,1,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COME0301,이산수학,3,1,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0211,SW실용영어,3,1,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0003,실용화법,3,1,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0205,대학글쓰기,3,1,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COME0331,자료구조,3,1,2,전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0212,소프트웨어수학,3,1,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0086,기업가정신과벤처창업,3,2,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0689,미래산업과직업선택,3,2,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COME0311,확률및통계,3,2,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0215,오픈소스프로그래밍,3,2,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0043,서양의역사와문화,3,2,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0732,창업과경영,3,2,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0312,운영체제,3,2,2,전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0322,데이타베이스,3,2,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0217,컴퓨터망프로그래밍,3,2,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0208,심화글쓰기,3,3,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0779,나의첫사업제안서,3,3,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0218,SW융합설계1,3,3,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0220,소프트웨어융합특강1,1,3,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0089,회계와사회생활,3,3,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0757,글로벌창업실습개론,3,3,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0221,SW융합설계2,3,3,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0222,소프트웨어융합특강2,1,3,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0761,창조성개발과혁신창업,3,4,1,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0321,컴파일러,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0324,인공지능,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0223,스타트업설계,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0224,사물인터넷,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0225,소프트웨어융합특강3,1,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0403,IT지식재산권,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0413,인간과컴퓨터상호작용설계,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0416,고급웹프로그래밍,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0420,모바일로봇프로그래밍,3,4,1,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,CLTR0737,알기쉬운창업마케팅,3,4,2,교양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COME0368,정보보호론,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0411,컴퓨터구조,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,COMP0428,IT기술경영개론,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0228,소프트웨어융합특강4,1,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0421,소프트웨어디자인패턴,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2019,2019,ITEC0425,컴퓨터게임제작,3,4,2,전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+glsop,2020,2021,CLTR0211,수학 I,3,1,1,교양,false,false,첨성인핵심(자연과학),false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0266,SW사고기법,3,1,1,교양,false,false,첨성인기초(소프트웨어),false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COME0301,이산수학,3,1,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0211,SW실용영어,3,1,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0205,대학글쓰기,3,1,2,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COME0331,자료구조,3,1,2,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0212,소프트웨어수학,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0086,기업가정신과 벤처창업,3,2,1,교양,false,false,"첨성인일반,창업",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0689,미래산업과 직업선택,3,2,1,교양,false,false,첨성인일반,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COME0311,확률및통계,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0215,오픈소스프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0043,서양의역사와 문화,3,2,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0312,운영체제,3,2,2,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0322,데이터베이스,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0217,컴퓨터망프로그래밍,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,STUP0212,창업과 경영,3,2,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0208,심화글쓰기,3,3,1,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0218,SW융합설계1,3,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0220,소프트웨어융합특강1,1,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,STUP0224,나의 첫 사업제안서,3,3,1,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,CLTR0089,회계와사회생활,3,3,2,교양,false,false,"첨성인핵심(인문사회),창업",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0221,SW융합설계2,3,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0222,소프트웨어융합특강2,1,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,STUP0217,글로벌창업실습개론,3,3,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0321,컴파일러,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0324,인공지능,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0224,사물인터넷,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0225,소프트웨어융합특강3,1,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0413,인간과 컴퓨터 상호작용 설계,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0416,고급웹프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0420,모바일로봇프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,STUP0218,창조성개발과 혁신창업,3,4,1,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COME0368,정보보호론,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0411,컴퓨터구조,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0228,소프트웨어융합특강4,1,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0421,소프트웨어디자인패턴,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,ITEC0425,컴퓨터게임제작,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2020,2021,STUP0214,알기쉬운 창업마케팅과스피치,3,4,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0211,수학 I,3,1,1,교양,false,false,첨성인핵심(자연과학),false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0266,SW사고기법,3,1,1,교양,false,false,첨성인기초(소프트웨어),false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COME0301,이산수학,3,1,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0211,SW실용영어,3,1,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0205,대학글쓰기,3,1,2,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COME0331,자료구조,3,1,2,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0212,소프트웨어수학,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0086,기업가정신과 벤처창업,3,2,1,교양,false,false,"첨성인일반,창업",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0689,미래산업과 직업선택,3,2,1,교양,false,false,첨성인일반,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COME0311,확률및통계,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0215,오픈소스프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0043,서양의역사와 문화,3,2,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0312,운영체제,3,2,2,전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0322,데이터베이스,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0217,컴퓨터망프로그래밍,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0419,데이터과학기초,3,2,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,STUP0212,창업과 경영,3,2,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0208,심화글쓰기,3,3,1,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0218,SW융합설계1,3,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0220,소프트웨어융합특강1,1,3,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,STUP0224,나의 첫 사업제안서,3,3,1,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,CLTR0089,회계와사회생활,3,3,2,교양,false,false,"첨성인핵심(인문사회),창업",false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0221,SW융합설계2,3,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0222,소프트웨어융합특강2,1,3,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,STUP0217,글로벌창업실습개론,3,3,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0321,컴파일러,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0324,인공지능,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0224,사물인터넷,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0225,소프트웨어융합특강3,1,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0413,인간과 컴퓨터 상호작용 설계,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0416,고급웹프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0420,모바일로봇프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,STUP0218,창조성개발과 혁신창업,3,4,1,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COME0368,정보보호론,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0411,컴퓨터구조,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0228,소프트웨어융합특강4,1,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0421,소프트웨어디자인패턴,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,ITEC0425,컴퓨터게임제작,3,4,2,전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2021,2021,STUP0214,알기쉬운 창업마케팅과스피치,3,4,2,일반선택,false,false,창업,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/global_2021.pdf
+glsop,2022,2022,CLTR0211,수학 I,3,1,1,교양,false,false,첨성인핵심(자연과학),false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0266,SW 사고기법,3,1,1,교양,false,false,첨성인기초(소프트웨어),false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COME0301,이산수학,3,1,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0201,컴퓨터학개론,3,1,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0205,대학글쓰기,3,1,2,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COME0331,자료구조,3,1,2,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0453,컴퓨팅사고와 SW코딩,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0086,기업가정신과 벤처창업,3,2,1,교양,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0689,미래산업과 직업선택,3,2,1,교양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COME0311,확률및통계,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0043,서양의 역사와 문화,3,2,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0732,창업과 경영,3,2,2,교양,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0312,운영체제,3,2,2,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0323,데이타통신,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0324,인공지능,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0212,소프트웨어수학,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0779,나의 첫 사업제안서,3,3,1,교양,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0432,소프트웨어 특강,2,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,EECS0312,네트워크프로그래밍,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0415,고급문제해결,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0419,데이터과학기초,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0089,회계와 사회생활,3,3,2,교양,false,false,"첨성인핵심(인문사회),창업",false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0414,컴퓨터망,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0417,기계학습개론,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0761,창조성개발과 혁신창업,3,4,1,교양,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0321,컴파일러,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0215,오픈소스프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0224,사물인터넷,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0401,종합설계프로젝트1,4,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0416,고급웹프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,MOBI0224,딥러닝,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CAIB0211,자연어처리개론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,CLTR0790,알기쉬운 창업마케팅과 스피치,3,4,2,교양,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COME0368,정보보호론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0436,증강현실,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0455,지능HCI,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0402,종합설계프로젝트2,4,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2022,2022,ITEC0425,컴퓨터게임제작,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2022.pdf
+glsop,2023,2023,CLTR0205,대학글쓰기,3,1,1,교양,false,false,"첨성인기초(글쓰기),인문교양",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0819,기초수학2,3,1,1,교양,false,false,첨성인기초(수리),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COME0301,이산수학,3,1,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0201,컴퓨터학개론,3,1,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인핵심(예술과 표현),인문교양",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0211,수학Ⅰ,3,1,2,교양,false,false,첨성인핵심(자연과학),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COME0331,자료구조,3,1,2,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0453,컴퓨팅사고와 SW코딩,3,1,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0043,서양의역사와문화,3,2,1,교양,false,false,"첨성인핵심(인문사회),인문교양",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COME0311,확률및통계,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,FUTR0201,기업가정신과 벤처창업,3,2,1,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,FUTR0208,미래산업과 직업선택,3,2,1,일반선택,false,false,KNU미래설계,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0312,운영체제,3,2,2,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0323,데이타통신,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0324,인공지능,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,FUTR0214,창업과 경영,3,2,2,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0212,소프트웨어수학,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0264,소셜네트워크,3,3,1,교양,false,false,첨성인기초(SW),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0432,소프트웨어 특강,2,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,EECS0312,네트워크프로그래밍,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0415,고급문제해결,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0419,데이터과학기초,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CLTR0089,회계와 사회생활,3,3,2,교양,false,false,"첨성인핵심(인문사회),창업",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0414,컴퓨터망,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0417,기계학습개론,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0321,컴파일러,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,FUTR0226,나의 첫 사업제안서,3,4,1,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0215,오픈소스프로그래밍,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0401,종합설계프로젝트1,4,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,MOBI0224,딥러닝,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,CAIB0211,자연어처리개론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COME0368,정보보호론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0436,증강현실,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,FUTR0231,알기쉬운 창업마케팅과 스피치,3,4,2,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2023,2023,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2023.pdf
+glsop,2024,2024,CLTR0205,대학글쓰기,3,1,1,교양,false,false,"첨성인기초(글쓰기),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0819,기초수학2,3,1,1,교양,false,false,첨성인기초(수리),false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COME0301,이산수학,3,1,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0201,컴퓨터학개론,3,1,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인소양(예술과표현),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0211,수학 I,3,1,2,교양,false,false,첨성인핵심(자연과학),false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COME0331,자료구조,3,1,2,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0453,컴퓨팅사고와 SW코딩,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0213,창의융합설계,3,1,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COME0311,확률및통계,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,FUTR0201,기업가정신과 벤처창업,3,2,1,일반선택,false,false,"창업,KNU미래설계",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,FUTR0208,미래산업과 직업선택,3,2,1,일반선택,false,false,KNU미래설계,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0043,서양의 역사와 문화,3,2,2,교양,false,false,"첨성인핵심(인문사회),인문교양",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0312,운영체제,3,2,2,전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0323,데이타통신,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0324,인공지능,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,FUTR0214,창업과 경영,3,2,2,일반선택,false,false,"창업,KNU미래설계",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0212,소프트웨어수학,3,2,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0264,소셜네트워크,3,3,1,교양,false,false,첨성인기초(SW),false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0432,소프트웨어 특강,2,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,EECS0312,네트워크프로그래밍,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0415,고급문제해결,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0419,데이터과학기초,3,3,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CLTR0089,회계와 사회생활,3,3,2,교양,false,false,"창업,첨성인핵심(인문사회)",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0414,컴퓨터망,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0417,기계학습개론,3,3,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0321,컴파일러,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,FUTR0226,나의 첫 사업제안서,3,4,1,일반선택,false,false,"창업,KNU미래설계",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0215,오픈소스프로그래밍,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0401,종합설계프로젝트1,4,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,MOBI0224,딥러닝,3,4,1,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,CAIB0211,자연어처리개론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COME0368,정보보호론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0436,증강현실,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,FUTR0231,알기쉬운 창업마케팅과 스피치,3,4,2,일반선택,false,false,"창업,KNU미래설계",false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2024,2024,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/global_2024.jpg
+glsop,2025,2025,CLTR0205,대학글쓰기,3,1,1,교양,false,false,첨성인기초(글쓰기),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0819,기초수학2,3,1,1,교양,false,false,첨성인기초(수리),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COME0301,이산수학,3,1,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0204,프로그래밍기초,6,1,1,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0213,창의융합설계,3,1,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0201,컴퓨터학개론,3,1,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0003,실용화법,3,1,2,교양,false,false,"첨성인핵심(예술과 표현),SDG",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0211,수학Ⅰ,3,1,2,교양,false,false,첨성인핵심(자연과학),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COME0331,자료구조,3,1,2,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0216,자료구조응용,3,1,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0453,컴퓨팅사고와 SW코딩,3,1,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0043,서양의역사와문화,3,2,1,교양,false,false,"첨성인핵심(인문사회),SDG",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COME0311,확률및통계,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0217,자바프로그래밍,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0411,컴퓨터구조,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,FUTR0201,기업가정신과 벤처창업,3,2,1,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,FUTR0208,미래산업과 직업선택,3,2,1,일반선택,false,false,KNU미래설계,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0214,SW진로설계,3,2,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0216,알고리즘실습,3,2,1,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0312,운영체제,3,2,2,전공,true,false,,false,PDF 텍스트 (필수 확인필요) https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0323,데이타통신,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0324,인공지능,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,FUTR0214,창업과 경영,3,2,2,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0212,소프트웨어수학,3,2,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0264,소셜네트워크,3,3,1,교양,false,false,첨성인기초(SW),false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0432,소프트웨어 특강,2,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,EECS0312,네트워크프로그래밍,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0219,SW공학및테스팅,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0415,고급문제해결,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0419,데이터과학기초,3,3,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CLTR0089,회계와 사회생활,3,3,2,교양,false,false,"첨성인핵심(인문사회),창업",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0322,데이타베이스,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0328,모바일앱프로그래밍1,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0414,컴퓨터망,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0417,기계학습개론,3,3,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0321,컴파일러,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0420,모바일앱프로그래밍2,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0462,데이터마이닝이론및응용,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,FUTR0226,나의 첫 사업제안서,3,4,1,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0215,오픈소스프로그래밍,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0223,스타트업설계,3,4,1,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0401,종합설계프로젝트1,4,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0403,IT지식재산권,3,4,1,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,MOBI0224,딥러닝,3,4,1,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,CAIB0211,자연어처리개론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COME0368,정보보호론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0423,프로그래밍언어론,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0428,IT기술경영개론,3,4,2,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0436,증강현실,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,FUTR0231,알기쉬운 창업마케팅과 스피치,3,4,2,일반선택,false,false,"창업,KNU미래설계",false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0227,클라우드컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,GLSO0229,SW창업프로젝트,3,4,2,전공,false,false,창업,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+glsop,2025,2025,ITEC0424,컴퓨터비전,3,4,2,전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/global_2025.pdf
+plsop,2019,2019,CLTR0211,수학 I,3,1,1,전공기반,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0213,물리학 I,3,1,1,전공기반,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0223,물리학실험 1,1,1,1,전공기반,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0263,문화기술개론,3,1,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0209,소프트웨어와문제해결,3,1,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0210,대화형프로그래밍기초,3,1,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0264,소셜네트워크,3,1,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COME0301,이산수학,3,1,2,전공기반,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0246,일반생명과학1,3,2,1,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0689,미래산업과직업선택,3,2,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COME0331,자료구조,3,2,1,공학전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0315,오토마타및형식언어,3,2,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0417,컴퓨터윤리,3,2,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ENGR0211,공학수학1,3,2,1,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0205,대학글쓰기,3,2,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COME0311,확률및통계,3,2,2,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0225,디지털설계및실험,3,2,2,공학전공,false,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0329,SW융합커뮤니케이션,3,2,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0423,자료구조프로그래밍,3,2,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,MTED0231,선형대수,3,2,2,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0086,기업가정신과벤처창업,3,3,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0208,심화글쓰기,3,3,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0422,소프트웨어공학,3,3,1,공학전공,false,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,EECS0312,네트워크프로그래밍,3,3,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0419,데이터과학기초,3,3,1,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,TCHR0499,컴퓨터논리및논술지도,3,3,1,교직,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0763,창의적창업모델개발,3,3,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0322,데이타베이스,3,3,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0323,데이타통신,3,3,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0330,SW프로젝트관리기법,3,3,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0401,종합설계프로젝트1,4,3,2,공학전공,true,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,STAT0452,수치해석,3,3,2,전공기반,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0045,논리와비판적사고,3,4,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0324,인공지능,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0413,인간과컴퓨터상호작용설계,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0414,소프트웨어테스팅이론,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0420,모바일로봇프로그래밍,3,4,1,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,CLTR0043,서양의역사와문화,3,4,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0423,프로그래밍언어론,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0424,무선네트워크,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0432,소프트웨어 특강,2,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0417,기계학습개론,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0421,소프트웨어디자인패턴,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0422,의료융합소프트웨어,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2019,2019,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,업로드 PDF(2019학번 기준) 판독 (원문은 3자리 코드(앞에 0 붙여 정규화))
+plsop,2020,2021,CLTR0211,수학 I,3,1,1,전공기반,true,false,,false,이미지 판독 (원문 학점칸 정렬 어긋남; 원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0213,물리학 I,3,1,1,전공기반,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0223,물리학실험 1,1,1,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0263,문화기술개론,3,1,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0209,소프트웨어와 문제해결,3,1,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0210,대화형프로그래밍기초,3,1,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0205,대학글쓰기,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0264,소셜네트워크,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COME0301,이산수학,3,1,2,전공기반,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0246,일반생명과학1,3,2,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0689,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COME0331,자료구조,3,2,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0315,오토마타 및 형식언어,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0329,SW융합커뮤니케이션,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0417,컴퓨터윤리,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ENGR0211,공학수학1,3,2,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COME0311,확률 및 통계,3,2,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0225,디지털설계 및 실험,3,2,2,공학전공,false,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0423,자료구조프로그래밍,3,2,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,MTED0231,선형대수,3,2,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0086,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0208,심화글쓰기,3,3,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,EECS0312,네트워크프로그래밍,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0419,데이터과학기초,3,3,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0322,데이터베이스,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0323,데이터통신,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0330,SW프로젝트관리기법,3,3,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0401,종합설계프로젝트1,4,3,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,STAT0452,수치해석,3,3,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0045,논리와 비판적 사고,3,4,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0324,인공지능,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0413,인간과 컴퓨터 상호작용 설계,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0414,소프트웨어테스팅이론,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0420,모바일로봇프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,CLTR0043,서양의 역사와 문화,3,4,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0424,무선네트워크,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,GLSO0229,SW창업프로젝트,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0417,기계학습개론,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0421,소프트웨어디자인패턴,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0422,의료융합소프트웨어,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2020,2021,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화); 2020~2021학번 공통 교육과정) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0211,수학 I,3,1,1,전공기반,true,false,,false,이미지 판독 (원문 학점칸 정렬 어긋남; 원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0213,물리학 I,3,1,1,전공기반,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0223,물리학실험 1,1,1,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0263,문화기술개론,3,1,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0209,소프트웨어와 문제해결,3,1,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0210,대화형프로그래밍기초,3,1,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0205,대학글쓰기,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0264,소셜네트워크,3,1,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COME0301,이산수학,3,1,2,전공기반,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0246,일반생명과학1,3,2,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0689,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COME0331,자료구조,3,2,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0315,오토마타 및 형식언어,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0329,SW융합커뮤니케이션,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0417,컴퓨터윤리,3,2,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ENGR0211,공학수학1,3,2,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COME0311,확률 및 통계,3,2,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0225,디지털설계 및 실험,3,2,2,공학전공,false,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0423,자료구조프로그래밍,3,2,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,MTED0231,선형대수,3,2,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0086,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0208,심화글쓰기,3,3,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,EECS0312,네트워크프로그래밍,3,3,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0419,데이터과학기초,3,3,1,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0322,데이터베이스,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0323,데이터통신,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0330,SW프로젝트관리기법,3,3,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0401,종합설계프로젝트1,4,3,2,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,STAT0452,수치해석,3,3,2,전공기반,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0045,논리와 비판적 사고,3,4,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0324,인공지능,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0413,인간과 컴퓨터 상호작용 설계,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0414,소프트웨어테스팅이론,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0420,모바일로봇프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,CLTR0043,서양의 역사와 문화,3,4,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0424,무선네트워크,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,GLSO0229,SW창업프로젝트,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0417,기계학습개론,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0421,소프트웨어디자인패턴,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0422,의료융합소프트웨어,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2021,2021,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,이미지 판독 (원문은 3자리 코드(앞에 0 붙여 정규화)) https://cse.knu.ac.kr/file/simhwa_2021.pdf
+plsop,2022,2022,CLTR0045,논리와 비판적 사고,3,1,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0211,수학 I,3,1,1,전공기반,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0213,물리학 I,3,1,1,전공기반,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0223,물리학실험 I,1,1,1,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0264,소셜네트워크,3,1,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0205,대학글쓰기,3,1,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COME0301,이산수학,3,1,2,전공기반,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0246,일반생명과학 I,3,2,1,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0689,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COME0331,자료구조,3,2,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0315,오토마타및형식언어,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0454,인공지능수학기초,3,2,1,전공기반,false,false,,false,이미지 판독 (학점 미기재) https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COME0311,확률및통계,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0225,디지털설계및실험,3,2,2,공학전공,false,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0419,데이터과학기초,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,MTED0231,선형대수,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0086,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0323,데이타통신,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0324,인공지능,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,TCHR0499,컴퓨터 논리 및 논술지도,3,3,1,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0732,창업과 경영,3,3,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0322,데이타베이스,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,EECS0312,네트워크프로그래밍,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0401,종합설계프로젝트1,4,3,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0417,기계학습개론,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,STAT0452,수치해석,3,3,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0417,컴퓨터윤리,3,4,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0462,데이터마이닝이론및응용,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,GLSO0215,오픈소스프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,GLSO0224,사물인터넷,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0414,소프트웨어테스팅 이론,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,MBIO0402,생물정보학개론,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,MOBI0224,딥러닝,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,TCHR0522,학교현장실습,2,4,1,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CAIB0211,자연어처리개론,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,CLTR0043,서양의역사와문화,3,4,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0436,증강현실,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0455,지능HCI,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0457,의료인공지능,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0458,모바일네트워크,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,GLSO0227,클라우드컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,GLSO0229,SW창업프로젝트,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2022,2022,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2022.jpg
+plsop,2023,2023,CLTR0045,논리와 비판적 사고,3,1,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0211,수학Ⅰ,3,1,1,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0819,기초수학2,3,1,1,전공기반,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0112,생활속의통계,3,1,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0205,대학글쓰기,3,1,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COME0301,이산수학,3,1,2,전공기반,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0213,물리학Ⅰ,3,2,1,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COME0331,자료구조,3,2,1,공학전공,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0315,오토마타및형식언어,3,2,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,FUTR0208,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0419,데이터과학기초,3,2,1,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,MTED0231,선형대수,3,2,1,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0246,일반생명과학Ⅰ,3,2,2,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COME0311,확률및통계,3,2,2,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0225,디지털설계및실험,3,2,2,공학전공,false,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0264,소셜네트워크,3,3,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2024 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0323,데이타통신,3,3,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0324,인공지능,3,3,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,FUTR0201,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0401,종합설계프로젝트1,4,3,1,공학전공,true,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,STAT0452,수치해석,3,3,1,전공기반,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,TCHR0499,컴퓨터 논리 및 논술지도,3,3,1,교직,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0322,데이타베이스,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,EECS0312,네트워크프로그래밍,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,FUTR0214,창업과 경영,3,3,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0417,기계학습개론,3,3,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0417,컴퓨터윤리,3,4,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0462,데이터마이닝이론및응용,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,GLSO0215,오픈소스프로그래밍,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,GLSO0224,사물인터넷,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0414,소프트웨어테스팅 이론,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,MBIO0402,생물정보학개론,3,4,1,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,TCHR0522,학교현장실습,2,4,1,교직,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CAIB0211,자연어처리개론,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,CLTR0043,서양의역사와문화,3,4,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0436,증강현실,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0455,지능HCI,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0457,의료인공지능,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0458,모바일네트워크,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,GLSO0227,클라우드컴퓨팅,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2023,2023,MOBI0224,딥러닝,3,4,2,공학전공,false,false,,false,PDF 텍스트 (학기·구분은 2025 교육과정 기준으로 채움) https://cse.knu.ac.kr/file/simhwa_2023.pdf
+plsop,2024,2024,CLTR0045,논리와 비판적 사고,3,1,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0112,생활속의통계,3,1,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0205,대학글쓰기,3,1,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0819,기초수학2,3,1,1,전공기반,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0211,수학 I,3,1,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COME0301,이산수학,3,1,2,전공기반,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0213,물리학 I,3,2,1,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COME0331,자료구조,3,2,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0315,오토마타및형식언어,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,FUTR0208,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,MTED0231,선형대수,3,2,1,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0246,일반생명과학 I,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COME0311,확률및통계,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0225,디지털설계및실험,3,2,2,공학전공,false,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0419,데이터과학기초,3,2,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0264,소셜네트워크,3,3,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0323,데이타통신,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0324,인공지능,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,FUTR0201,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,TCHR0499,컴퓨터 논리 및 논술지도,3,3,1,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0322,데이타베이스,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,EECS0312,네트워크프로그래밍,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,FUTR0214,창업과 경영,3,3,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0401,종합설계프로젝트1,4,3,2,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0417,기계학습개론,3,3,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,STAT0452,수치해석,3,3,2,전공기반,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0417,컴퓨터윤리,3,4,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0462,데이터마이닝이론및응용,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,GLSO0215,오픈소스프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,GLSO0224,사물인터넷,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0414,소프트웨어테스팅 이론,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,MBIO0402,생물정보학개론,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,MOBI0224,딥러닝,3,4,1,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,TCHR0522,학교현장실습,2,4,1,교직,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CAIB0211,자연어처리개론,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,CLTR0043,서양의역사와문화,3,4,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0436,증강현실,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0455,지능HCI,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0457,의료인공지능,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0458,모바일네트워크,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,GLSO0227,클라우드컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2024,2024,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,이미지 판독 https://cse.knu.ac.kr/file/simhwa_2024.jpg
+plsop,2025,2025,CLTR0045,논리와 비판적 사고,3,1,1,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0211,수학Ⅰ,3,1,1,전공기반,false,false,,false,PDF 텍스트 (학기 배치 추정) https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0819,기초수학2,3,1,1,전공기반,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0453,컴퓨팅사고와 SW코딩,3,1,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0201,컴퓨터학개론,3,1,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0003,실용화법,3,1,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0112,생활속의통계,3,1,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0205,대학글쓰기,3,1,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COME0301,이산수학,3,1,2,전공기반,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0204,프로그래밍기초,6,1,2,공학전공,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0205,기초창의공학설계,3,1,2,공학전공,true,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0213,물리학Ⅰ,3,2,1,전공기반,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COME0331,자료구조,3,2,1,공학전공,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0216,자료구조응용,3,2,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0217,자바프로그래밍,3,2,1,공학전공,true,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0315,오토마타및형식언어,3,2,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ELEC0247,논리회로,3,2,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,FUTR0208,미래산업과 직업선택,3,2,1,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0419,데이터과학기초,3,2,1,전공기반,false,false,,false,PDF 텍스트 (학기 배치 추정) https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,MTED0231,선형대수,3,2,1,전공기반,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0246,일반생명과학Ⅰ,3,2,2,전공기반,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COME0311,확률및통계,3,2,2,전공기반,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0224,소프트웨어설계,3,2,2,공학전공,false,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0225,디지털설계및실험,3,2,2,공학전공,false,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0411,컴퓨터구조,3,2,2,공학전공,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0432,소프트웨어 특강,2,2,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ELEC0462,시스템프로그래밍,3,2,2,공학전공,true,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0312,운영체제,3,3,1,공학전공,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0319,알고리즘1,3,3,1,공학전공,true,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0321,컴파일러,3,3,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0323,데이타통신,3,3,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0324,인공지능,3,3,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0422,소프트웨어공학,3,3,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,FUTR0201,기업가정신과 벤처창업,3,3,1,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0401,종합설계프로젝트1,4,3,1,공학전공,true,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,STAT0452,수치해석,3,3,1,전공기반,false,false,,false,PDF 텍스트 (학기 배치 추정) https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,TCHR0499,컴퓨터 논리 및 논술지도,3,3,1,교직,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0320,알고리즘2,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0322,데이타베이스,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0328,모바일앱프로그래밍1,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0423,프로그래밍언어론,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,EECS0312,네트워크프로그래밍,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,FUTR0214,창업과 경영,3,3,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0417,기계학습개론,3,3,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0413,컴퓨터그래픽스,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0414,컴퓨터망,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0417,컴퓨터윤리,3,4,1,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0419,정보검색,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0420,모바일앱프로그래밍2,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0462,데이터마이닝이론및응용,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,GLSO0215,오픈소스프로그래밍,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,GLSO0224,사물인터넷,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0402,종합설계프로젝트2,4,4,1,공학전공,true,true,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0403,IT지식재산권,3,4,1,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0414,소프트웨어테스팅 이론,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0415,고급문제해결,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0416,고급웹프로그래밍,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,MBIO0402,생물정보학개론,3,4,1,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,TCHR0522,학교현장실습,2,4,1,교직,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CAIB0211,자연어처리개론,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,CLTR0043,서양의역사와문화,3,4,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COME0368,정보보호론,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0226,양자컴퓨팅개론,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0428,IT기술경영개론,3,4,2,기본소양,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0435,디지털미디어아트,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0436,증강현실,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0455,지능HCI,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0457,의료인공지능,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0458,모바일네트워크,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,GLSO0227,클라우드컴퓨팅,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0418,대규모병렬컴퓨팅,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0424,컴퓨터비전,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,ITEC0425,컴퓨터게임제작,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+plsop,2025,2025,MOBI0224,딥러닝,3,4,2,공학전공,false,false,,false,PDF 텍스트 https://cse.knu.ac.kr/file/simhwa_2025.pdf
+simcom,2026,2026,CLTR0205,대학글쓰기,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,CLTR0819,기초수학 2,3,1,1,교양,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COME0301,이산수학,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0206,기초프로그래밍,3,1,1,전공,true,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0207,기초프로그래밍실습,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0218,인공지능과컴퓨팅,3,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0332,프로그래밍연습1,1,1,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,CLTR0003,실용화법,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,CLTR0211,수학 I,3,1,2,교양,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COME0331,자료구조,3,1,2,전공,true,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0333,데이터분석을 위한 파이썬프로그래밍,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0334,프로그래밍연습2,1,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0335,자료구조실습,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,MTED0231,선형대수,3,1,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COME0311,확률 및 통계,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0336,객체지향프로그래밍기초,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0337,프로그래밍연습3,1,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0432,소프트웨어특강,2,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ELEC0247,논리회로,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ELEC0462,시스템프로그래밍,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0419,데이터과학기초,3,2,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0224,소프트웨어설계,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0225,디지털설계및실험,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0315,오토마타 및 형식언어,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0324,인공지능,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0338,프로그래밍연습4,1,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0411,컴퓨터구조,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0416,고급웹프로그래밍,3,2,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,CAIB0223,인공지능프로그래밍실습,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0312,운영체제,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0319,알고리즘1,3,3,1,전공,true,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0323,데이타통신,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0422,소프트웨어공학,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0462,데이터마이닝이론및응용,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0417,기계학습개론,3,3,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,TCHR0499,컴퓨터 논리 및 논술지도,3,3,1,교직,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,CAIB0211,자연어처리개론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COME0427,데이터베이스,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0339,인공지능융합프로그래밍실습,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0414,컴퓨터망,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0423,프로그래밍언어론,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0424,컴퓨터비전,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,MOBI0224,딥러닝,3,3,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,TCHR0593,컴퓨터교육론,3,3,2,교직,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,TCHR0594,컴퓨터교재연구및지도법,3,3,2,교직,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0321,컴파일러,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0340,모바일컴퓨팅,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0341,웹보안,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0342,인공지능융합응용특강,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0413,컴퓨터그래픽스,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0460,문제해결기반 공학연수실습(컴퓨터학),2,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b) (S/U평가)
+simcom,2026,2026,GLSO0227,클라우드컴퓨팅,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0401,종합설계프로젝트1,4,4,1,전공,true,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0414,소프트웨어테스팅이론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0415,고급문제해결,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,MBIO0402,생물정보학개론,3,4,1,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,TCHR0522,학교현장실습,2,4,1,교직,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0226,양자컴퓨팅개론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0328,모바일앱프로그래밍1,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0343,컴퓨터융합응용특강,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0428,IT기술경영개론,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0436,증강현실,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0455,지능HCI,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0457,의료인공지능,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,COMP0461,문제해결기반 공학연수실습(심화컴퓨터학),2,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b) (S/U평가)
+simcom,2026,2026,EECS0442,임베디드소프트웨어설계,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)
+simcom,2026,2026,ITEC0418,대규모병렬컴퓨팅,3,4,2,전공,false,false,,false,학부 홈페이지 표(sub3_2_b)

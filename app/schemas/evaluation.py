@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .course import Amount, Category, Code, Course
 from .student import StudentProfile
@@ -8,6 +8,8 @@ from .student import StudentProfile
 CreditArea = Literal["total", "major", "liberal_arts"]
 
 Status = Literal["satisfied", "unsatisfied", "approval_required", "verification_required"]
+LiberalAreaKey = Literal["독서와토론", "사고교육", "글쓰기", "외국어", "수리", "기초과학", "인문·사회", "자연과학"]
+LiberalSummary = dict[LiberalAreaKey, Amount]
 
 
 class Source(BaseModel):
@@ -39,6 +41,7 @@ class StudentRecords(BaseModel):
 
     completed_courses: list[Course] = Field(default_factory=list, max_length=500)
     nonacademic_records: list[NonacademicRecord] = Field(default_factory=list, max_length=500)
+    liberal_summary: LiberalSummary | None = Field(default=None, min_length=8, max_length=8)
 
 
 class RequiredCourseResult(BaseModel):
@@ -72,6 +75,11 @@ class CreditEntry(BaseModel):
     excluded_credits: Amount = 0
     reason: str | None = None
     major_approval_required: bool = False
+    course_areas: list[str] = Field(
+        default_factory=list,
+        description="입학년도 교육과정표·수강 학기 교양 영역 기준 구분. 예: 기본소양, 공학전공, 설계, "
+                    "첨성인기초(글쓰기), 첨성인핵심(인문·사회), 첨성인일반, SDG, 창업교과목",
+    )
 
 
 class RequirementCounts(BaseModel):
@@ -106,6 +114,7 @@ class ProgressItem(BaseModel):
     fraction: float = Field(ge=0, le=1, description="이 항목의 진행 비율. checklist는 checked면 1, 아니면 0")
     checked: bool | None = Field(default=None, description="checklist 항목의 저장된 체크 상태. course 항목은 null")
     auto_checked: bool = Field(default=False, description="이수 과목으로 충족이 확인된 checklist 항목 (예: SW 대체 과목 이수)")
+    recorded_amount: Amount | None = Field(default=None, description="checklist 항목에 저장된 수치 (없으면 null)")
     reason: str
     details: list[str] = Field(default_factory=list)
     credit_area: CreditArea | None = None
@@ -132,7 +141,20 @@ class ProgressResponse(BaseModel):
 
 
 class ChecklistUpdate(BaseModel):
+    """체크박스(`checked`) 또는 실제 수치(`amount`, 예: TOEIC 점수, 상담 횟수) 중 하나로 저장한다.
+
+    `checked: true`는 기준값(예: 700점, 8회)으로 저장되어 충족이다. `amount`는 그대로 저장되며
+    기준 이상일 때만 충족이다. `checked: false`는 기록을 지운다.
+    """
+
     model_config = ConfigDict(extra="forbid")
 
     requirement_id: str = Field(min_length=1, max_length=200)
-    checked: bool
+    checked: bool | None = None
+    amount: Amount | None = Field(default=None, description="실제 수치. 기준 이상이면 충족")
+
+    @model_validator(mode="after")
+    def one_value(self):
+        if (self.checked is None) == (self.amount is None):
+            raise ValueError("checked 또는 amount 중 하나만 보내 주세요.")
+        return self

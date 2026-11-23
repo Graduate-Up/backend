@@ -1,8 +1,17 @@
 import pytest
 
+from app.api import accounts
 from app.schemas.course import Course
 from app.schemas.student import StudentProfile
 from tests.demo_app import demo_rules
+
+
+@pytest.fixture(autouse=True)
+def verification_mailbox(monkeypatch):
+    mailbox = {}
+    monkeypatch.setenv("JOLUP_EMAIL_CODE_SECRET", "a" * 32)
+    monkeypatch.setattr(accounts, "email_sender", lambda: mailbox.__setitem__)
+    return mailbox
 
 
 @pytest.fixture
