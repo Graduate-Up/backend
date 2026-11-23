@@ -7,7 +7,7 @@ from app.schemas.course import Course
 from app.schemas.rules import NonacademicRequirement
 from app.services.graduation_engine import course_areas
 from app.services.graduation_engine.course_areas import (
-    DATA_DIRECTORY, abeek_area, abeek_result, abeek_table_year, auto_satisfied, design_result, liberal_result,
+    DATA_DIRECTORY, abeek_area, abeek_result, auto_satisfied, design_result, liberal_result,
     sdg_result,
 )
 
@@ -33,7 +33,7 @@ def test_portal_summary_replaces_course_mapping_for_required_liberal_areas():
     assert (evaluation.status, evaluation.current) == ("unsatisfied", 0)
 
 
-@pytest.mark.parametrize("name", ["abeek_plsop.csv", "liberal_areas.csv"])
+@pytest.mark.parametrize("name", ["liberal_areas.csv", "startup_courses.csv"])
 def test_mapping_files_are_well_formed_and_sourced(name):
     with open(DATA_DIRECTORY / name, encoding="utf-8") as file:
         rows = list(csv.DictReader(file))
@@ -41,24 +41,22 @@ def test_mapping_files_are_well_formed_and_sourced(name):
     for row in rows:
         assert re.fullmatch(r"[A-Z]{4}[0-9]{4}", row["code"]), row
         assert row["source"].strip(), row
-    if name == "abeek_plsop.csv":
-        assert {row["area"] for row in rows} <= {"basic", "msc", "major", "teaching"}
-        keys = [(row["curriculum_year"], row["code"]) for row in rows]
-        assert len(keys) == len(set(keys))
-    else:
+    if name == "liberal_areas.csv":
         assert len(rows) >= 300  # 공식 이수영역별 교양과목 목록(2025)
         assert sum(row["sdg"] == "true" for row in rows) == 72  # 2025 목록 + 2024.5.1. SDG 목록
 
 
-def test_curriculum_follows_admission_year():
-    assert [abeek_table_year(year) for year in (2017, 2020, 2021, 2022, 2023, 2025)] == [
-        2021, 2021, 2021, 2022, 2023, 2023]
-    # 2021 표에만 있는 과목, 코드가 바뀐 과목(CLTR0689 → FUTR0208)
-    assert abeek_area("CLTR0263", 2021) == ("basic", 2021)
-    assert abeek_area("CLTR0689", 2021) == ("basic", 2021)
-    assert abeek_area("FUTR0208", 2021) == ("basic", 2023)
-    assert abeek_area("ENGR0211", 2021) == ("msc", 2021)
-    assert abeek_area("COMP0454", 2022) == ("msc", 2022)
+def test_renamed_courses_follow_the_admission_year_table():
+    # 2021학번: 미래산업과 직업선택은 CLTR0689, 이후 FUTR0208로 코드만 변경
+    assert abeek_area("CLTR0689", 2021) == ("basic", None)
+    assert abeek_area("FUTR0208", 2021) == ("basic", "CLTR0689")
+    assert abeek_area("CLTR0263", 2021) == ("basic", None)
+    assert abeek_area("ENGR0211", 2021) == ("msc", None)
+    assert abeek_area("COMP0454", 2022) == ("msc", None)
+    # 2025 표에서 빠진 과목은 다른 학년도 표로 인정하지 않는다
+    assert abeek_area("CLTR0264", 2024) == ("basic", None)
+    assert abeek_area("CLTR0264", 2025) == (None, None)
+    assert abeek_area("COMP0226", 2025) == ("major", None)
     assert abeek_area("ABCD0000", 2023) == (None, None)
 
 
@@ -66,7 +64,7 @@ def test_abeek_area_credits():
     courses = [done("CLTR0045"), done("CLTR0205"), done("FUTR0208"), done("COME0301", category="전공")]
     basic = abeek_result(requirement("abeek-basic_literacy", 9), courses, 2021)
     assert basic.status == "satisfied" and basic.current == 9
-    assert any("FUTR0208(2023학년도 표 기준)" in line for line in basic.details)
+    assert any("FUTR0208(= CLTR0689)" in line for line in basic.details)
     msc = abeek_result(requirement("abeek-msc", 18), courses, 2021)
     assert msc.status == "unsatisfied" and msc.current == 3
     # 학부 사이트에 표가 없는 학번은 추정이므로 확인 필요

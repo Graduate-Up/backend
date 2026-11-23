@@ -1,0 +1,3120 @@
+{
+  "courses": {
+    "CLTR0045": {
+      "name": "논리와 비판적 사고",
+      "credit": 3
+    },
+    "CLTR0819": {
+      "name": "기초수학2",
+      "credit": 3
+    },
+    "CLTR0211": {
+      "name": "수학Ⅰ",
+      "credit": 3
+    },
+    "COMP0453": {
+      "name": "컴퓨팅사고와 SW코딩",
+      "credit": 3
+    },
+    "ITEC0201": {
+      "name": "컴퓨터학개론",
+      "credit": 3
+    },
+    "CLTR0003": {
+      "name": "실용화법",
+      "credit": 3
+    },
+    "CLTR0112": {
+      "name": "생활속의통계",
+      "credit": 3
+    },
+    "CLTR0205": {
+      "name": "대학글쓰기",
+      "credit": 3
+    },
+    "COME0301": {
+      "name": "이산수학",
+      "credit": 3
+    },
+    "COMP0204": {
+      "name": "프로그래밍기초",
+      "credit": 6
+    },
+    "COMP0205": {
+      "name": "기초창의공학설계",
+      "credit": 3
+    },
+    "FUTR0208": {
+      "name": "미래산업과 직업선택",
+      "credit": 3
+    },
+    "CLTR0213": {
+      "name": "물리학Ⅰ",
+      "credit": 3
+    },
+    "MTED0231": {
+      "name": "선형대수",
+      "credit": 3
+    },
+    "ITEC0419": {
+      "name": "데이터과학기초",
+      "credit": 3
+    },
+    "COME0331": {
+      "name": "자료구조",
+      "credit": 3
+    },
+    "COMP0216": {
+      "name": "자료구조응용",
+      "credit": 3
+    },
+    "COMP0217": {
+      "name": "자바프로그래밍",
+      "credit": 3
+    },
+    "COMP0315": {
+      "name": "오토마타및형식언어",
+      "credit": 3
+    },
+    "ELEC0247": {
+      "name": "논리회로",
+      "credit": 3
+    },
+    "CLTR0246": {
+      "name": "일반생명과학Ⅰ",
+      "credit": 3
+    },
+    "COME0311": {
+      "name": "확률및통계",
+      "credit": 3
+    },
+    "COMP0224": {
+      "name": "소프트웨어설계",
+      "credit": 3
+    },
+    "COMP0225": {
+      "name": "디지털설계및실험",
+      "credit": 3
+    },
+    "COMP0411": {
+      "name": "컴퓨터구조",
+      "credit": 3
+    },
+    "COMP0432": {
+      "name": "소프트웨어 특강",
+      "credit": 2
+    },
+    "ELEC0462": {
+      "name": "시스템프로그래밍",
+      "credit": 3
+    },
+    "FUTR0201": {
+      "name": "기업가정신과 벤처창업",
+      "credit": 3
+    },
+    "STAT0452": {
+      "name": "수치해석",
+      "credit": 3
+    },
+    "COMP0312": {
+      "name": "운영체제",
+      "credit": 3
+    },
+    "COMP0319": {
+      "name": "알고리즘1",
+      "credit": 3
+    },
+    "COMP0321": {
+      "name": "컴파일러",
+      "credit": 3
+    },
+    "COMP0323": {
+      "name": "데이타통신",
+      "credit": 3
+    },
+    "COMP0324": {
+      "name": "인공지능",
+      "credit": 3
+    },
+    "COMP0422": {
+      "name": "소프트웨어공학",
+      "credit": 3
+    },
+    "ITEC0401": {
+      "name": "종합설계프로젝트1",
+      "credit": 4
+    },
+    "TCHR0499": {
+      "name": "컴퓨터 논리 및 논술지도",
+      "credit": 3
+    },
+    "FUTR0214": {
+      "name": "창업과 경영",
+      "credit": 3
+    },
+    "COMP0320": {
+      "name": "알고리즘2",
+      "credit": 3
+    },
+    "COMP0322": {
+      "name": "데이타베이스",
+      "credit": 3
+    },
+    "COMP0328": {
+      "name": "모바일앱프로그래밍1",
+      "credit": 3
+    },
+    "COMP0423": {
+      "name": "프로그래밍언어론",
+      "credit": 3
+    },
+    "EECS0312": {
+      "name": "네트워크프로그래밍",
+      "credit": 3
+    },
+    "ITEC0417": {
+      "name": "기계학습개론",
+      "credit": 3
+    },
+    "TCHR0593": {
+      "name": "컴퓨터교육론",
+      "credit": 3
+    },
+    "TCHR0594": {
+      "name": "컴퓨터교재연구및지도법",
+      "credit": 3
+    },
+    "COMP0417": {
+      "name": "컴퓨터윤리",
+      "credit": 3
+    },
+    "ITEC0403": {
+      "name": "IT지식재산권",
+      "credit": 3
+    },
+    "COMP0413": {
+      "name": "컴퓨터그래픽스",
+      "credit": 3
+    },
+    "COMP0414": {
+      "name": "컴퓨터망",
+      "credit": 3
+    },
+    "COMP0419": {
+      "name": "정보검색",
+      "credit": 3
+    },
+    "COMP0420": {
+      "name": "모바일앱프로그래밍2",
+      "credit": 3
+    },
+    "COMP0462": {
+      "name": "데이터마이닝이론및응용",
+      "credit": 3
+    },
+    "COMP0460": {
+      "name": "문제해결기반 공학연수실습(컴퓨터학)",
+      "credit": 2
+    },
+    "GLSO0215": {
+      "name": "오픈소스프로그래밍",
+      "credit": 3
+    },
+    "GLSO0224": {
+      "name": "사물인터넷",
+      "credit": 3
+    },
+    "ITEC0402": {
+      "name": "종합설계프로젝트2",
+      "credit": 4
+    },
+    "ITEC0414": {
+      "name": "소프트웨어테스팅 이론",
+      "credit": 3
+    },
+    "ITEC0415": {
+      "name": "고급문제해결",
+      "credit": 3
+    },
+    "ITEC0416": {
+      "name": "고급웹프로그래밍",
+      "credit": 3
+    },
+    "MBIO0402": {
+      "name": "생물정보학개론",
+      "credit": 3
+    },
+    "TCHR0522": {
+      "name": "학교현장실습",
+      "credit": 2
+    },
+    "CLTR0043": {
+      "name": "서양의역사와문화",
+      "credit": 3
+    },
+    "COMP0428": {
+      "name": "IT기술경영개론",
+      "credit": 3
+    },
+    "CAIB0211": {
+      "name": "자연어처리개론",
+      "credit": 3
+    },
+    "COME0368": {
+      "name": "정보보호론",
+      "credit": 3
+    },
+    "COMP0226": {
+      "name": "양자컴퓨팅개론",
+      "credit": 3
+    },
+    "COMP0435": {
+      "name": "디지털미디어아트",
+      "credit": 3
+    },
+    "COMP0436": {
+      "name": "증강현실",
+      "credit": 3
+    },
+    "COMP0455": {
+      "name": "지능HCI",
+      "credit": 3
+    },
+    "COMP0457": {
+      "name": "의료인공지능",
+      "credit": 3
+    },
+    "COMP0458": {
+      "name": "모바일네트워크",
+      "credit": 3
+    },
+    "COMP0461": {
+      "name": "문제해결기반 공학연수실습(심화컴퓨터학)",
+      "credit": 2
+    },
+    "GLSO0227": {
+      "name": "클라우드컴퓨팅",
+      "credit": 3
+    },
+    "ITEC0418": {
+      "name": "대규모병렬컴퓨팅",
+      "credit": 3
+    },
+    "ITEC0424": {
+      "name": "컴퓨터비전",
+      "credit": 3
+    },
+    "ITEC0425": {
+      "name": "컴퓨터게임제작",
+      "credit": 3
+    },
+    "MOBI0224": {
+      "name": "딥러닝",
+      "credit": 3
+    },
+    "CLTR0264": {
+      "name": "소셜네트워크",
+      "credit": 3
+    },
+    "GLSO0213": {
+      "name": "창의융합설계",
+      "credit": 3
+    },
+    "GLSO0214": {
+      "name": "SW진로설계",
+      "credit": 3
+    },
+    "GLSO0216": {
+      "name": "알고리즘실습",
+      "credit": 3
+    },
+    "GLSO0212": {
+      "name": "소프트웨어수학",
+      "credit": 3
+    },
+    "GLSO0219": {
+      "name": "SW공학및테스팅",
+      "credit": 3
+    },
+    "CLTR0089": {
+      "name": "회계와 사회생활",
+      "credit": 3
+    },
+    "FUTR0226": {
+      "name": "나의 첫 사업제안서",
+      "credit": 3
+    },
+    "GLSO0223": {
+      "name": "스타트업설계",
+      "credit": 3
+    },
+    "FUTR0231": {
+      "name": "알기쉬운 창업마케팅과 스피치",
+      "credit": 3
+    },
+    "GLSO0229": {
+      "name": "SW창업프로젝트",
+      "credit": 3
+    },
+    "COMP0218": {
+      "name": "인공지능과컴퓨팅",
+      "credit": 3
+    },
+    "COMP0454": {
+      "name": "인공지능수학기초",
+      "credit": 3
+    },
+    "CAIB0233": {
+      "name": "영상이해",
+      "credit": 3
+    },
+    "CLTR0212": {
+      "name": "수학Ⅱ",
+      "credit": 3
+    },
+    "CAIB0216": {
+      "name": "강화학습개론",
+      "credit": 3
+    },
+    "CLTR0078": {
+      "name": "심리학의 이해",
+      "credit": 3
+    },
+    "COMP0219": {
+      "name": "인공지능수학심화",
+      "credit": 3
+    },
+    "CAIB0222": {
+      "name": "인공지능시스템",
+      "credit": 3
+    },
+    "CAIB0234": {
+      "name": "신경망개론",
+      "credit": 3
+    },
+    "CAIB0225": {
+      "name": "음성인식",
+      "credit": 3
+    },
+    "CAIB0224": {
+      "name": "정보이론기초",
+      "credit": 3
+    },
+    "ITEC0514": {
+      "name": "뇌인지공학개론",
+      "credit": 3
+    },
+    "COMP0220": {
+      "name": "AI심화글쓰기",
+      "credit": 3
+    }
+  },
+  "curricula": {
+    "simhwa_2025": [
+      {
+        "code": "CLTR0045",
+        "year": 1,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0819",
+        "year": 1,
+        "semester": 1,
+        "category": "전공기반",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "CLTR0211",
+        "year": 1,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0453",
+        "year": 1,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0201",
+        "year": 1,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0003",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0112",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0205",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0301",
+        "year": 1,
+        "semester": 2,
+        "category": "전공기반",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0204",
+        "year": 1,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0205",
+        "year": 1,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "FUTR0208",
+        "year": 2,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0213",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MTED0231",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0419",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0331",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0216",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0217",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "COMP0315",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0247",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0246",
+        "year": 2,
+        "semester": 2,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0311",
+        "year": 2,
+        "semester": 2,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0224",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": true
+      },
+      {
+        "code": "COMP0225",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": true
+      },
+      {
+        "code": "COMP0411",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0432",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0462",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "FUTR0201",
+        "year": 3,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "STAT0452",
+        "year": 3,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0312",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0319",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0321",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0323",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0324",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0422",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0401",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "TCHR0499",
+        "year": 3,
+        "semester": 1,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0214",
+        "year": 3,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0320",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0322",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0328",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0423",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "EECS0312",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0417",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0593",
+        "year": 3,
+        "semester": 2,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0594",
+        "year": 3,
+        "semester": 2,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0417",
+        "year": 4,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0403",
+        "year": 4,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0413",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0414",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0419",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0420",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0462",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0460",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0215",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0224",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0402",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "ITEC0414",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0415",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0416",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MBIO0402",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0522",
+        "year": 4,
+        "semester": 1,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0043",
+        "year": 4,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0428",
+        "year": 4,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0211",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0368",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0226",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0435",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0436",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0455",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0457",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0458",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0461",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0227",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0418",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0424",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0425",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MOBI0224",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      }
+    ],
+    "simhwa_2023": [
+      {
+        "code": "CLTR0045",
+        "year": 1,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0003",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0112",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0205",
+        "year": 1,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0819",
+        "year": 1,
+        "semester": 1,
+        "category": "전공기반",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COME0301",
+        "year": 1,
+        "semester": 2,
+        "category": "전공기반",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "CLTR0211",
+        "year": 1,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0453",
+        "year": 1,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0204",
+        "year": 1,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "ITEC0201",
+        "year": 1,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0205",
+        "year": 1,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "FUTR0208",
+        "year": 2,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0213",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0311",
+        "year": 2,
+        "semester": 2,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MTED0231",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0419",
+        "year": 2,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0246",
+        "year": 2,
+        "semester": 2,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0217",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "COMP0224",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": true
+      },
+      {
+        "code": "COMP0315",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0225",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": true
+      },
+      {
+        "code": "ELEC0247",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0411",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COME0331",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0432",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0216",
+        "year": 2,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0462",
+        "year": 2,
+        "semester": 2,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "FUTR0201",
+        "year": 3,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0214",
+        "year": 3,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0264",
+        "year": null,
+        "semester": null,
+        "category": null,
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "STAT0452",
+        "year": 3,
+        "semester": 1,
+        "category": "전공기반",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0499",
+        "year": 3,
+        "semester": 1,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0593",
+        "year": 3,
+        "semester": 2,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0594",
+        "year": 3,
+        "semester": 2,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0312",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0320",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0319",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0322",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0321",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0328",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0323",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0423",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0324",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "EECS0312",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0422",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0417",
+        "year": 3,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0401",
+        "year": 3,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "ITEC0403",
+        "year": 4,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0043",
+        "year": 4,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0417",
+        "year": 4,
+        "semester": 1,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0428",
+        "year": 4,
+        "semester": 2,
+        "category": "기본소양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "TCHR0522",
+        "year": 4,
+        "semester": 1,
+        "category": "교직",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0413",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0211",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0414",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0368",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0419",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0435",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0420",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0436",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0462",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0455",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0460",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0457",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0215",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0458",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0224",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0461",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0402",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": true,
+        "design": true
+      },
+      {
+        "code": "GLSO0227",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0414",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0418",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0415",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0424",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0416",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0425",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MBIO0402",
+        "year": 4,
+        "semester": 1,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MOBI0224",
+        "year": 4,
+        "semester": 2,
+        "category": "공학전공",
+        "required": false,
+        "design": false
+      }
+    ],
+    "global_2025": [
+      {
+        "code": "CLTR0205",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0819",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0301",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0204",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "ITEC0201",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0213",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0003",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0211",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0331",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0216",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0453",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0043",
+        "year": 2,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0201",
+        "year": 2,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0208",
+        "year": 2,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0311",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0217",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0411",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0462",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0214",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0216",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "FUTR0214",
+        "year": 2,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0224",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0312",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0323",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0324",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0212",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0264",
+        "year": 3,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0432",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "EECS0312",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0219",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0415",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0419",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0089",
+        "year": 3,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0322",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0328",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0414",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0460",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0417",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0226",
+        "year": 4,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0321",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0413",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0420",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0462",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0215",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0223",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0401",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0403",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MBIO0402",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MOBI0224",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0231",
+        "year": 4,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0211",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0368",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0423",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0428",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0436",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0457",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0227",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0229",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0418",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0424",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      }
+    ],
+    "global_2023": [
+      {
+        "code": "CLTR0205",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0819",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0301",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0204",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "ITEC0201",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0213",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0003",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0211",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0331",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0216",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0453",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0043",
+        "year": 2,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0201",
+        "year": 2,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0208",
+        "year": 2,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0311",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0217",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0411",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0462",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0214",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0216",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "FUTR0214",
+        "year": 2,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0224",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0312",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0323",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0324",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0212",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0264",
+        "year": 3,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0432",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "EECS0312",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0219",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0415",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0419",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0089",
+        "year": 3,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0322",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0328",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0414",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0460",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0417",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0226",
+        "year": 4,
+        "semester": 1,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0321",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0413",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0420",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0462",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0215",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0223",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0401",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0403",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MBIO0402",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MOBI0224",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0231",
+        "year": 4,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0211",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0368",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0423",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0428",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0436",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0457",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0227",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0229",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0418",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0424",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      }
+    ],
+    "ai_2025": [
+      {
+        "code": "CLTR0205",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0045",
+        "year": 1,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0453",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0218",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0301",
+        "year": 1,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0003",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0211",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0819",
+        "year": 1,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0454",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0204",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0205",
+        "year": 1,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0246",
+        "year": 2,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MTED0231",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0331",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0216",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0217",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0411",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0315",
+        "year": 2,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0208",
+        "year": 2,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0311",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0419",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0324",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0312",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ELEC0462",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0224",
+        "year": 2,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0264",
+        "year": 3,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0417",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "CAIB0233",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0321",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0215",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0319",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "COMP0323",
+        "year": 3,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CLTR0212",
+        "year": 3,
+        "semester": 2,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MOBI0224",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0211",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0424",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0216",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0322",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0401",
+        "year": 3,
+        "semester": 2,
+        "category": "전공",
+        "required": true,
+        "design": false
+      },
+      {
+        "code": "CLTR0078",
+        "year": 4,
+        "semester": 1,
+        "category": "교양",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0462",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "MBIO0402",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0419",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0219",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0222",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0234",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0225",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0414",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0415",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0460",
+        "year": 4,
+        "semester": 1,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "FUTR0201",
+        "year": 4,
+        "semester": 2,
+        "category": "일반선택",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0457",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "CAIB0224",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0455",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0514",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0436",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0328",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COME0368",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "ITEC0418",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "GLSO0227",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      },
+      {
+        "code": "COMP0220",
+        "year": 4,
+        "semester": 2,
+        "category": "전공",
+        "required": false,
+        "design": false
+      }
+    ]
+  }
+}
