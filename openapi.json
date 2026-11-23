@@ -52,7 +52,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ProgramSummary"
+                    "$ref": "#/components/schemas/Program"
                   },
                   "type": "array",
                   "title": "Response Get Convergence Programs Api V1 Convergence Programs Get"
@@ -3581,6 +3581,102 @@
         "title": "PasswordReset",
         "description": "password는 새 비밀번호."
       },
+      "Program": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "convergence",
+              "double_major"
+            ],
+            "title": "Kind"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "courses": {
+            "items": {
+              "$ref": "#/components/schemas/ProgramCourse"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Courses"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "source",
+          "courses"
+        ],
+        "title": "Program"
+      },
+      "ProgramCourse": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Credits"
+          },
+          "curriculum_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Curriculum Category",
+            "description": "Original course category in the program source."
+          },
+          "career_tags": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "ai_data",
+                "backend",
+                "security",
+                "graduate_study"
+              ]
+            },
+            "type": "array",
+            "title": "Career Tags"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "credits"
+        ],
+        "title": "ProgramCourse"
+      },
       "ProgramRecommendation": {
         "properties": {
           "id": {
@@ -3629,40 +3725,6 @@
           "source"
         ],
         "title": "ProgramRecommendation"
-      },
-      "ProgramSummary": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Id"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Name"
-          },
-          "kind": {
-            "type": "string",
-            "enum": [
-              "convergence",
-              "double_major"
-            ],
-            "title": "Kind"
-          },
-          "source": {
-            "$ref": "#/components/schemas/Source"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "kind",
-          "source"
-        ],
-        "title": "ProgramSummary"
       },
       "ProgressItem": {
         "properties": {

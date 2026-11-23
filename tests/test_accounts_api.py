@@ -85,8 +85,14 @@ def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp
         catalog = client.get("/api/v1/convergence-programs")
         assert catalog.status_code == 200
         assert any(item["id"] == "big-data" for item in catalog.json())
-        assert all(set(item) == {"id", "name", "kind", "source"} and item["kind"] == "convergence"
+        assert all(set(item) == {"id", "name", "kind", "source", "courses"} and item["kind"] == "convergence"
                    for item in catalog.json())
+        programs = {item["id"]: item for item in catalog.json()}
+        local_categories = {course["code"]: course["curriculum_category"]
+                            for course in programs["local-synergy"]["courses"]}
+        assert local_categories["CHIL0364"] == "전공"
+        assert local_categories["LCCN0205"] == "융합전공"
+        assert all(course["curriculum_category"] == "전공" for course in programs["cognitive-science"]["courses"])
         invalid = client.put("/api/v1/me/profile", json={**PROFILE, "convergence_program": "unknown"}, headers=headers)
         assert invalid.status_code == 422
         response = client.put("/api/v1/me/profile", json={**PROFILE, "convergence_program": "big-data"}, headers=headers)
