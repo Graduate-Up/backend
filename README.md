@@ -1,2 +1,122 @@
-# backend
-졸UP - Graduation Requirement Backend &amp; AI
+# 졸UP 백엔드
+
+경북대학교 컴퓨터학부 학생이 등록한 전체 이수 내역을 Python 규칙 엔진으로 평가하는 FastAPI 서비스입니다. 필수과목은 과목코드로 자동 판정합니다.
+
+## 폴더 구조
+
+| 경로 | 역할 |
+| --- | --- |
+| `app/main.py`, `app/api/` | FastAPI 앱, 라우터, API 오류 응답 |
+| `app/schemas/` | 학생, 과목, 비교과, 규칙 및 응답 모델 |
+| `app/services/graduation_engine/` | 규칙 로딩·선택, 학점 및 필수과목 계산, 전체 평가 |
+| `app/core/config.py`, `data/graduation_rules/` | 공식 규칙 경로와 데이터 위치 |
+| `tests/`, `tests/fixtures/` | pytest, 테스트 전용 앱, 가상 JSON 규칙 |
+
+## Windows PowerShell에서 실행
+
+Python 3.12를 설치하고 저장소 루트에서 실행합니다. 기존 가상환경이 정상이라면 첫 줄은 생략합니다. 기존 가상환경이 삭제된 Python을 참조하면 다른 폴더명으로 새 가상환경을 만든 후 아래 경로를 그 이름으로 바꿉니다.
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m pytest -q
+python -m uvicorn app.main:app --reload
+```
+
+Swagger UI는 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)입니다. PowerShell 실행 정책으로 활성화가 차단되면 `python` 대신 `.\.venv\Scripts\python.exe`를 직접 사용합니다.
+
+## API
+
+| API | 역할 |
+| --- | --- |
+| `GET /api/v1/majors?admission_year=2024` | 2017~2026학번의 선택 가능한 전공 조회 |
+| `GET /api/v1/requirements` | `admission_year`, `major` 및 선택 입력 `track`, `abeek`, `multi_major`, `expected_graduation_date`, `transfer_student`, `international_student`에 맞는 요건 조회 |
+| `POST /api/v1/evaluations/preview` | 학생 프로필, 전체 과목, 비교과 기록으로 졸업 판정 미리보기 |
+| `GET /`, `GET /health` | 기존 서버 메시지와 상태 확인 |
+
+잘못된 프로필 조합은 422입니다. 공식 규칙이 없거나 적용할 입학년도·전공 데이터가 없으면 `rules_unavailable`, 파일이나 선택된 규칙 구성이 올바르지 않으면 `invalid_rule_data`와 함께 503을 반환합니다.
+
+## 학번·전공별 졸업요건 확인
+
+기본 서버는 `jolup_rules_all/app/rules/index.json`에서 18개 규칙 파일을 찾고, 공통 규정·교육과정표·동일과목표·확인 필요 목록을 조합합니다. 적용 범위는 글솝·플솝 2017~2025학번, 인컴 2023~2026학번, 심화컴퓨팅·첨컴 2026학번입니다. 같은 입학년도·전공에 대한 기존 단독 인컴 예시보다 이 묶음을 우선합니다.
+
+글솝은 `track`이 필요하고, 해외복수학위 트랙에서 베트남 트위닝 3+1이면 `track_variant=vietnam_twinning_3plus1`을 선택합니다. 플솝은 `abeek=true` 또는 `false`가 필요합니다. `student_status`는 `new`, `general_transfer`, `bachelor_transfer`, `foreign`, `disabled`를 지원합니다. `multi_major`는 `none`, `double_or_linked_or_convergence`, `minor_1_only`, `minor_2plus`, `teaching_course`를 지원합니다. 조회 화면에는 해당 선택란이 표시됩니다.
+
+```powershell
+python -m uvicorn app.main:app --reload --port 8002
+```
+
+Windows에서 검증용 임베디드 Python을 쓰는 경우 아래 명령으로 실행합니다. 코드 변경을 반영하려면 서버를 재시작합니다.
+
+```powershell
+.\.venv\graduation-runtime\python.exe -m uvicorn app.main:app --port 8002
+```
+
+[규칙 조회](http://127.0.0.1:8002/api/v1/requirements?admission_year=2024&major=aicom)에서 140/72/30학점 기준과 전공필수 7개를 확인할 수 있습니다.
+
+[Swagger](http://127.0.0.1:8002/docs)의 `POST /api/v1/evaluations/preview`에서 아래 요청을 실행합니다.
+
+```json
+{
+  "student_profile": {"admission_year": 2024, "major": "aicom"},
+  "completed_courses": [
+    {"course_code": "COMP0333", "semester": "2024-1", "credits": 3, "transcript_category": "전공필수", "offered_by_computer_science": true, "status": "completed"},
+    {"course_code": "COMP0454", "semester": "2024-2", "credits": 3, "transcript_category": "전공필수", "offered_by_computer_science": true, "status": "in_progress"}
+  ]
+}
+```
+
+응답은 `rule_id: "aicom_2024-2025"`를 표시합니다. 예시 입력 기준 총·전공 인정학점은 각각 3학점이고, 총학점 부족분은 137학점입니다. 필수 목록의 COMP0453은 파일에 명시된 동일과목 COMP0333으로 완료 처리되고, COMP0454는 수강 중으로 표시됩니다. 개설 학부를 알 수 없는 경우 `offered_by_computer_science`를 생략하면 해당 과목의 전공 인정에 확인이 필요합니다. 편입생 과목은 `prior_institution`으로 전적대 과목 여부를 전달할 수 있습니다.
+
+정확한 학번의 카탈로그가 확인된 경우 전공 과목 인정에 활용합니다. 카탈로그가 추정 표시된 학번은 명시된 필수과목 외 전공 인정 범위를 확인 필요로 둡니다. 필수과목에는 해당 규칙 파일에 명시된 동일코드를 적용하며, 공통 동일과목표의 전후 코드가 모두 이수된 내역은 시행 시점과 재이수 성적 확인을 요청합니다.
+
+교양 영역·SDG, 현장실습·대체, 영어 시험, SW, 상담, 평점, 졸업심사, 연구 활동, ABEEK 영역별 학점은 상세 기준을 조회할 수 있습니다. 미리보기에서는 확인된 값이나 충족 여부를 `nonacademic_records`에 요건 ID와 함께 전달합니다. 시험 성적의 유효기간, 교양 영역별 과목 분류, ABEEK 일부 학번의 교양 초과학점 제외, 증빙 및 대체 승인 여부는 추가 확인이 필요합니다.
+
+### 졸업 예정 연·월과 트랙 선택
+
+[졸업요건 조회 화면](http://127.0.0.1:8002/requirements)에서 입학년도와 전공을 선택하면 해당 규칙에 등록된 트랙이 표시됩니다. 트랙이 없는 2024학번 인컴은 `트랙 없음`으로 표시됩니다. API에서 트랙 목록은 `GET /api/v1/requirements/tracks`로 조회할 수 있습니다.
+
+`expected_graduation_date`는 선택 항목이며, 전달할 때는 `2027-02` 또는 `2027-08`처럼 입력합니다. 기간 조건은 월 단위로 비교합니다.
+
+### Swagger에서 가상 학생 평가
+
+개발 PC에서 테스트 전용 앱을 실행합니다.
+
+```powershell
+python -m uvicorn tests.demo_app:create_demo_app --factory --reload --port 8001
+```
+
+[테스트 Swagger](http://127.0.0.1:8001/docs)에서 POST 평가 API의 **Try it out**을 누르고 다음 JSON을 입력한 뒤 **Execute**를 누릅니다. 규칙 조회는 `admission_year=2024`, `major=aicom`으로 실행합니다.
+
+```json
+{
+  "student_profile": {"admission_year": 2024, "major": "aicom"},
+  "completed_courses": [
+    {"course_code": "TESTOLD", "semester": "2024-1", "credits": 3, "transcript_category": "major", "status": "completed"},
+    {"course_code": "TEST002", "semester": "2024-2", "credits": 3, "transcript_category": "major", "status": "in_progress"},
+    {"course_code": "TESTLIB", "semester": "2024-1", "credits": 3, "transcript_category": "liberal_arts", "status": "completed"}
+  ],
+  "nonacademic_records": [
+    {"requirement_id": "test-english", "amount": 1, "status": "satisfied"}
+  ]
+}
+```
+
+응답의 `dataset`은 `test`입니다. 총 인정학점은 6, 총 부족학점은 3이며 필수과목 중 TEST002는 `in_progress`입니다.
+
+## 공식 규칙 추가
+
+1. 공식 문서를 확인하고 `data/graduation_rules/`에 UTF-8 JSON 파일을 추가합니다. 최상위 형식은 `{"rules": [...]}`입니다. 파일명 예시는 `aicom_2023-2026.json`, `knu_graduation_qualification.json`입니다.
+2. 각 규칙에 고유한 `id`, `dataset: "official"`, `major`, `admission_from`, `admission_to`, `sources`를 입력합니다. 문서명, 링크, 조항·쪽수를 기록할 수 있습니다. `allowed_tracks`의 `null`은 트랙이 없는 프로필을 뜻합니다. 서로 다른 조건의 전공 규칙은 적용 범위가 겹치지 않도록 작성합니다.
+3. `credit_requirements`, `course_requirements`, `nonacademic_requirements` 배열을 채웁니다. 조건 필터링 후 총학점, 전공학점, 교양학점 기준이 각각 하나씩 필요합니다. 공통 요건은 `major: "common"`으로 별도 정의합니다. 중복 요건 ID는 허용되지 않습니다.
+4. 필수과목 그룹은 `courses`와 `choose`로 작성합니다. 개별 필수과목에만 적용되는 대체과목은 `substitutes`, 재수강 학점과 필수과목 모두에서 같은 과목으로 보는 코드는 `equivalent_courses`를 사용합니다.
+5. `course_treatments`와 `transcript_categories`에는 공식 자료로 확인한 학점 인정 분류·상태를 입력합니다. 개별 과목 정책, 동일과목 대표 코드 정책, 성적표 구분 정책 순으로 적용합니다. `credit_caps`에는 적용 영역 또는 과목코드와 상한을 설정합니다. 규칙 필드 전체는 `app/schemas/rules.py`, 파일 형식 예시는 가상 데이터인 `tests/fixtures/demo_rules.json`에서 확인할 수 있습니다.
+
+## 현재 한계와 다음 단계
+
+묶음의 학번 범위 밖에는 추가 규칙 파일이 필요합니다. 자료의 추정값, 알 수 없는 교과구분은 확인 필요로, 규칙에 명시된 교과구분 변경은 승인 필요로 보고합니다. 어느 상태든 전체 판정을 충족으로 확정하지 않습니다.
+
+재수강 완료 건의 학점·인정 기준이 서로 다르면 확인이 필요합니다. 같은 기준의 완료 건은 한 번만 반영합니다. 상한은 학점, 학기 문자열, 과목코드, 성적표 교과구분 내림차순으로 배분합니다. 공식 규칙을 추가할 때 상한 배분 순서와 재수강 정책을 검증해야 합니다. 비교과 수치는 제출된 요건별 누계 중 충족 기록의 최댓값으로 평가합니다. 비교과 증빙과 성적표의 진위는 별도로 확인해야 합니다.
+
+진행률 가중치가 확정되기 전까지 `progress`는 `null`입니다. 다음 단계는 공식 문서 및 과목 카탈로그 검증, 규칙 JSON 작성, PostgreSQL·SQLAlchemy와 로그인 연동, 저장 내역 기반 `GET /me/evaluation` 구현입니다. 이후 AI를 규정 검색과 판정 설명에 연결할 수 있습니다.

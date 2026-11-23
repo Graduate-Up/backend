@@ -1,0 +1,123 @@
+{
+  "rules": [
+    {
+      "id": "test-aicom",
+      "dataset": "test",
+      "major": "aicom",
+      "admission_from": 2023,
+      "admission_to": 2026,
+      "allowed_tracks": [
+        null,
+        "test-track"
+      ],
+      "sources": [
+        {
+          "title": "가상 테스트 규칙 (공식 규정 아님)"
+        }
+      ],
+      "credit_requirements": [
+        {
+          "id": "total",
+          "name": "테스트 총학점",
+          "area": "total",
+          "minimum": 9
+        },
+        {
+          "id": "major",
+          "name": "테스트 전공학점",
+          "area": "major",
+          "minimum": 6
+        },
+        {
+          "id": "liberal",
+          "name": "테스트 교양학점",
+          "area": "liberal_arts",
+          "minimum": 3
+        }
+      ],
+      "course_requirements": [
+        {
+          "id": "core",
+          "name": "테스트 필수과목",
+          "choose": 2,
+          "courses": [
+            {
+              "course_code": "TEST001",
+              "course_name": "테스트 A"
+            },
+            {
+              "course_code": "TEST002",
+              "course_name": "테스트 B",
+              "substitutes": [
+                "TESTALT"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "track",
+          "name": "테스트 트랙 요건",
+          "conditions": {
+            "tracks": [
+              "test-track"
+            ],
+            "admission_from": 2024
+          },
+          "choose": 1,
+          "courses": [
+            {
+              "course_code": "TEST003",
+              "course_name": "테스트 C"
+            }
+          ]
+        }
+      ],
+      "nonacademic_requirements": [],
+      "transcript_categories": {
+        "major": {
+          "category": "major"
+        },
+        "liberal_arts": {
+          "category": "liberal_arts"
+        }
+      },
+      "course_treatments": {
+        "TESTAP": {
+          "category": "major",
+          "status": "approval_required"
+        }
+      },
+      "equivalent_courses": {
+        "TEST001": [
+          "TESTOLD"
+        ]
+      },
+      "credit_caps": [
+        {
+          "category": "liberal_arts",
+          "maximum": 3
+        }
+      ]
+    },
+    {
+      "id": "test-common",
+      "dataset": "test",
+      "major": "common",
+      "admission_from": 2024,
+      "admission_to": 2024,
+      "sources": [
+        {
+          "title": "가상 테스트 공통 규칙 (공식 규정 아님)"
+        }
+      ],
+      "credit_requirements": [],
+      "course_requirements": [],
+      "nonacademic_requirements": [
+        {
+          "id": "test-english",
+          "name": "테스트 영어"
+        }
+      ]
+    }
+  ]
+}

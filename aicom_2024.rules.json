@@ -1,0 +1,616 @@
+{
+  "id": "aicom-2024",
+  "schema_version": "1.0",
+  "major": {
+    "code": "aicom",
+    "name": "컴퓨터학부 인공지능컴퓨팅전공",
+    "dept_code_in_course_lookup": "1O0208"
+  },
+  "admission_years": [
+    2024,
+    2024
+  ],
+  "status_values": [
+    "satisfied",
+    "unsatisfied",
+    "needs_approval",
+    "needs_confirmation"
+  ],
+  "captured_at": "2026-11-21",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "[졸업] 인공지능컴퓨팅전공(인컴) 졸업기준",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29415",
+      "date": "2026-09-02"
+    },
+    {
+      "id": "S2",
+      "title": "[수강] 인컴 전공과목 이수기준 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29095",
+      "date": "2026-02-23"
+    },
+    {
+      "id": "S3",
+      "title": "[수강] 인컴 교양과목 이수기준 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29096",
+      "date": "2026-02-23"
+    },
+    {
+      "id": "S4",
+      "title": "[졸업] 인공지능컴퓨팅 졸업요건 안내 (2024 기준)",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=27624",
+      "date": "2023-09-25"
+    },
+    {
+      "id": "S5",
+      "title": "인공지능컴퓨팅전공 교육과정 (2026학년도 기준, 학부 홈페이지)",
+      "url": "https://cse.knu.ac.kr/sub3_4_b.php",
+      "date": "2026-11-21 열람"
+    },
+    {
+      "id": "S6",
+      "title": "[교육과정] 인공지능컴퓨팅전공 2023학년도 기준",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=27117",
+      "date": "2023-02-27"
+    },
+    {
+      "id": "S7",
+      "title": "[필독] 2026 신설 교육과정에 따른 동일과목 지정 현황",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29080",
+      "date": "2026-02-09"
+    },
+    {
+      "id": "S8",
+      "title": "[필독] KNU미래설계 교과목(FUTR~) 관련 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=27087",
+      "date": "2023-02-14"
+    },
+    {
+      "id": "S9",
+      "title": "현장실습 대체 기준 변경 안내",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29515",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "S10",
+      "title": "[필독] ABEEK 미이수 & ABEEK 이수 졸업요건 붙임3 (학부 졸업자격인정 기준)",
+      "url": "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=29032",
+      "date": "2026-01-08"
+    },
+    {
+      "id": "S11",
+      "title": "경북대 학사안내: 졸업자격인정제",
+      "url": "https://knu.ac.kr/wbbs/wbbs/contents/index.action?menu_idx=&menu_url=edu%2Facademic03_05",
+      "date": "2026-11-18 열람"
+    },
+    {
+      "id": "S12",
+      "title": "경북대 학사안내: 수업일반(수업연한 단축, 편입학생 제외)",
+      "url": "https://www.knu.ac.kr/wbbs/wbbs/contents/index.action?menu_url=edu%2Facademic03_03&menu_idx=44",
+      "date": "2026-11-19 열람"
+    },
+    {
+      "id": "S13",
+      "title": "컴퓨터학부 사무실 이메일 답변 (학적 담당 이민승, 조교 김미영)",
+      "url": null,
+      "date": "2026-11-19"
+    },
+    {
+      "id": "S14",
+      "title": "컴퓨터학부 사무실 이메일 답변 (임초록)",
+      "url": null,
+      "date": "2026-11-21"
+    },
+    {
+      "id": "S15",
+      "title": "경북대 학사안내: 졸업요건(평점·조기졸업)",
+      "url": "https://www.knu.ac.kr/wbbs/wbbs/contents/index.action?menu_url=edu%2Facademic03_01_09&menu_idx=44",
+      "date": "2026-11-19 열람"
+    }
+  ],
+  "curriculum": {
+    "catalog_file": "aicom_2024_courses.csv",
+    "basis": "2024학번 교육과정표는 따로 게시되지 않음. 2023 기준표(S6)와 2026 기준표(S5)의 과목·학점이 같아서 2024학번에도 적용",
+    "confirmation": "NC-CURR-2024",
+    "rule": "본인 입학년도 인컴 교육과정에 포함된 과목만 전공 인정. 컴퓨터학부 개설이라도 교육과정 미포함 과목은 전공 불인정",
+    "source": [
+      "S2"
+    ]
+  },
+  "credits": {
+    "total": {
+      "min": 140,
+      "source": [
+        "S1",
+        "S2",
+        "S4"
+      ]
+    },
+    "major": {
+      "by_multi_major": {
+        "none": 72,
+        "double_or_linked_or_convergence": 54,
+        "minor_2plus": 54,
+        "minor_1_only": 66,
+        "teaching_course": 54
+      },
+      "transfer_override": {
+        "general_transfer": 54,
+        "bachelor_transfer": 54,
+        "with_minor_1_only": 66
+      },
+      "rule": "다전공·교직·편입학생은 '다전공 시 이수학점'(54), 그 외 '단일전공 시 이수학점'(72). 단 부전공 1개만이면 소속 전공 12학점 추가(66)",
+      "source": [
+        "S1",
+        "S2"
+      ],
+      "transfer_with_minor_note": "편입 + 부전공 1개 = 66은 학교 기준표의 '단,' 조항을 편입생에도 적용한 값",
+      "transfer_with_minor_confirmation": "NC-TRANSFER-MINOR1",
+      "counting_scope": {
+        "include": "인컴 교육과정(입학년도 기준)에 있고 컴퓨터학부(플솝·글솝·인컴·심컴·첨컴)가 개설한 과목",
+        "exclude": [
+          "타 학과 개설 동일 교과목",
+          "다중전공(복수·융합·부전공)으로 이수한 학점",
+          "해외대학 학점",
+          "대학원 과정 학점",
+          "현장실습 학점",
+          "STUP~·FUTR~(일반선택)",
+          "CLTR~(교양)",
+          "융합전공 개설 교과목(주전공 기준으로는 일반선택)"
+        ],
+        "excluded_still_count_toward_total": true,
+        "source": [
+          "S1",
+          "S2"
+        ]
+      },
+      "no_double_counting": "같은 과목을 전공과 다전공에 중복 인정하지 않음. 필수과목을 다전공으로 교과구분 변경하면 필수 미이수"
+    },
+    "liberal_arts": {
+      "min": 30,
+      "sdg_min": 3,
+      "areas": [
+        {
+          "id": "foundation_a",
+          "group": "첨성인기초",
+          "any_of": [
+            "독서와토론",
+            "사고교육",
+            "글쓰기",
+            "외국어"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "foundation_b",
+          "group": "첨성인기초",
+          "any_of": [
+            "수리",
+            "기초과학"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_humanities",
+          "group": "첨성인핵심",
+          "any_of": [
+            "인문·사회"
+          ],
+          "min_credits": 3
+        },
+        {
+          "id": "core_science",
+          "group": "첨성인핵심",
+          "any_of": [
+            "자연과학"
+          ],
+          "min_credits": 3
+        }
+      ],
+      "area_courses_must_be_offered_by_knu": true,
+      "practical_english_and_sw": "첨성인기초의 실용영어·소프트웨어는 졸업자격인정 규정을 따름",
+      "max_counted": null,
+      "area_mapping_confirmation": "NC-LIB-AREA-MAP",
+      "source": [
+        "S1",
+        "S3",
+        "S4"
+      ]
+    },
+    "future_design": {
+      "prefix": "FUTR",
+      "category": "일반선택(KNU미래설계)",
+      "max_counted": 12,
+      "applies_from_admission_year": 2023,
+      "source": [
+        "S8"
+      ]
+    },
+    "startup_courses": {
+      "prefix": "STUP",
+      "category": "일반선택",
+      "source": [
+        "S2"
+      ]
+    },
+    "category_change": {
+      "rule": "컴퓨터학부 내 다른 전공 개설 과목은 수강 시 개설 전공 기준 교과구분으로 표시됨. 수강 후 '교과구분 변경 신청'으로 정정 가능",
+      "engine_hint": "교육과정 내 과목인데 성적표 교과구분이 다르면 needs_approval(교과구분 변경 필요)로 표시",
+      "source": [
+        "S1",
+        "S2"
+      ]
+    }
+  },
+  "required_courses": {
+    "all_of": [
+      {
+        "code": "COMP0453",
+        "name": "컴퓨팅사고와 SW코딩",
+        "equivalent_codes": [
+          "COMP0333"
+        ]
+      },
+      {
+        "code": "COMP0454",
+        "name": "인공지능수학기초",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COME0331",
+        "name": "자료구조",
+        "equivalent_codes": [],
+        "co_requisite": "COMP0216"
+      },
+      {
+        "code": "COMP0319",
+        "name": "알고리즘1",
+        "equivalent_codes": []
+      },
+      {
+        "code": "COMP0324",
+        "name": "인공지능",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0417",
+        "name": "기계학습개론",
+        "equivalent_codes": []
+      },
+      {
+        "code": "ITEC0401",
+        "name": "종합설계프로젝트1",
+        "equivalent_codes": []
+      }
+    ],
+    "must_be_classified_as": "전공필수",
+    "offered_by": "컴퓨터학부만 인정(타 학과 동일 교과목 불인정)",
+    "source": [
+      "S1",
+      "S2",
+      "S7"
+    ]
+  },
+  "field_practice": {
+    "min_credits": 3,
+    "credits_count_toward": "총 학점만(전공 72·교양에는 미포함)",
+    "alternatives": [
+      {
+        "id": "program_4w",
+        "text": "4주 이상 현장실습 프로그램 수료(대기업 매출 10조+ 및 계열사, IT 중견 매출 5천억+·상시 1000명+, 공공기관, 학부·정부지원사업). 기업 프로그램은 시작 전 심층심의 승인, 매 학기 기말고사 종료일까지 신청",
+        "status_if_claimed": "needs_approval"
+      },
+      {
+        "id": "early_employment",
+        "text": "조기취업: 졸업 최소 1개 학기 전 확정, 졸업 시점까지 유지",
+        "status_if_claimed": "needs_approval"
+      },
+      {
+        "id": "paper",
+        "text": "SCIE·Scopus·KCI 주저자 + 학부 논문작성 프로그램 1개 학기 이상(우수학술대회는 2027-02 졸업예정자부터)",
+        "status_if_claimed": "needs_approval"
+      },
+      {
+        "id": "startup",
+        "text": "창업현장실습(STUP0311) 졸업 전 1개 학기 이수",
+        "status_if_claimed": "needs_approval"
+      },
+      {
+        "id": "foreign_or_disabled_conference",
+        "text": "외국인·장애학생: 국내외 학술대회 주저자 논문",
+        "status_if_claimed": "needs_approval",
+        "only_for": [
+          "foreign",
+          "disabled"
+        ]
+      }
+    ],
+    "source": [
+      "S1",
+      "S9"
+    ]
+  },
+  "english": {
+    "rule": "공인영어성적은 경북대 졸업자격인정제 실용영어영역 충족으로 갈음",
+    "source": [
+      "S1"
+    ],
+    "older_notice": "2023-09 공지(S4)는 '토익 700 상응 점수, 입학 후 취득, 제출일 기준 2년 이내'로 안내",
+    "exempt_status_confirmation": "NC-AICOM-ENG-EXEMPT"
+  },
+  "graduation_qualification": {
+    "note": "학교 졸업자격인정제. 학부 졸업요건과 별개로 모두 충족해야 졸업, 미충족 시 수료(S13)",
+    "practical_english": {
+      "accepted_scores": [
+        {
+          "test": "TOEIC",
+          "min": 700
+        },
+        {
+          "test": "TOEIC Speaking",
+          "min": 120
+        },
+        {
+          "test": "TOEFL PBT",
+          "min": 529
+        },
+        {
+          "test": "TOEFL CBT",
+          "min": 197
+        },
+        {
+          "test": "TOEFL iBT",
+          "min": 71
+        },
+        {
+          "test": "TEPS",
+          "min": 600,
+          "note": "600~605"
+        },
+        {
+          "test": "New TEPS",
+          "min": 264,
+          "note": "264~265"
+        },
+        {
+          "test": "TEPS Speaking",
+          "min": 50
+        },
+        {
+          "test": "OPIc",
+          "min": "IM1"
+        },
+        {
+          "test": "G-TELP Level 2",
+          "min": 65
+        },
+        {
+          "test": "IELTS",
+          "min": 6.0
+        }
+      ],
+      "validity": "졸업자격인정원 제출일 기준 2년 이내, 입학 후 취득 성적만",
+      "source": [
+        "S10",
+        "S11"
+      ]
+    },
+    "software": {
+      "rule": "SW 3학점 또는 대체기준",
+      "department_substitute_codes": [
+        "COME0331",
+        "COMP0217",
+        "COMP0312",
+        "COMP0411"
+      ],
+      "source": [
+        "S10"
+      ]
+    },
+    "counseling": {
+      "min_sessions": 8,
+      "with": "지도교수",
+      "source": [
+        "S10"
+      ]
+    },
+    "major_area": {
+      "rule": "학부 기준",
+      "confirmation": "NC-AICOM-MAJOR-AREA"
+    },
+    "deadline": {
+      "qualification_form": "2026-12-31 (이후 추가 접수 연장 예정)",
+      "department_requirements": "최종 계절학기 성적 확정일",
+      "source": [
+        "S13",
+        "S14"
+      ]
+    }
+  },
+  "statuses": {
+    "new": {
+      "label": "신입학",
+      "exempt": []
+    },
+    "general_transfer": {
+      "label": "일반편입",
+      "exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "liberal_arts": {
+        "areas_required": false,
+        "sdg_required": false,
+        "min": 30,
+        "rule": "전적대 인정 교양이 30에 모자라면 본교 교양 추가 이수"
+      },
+      "major_credits": "다전공 기준 54(부전공 1개만이면 66)",
+      "transfer_credit_cap": "전적대 학점은 졸업학점의 50%까지",
+      "required_courses_at_knu": true,
+      "early_graduation": false,
+      "source": [
+        "S1",
+        "S2",
+        "S11",
+        "S12",
+        "S13"
+      ]
+    },
+    "bachelor_transfer": {
+      "label": "학사편입",
+      "exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "liberal_arts": {
+        "all_recognized": true
+      },
+      "major_credits": "다전공 기준 54(부전공 1개만이면 66)",
+      "transfer_credit_cap": "전적대 학점은 졸업학점의 50%까지",
+      "required_courses_at_knu": true,
+      "early_graduation": false,
+      "source": [
+        "S1",
+        "S2",
+        "S11",
+        "S12",
+        "S13"
+      ]
+    },
+    "foreign": {
+      "label": "외국인(2022학번부터, 편입생 제외)",
+      "exempt": [
+        "software"
+      ],
+      "practical_english_substitute": "TOPIK 4급 이상",
+      "counseling_required": true,
+      "liberal_arts": {
+        "areas_required": false,
+        "sdg_required": false,
+        "min": 30
+      },
+      "field_practice_extra_alternative": "foreign_or_disabled_conference",
+      "note": "외국인 편입생은 편입 기준 적용",
+      "source": [
+        "S3",
+        "S11",
+        "S13"
+      ]
+    },
+    "disabled": {
+      "label": "장애학생(장애학생지원센터 등록)",
+      "exempt": [
+        "practical_english",
+        "software",
+        "counseling"
+      ],
+      "field_practice_extra_alternative": "foreign_or_disabled_conference",
+      "source": [
+        "S9",
+        "S11",
+        "S13"
+      ]
+    }
+  },
+  "retake_and_equivalence": {
+    "equivalence_file": "equivalences.csv",
+    "equivalence_effect": "동일과목 수강 시 재이수 처리",
+    "phase_in": {
+      "1학년": "2026-1학기 이후",
+      "2학년": "2027-1학기 이후",
+      "3학년": "2028-1학기 이후",
+      "4학년": "2029-1학기 이후"
+    },
+    "special_cases": [
+      {
+        "old": "COMP0204",
+        "new": "COMP0206",
+        "effect": "기존 6학점 삭제, 3학점 취득",
+        "source": [
+          "S13"
+        ]
+      }
+    ],
+    "which_grade_counts": "NC-RETAKE-GRADE",
+    "source": [
+      "S7",
+      "S13"
+    ]
+  },
+  "early_graduation": {
+    "rule": "본전공 등 졸업요건 충족 + 등록 6학기 이상 + 평점평균 3.7 이상(4.3 만점) + 졸업자격인정 + 신청서",
+    "transfer_students": false,
+    "source": [
+      "S12",
+      "S13",
+      "S15"
+    ]
+  },
+  "min_gpa": {
+    "value": 1.7,
+    "scale": 4.3,
+    "includes_F": true,
+    "source": [
+      "S15"
+    ]
+  },
+  "academic_record_display": "편입생·재입학자는 부여된 학번 기준 입학연도의 교양·전공·졸업학점 적용",
+  "needs_confirmation": [
+    {
+      "id": "NC-CURR-2024",
+      "question": "2024학년도 입학생 교육과정이 2023·2026 기준표와 같은지 (교육과정조회: 입학연도 2024, 1O0208)",
+      "applied_default": "2026 기준표 과목 목록 사용",
+      "sources": [
+        "S5",
+        "S6"
+      ]
+    },
+    {
+      "id": "NC-TRANSFER-MINOR1",
+      "question": "인컴 편입생이 부전공 1개만 하면 66인지",
+      "applied_default": "66",
+      "sources": [
+        "S2",
+        "S13"
+      ]
+    },
+    {
+      "id": "NC-LIB-AREA-MAP",
+      "question": "교양 과목코드 → 영역(독서와토론·글쓰기·수리 등) 매핑표",
+      "applied_default": "성적표의 영역 표기를 그대로 사용, 없으면 needs_confirmation",
+      "sources": [
+        "S3"
+      ]
+    },
+    {
+      "id": "NC-AICOM-ENG-EXEMPT",
+      "question": "편입·외국인(~21)·장애 학생은 실용영어가 면제되는데, 인컴은 영어가 '실용영어로 갈음'이라 영어 요건도 면제인지 (학부 답변 8번: '인컴도 학과 졸업기준 충족 여부 확인 후 반영')",
+      "applied_default": "면제(실용영어로 갈음 규정 그대로 적용)",
+      "sources": [
+        "S1",
+        "S13",
+        "S14"
+      ]
+    },
+    {
+      "id": "NC-AICOM-MAJOR-AREA",
+      "question": "인컴 졸업자격인정제 '전공영역' 항목이 무엇인지(플솝·글솝은 포트폴리오+TOPCIT, 인컴은 졸업심사 없음)",
+      "applied_default": "학부 졸업요건 충족으로 갈음",
+      "sources": [
+        "S1",
+        "S10"
+      ]
+    },
+    {
+      "id": "NC-RETAKE-GRADE",
+      "question": "재이수 시 어느 성적이 남는지와 재수강 성적 상한(학교 학칙)",
+      "applied_default": "마지막 이수 성적만 인정, 이전 성적·학점 삭제",
+      "sources": [
+        "S7"
+      ]
+    }
+  ]
+}
