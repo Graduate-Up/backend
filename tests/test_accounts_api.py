@@ -185,3 +185,97 @@ def test_browser_session_works_in_new_tab_and_requires_same_origin_to_write(monk
         assert client.post("/api/v1/auth/logout", headers=same_origin).status_code == 204
         assert client.get("/api/v1/me").status_code == 401
 
+
+
+def request_reset(client, email):
+    return client.post("/api/v1/auth/email-code", json={"email": email, "purpose": "reset"})
+
+
+def test_password_reset_changes_password_and_ends_old_sessions(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    with TestClient(create_demo_app()) as client:
+        assert register(client, verification_mailbox).status_code == 201
+        old_session = sign_in(client)
+        verification_mailbox.clear()
+
+        assert request_reset(client, CREDENTIALS["email"]).status_code == 204
+        code = verification_mailbox[CREDENTIALS["email"]]
+        new_password = "brand-new-password"
+        wrong = "000000" if code != "000000" else "000001"
+        assert client.post("/api/v1/auth/password-reset", json={
+            **CREDENTIALS, "password": new_password, "code": wrong,
+        }).status_code == 400
+        reset = client.post("/api/v1/auth/password-reset", json={
+            **CREDENTIALS, "password": new_password, "code": code,
+        })
+        assert reset.status_code == 200, reset.text
+        assert reset.headers["cache-control"] == "no-store"
+        assert "password" not in reset.text
+
+        # 바로 로그인된 새 세션, 기존 세션은 끊김
+        new_session = {"Authorization": "Bearer " + reset.json()["access_token"]}
+        assert client.get("/api/v1/me", headers=new_session).status_code == 200
+        assert client.get("/api/v1/me", headers=old_session).status_code == 401
+        assert client.post("/api/v1/auth/login", json=CREDENTIALS).status_code == 401
+        sign_in(client, {**CREDENTIALS, "password": new_password})
+        # 인증번호는 한 번만 쓸 수 있다
+        assert client.post("/api/v1/auth/password-reset", json={
+            **CREDENTIALS, "password": "another-password", "code": code,
+        }).status_code == 400
+
+
+def test_password_reset_does_not_reveal_whether_an_email_is_registered(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    with TestClient(create_demo_app()) as client:
+        assert register(client, verification_mailbox).status_code == 201
+        verification_mailbox.clear()
+        unknown = "nobody@knu.ac.kr"
+        # 가입 여부와 관계없이 같은 응답, 같은 재요청 제한
+        for email in (CREDENTIALS["email"], unknown):
+            first, again = request_reset(client, email), request_reset(client, email)
+            assert (first.status_code, first.content, again.status_code) == (204, b"", 429)
+            assert again.json() == {"detail": "인증번호 요청이 너무 많습니다. 잠시 뒤 다시 시도해 주세요."}
+        # 가입되지 않은 이메일로는 메일을 보내지 않고, 재설정도 되지 않는다
+        assert unknown not in verification_mailbox
+        assert client.post("/api/v1/auth/password-reset", json={
+            "email": unknown, "password": "whatever-password", "code": "123456",
+        }).status_code == 400
+
+
+def test_signup_and_reset_codes_are_not_interchangeable(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    with TestClient(create_demo_app()) as client:
+        email = CREDENTIALS["email"]
+        assert client.post("/api/v1/auth/email-code", json={"email": email}).status_code == 204
+        signup_code = verification_mailbox[email]
+        # 가입용 인증번호로는 비밀번호를 바꿀 수 없다 (아직 계정도 없음)
+        assert client.post("/api/v1/auth/password-reset", json={**CREDENTIALS, "code": signup_code}).status_code == 400
+        assert client.post("/api/v1/auth/register", json={**CREDENTIALS, "code": signup_code}).status_code == 201
+
+        get_account_store.cache_clear()
+        store = get_account_store(tmp_path / "accounts.sqlite3")
+        with store.connect() as conn:  # 재요청 제한(60초)을 지난 것으로 만든다
+            conn.execute("UPDATE registration_codes SET sent_at = sent_at - 120")
+        assert request_reset(client, email).status_code == 204
+        reset_code = verification_mailbox[email]
+        # 재설정용 인증번호로는 가입할 수 없다
+        assert client.post("/api/v1/auth/register", json={
+            **CREDENTIALS, "email": email, "code": reset_code,
+        }).status_code == 400
+        # 틀린 인증번호를 5번 넣으면 맞는 번호도 막힌다
+        wrong = "000000" if reset_code != "000000" else "000001"
+        for _ in range(5):
+            assert client.post("/api/v1/auth/password-reset", json={**CREDENTIALS, "code": wrong}).status_code == 400
+        assert client.post("/api/v1/auth/password-reset", json={**CREDENTIALS, "code": reset_code}).status_code == 400
+
+
+def test_existing_code_table_gets_purpose_column(tmp_path):
+    db = tmp_path / "old.sqlite3"
+    with sqlite3.connect(db) as conn:
+        conn.execute("""CREATE TABLE registration_codes (email TEXT PRIMARY KEY, nonce TEXT NOT NULL,
+            digest BLOB NOT NULL, issuer TEXT NOT NULL, sent_at INTEGER NOT NULL, attempts INTEGER NOT NULL DEFAULT 0)""")
+        conn.execute("INSERT INTO registration_codes VALUES ('a@knu.ac.kr', 'n', x'00', 'ip', 1, 0)")
+    get_account_store.cache_clear()
+    store = get_account_store(db)
+    with store.connect() as conn:
+        assert conn.execute("SELECT purpose FROM registration_codes").fetchone()[0] == "register"
