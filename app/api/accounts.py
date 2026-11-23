@@ -203,7 +203,7 @@ def save_checklist(update: ChecklistUpdate, account: Account, store: Store, prov
     try:
         records = store.update_nonacademic(
             account.account.id,
-            lambda current: toggle_checklist(rule, current, update.requirement_id, update.checked),
+            lambda current: toggle_checklist(rule, current, update.requirement_id, update.checked, update.amount),
         )
     except KeyError as exc:
         raise HTTPException(422, "현재 졸업요건에 없는 체크리스트 항목입니다.") from exc

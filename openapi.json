@@ -1254,17 +1254,37 @@
             "title": "Requirement Id"
           },
           "checked": {
-            "type": "boolean",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Checked"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount",
+            "description": "실제 수치. 기준 이상이면 충족"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": [
-          "requirement_id",
-          "checked"
+          "requirement_id"
         ],
-        "title": "ChecklistUpdate"
+        "title": "ChecklistUpdate",
+        "description": "체크박스(`checked`) 또는 실제 수치(`amount`, 예: TOEIC 점수, 상담 횟수) 중 하나로 저장한다.\n\n`checked: true`는 기준값(예: 700점, 8회)으로 저장되어 충족이다. `amount`는 그대로 저장되며\n기준 이상일 때만 충족이다. `checked: false`는 기록을 지운다."
       },
       "Conditions": {
         "properties": {
@@ -2503,6 +2523,19 @@
             "title": "Auto Checked",
             "description": "이수 과목으로 충족이 확인된 checklist 항목 (예: SW 대체 과목 이수)",
             "default": false
+          },
+          "recorded_amount": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recorded Amount",
+            "description": "checklist 항목에 저장된 수치 (없으면 null)"
           },
           "reason": {
             "type": "string",

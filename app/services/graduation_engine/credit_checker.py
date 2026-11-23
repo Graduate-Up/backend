@@ -6,6 +6,10 @@ from app.schemas.evaluation import CreditEntry, RequirementResult
 from app.schemas.rules import CreditTreatment, GraduationRule
 
 
+# 성적표 교과구분이 이 값이면 학부 개설 과목이어도 주전공 학점으로 보지 않는다 (다전공·현장실습 등).
+NON_MAJOR_CATEGORIES = {"다중전공", "현장실습", "해외대학", "대학원", "융합전공", "부전공", "복수전공", "연계전공", "다전공"}
+
+
 def check_credits(
     courses: list[Course], rule: GraduationRule, equivalents: dict[str, str],
 ) -> tuple[list[RequirementResult], list[CreditEntry]]:
@@ -45,7 +49,7 @@ def check_credits(
 
         category = course.transcript_category.strip()
         treatment = rule.transcript_categories.get(category)
-        if category in {"다중전공", "현장실습", "해외대학", "대학원", "융합전공"} or not rule.department_major_codes:
+        if category in NON_MAJOR_CATEGORIES or not rule.department_major_codes:
             return treatment, None
         known_major = canonical in rule.department_major_codes
         if not known_major and category not in rule.major_transcript_categories:

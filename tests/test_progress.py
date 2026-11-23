@@ -99,3 +99,29 @@ def test_gpa_requirement_becomes_course_item(rules, student, course):
     assert gpa.details[0] == "4.3 만점, F 포함"
     with pytest.raises(KeyError):
         toggle_checklist(select_rules(student, rules), [], "gpa", True)
+
+
+def test_checklist_stores_minimum_when_checked_and_real_amount_when_given(rules, student):
+    from app.services.graduation_engine.progress import is_checked
+
+    rule = select_rules(student, rules)
+    requirement = next(item for item in rule.nonacademic_requirements if item.id == "test-english")
+    rule.nonacademic_requirements[rule.nonacademic_requirements.index(requirement)] = requirement.model_copy(
+        update={"minimum": 700})
+    requirement = requirement.model_copy(update={"minimum": 700})
+    checked = toggle_checklist(rule, [], "test-english", True)
+    assert checked[0].amount == 700 and is_checked(requirement, checked)
+    low = toggle_checklist(rule, [], "test-english", None, 650)
+    assert low[0].amount == 650 and not is_checked(requirement, low)
+    assert is_checked(requirement, toggle_checklist(rule, low, "test-english", None, 750))
+
+
+def test_checklist_update_needs_exactly_one_value():
+    from pydantic import ValidationError
+
+    from app.schemas.evaluation import ChecklistUpdate
+
+    assert ChecklistUpdate(requirement_id="x", amount=750).amount == 750
+    for payload in ({"requirement_id": "x"}, {"requirement_id": "x", "checked": True, "amount": 1}):
+        with pytest.raises(ValidationError):
+            ChecklistUpdate(**payload)

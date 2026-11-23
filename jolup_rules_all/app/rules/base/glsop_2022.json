@@ -186,11 +186,19 @@
         {
           "id": "startup_credits",
           "text": "창업 교과목 9학점",
-          "min_credits": 9
+          "min_credits": 9,
+          "source": [
+            "S16",
+            "S33"
+          ]
         },
         {
           "id": "startup_activity",
-          "text": "스타트업 창업 활동"
+          "text": "스타트업 창업 활동",
+          "source": [
+            "S16",
+            "S33"
+          ]
         },
         {
           "id": "multi_major_required",
@@ -198,12 +206,17 @@
         },
         {
           "id": "capstone",
-          "text": "종합설계 3학점 (ITEC0401 또는 ITEC0402)",
+          "text": "종합설계교과목 3학점 (SW융합설계1·2, 종합설계프로젝트1·2 중 택1)",
           "one_of": [
+            "GLSO0218",
+            "GLSO0221",
             "ITEC0401",
             "ITEC0402"
           ],
-          "min_credits": 3
+          "min_credits": 3,
+          "source": [
+            "S28"
+          ]
         }
       ],
       "source": [

@@ -36,6 +36,9 @@ function describe(item) {
   const unit = item.unit || "";
   if (item.kind === "checklist") {
     if (item.auto_checked) return "자동 확인";
+    if (item.recorded_amount != null) {
+      return formatNumber(item.recorded_amount) + " / " + formatNumber(item.required) + unit;
+    }
     return !unit && item.required === 1 ? "직접 확인" : "기준 " + formatNumber(item.required) + unit;
   }
   if (item.id === "gpa") {

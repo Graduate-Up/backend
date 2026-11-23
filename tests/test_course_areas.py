@@ -36,7 +36,8 @@ def test_mapping_files_are_well_formed_and_sourced(name):
         keys = [(row["curriculum_year"], row["code"]) for row in rows]
         assert len(keys) == len(set(keys))
     else:
-        assert sum(row["sdg"] == "true" for row in rows) == 59  # 공식 목록 2024.5.1. 기준
+        assert len(rows) >= 300  # 공식 이수영역별 교양과목 목록(2025)
+        assert sum(row["sdg"] == "true" for row in rows) == 72  # 2025 목록 + 2024.5.1. SDG 목록
 
 
 def test_curriculum_follows_admission_year():
@@ -72,7 +73,7 @@ def test_liberal_area_mapping_transcript_label_and_unknown_courses():
     writing = requirement("foundation_a")
     assert liberal_result(writing, [done("CLTR0205")]).status == "satisfied"
     # 매핑표에 없지만 성적표 교과구분에 영역이 적혀 있으면 사용
-    labeled = done("CLTR0700", category="교양(첨성인기초-글쓰기)")
+    labeled = done("CLTR9990", category="교양(첨성인기초-글쓰기)")
     assert liberal_result(writing, [labeled]).status == "satisfied"
     # 영역을 모르는 교양이 있으면 미충족으로 단정하지 않는다
     unknown = liberal_result(requirement("core_science"), [done("CLTR0999")])
@@ -92,7 +93,7 @@ def test_sdg_uses_official_list():
 def test_software_is_confirmed_by_substitute_course_or_sw_area():
     software = requirement("software", 1, course_codes=["COME0331", "COMP0217"])
     assert "COME0331" in auto_satisfied(software, [done("COME0331", category="전공필수")], {})
-    assert "첨성인기초(SW)" in auto_satisfied(software, [done("CLTR0264")], {})
+    assert "첨성인기초(소프트웨어)" in auto_satisfied(software, [done("CLTR0264")], {})
     assert auto_satisfied(software, [done("CLTR0205")], {}) is None
     assert auto_satisfied(requirement("counseling", 8), [done("COME0331")], {}) is None
 
@@ -106,3 +107,37 @@ def test_computed_requirements_leave_the_checklist():
 
     assert [item.id for item in checklist_requirements(Rule())] == ["software", "counseling"]
     assert course_areas.COMPUTED_IDS >= {"sdg", "foundation_a", "abeek-msc", "abeek-design_min"}
+
+
+def test_practical_english_by_area_credits():
+    english = requirement("practical-english", 1)
+    codes = [row["code"] for row in csv.DictReader(open(DATA_DIRECTORY / "liberal_areas.csv", encoding="utf-8"))
+             if row["area"] == "실용영어"]
+    assert codes
+    assert auto_satisfied(english, [done(codes[0], credits=2)], {}) is None
+    assert "실용영어" in auto_satisfied(english, [done(codes[0], credits=4)], {})
+    # TOPIK 대체(4급)는 과목으로 충족되지 않는다
+    assert auto_satisfied(requirement("practical-english", 4), [done(codes[0], credits=4)], {}) is None
+
+
+def test_startup_credits_and_15_credit_substitute():
+    from app.services.graduation_engine.course_areas import startup_result
+
+    courses = [done("GLSO0223", category="전공"), done("FUTR0201", category="일반선택"),
+               Course(course_code="ABCD0001", course_name="로컬 창업 실습", credits=3, transcript_category="일반선택",
+                      semester="2024-1", status="completed")]
+    credits = startup_result(requirement("track-startup_credits", 9), courses)
+    assert credits.status == "satisfied" and credits.current == 9
+    activity = requirement("track-startup_activity", 1)
+    assert auto_satisfied(activity, courses, {}) is None
+    more = courses + [done("CLTR0089"), done("FUTR0214")]
+    assert "15학점" in auto_satisfied(activity, more, {})
+
+
+def test_glsop_major_table_follows_admission_year():
+    from app.services.graduation_engine.course_areas import glsop_major_courses
+
+    assert "GLSO0218" in glsop_major_courses(2021)  # SW융합설계1: 2020~2021 교육과정
+    assert "ITEC0402" in glsop_major_courses(2022)
+    assert "ITEC0402" not in glsop_major_courses(2023)  # 2023 개편으로 삭제, 2022학번까지만
+    assert "MTED0231" not in glsop_major_courses(2023)  # 심컴 교육과정 과목은 글솝 전공 불인정
