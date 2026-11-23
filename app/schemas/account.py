@@ -26,11 +26,19 @@ class EmailCodeRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     email: SchoolEmail
+    purpose: Literal["register", "reset"] = Field(
+        "register", description="register: 회원가입 인증번호, reset: 비밀번호 재설정 인증번호",
+    )
 
 
 class Registration(Credentials):
     code: SecretStr = Field(min_length=6, max_length=6)
     legacy_username: Username | None = None
+
+
+class PasswordReset(Credentials):
+    """password는 새 비밀번호."""
+    code: SecretStr = Field(min_length=6, max_length=6)
 
 
 class StudentSettings(StudentProfile):

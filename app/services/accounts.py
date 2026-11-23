@@ -8,7 +8,9 @@ from contextlib import closing, contextmanager
 from functools import lru_cache
 from pathlib import Path
 
-from app.schemas.account import AccountResponse, Credentials, MeResponse, Registration, SessionResponse, StudentSettings
+from app.schemas.account import (
+    AccountResponse, Credentials, MeResponse, PasswordReset, Registration, SessionResponse, StudentSettings,
+)
 from app.schemas.evaluation import LiberalSummary, NonacademicRecord, StudentRecords
 from app.schemas.course import Course
 
@@ -84,6 +86,10 @@ class AccountStore:
                     records_json TEXT NOT NULL
                 );
             """)
+            columns = {row["name"] for row in conn.execute("PRAGMA table_info(registration_codes)")}
+            if "purpose" not in columns:
+                # 가입용 인증번호와 비밀번호 재설정용 인증번호를 구분한다 (기존 DB는 가입용으로 본다)
+                conn.execute("ALTER TABLE registration_codes ADD COLUMN purpose TEXT NOT NULL DEFAULT 'register'")
 
     @contextmanager
     def connect(self):
@@ -93,7 +99,12 @@ class AccountStore:
             with conn:
                 yield conn
 
-    def issue_email_code(self, email: str, issuer: str, secret: bytes) -> str:
+    def issue_email_code(self, email: str, issuer: str, secret: bytes, purpose: str = "register") -> str | None:
+        """인증번호를 만들어 저장하고, 보낼 인증번호를 돌려준다.
+
+        비밀번호 재설정(purpose="reset")은 가입되지 않은 이메일이면 None을 돌려준다. 이때도 같은 행을 저장해
+        재요청 제한이 똑같이 걸리게 하므로, 응답만으로 가입 여부를 알 수 없다.
+        """
         code = f"{secrets.randbelow(1_000_000):06d}"
         nonce = secrets.token_hex(16)
         now = int(time.time())
@@ -105,12 +116,63 @@ class AccountStore:
             if (previous and now - previous["sent_at"] < EMAIL_CODE_COOLDOWN) or (previous is None and recent >= 10):
                 raise EmailCodeRateLimit()
             conn.execute(
-                """INSERT INTO registration_codes (email, nonce, digest, issuer, sent_at)
-                VALUES (?, ?, ?, ?, ?) ON CONFLICT(email) DO UPDATE SET nonce = excluded.nonce,
-                digest = excluded.digest, issuer = excluded.issuer, sent_at = excluded.sent_at, attempts = 0""",
-                (email, nonce, _email_code_digest(secret, email, nonce, code), issuer, now),
+                """INSERT INTO registration_codes (email, nonce, digest, issuer, sent_at, purpose)
+                VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(email) DO UPDATE SET nonce = excluded.nonce,
+                digest = excluded.digest, issuer = excluded.issuer, sent_at = excluded.sent_at, attempts = 0,
+                purpose = excluded.purpose""",
+                (email, nonce, _email_code_digest(secret, email, nonce, code), issuer, now, purpose),
             )
+            if purpose == "reset" and self._verified_user(conn, email) is None:
+                return None
         return code
+
+    @staticmethod
+    def _verified_user(conn: sqlite3.Connection, email: str) -> sqlite3.Row | None:
+        return conn.execute(
+            "SELECT users.* FROM users JOIN verified_accounts ON users.id = verified_accounts.user_id WHERE username = ?",
+            (email,),
+        ).fetchone()
+
+    @staticmethod
+    def _check_email_code(conn: sqlite3.Connection, email: str, code: str, purpose: str, secret: bytes) -> None:
+        """인증번호가 맞는지 확인한다. 틀리면 시도 횟수를 올리고 InvalidEmailCode."""
+        pending = conn.execute("SELECT * FROM registration_codes WHERE email = ?", (email,)).fetchone()
+        if (pending is None or pending["purpose"] != purpose or time.time() >= pending["sent_at"] + EMAIL_CODE_TTL
+                or pending["attempts"] >= EMAIL_CODE_ATTEMPTS):
+            raise InvalidEmailCode()
+        if not hmac.compare_digest(_email_code_digest(secret, email, pending["nonce"], code), pending["digest"]):
+            conn.execute("UPDATE registration_codes SET attempts = attempts + 1 WHERE email = ?", (email,))
+            conn.commit()
+            raise InvalidEmailCode()
+
+    @staticmethod
+    def _new_session(conn: sqlite3.Connection, user_id: int) -> SessionResponse:
+        token = secrets.token_urlsafe(32)
+        now = int(time.time())
+        conn.execute("DELETE FROM sessions WHERE expires_at <= ?", (now,))
+        conn.execute(
+            "INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)",
+            (_token_digest(token), user_id, now + SESSION_SECONDS),
+        )
+        return SessionResponse(access_token=token, expires_in=SESSION_SECONDS)
+
+    def reset_password(self, reset: PasswordReset, secret: bytes) -> SessionResponse:
+        """인증번호가 맞으면 새 비밀번호로 바꾸고, 기존 세션을 모두 끊은 뒤 새 세션을 돌려준다."""
+        salt = secrets.token_bytes(16)
+        password_hash = _password_digest(reset.password.get_secret_value(), salt, PASSWORD_ROUNDS)
+        with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            self._check_email_code(conn, reset.email, reset.code.get_secret_value(), "reset", secret)
+            user = self._verified_user(conn, reset.email)
+            if user is None:
+                raise InvalidEmailCode()
+            conn.execute(
+                "UPDATE users SET password_salt = ?, password_hash = ?, password_rounds = ? WHERE id = ?",
+                (salt, password_hash, PASSWORD_ROUNDS, user["id"]),
+            )
+            conn.execute("DELETE FROM sessions WHERE user_id = ?", (user["id"],))
+            conn.execute("DELETE FROM registration_codes WHERE email = ?", (reset.email,))
+            return self._new_session(conn, user["id"])
 
     def register(self, credentials: Registration, secret: bytes) -> AccountResponse:
         salt = secrets.token_bytes(16)
@@ -118,15 +180,7 @@ class AccountStore:
         password_hash = _password_digest(password, salt, PASSWORD_ROUNDS)
         with self.connect() as conn:
             conn.execute("BEGIN IMMEDIATE")
-            pending = conn.execute("SELECT * FROM registration_codes WHERE email = ?", (credentials.email,)).fetchone()
-            if (pending is None or time.time() >= pending["sent_at"] + EMAIL_CODE_TTL
-                    or pending["attempts"] >= EMAIL_CODE_ATTEMPTS):
-                raise InvalidEmailCode()
-            digest = _email_code_digest(secret, credentials.email, pending["nonce"], credentials.code.get_secret_value())
-            if not hmac.compare_digest(digest, pending["digest"]):
-                conn.execute("UPDATE registration_codes SET attempts = attempts + 1 WHERE email = ?", (credentials.email,))
-                conn.commit()
-                raise InvalidEmailCode()
+            self._check_email_code(conn, credentials.email, credentials.code.get_secret_value(), "register", secret)
             if conn.execute("SELECT 1 FROM users WHERE username = ?", (credentials.email,)).fetchone():
                 raise DuplicateUsername("이미 가입된 학교 이메일입니다.")
             if credentials.legacy_username is not None:
@@ -152,25 +206,14 @@ class AccountStore:
 
     def login(self, credentials: Credentials) -> SessionResponse | None:
         with self.connect() as conn:
-            user = conn.execute(
-                "SELECT users.* FROM users JOIN verified_accounts ON users.id = verified_accounts.user_id WHERE username = ?",
-                (credentials.email,),
-            ).fetchone()
+            user = self._verified_user(conn, credentials.email)
         salt = user["password_salt"] if user else bytes(16)
         rounds = user["password_rounds"] if user else PASSWORD_ROUNDS
         digest = _password_digest(credentials.password.get_secret_value(), salt, rounds)
         if user is None or not hmac.compare_digest(digest, user["password_hash"]):
             return None
-
-        token = secrets.token_urlsafe(32)
-        now = int(time.time())
         with self.connect() as conn:
-            conn.execute("DELETE FROM sessions WHERE expires_at <= ?", (now,))
-            conn.execute(
-                "INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)",
-                (_token_digest(token), user["id"], now + SESSION_SECONDS),
-            )
-        return SessionResponse(access_token=token, expires_in=SESSION_SECONDS)
+            return self._new_session(conn, user["id"])
 
     def get_me(self, token: str) -> MeResponse | None:
         with self.connect() as conn:
