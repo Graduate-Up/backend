@@ -6,11 +6,16 @@ from fastapi.security import APIKeyCookie, HTTPAuthorizationCredentials, HTTPBea
 from pydantic import BaseModel
 
 from app.core.config import account_db_path
-from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
+from app.schemas.account import (
+    AccountResponse, Credentials, EmailCodeRequest, MeResponse, Registration, SessionResponse, StudentSettings,
+)
 from app.schemas.course import Course
 from app.schemas.evaluation import ChecklistUpdate, EvaluationResponse, ProgressResponse, StudentRecords
 from app.schemas.rules import GraduationRule
-from app.services.accounts import AccountStore, DuplicateUsername, get_account_store
+from app.services.accounts import (
+    AccountStore, DuplicateUsername, EmailCodeRateLimit, InvalidEmailCode, InvalidLegacyAccount, get_account_store,
+)
+from app.services.email_delivery import EmailUnavailable, email_secret, email_sender
 from app.services.graduation_engine.evaluator import evaluate_graduation
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_selector import RuleSource, select_rules
@@ -81,19 +86,42 @@ Account = Annotated[MeResponse, Depends(current_account)]
 AUTH_ERROR = {401: {"model": ErrorResponse, "description": "유효한 로그인 정보 또는 세션 필요"}}
 
 
-@router.post("/auth/register", status_code=201, responses={409: {"model": ErrorResponse}})
-def register(credentials: Credentials, store: Store) -> AccountResponse:
+@router.post("/auth/email-code", status_code=204, responses={
+    429: {"model": ErrorResponse}, 503: {"model": ErrorResponse},
+})
+def send_email_code(payload: EmailCodeRequest, store: Store, request: Request) -> Response:
     try:
-        return store.register(credentials)
+        send = email_sender()
+        code = store.issue_email_code(payload.email, request.client.host if request.client else "", email_secret())
+        send(payload.email, code)
+    except EmailCodeRateLimit as exc:
+        raise HTTPException(429, "인증번호 요청이 너무 많습니다. 잠시 뒤 다시 시도해 주세요.") from exc
+    except EmailUnavailable as exc:
+        raise HTTPException(503, str(exc)) from exc
+    return Response(status_code=204)
+
+
+@router.post("/auth/register", status_code=201, responses={
+    400: {"model": ErrorResponse}, 409: {"model": ErrorResponse}, 503: {"model": ErrorResponse},
+})
+def register(credentials: Registration, store: Store) -> AccountResponse:
+    try:
+        return store.register(credentials, email_secret())
+    except InvalidEmailCode as exc:
+        raise HTTPException(400, "인증번호가 틀렸거나 만료됐습니다. 필요한 경우 다시 발급받아 주세요.") from exc
+    except InvalidLegacyAccount as exc:
+        raise HTTPException(400, "기존 사용자 이름과 비밀번호를 확인해 주세요.") from exc
     except DuplicateUsername as exc:
         raise HTTPException(409, str(exc)) from exc
+    except EmailUnavailable as exc:
+        raise HTTPException(503, str(exc)) from exc
 
 
 @router.post("/auth/login", responses=AUTH_ERROR)
 def login(credentials: Credentials, store: Store, request: Request, response: Response) -> SessionResponse:
     session = store.login(credentials)
     if session is None:
-        raise unauthorized("사용자 이름 또는 비밀번호가 올바르지 않습니다.")
+        raise unauthorized("학교 이메일 또는 비밀번호가 올바르지 않습니다.")
     origin = request.headers.get("origin")
     if origin is None or origin == f"{request.url.scheme}://{request.url.netloc}":
         response.set_cookie(

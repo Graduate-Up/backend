@@ -23,6 +23,19 @@
 - 무료 플랜이라 15분 동안 요청이 없으면 서버가 잠들고, 다음 첫 요청이 30초 정도 걸립니다.
 - 무료 플랜은 디스크가 유지되지 않아 **재배포·재시작 때 계정과 이수 내역(SQLite)이 초기화됩니다.** 데이터를 유지하려면 유료 디스크를 붙이거나 PostgreSQL로 옮겨야 합니다.
 - 프런트 주소는 Render 대시보드의 Environment에서 `JOLUP_FRONTEND_ORIGINS`에 쉼표로 추가합니다. 기본값은 `localhost:3000`, `localhost:5173`입니다.
+
+### Render 무료 플랜에서 학교 이메일 인증
+
+Render 무료 웹서비스는 SMTP 포트를 막으므로 Brevo HTTPS API를 사용합니다. Brevo 계정에서 발송 주소를 인증하고 메일 발송 권한이 있는 **API 키**를 만든 뒤, Render의 **Environment**에 다음 값을 설정하세요. 기존 서비스에도 직접 설정할 수 있습니다. [Brevo 발송 주소 설정](https://help.brevo.com/hc/en-us/articles/208836149-Create-a-new-sender-From-name-and-From-email) · [API 키 발급](https://help.brevo.com/hc/en-us/articles/209467485-Create-and-manage-your-API-keys)
+
+| 환경변수 | 설정값 |
+| --- | --- |
+| `JOLUP_EMAIL_TRANSPORT` | `brevo` |
+| `JOLUP_BREVO_API_KEY` | Brevo API 키 |
+| `JOLUP_BREVO_FROM` | Brevo에서 인증한 발송 주소 |
+| `JOLUP_EMAIL_CODE_SECRET` | 32바이트 이상의 무작위 비밀값 |
+
+설정과 새 코드가 배포되면 배포 주소의 `/account`에서 학교 이메일로 인증번호를 요청합니다. 프런트 API는 기존 `POST /api/v1/auth/email-code`를 사용합니다. Brevo는 Gmail 같은 무료 발송 도메인을 자체 도메인으로 바꿔 표시할 수 있습니다. [Brevo 발송 주소 표시 안내](https://help.brevo.com/hc/en-us/articles/16045394674066-Troubleshooting-Domain-authentication)
 - HTTPS 프록시 뒤에서 로그인 쿠키와 같은 출처 검사가 동작하도록 `--proxy-headers`로 실행합니다.
 
 ## Windows PowerShell에서 실행
@@ -43,7 +56,9 @@ Swagger UI는 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)입니다.
 
 [내 학생 설정](http://127.0.0.1:8002/account)에서 계정을 만든 뒤 로그인합니다. 학번, 입학년도, 전공과 해당 졸업 트랙·ABEEK·다전공·학생 구분을 입력하고 **설정 확인 및 저장**을 누릅니다. 로그아웃하고 같은 계정으로 다시 로그인하면 저장한 설정이 채워집니다. **내 졸업요건 조회**를 누르면 저장된 설정으로 요건을 바로 확인할 수 있습니다.
 
-계정은 졸UP 자체 아이디·비밀번호를 사용합니다. 학번은 학생 입력값이며 대학 계정이나 학적으로 검증하지 않습니다. 설정과 계정은 저장소의 `data/local/accounts.sqlite3`에 저장됩니다. 파일을 유지하면 서버를 재시작해도 설정을 다시 불러올 수 있습니다. 기본 개발 환경에는 Docker나 PostgreSQL 설정이 필요하지 않습니다. 로컬 DB 디렉터리는 Git에서 제외됩니다.
+계정은 인증한 `@knu.ac.kr` 학교 이메일과 졸UP 비밀번호를 사용합니다. 가입 화면에서 인증번호를 요청하고 이메일로 받은 숫자 6자리를 10분 안에 입력합니다. 기존 계정이 있다면 처음 인증할 때 기존 사용자 이름과 해당 계정의 비밀번호를 입력하면 학생 설정과 이수 내역이 이어집니다. 이메일 인증은 학교 메일함 접근을 확인합니다. 학번과 재학 자격은 대학 시스템에서 별도로 조회하지 않습니다. 계정과 설정은 `data/local/accounts.sqlite3`에 저장되며 로컬 DB 디렉터리는 Git에서 제외됩니다.
+
+로컬에서 SMTP로 테스트할 때는 `JOLUP_EMAIL_TRANSPORT=smtp`(기본값)와 `JOLUP_SMTP_HOST`, `JOLUP_SMTP_PORT`(기본 587, STARTTLS), `JOLUP_SMTP_FROM`, `JOLUP_SMTP_USERNAME`, `JOLUP_SMTP_PASSWORD`, `JOLUP_EMAIL_CODE_SECRET`을 설정합니다. SMTP 465는 직접 TLS를 사용합니다. SMTP 계정과 비밀번호는 발송 서버가 로그인을 요구할 때 함께 설정합니다.
 
 다른 DB 파일 위치나 프런트엔드 출처가 필요한 경우 Uvicorn을 시작하기 전에 PowerShell에서 설정합니다.
 
@@ -58,8 +73,9 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 | 메서드와 경로 | 입력과 응답 |
 | --- | --- |
-| `POST /api/v1/auth/register` | JSON `username`, `password`. 201과 계정 ID·사용자 이름 반환. 중복 사용자 이름은 409 |
-| `POST /api/v1/auth/login` | 같은 자격 증명. 200과 `access_token`, `token_type`, `expires_in` 반환. 잘못된 자격 증명은 401 |
+| `POST /api/v1/auth/email-code` | JSON `email`. 요청을 수락하면 204, 재발급 제한은 429, 발송 설정이나 연결 문제는 503 |
+| `POST /api/v1/auth/register` | JSON `email`, `password`, `code`, 선택 입력 `legacy_username`. 201과 계정 ID·학교 이메일을 담은 `username` 반환 |
+| `POST /api/v1/auth/login` | JSON `email`, `password`. 200과 `access_token`, `token_type`, `expires_in` 반환. 잘못된 자격 증명은 401 |
 | `GET /api/v1/me` | 계정과 저장된 `profile` 반환. 첫 로그인에서 `profile`은 `null` |
 | `PUT /api/v1/me/profile` | 전체 학생 설정을 검증한 뒤 저장하거나 교체하고 계정과 저장된 설정 반환 |
 | `GET /api/v1/me/requirements` | 저장한 설정에 따른 졸업요건 반환. 설정이 없으면 409 |

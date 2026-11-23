@@ -17,6 +17,14 @@ services:
         value: 3.12.8
       - key: JOLUP_DB_PATH
         value: /tmp/jolup/accounts.sqlite3
+      - key: JOLUP_EMAIL_TRANSPORT
+        value: brevo
+      - key: JOLUP_BREVO_API_KEY
+        sync: false
+      - key: JOLUP_BREVO_FROM
+        sync: false
+      - key: JOLUP_EMAIL_CODE_SECRET
+        sync: false
       # 프런트 개발 서버 주소. 프런트를 배포하면 그 주소를 쉼표로 추가한다.
       - key: JOLUP_FRONTEND_ORIGINS
         value: http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173

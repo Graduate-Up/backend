@@ -6,7 +6,7 @@ from app.schemas.rules import NonacademicRequirement
 from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_selector import select_rules
 from tests.demo_app import create_demo_app
-from tests.test_accounts_api import CREDENTIALS, PROFILE, sign_in
+from tests.test_accounts_api import PROFILE, register, sign_in
 
 
 def test_only_course_requirements_are_calculated_and_checklist_follows_records(rules, student, course):
@@ -37,11 +37,11 @@ def test_toggle_checklist_replaces_only_that_requirement(rules, student):
     assert toggle_checklist(rule, on, "test-english", False) == [other]
 
 
-def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path):
+def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     with TestClient(create_demo_app()) as client:
         assert client.get("/dashboard-view.js").status_code == 200
-        assert client.post("/api/v1/auth/register", json=CREDENTIALS).status_code == 201
+        assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
         assert client.get("/api/v1/me/progress", headers=headers).status_code == 409
         assert client.put("/api/v1/me/profile", json=PROFILE, headers=headers).status_code == 200
@@ -68,10 +68,10 @@ def test_progress_api_and_checklist_toggle(monkeypatch, tmp_path):
         assert cleared["progress"] == before["progress"]
 
 
-def test_import_keeps_grades_failed_courses_and_fills_missing_grades(monkeypatch, tmp_path):
+def test_import_keeps_grades_failed_courses_and_fills_missing_grades(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     with TestClient(create_demo_app()) as client:
-        assert client.post("/api/v1/auth/register", json=CREDENTIALS).status_code == 201
+        assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
         assert client.put("/api/v1/me/profile", json=PROFILE, headers=headers).status_code == 200
         ungraded = {"course_code": "TEST0001", "semester": "2024-1", "credits": 3,

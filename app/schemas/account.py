@@ -9,13 +9,28 @@ Username = Annotated[str, StringConstraints(
     pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
 )]
 StudentNumber = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=32, pattern=r"^[0-9]+$")]
+SchoolEmail = Annotated[str, StringConstraints(
+    strip_whitespace=True, to_lower=True, max_length=75,
+    pattern=r"^[A-Za-z0-9][A-Za-z0-9_+.-]{0,63}@([kK][nN][uU]\.[aA][cC]\.[kK][rR])$",
+)]
 
 
 class Credentials(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    username: Username
+    email: SchoolEmail
     password: SecretStr = Field(min_length=8, max_length=128)
+
+
+class EmailCodeRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    email: SchoolEmail
+
+
+class Registration(Credentials):
+    code: SecretStr = Field(min_length=6, max_length=6)
+    legacy_username: Username | None = None
 
 
 class StudentSettings(StudentProfile):
@@ -24,7 +39,7 @@ class StudentSettings(StudentProfile):
 
 class AccountResponse(BaseModel):
     id: int
-    username: Username
+    username: SchoolEmail
 
 
 class SessionResponse(BaseModel):
