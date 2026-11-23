@@ -1,6 +1,9 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
+
+pytest.importorskip("jolup_rules_all.app.rules.loader")
 
 PROFILE = {"admission_year": 2024, "major": "aicom"}
 PARAMS = {"admission_year": 2024, "major": "aicom"}

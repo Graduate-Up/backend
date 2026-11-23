@@ -1,0 +1,2305 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "졸UP Backend API",
+    "description": "경북대학교 컴퓨터학부 졸업요건 도우미",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/majors": {
+      "get": {
+        "tags": [
+          "majors"
+        ],
+        "summary": "Get Majors",
+        "operationId": "get_majors_api_v1_majors_get",
+        "parameters": [
+          {
+            "name": "admission_year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2200,
+              "minimum": 1900,
+              "title": "Admission Year"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MajorsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requirements/tracks": {
+      "get": {
+        "tags": [
+          "requirements"
+        ],
+        "summary": "Get Tracks",
+        "operationId": "get_tracks_api_v1_requirements_tracks_get",
+        "parameters": [
+          {
+            "name": "admission_year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2200,
+              "minimum": 1900,
+              "title": "Admission Year"
+            }
+          },
+          {
+            "name": "major",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "glsop",
+                "plsop",
+                "aicom",
+                "simcom",
+                "chumcom"
+              ],
+              "type": "string",
+              "title": "Major"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TracksResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/requirements": {
+      "get": {
+        "tags": [
+          "requirements"
+        ],
+        "summary": "Get Requirements",
+        "description": "연·월 및 트랙 선택은 [졸업요건 조회 화면](/requirements)에서 사용할 수 있습니다.",
+        "operationId": "get_requirements_api_v1_requirements_get",
+        "parameters": [
+          {
+            "name": "admission_year",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 2200,
+              "minimum": 1900,
+              "title": "Admission Year"
+            }
+          },
+          {
+            "name": "major",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "glsop",
+                "plsop",
+                "aicom",
+                "simcom",
+                "chumcom"
+              ],
+              "type": "string",
+              "title": "Major"
+            }
+          },
+          {
+            "name": "track",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Track"
+            }
+          },
+          {
+            "name": "track_variant",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Track Variant"
+            }
+          },
+          {
+            "name": "abeek",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Abeek"
+            }
+          },
+          {
+            "name": "multi_major",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "none",
+                "double_major",
+                "minor",
+                "interdisciplinary",
+                "double_or_linked_or_convergence",
+                "minor_1_only",
+                "minor_2plus",
+                "teaching_course"
+              ],
+              "type": "string",
+              "default": "none",
+              "title": "Multi Major"
+            }
+          },
+          {
+            "name": "expected_graduation_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^(?:19[0-9]{2}|20[0-9]{2}|21[0-9]{2}|2200)-(?:02|08)$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "졸업 예정 연·월 (YYYY-02 또는 YYYY-08)",
+              "examples": [
+                "2027-02",
+                "2027-08"
+              ],
+              "title": "Expected Graduation Date"
+            },
+            "description": "졸업 예정 연·월 (YYYY-02 또는 YYYY-08)"
+          },
+          {
+            "name": "transfer_student",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Transfer Student"
+            }
+          },
+          {
+            "name": "student_status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "new",
+                    "general_transfer",
+                    "bachelor_transfer",
+                    "foreign",
+                    "disabled"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Student Status"
+            }
+          },
+          {
+            "name": "international_student",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "International Student"
+            }
+          },
+          {
+            "name": "disabled_student",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Disabled Student"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraduationRule"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/preview": {
+      "post": {
+        "tags": [
+          "evaluations"
+        ],
+        "summary": "Preview",
+        "operationId": "preview_api_v1_evaluations_preview_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/profile": {
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Save Profile",
+        "operationId": "save_profile_api_v1_me_profile_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudentSettings"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/requirements": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Requirements",
+        "operationId": "my_requirements_api_v1_me_requirements_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraduationRule"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "username": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 3,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
+            "title": "Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username"
+        ],
+        "title": "AccountResponse"
+      },
+      "Conditions": {
+        "properties": {
+          "admission_from": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admission From"
+          },
+          "admission_to": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admission To"
+          },
+          "graduation_from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Graduation From"
+          },
+          "graduation_to": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Graduation To"
+          },
+          "tracks": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tracks"
+          },
+          "abeek": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abeek"
+          },
+          "abeek_values": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abeek Values"
+          },
+          "disabled_student": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disabled Student"
+          },
+          "multi_majors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "double_major",
+                    "minor",
+                    "interdisciplinary",
+                    "double_or_linked_or_convergence",
+                    "minor_1_only",
+                    "minor_2plus",
+                    "teaching_course"
+                  ]
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Multi Majors"
+          },
+          "transfer_student": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Student"
+          },
+          "international_student": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "International Student"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Conditions"
+      },
+      "Course": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "semester": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Semester"
+          },
+          "credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Credits"
+          },
+          "transcript_category": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Transcript Category"
+          },
+          "offered_by_computer_science": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offered By Computer Science"
+          },
+          "prior_institution": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prior Institution"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "in_progress",
+              "failed",
+              "incomplete"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "course_code",
+          "semester",
+          "credits",
+          "transcript_category",
+          "status"
+        ],
+        "title": "Course"
+      },
+      "CourseOption": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "course_name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Name"
+          },
+          "substitutes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Substitutes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "course_code",
+          "course_name"
+        ],
+        "title": "CourseOption"
+      },
+      "CourseRequirement": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/Conditions"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "courses": {
+            "items": {
+              "$ref": "#/components/schemas/CourseOption"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Courses"
+          },
+          "choose": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Choose"
+          },
+          "required_transcript_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Transcript Category"
+          },
+          "require_department": {
+            "type": "boolean",
+            "title": "Require Department",
+            "default": false
+          },
+          "reject_transfer_courses": {
+            "type": "boolean",
+            "title": "Reject Transfer Courses",
+            "default": false
+          },
+          "minimum_course_credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Minimum Course Credits",
+            "default": 0
+          },
+          "accept_equivalent_codes": {
+            "type": "boolean",
+            "title": "Accept Equivalent Codes",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "courses",
+          "choose"
+        ],
+        "title": "CourseRequirement"
+      },
+      "Credentials": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 3,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "format": "password",
+            "title": "Password",
+            "writeOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "Credentials"
+      },
+      "CreditCap": {
+        "properties": {
+          "maximum": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Maximum"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "major",
+                  "liberal_arts",
+                  "general"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "course_codes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "type": "array",
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Codes"
+          },
+          "code_prefix": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code Prefix"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "maximum"
+        ],
+        "title": "CreditCap"
+      },
+      "CreditEntry": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "semester": {
+            "type": "string",
+            "title": "Semester"
+          },
+          "transcript_category": {
+            "type": "string",
+            "title": "Transcript Category"
+          },
+          "recognized_category": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "major",
+                  "liberal_arts",
+                  "general"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recognized Category"
+          },
+          "recognized_credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Recognized Credits",
+            "default": 0
+          },
+          "counts_toward_total": {
+            "type": "boolean",
+            "title": "Counts Toward Total",
+            "default": false
+          },
+          "excluded_credits": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Excluded Credits",
+            "default": 0
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code",
+          "semester",
+          "transcript_category"
+        ],
+        "title": "CreditEntry"
+      },
+      "CreditRequirement": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/Conditions"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "area": {
+            "type": "string",
+            "enum": [
+              "total",
+              "major",
+              "liberal_arts"
+            ],
+            "title": "Area"
+          },
+          "minimum": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Minimum"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "area",
+          "minimum"
+        ],
+        "title": "CreditRequirement"
+      },
+      "CreditTreatment": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "major",
+              "liberal_arts",
+              "general"
+            ],
+            "title": "Category"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "recognized",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status",
+            "default": "recognized"
+          },
+          "counts_toward_total": {
+            "type": "boolean",
+            "title": "Counts Toward Total",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "category"
+        ],
+        "title": "CreditTreatment"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "ErrorResponse"
+      },
+      "EvaluationRequest": {
+        "properties": {
+          "student_profile": {
+            "$ref": "#/components/schemas/StudentProfile"
+          },
+          "completed_courses": {
+            "items": {
+              "$ref": "#/components/schemas/Course"
+            },
+            "type": "array",
+            "title": "Completed Courses"
+          },
+          "nonacademic_records": {
+            "items": {
+              "$ref": "#/components/schemas/NonacademicRecord"
+            },
+            "type": "array",
+            "title": "Nonacademic Records"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "student_profile",
+          "completed_courses"
+        ],
+        "title": "EvaluationRequest"
+      },
+      "EvaluationResponse": {
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "dataset": {
+            "type": "string",
+            "enum": [
+              "official",
+              "test"
+            ],
+            "title": "Dataset"
+          },
+          "eligible": {
+            "type": "boolean",
+            "title": "Eligible"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "unsatisfied",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "requirements": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementResult"
+            },
+            "type": "array",
+            "title": "Requirements"
+          },
+          "credit_entries": {
+            "items": {
+              "$ref": "#/components/schemas/CreditEntry"
+            },
+            "type": "array",
+            "title": "Credit Entries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_id",
+          "dataset",
+          "eligible",
+          "status",
+          "requirements",
+          "credit_entries"
+        ],
+        "title": "EvaluationResponse"
+      },
+      "GraduationRule": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "dataset": {
+            "type": "string",
+            "enum": [
+              "official",
+              "test"
+            ],
+            "title": "Dataset"
+          },
+          "major": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "glsop",
+                  "plsop",
+                  "aicom",
+                  "simcom",
+                  "chumcom"
+                ]
+              },
+              {
+                "type": "string",
+                "const": "common"
+              }
+            ],
+            "title": "Major"
+          },
+          "admission_from": {
+            "type": "integer",
+            "title": "Admission From"
+          },
+          "admission_to": {
+            "type": "integer",
+            "title": "Admission To"
+          },
+          "allowed_tracks": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Allowed Tracks"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/Conditions"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Sources"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          },
+          "credit_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/CreditRequirement"
+            },
+            "type": "array",
+            "title": "Credit Requirements"
+          },
+          "course_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/CourseRequirement"
+            },
+            "type": "array",
+            "title": "Course Requirements"
+          },
+          "nonacademic_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/NonacademicRequirement"
+            },
+            "type": "array",
+            "title": "Nonacademic Requirements"
+          },
+          "verification_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/VerificationRequirement"
+            },
+            "type": "array",
+            "title": "Verification Requirements"
+          },
+          "department_major_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Department Major Codes"
+          },
+          "major_transcript_categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Major Transcript Categories"
+          },
+          "prefix_treatments": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CreditTreatment"
+            },
+            "propertyNames": {
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Prefix Treatments"
+          },
+          "transcript_categories": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CreditTreatment"
+            },
+            "type": "object",
+            "title": "Transcript Categories"
+          },
+          "course_treatments": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CreditTreatment"
+            },
+            "propertyNames": {
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Course Treatments"
+          },
+          "equivalent_courses": {
+            "additionalProperties": {
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": "array"
+            },
+            "propertyNames": {
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Equivalent Courses"
+          },
+          "review_equivalences": {
+            "additionalProperties": {
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": "array"
+            },
+            "propertyNames": {
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Review Equivalences"
+          },
+          "transfer_credit_max": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Credit Max"
+          },
+          "credit_caps": {
+            "items": {
+              "$ref": "#/components/schemas/CreditCap"
+            },
+            "type": "array",
+            "title": "Credit Caps"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "dataset",
+          "major",
+          "admission_from",
+          "admission_to",
+          "sources",
+          "credit_requirements",
+          "course_requirements",
+          "nonacademic_requirements"
+        ],
+        "title": "GraduationRule"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MajorOption": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "glsop",
+              "plsop",
+              "aicom",
+              "simcom",
+              "chumcom"
+            ],
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name"
+        ],
+        "title": "MajorOption"
+      },
+      "MajorsResponse": {
+        "properties": {
+          "admission_year": {
+            "type": "integer",
+            "title": "Admission Year"
+          },
+          "majors": {
+            "items": {
+              "$ref": "#/components/schemas/MajorOption"
+            },
+            "type": "array",
+            "title": "Majors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "admission_year",
+          "majors"
+        ],
+        "title": "MajorsResponse"
+      },
+      "MeResponse": {
+        "properties": {
+          "account": {
+            "$ref": "#/components/schemas/AccountResponse"
+          },
+          "profile": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudentSettings"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "account",
+          "profile"
+        ],
+        "title": "MeResponse"
+      },
+      "NonacademicRecord": {
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Requirement Id"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Amount"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "unsatisfied",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "amount",
+          "status"
+        ],
+        "title": "NonacademicRecord"
+      },
+      "NonacademicRequirement": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/Conditions"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "minimum": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Minimum",
+            "default": 1
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "details": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "NonacademicRequirement"
+      },
+      "RequiredCourseResult": {
+        "properties": {
+          "course_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Course Code"
+          },
+          "course_name": {
+            "type": "string",
+            "title": "Course Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "in_progress",
+              "missing",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "course_code",
+          "course_name",
+          "status"
+        ],
+        "title": "RequiredCourseResult"
+      },
+      "RequirementResult": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "unsatisfied",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status"
+          },
+          "current": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Current"
+          },
+          "required": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Required"
+          },
+          "shortfall": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Shortfall"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "credit_area": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "total",
+                  "major",
+                  "liberal_arts"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credit Area"
+          },
+          "required_courses": {
+            "items": {
+              "$ref": "#/components/schemas/RequiredCourseResult"
+            },
+            "type": "array",
+            "title": "Required Courses"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "status",
+          "current",
+          "required",
+          "shortfall",
+          "reason",
+          "sources"
+        ],
+        "title": "RequirementResult"
+      },
+      "SessionResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "const": "bearer",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "expires_in"
+        ],
+        "title": "SessionResponse"
+      },
+      "Source": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Title"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "Source"
+      },
+      "StudentProfile": {
+        "properties": {
+          "admission_year": {
+            "type": "integer",
+            "maximum": 2200.0,
+            "minimum": 1900.0,
+            "title": "Admission Year"
+          },
+          "major": {
+            "type": "string",
+            "enum": [
+              "glsop",
+              "plsop",
+              "aicom",
+              "simcom",
+              "chumcom"
+            ],
+            "title": "Major"
+          },
+          "track": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track"
+          },
+          "track_variant": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track Variant"
+          },
+          "abeek": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abeek"
+          },
+          "multi_major": {
+            "type": "string",
+            "enum": [
+              "none",
+              "double_major",
+              "minor",
+              "interdisciplinary",
+              "double_or_linked_or_convergence",
+              "minor_1_only",
+              "minor_2plus",
+              "teaching_course"
+            ],
+            "title": "Multi Major",
+            "default": "none"
+          },
+          "expected_graduation_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:19[0-9]{2}|20[0-9]{2}|21[0-9]{2}|2200)-(?:02|08)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Graduation Date",
+            "description": "졸업 예정 연·월 (YYYY-02 또는 YYYY-08)",
+            "examples": [
+              "2027-02",
+              "2027-08"
+            ]
+          },
+          "transfer_student": {
+            "type": "boolean",
+            "title": "Transfer Student",
+            "default": false
+          },
+          "student_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "new",
+                  "general_transfer",
+                  "bachelor_transfer",
+                  "foreign",
+                  "disabled"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Student Status"
+          },
+          "international_student": {
+            "type": "boolean",
+            "title": "International Student",
+            "default": false
+          },
+          "disabled_student": {
+            "type": "boolean",
+            "title": "Disabled Student",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "admission_year",
+          "major"
+        ],
+        "title": "StudentProfile"
+      },
+      "StudentSettings": {
+        "properties": {
+          "admission_year": {
+            "type": "integer",
+            "maximum": 2200.0,
+            "minimum": 1900.0,
+            "title": "Admission Year"
+          },
+          "major": {
+            "type": "string",
+            "enum": [
+              "glsop",
+              "plsop",
+              "aicom",
+              "simcom",
+              "chumcom"
+            ],
+            "title": "Major"
+          },
+          "track": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track"
+          },
+          "track_variant": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Track Variant"
+          },
+          "abeek": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abeek"
+          },
+          "multi_major": {
+            "type": "string",
+            "enum": [
+              "none",
+              "double_major",
+              "minor",
+              "interdisciplinary",
+              "double_or_linked_or_convergence",
+              "minor_1_only",
+              "minor_2plus",
+              "teaching_course"
+            ],
+            "title": "Multi Major",
+            "default": "none"
+          },
+          "expected_graduation_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:19[0-9]{2}|20[0-9]{2}|21[0-9]{2}|2200)-(?:02|08)$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Graduation Date",
+            "description": "졸업 예정 연·월 (YYYY-02 또는 YYYY-08)",
+            "examples": [
+              "2027-02",
+              "2027-08"
+            ]
+          },
+          "transfer_student": {
+            "type": "boolean",
+            "title": "Transfer Student",
+            "default": false
+          },
+          "student_status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "new",
+                  "general_transfer",
+                  "bachelor_transfer",
+                  "foreign",
+                  "disabled"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Student Status"
+          },
+          "international_student": {
+            "type": "boolean",
+            "title": "International Student",
+            "default": false
+          },
+          "disabled_student": {
+            "type": "boolean",
+            "title": "Disabled Student",
+            "default": false
+          },
+          "student_number": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "pattern": "^[0-9]+$",
+            "title": "Student Number"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "admission_year",
+          "major",
+          "student_number"
+        ],
+        "title": "StudentSettings"
+      },
+      "TracksResponse": {
+        "properties": {
+          "tracks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tracks"
+          },
+          "allows_no_track": {
+            "type": "boolean",
+            "title": "Allows No Track"
+          },
+          "requires_abeek": {
+            "type": "boolean",
+            "title": "Requires Abeek",
+            "default": false
+          },
+          "track_labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Track Labels",
+            "default": {}
+          },
+          "track_variants": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Track Variants",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "tracks",
+          "allows_no_track"
+        ],
+        "title": "TracksResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VerificationRequirement": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/Conditions"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "VerificationRequirement"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

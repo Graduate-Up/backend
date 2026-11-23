@@ -1,9 +1,8 @@
 from app.schemas.rules import Conditions, GraduationRule
 from app.schemas.student import StudentProfile
 
-from .bundle import BundleProfileError, RuleBundle
+from .bundle import BundleProfileError, BundleUnavailableError, RuleBundle
 from .rule_loader import RuleDataError, RuleUnavailableError
-from jolup_rules_all.app.rules.loader import NoRuleSet
 
 RuleSource = list[GraduationRule] | RuleBundle
 
@@ -83,7 +82,7 @@ def select_rules(student_profile: StudentProfile, rules: RuleSource) -> Graduati
             return rules.resolve(student)
         except BundleProfileError as exc:
             raise ProfileError(str(exc)) from exc
-        except NoRuleSet as exc:
+        except BundleUnavailableError as exc:
             raise RuleUnavailableError("No graduation rules for this major and admission year") from exc
         except (OSError, ValueError, KeyError, StopIteration) as exc:
             raise RuleDataError("Invalid graduation rules bundle") from exc

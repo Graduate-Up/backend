@@ -1,6 +1,10 @@
-import csv
+from __future__ import annotations
 
-from jolup_rules_all.app.rules import loader
+import csv
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from jolup_rules_all.app.rules import loader
 
 from app.schemas.evaluation import Source
 from app.schemas.rules import (
@@ -20,7 +24,18 @@ class BundleProfileError(ValueError):
     pass
 
 
+class BundleUnavailableError(LookupError):
+    pass
+
+
+def get_bundle_loader():
+    from jolup_rules_all.app.rules import loader
+
+    return loader
+
+
 def matching_entries(student: StudentProfile) -> list[loader.RuleSetEntry]:
+    loader = get_bundle_loader()
     return [entry for entry in loader.load_index()
             if entry.major == student.major and entry.admission_from <= student.admission_year <= entry.admission_to]
 
@@ -48,24 +63,30 @@ def student_status(student: StudentProfile) -> loader.Status:
 
 
 def _catalog(path: str) -> dict[str, dict]:
+    loader = get_bundle_loader()
     with (loader.RULES_DIR / path).open(encoding="utf-8-sig", newline="") as stream:
         return {row["code"]: row for row in csv.DictReader(stream)}
 
 
 def _retake_pairs() -> dict[str, list[str]]:
+    loader = get_bundle_loader()
     with (loader.RULES_DIR / "common/equivalences.csv").open(encoding="utf-8-sig", newline="") as stream:
         return {row["old_code"]: [row["new_code"]] for row in csv.DictReader(stream) if row["type"] == "동일과목"}
 
 
 class RuleBundle:
     def resolve(self, student: StudentProfile) -> GraduationRule:
+        loader = get_bundle_loader()
         if student.major == "plsop" and student.abeek is None:
             raise BundleProfileError("플랫폼SW&데이터과학전공은 ABEEK 이수 여부를 선택해야 합니다.")
         if student.major != "plsop" and student.abeek:
             raise BundleProfileError("이 전공에는 ABEEK 별도 규칙이 등록되어 있지 않습니다.")
         status = student_status(student)
         multi = MULTI_MAJOR_KEYS.get(student.multi_major, student.multi_major)
-        raw = loader.select_rule_set(student.major, student.admission_year, student.abeek)
+        try:
+            raw = loader.select_rule_set(student.major, student.admission_year, student.abeek)
+        except loader.NoRuleSet as exc:
+            raise BundleUnavailableError(str(exc)) from exc
         tracks = raw.get("tracks", {})
         if (tracks and student.track not in tracks) or (not tracks and student.track is not None):
             raise BundleProfileError("해당 전공과 학번에 등록된 트랙을 선택해 주세요.")
@@ -83,6 +104,7 @@ class RuleBundle:
 
 
 def _build_rule(student, status, multi, raw, resolved, track, variant, program_end):
+    loader = get_bundle_loader()
     source_items = loader.load_common("sources")["sources"]
     sources = {item["id"]: Source(title=item["title"], url=item.get("url"), reference=item.get("date"))
                for item in source_items}

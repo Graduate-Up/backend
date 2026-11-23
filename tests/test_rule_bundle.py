@@ -1,12 +1,14 @@
 from itertools import product
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
 from app.schemas.student import StudentProfile
-from app.services.graduation_engine.bundle import RuleBundle, loader
+from app.services.graduation_engine.bundle import RuleBundle
 from app.services.graduation_engine.rule_selector import available_majors, select_rules
 
+loader = pytest.importorskip("jolup_rules_all.app.rules.loader")
 
 def test_every_bundled_year_major_track_status_and_multi_major_resolves():
     bundle = RuleBundle()

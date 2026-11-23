@@ -26,6 +26,49 @@ python -m uvicorn app.main:app --reload
 
 Swagger UI는 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)입니다. PowerShell 실행 정책으로 활성화가 차단되면 `python` 대신 `.\.venv\Scripts\python.exe`를 직접 사용합니다.
 
+## 로그인과 학생 설정
+
+[내 학생 설정](http://127.0.0.1:8002/account)에서 계정을 만든 뒤 로그인합니다. 학번, 입학년도, 전공과 해당 졸업 트랙·ABEEK·다전공·학생 구분을 입력하고 **설정 확인 및 저장**을 누릅니다. 로그아웃하고 같은 계정으로 다시 로그인하면 저장한 설정이 채워집니다. **내 졸업요건 조회**를 누르면 저장된 설정으로 요건을 바로 확인할 수 있습니다.
+
+계정은 졸UP 자체 아이디·비밀번호를 사용합니다. 학번은 학생 입력값이며 대학 계정이나 학적으로 검증하지 않습니다. 설정과 계정은 저장소의 `data/local/accounts.sqlite3`에 저장됩니다. 파일을 유지하면 서버를 재시작해도 설정을 다시 불러올 수 있습니다. 기본 개발 환경에는 Docker나 PostgreSQL 설정이 필요하지 않습니다. 로컬 DB 디렉터리는 Git에서 제외됩니다.
+
+다른 DB 파일 위치나 프런트엔드 출처가 필요한 경우 Uvicorn을 시작하기 전에 PowerShell에서 설정합니다.
+
+```powershell
+$env:JOLUP_DB_PATH = 'data/local/accounts.sqlite3'
+$env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
+```
+
+### 프런트엔드 연동
+
+전체 API 스키마는 [openapi.json](openapi.json)입니다. 실행 중인 서버는 [OpenAPI JSON](http://127.0.0.1:8002/openapi.json)과 [Swagger](http://127.0.0.1:8002/docs)도 제공합니다.
+
+| 메서드와 경로 | 입력과 응답 |
+| --- | --- |
+| `POST /api/v1/auth/register` | JSON `username`, `password`. 201과 계정 ID·사용자 이름 반환. 중복 사용자 이름은 409 |
+| `POST /api/v1/auth/login` | 같은 자격 증명. 200과 `access_token`, `token_type`, `expires_in` 반환. 잘못된 자격 증명은 401 |
+| `GET /api/v1/me` | 계정과 저장된 `profile` 반환. 첫 로그인에서 `profile`은 `null` |
+| `PUT /api/v1/me/profile` | 전체 학생 설정을 검증한 뒤 저장하거나 교체하고 계정과 저장된 설정 반환 |
+| `GET /api/v1/me/requirements` | 저장한 설정에 따른 졸업요건 반환. 설정이 없으면 409 |
+| `POST /api/v1/auth/logout` | 현재 세션을 폐기하고 204 반환 |
+
+로그아웃과 `/me` 경로에 `Authorization: Bearer <access_token>` 헤더를 붙입니다. 로그인 직후 `GET /api/v1/me`를 호출해 설정 화면을 채웁니다. 세션은 발급 후 8시간 동안 유효합니다. 비밀번호는 솔트를 넣어 해시하고, DB에는 세션 토큰의 해시만 보관합니다.
+
+아래는 `PUT /api/v1/me/profile`의 JSON 예시입니다. 졸업 경로는 전공별 `track`, `track_variant`, `abeek`, `multi_major` 필드를 사용합니다. 글솝 트랙과 플솝 ABEEK 선택지는 `GET /api/v1/requirements/tracks`를 참고합니다.
+
+```json
+{
+  "student_number": "2024000123",
+  "admission_year": 2024,
+  "major": "aicom",
+  "track": null,
+  "multi_major": "none",
+  "expected_graduation_date": "2028-02"
+}
+```
+
+팀에서 규칙 묶음을 별도로 공유하는 경우 저장소 루트에 `jolup_rules_all/`을 추가합니다. 폴더 없이도 서버와 계정 API가 시작되며, 저장할 프로필에 적용되는 규칙이 없으면 503을 반환합니다. 이번 저장 대상은 학생 설정입니다. 과목별 이수 내역 저장, 학교 계정 연동, 비밀번호 재설정은 구현 범위에 포함되지 않습니다.
+
 ## API
 
 | API | 역할 |
@@ -119,4 +162,4 @@ python -m uvicorn tests.demo_app:create_demo_app --factory --reload --port 8001
 
 재수강 완료 건의 학점·인정 기준이 서로 다르면 확인이 필요합니다. 같은 기준의 완료 건은 한 번만 반영합니다. 상한은 학점, 학기 문자열, 과목코드, 성적표 교과구분 내림차순으로 배분합니다. 공식 규칙을 추가할 때 상한 배분 순서와 재수강 정책을 검증해야 합니다. 비교과 수치는 제출된 요건별 누계 중 충족 기록의 최댓값으로 평가합니다. 비교과 증빙과 성적표의 진위는 별도로 확인해야 합니다.
 
-진행률 가중치가 확정되기 전까지 `progress`는 `null`입니다. 다음 단계는 공식 문서 및 과목 카탈로그 검증, 규칙 JSON 작성, PostgreSQL·SQLAlchemy와 로그인 연동, 저장 내역 기반 `GET /me/evaluation` 구현입니다. 이후 AI를 규정 검색과 판정 설명에 연결할 수 있습니다.
+진행률 가중치가 확정되기 전까지 `progress`는 `null`입니다. 다음 단계는 공식 문서 및 과목 카탈로그 검증, 과목별 이수 내역 저장과 저장 내역 기반 평가입니다. 팀 배포에서 PostgreSQL을 사용하려면 DB 연결과 마이그레이션을 추가합니다. AI는 규정 검색과 판정 설명에 연결할 수 있습니다.

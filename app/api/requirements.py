@@ -7,10 +7,9 @@ from pydantic import BaseModel
 from app.core.config import RULE_DIRECTORY
 from app.schemas.rules import GraduationRule
 from app.schemas.student import Major, StudentProfile
-from app.services.graduation_engine.bundle import RuleBundle, matching_entries
+from app.services.graduation_engine.bundle import RuleBundle, get_bundle_loader, matching_entries
 from app.services.graduation_engine.rule_loader import RuleDataError, RuleUnavailableError, load_rules
 from app.services.graduation_engine.rule_selector import RuleSource, candidate_rules, select_rules, validate_major
-from jolup_rules_all.app.rules import loader as bundled_loader
 
 router = APIRouter(tags=["requirements"])
 
@@ -44,6 +43,7 @@ def get_tracks(
     rules = provide_rules()
     if isinstance(rules, RuleBundle):
         try:
+            bundled_loader = get_bundle_loader()
             entries = matching_entries(student)
             variants = {
                 track: {key: item["text"] for key, item in value.get("variants", {}).items()}
