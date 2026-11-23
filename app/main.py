@@ -24,6 +24,10 @@ def requirements_view_script():
     return FileResponse(Path(__file__).with_name("requirements-view.js"), media_type="text/javascript")
 
 
+def dashboard_view_script():
+    return FileResponse(Path(__file__).with_name("dashboard-view.js"), media_type="text/javascript")
+
+
 def transcript_bookmarklet_script():
     return FileResponse(Path(__file__).with_name("transcript-bookmarklet.js"), media_type="text/plain")
 
@@ -74,6 +78,7 @@ def create_app() -> FastAPI:
     app.get("/health")(health_check)
     app.get("/requirements", include_in_schema=False)(requirements_page)
     app.get("/requirements-view.js", include_in_schema=False)(requirements_view_script)
+    app.get("/dashboard-view.js", include_in_schema=False)(dashboard_view_script)
     app.get("/transcript-bookmarklet.js", include_in_schema=False)(transcript_bookmarklet_script)
     app.get("/account", include_in_schema=False)(account_page)
     for router in (majors.router, requirements.router, evaluation.router, accounts.router, courses.router):

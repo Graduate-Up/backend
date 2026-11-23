@@ -176,8 +176,10 @@
     expected: found.expected,
     diagnostics: {initialRows, scrollTargets, wheelAttempts, gridMoves},
     data: found.data.map(row => {
-      const {성적등급: grade, ...course} = row;
-      return {...course, 성적등급: pass.test(grade) ? "PASS" : fail.test(grade) ? "FAIL" : ""};
+      // 평점평균 계산을 위해 등급(A+ ~ F, P/NP)은 그대로 보내고, 그 밖의 값은 비운다.
+      const {성적등급: raw, ...course} = row;
+      const grade = String(raw ?? "").trim();
+      return {...course, 성적등급: pass.test(grade) || fail.test(grade) ? grade : ""};
     }),
   };
   if (await ready) {

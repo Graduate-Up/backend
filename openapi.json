@@ -946,6 +946,126 @@
         ]
       }
     },
+    "/api/v1/me/progress": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "My Progress",
+        "description": "대시보드 진행률. 이수 과목으로 판정되는 요건(course)만 서버가 계산하고, 비교과 요건(checklist)은 저장된 체크 상태와 함께 내려줍니다. 프런트는 체크 변경 시 items로 진행률을 즉시 다시 계산합니다.",
+        "operationId": "my_progress_api_v1_me_progress_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v1/me/checklist": {
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "summary": "Save Checklist",
+        "description": "체크리스트(비교과) 항목 하나의 체크 상태를 저장하고 갱신된 진행률을 반환합니다.",
+        "operationId": "save_checklist_api_v1_me_checklist_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChecklistUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "유효한 로그인 정보 또는 세션 필요",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          },
+          {
+            "APIKeyCookie": []
+          }
+        ]
+      }
+    },
     "/api/v1/courses": {
       "get": {
         "tags": [
@@ -1124,6 +1244,27 @@
           "curriculum_category"
         ],
         "title": "CatalogCourse"
+      },
+      "ChecklistUpdate": {
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Requirement Id"
+          },
+          "checked": {
+            "type": "boolean",
+            "title": "Checked"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "checked"
+        ],
+        "title": "ChecklistUpdate"
       },
       "Conditions": {
         "properties": {
@@ -1347,6 +1488,19 @@
               }
             ],
             "title": "Prior Institution"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade",
+            "description": "성적등급. 평점평균 계산에 사용"
           },
           "status": {
             "type": "string",
@@ -2244,6 +2398,27 @@
             },
             "type": "array",
             "title": "Details"
+          },
+          "course_credits": {
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0.0
+            },
+            "propertyNames": {
+              "minLength": 1
+            },
+            "type": "object",
+            "title": "Course Credits",
+            "description": "이 요건에 학점으로 인정되는 과목 (예: ABEEK 설계 과목별 설계학점)"
+          },
+          "course_codes": {
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Course Codes",
+            "description": "이수하면 이 요건이 충족되는 과목 (예: SW 졸업자격인정 대체 과목)"
           }
         },
         "additionalProperties": false,
@@ -2253,6 +2428,222 @@
           "name"
         ],
         "title": "NonacademicRequirement"
+      },
+      "ProgressItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "course",
+              "checklist"
+            ],
+            "title": "Kind",
+            "description": "course: 서버가 이수 과목으로 계산 / checklist: 프런트에서 체크해 충족 여부를 정함"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "unsatisfied",
+              "approval_required",
+              "verification_required"
+            ],
+            "title": "Status"
+          },
+          "current": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Current"
+          },
+          "required": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Required"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Fraction",
+            "description": "이 항목의 진행 비율. checklist는 checked면 1, 아니면 0"
+          },
+          "checked": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checked",
+            "description": "checklist 항목의 저장된 체크 상태. course 항목은 null"
+          },
+          "auto_checked": {
+            "type": "boolean",
+            "title": "Auto Checked",
+            "description": "이수 과목으로 충족이 확인된 checklist 항목 (예: SW 대체 과목 이수)",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "details": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Details"
+          },
+          "credit_area": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "total",
+                  "major",
+                  "liberal_arts"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Credit Area"
+          },
+          "required_courses": {
+            "items": {
+              "$ref": "#/components/schemas/RequiredCourseResult"
+            },
+            "type": "array",
+            "title": "Required Courses"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "status",
+          "current",
+          "required",
+          "fraction",
+          "reason",
+          "sources"
+        ],
+        "title": "ProgressItem"
+      },
+      "ProgressNotice": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "sources"
+        ],
+        "title": "ProgressNotice"
+      },
+      "ProgressResponse": {
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "title": "Rule Id"
+          },
+          "progress": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Progress",
+            "description": "course 항목 + 저장된 checklist 체크 상태로 계산한 전체 진행률"
+          },
+          "course_progress": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Course Progress",
+            "description": "이수 과목으로 계산되는 course 항목만의 진행률"
+          },
+          "progress_policy": {
+            "type": "string",
+            "const": "equal_item_weight_v2",
+            "title": "Progress Policy",
+            "default": "equal_item_weight_v2"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProgressItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "notices": {
+            "items": {
+              "$ref": "#/components/schemas/ProgressNotice"
+            },
+            "type": "array",
+            "title": "Notices",
+            "description": "규칙 해석 확인이 필요한 항목. 진행률에는 포함하지 않음"
+          },
+          "credit_entries": {
+            "items": {
+              "$ref": "#/components/schemas/CreditEntry"
+            },
+            "type": "array",
+            "title": "Credit Entries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_id",
+          "progress",
+          "course_progress",
+          "items",
+          "credit_entries"
+        ],
+        "title": "ProgressResponse"
       },
       "RequiredCourseResult": {
         "properties": {
@@ -2379,6 +2770,14 @@
             },
             "type": "array",
             "title": "Required Courses"
+          },
+          "details": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Details",
+            "description": "판정 근거 (인정된 과목, 확인이 필요한 과목 등)"
           }
         },
         "type": "object",
@@ -2848,6 +3247,17 @@
             ],
             "title": "Transcript Category"
           },
+          "grade": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grade"
+          },
           "completed": {
             "type": "boolean",
             "title": "Completed",
@@ -2900,6 +3310,11 @@
           "needs_review": {
             "type": "integer",
             "title": "Needs Review"
+          },
+          "grades_filled": {
+            "type": "integer",
+            "title": "Grades Filled",
+            "default": 0
           }
         },
         "type": "object",
@@ -2935,6 +3350,14 @@
             },
             "type": "array",
             "title": "Courses"
+          },
+          "failed_courses": {
+            "items": {
+              "$ref": "#/components/schemas/TranscriptCourse"
+            },
+            "type": "array",
+            "title": "Failed Courses",
+            "description": "재수강 통과 기록이 없는 F 과목. 평점평균(F 포함) 계산용으로 저장"
           },
           "excluded_failed": {
             "type": "integer",

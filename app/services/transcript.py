@@ -5,6 +5,8 @@ from math import isfinite
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.schemas.course import normalize_grade
+
 COURSE_CODE = re.compile(r"(?<![A-Z0-9])[A-Z]{4}[0-9]{4}(?![A-Z0-9])", re.IGNORECASE)
 PASS_GRADE = re.compile(r"(?:[ABCD][+0-]?|P|S|PASS|합격|이수)")
 FAIL_GRADES = {"F", "U", "NP", "FAIL", "불합격", "미이수"}
@@ -29,11 +31,15 @@ class TranscriptCourse(BaseModel):
     semester: str | None = None
     semester_label: str | None = None
     transcript_category: str | None = None
+    grade: str | None = None
     completed: bool = False
 
 
 class TranscriptPreview(BaseModel):
     courses: list[TranscriptCourse]
+    failed_courses: list[TranscriptCourse] = Field(
+        default_factory=list, description="재수강 통과 기록이 없는 F 과목. 평점평균(F 포함) 계산용으로 저장",
+    )
     excluded_failed: int
     duplicates_removed: int
     needs_review: int
@@ -99,6 +105,7 @@ def _priority(course: TranscriptCourse) -> tuple[bool, str, int]:
 
 def parse_transcript(text: str) -> TranscriptPreview:
     courses: dict[str, TranscriptCourse] = {}
+    failed_courses: dict[str, TranscriptCourse] = {}
     failed = duplicates = 0
     for index, row in enumerate(_rows(text)):
         if index >= 500:
@@ -107,9 +114,6 @@ def parse_transcript(text: str) -> TranscriptPreview:
         if not COURSE_CODE.fullmatch(code):
             continue
         grade = field(row, "성적등급", "grade", "gradeNm", "grd", "grdNm", "grde", "grdCd", "gradeCd").upper()
-        if grade in FAIL_GRADES:
-            failed += 1
-            continue
         value = field(row, "crdit", "학점")
         credits = float(value) if re.fullmatch(r"[0-9]{1,3}(?:\.[0-9]{1,3})?", value) else None
         if credits is not None and not isfinite(credits):
@@ -122,8 +126,15 @@ def parse_transcript(text: str) -> TranscriptPreview:
             semester=semester,
             semester_label=semester_label,
             transcript_category=field(row, "교과목구분", "sbjetDvNm", "sbjetDivNm", "crseDivNm", "category")[:100] or None,
+            grade=normalize_grade(grade),
             completed=bool(PASS_GRADE.fullmatch(grade)),
         )
+        if grade in FAIL_GRADES:
+            failed += 1
+            # 등급 F는 평점에 0점으로 들어가므로 보관한다. NP/U 등 P/NP 과목 미이수는 평점과 무관하다.
+            if course.grade == "F" and (code not in failed_courses or _priority(course) > _priority(failed_courses[code])):
+                failed_courses[code] = course
+            continue
         previous = courses.get(code)
         if previous is not None:
             duplicates += 1
@@ -134,7 +145,8 @@ def parse_transcript(text: str) -> TranscriptPreview:
         raise ValueError("교과목코드를 찾지 못했습니다. 전체성적 표나 과목 data 배열을 붙여넣어 주세요.")
     result = list(courses.values())
     return TranscriptPreview(
-        courses=result, excluded_failed=failed, duplicates_removed=duplicates,
+        courses=result, excluded_failed=failed,
+        failed_courses=[item for code, item in failed_courses.items() if code not in courses], duplicates_removed=duplicates,
         needs_review=sum(not (item.completed and item.semester and item.transcript_category and item.credits is not None)
                          for item in result),
         completed_credits=sum(item.credits or 0 for item in result if item.completed),

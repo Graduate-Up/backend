@@ -79,6 +79,12 @@ class NonacademicRequirement(Requirement):
     minimum: Annotated[float, Field(gt=0, allow_inf_nan=False)] = 1
     unit: str | None = None
     details: list[str] = Field(default_factory=list)
+    course_credits: dict[Code, Amount] = Field(
+        default_factory=dict, description="이 요건에 학점으로 인정되는 과목 (예: ABEEK 설계 과목별 설계학점)",
+    )
+    course_codes: list[Code] = Field(
+        default_factory=list, description="이수하면 이 요건이 충족되는 과목 (예: SW 졸업자격인정 대체 과목)",
+    )
 
 
 class VerificationRequirement(Requirement):

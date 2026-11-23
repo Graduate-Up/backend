@@ -8,10 +8,11 @@ from pydantic import BaseModel
 from app.core.config import account_db_path
 from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
 from app.schemas.course import Course
-from app.schemas.evaluation import EvaluationResponse, StudentRecords
+from app.schemas.evaluation import ChecklistUpdate, EvaluationResponse, ProgressResponse, StudentRecords
 from app.schemas.rules import GraduationRule
 from app.services.accounts import AccountStore, DuplicateUsername, get_account_store
 from app.services.graduation_engine.evaluator import evaluate_graduation
+from app.services.graduation_engine.progress import build_progress, toggle_checklist
 from app.services.graduation_engine.rule_selector import RuleSource, select_rules
 from app.services.transcript import TranscriptImportInput, TranscriptInput, TranscriptPreview, parse_transcript
 
@@ -32,6 +33,7 @@ class TranscriptImportResponse(BaseModel):
     scanned: int
     excluded_failed: int
     needs_review: int
+    grades_filled: int = 0
 
 
 def account_store() -> AccountStore:
@@ -146,16 +148,19 @@ def import_transcript(payload: TranscriptImportInput, account: Account, store: S
     count = len(preview.courses) + preview.excluded_failed + preview.duplicates_removed
     if count != payload.expected:
         raise HTTPException(409, "전체 행이나 이수 정보를 확인하지 못해 자동 저장하지 않았습니다.")
+    ready = [item for item in preview.courses if item.completed]
+    candidates = [(item, "completed") for item in ready] + [(item, "failed") for item in preview.failed_courses]
     courses = [
-        Course(**item.model_dump(exclude={"completed", "semester_label"}), status="completed")
-        for item in preview.courses if item.completed and item.semester and item.transcript_category and item.credits is not None
+        Course(**item.model_dump(exclude={"completed", "semester_label"}), status=status)
+        for item, status in candidates if item.semester and item.transcript_category and item.credits is not None
     ]
     try:
-        added = store.append_courses(account.account.id, courses)
+        added, grades_filled = store.append_courses(account.account.id, courses)
     except ValueError as exc:
         raise HTTPException(409, "저장할 수 있는 이수 내역 수를 초과했습니다.") from exc
     return TranscriptImportResponse(
         added=added, scanned=count, excluded_failed=preview.excluded_failed, needs_review=preview.needs_review,
+        grades_filled=grades_filled,
     )
 
 
@@ -171,3 +176,35 @@ def my_evaluation(account: Account, store: Store, provide_rules: Rules) -> Evalu
         raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
     records = store.get_records(account.account.id)
     return evaluate_graduation(account.profile, records.completed_courses, records.nonacademic_records, provide_rules())
+
+
+@router.get(
+    "/me/progress", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}},
+    description="대시보드 진행률. 이수 과목으로 판정되는 요건(course)만 서버가 계산하고, "
+                "비교과 요건(checklist)은 저장된 체크 상태와 함께 내려줍니다. "
+                "프런트는 체크 변경 시 items로 진행률을 즉시 다시 계산합니다.",
+)
+def my_progress(account: Account, store: Store, provide_rules: Rules) -> ProgressResponse:
+    if account.profile is None:
+        raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
+    records = store.get_records(account.account.id)
+    return build_progress(account.profile, records.completed_courses, records.nonacademic_records, provide_rules())
+
+
+@router.put(
+    "/me/checklist", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}},
+    description="체크리스트(비교과) 항목 하나의 체크 상태를 저장하고 갱신된 진행률을 반환합니다.",
+)
+def save_checklist(update: ChecklistUpdate, account: Account, store: Store, provide_rules: Rules) -> ProgressResponse:
+    if account.profile is None:
+        raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
+    rules = provide_rules()
+    rule = select_rules(account.profile, rules)
+    try:
+        records = store.update_nonacademic(
+            account.account.id,
+            lambda current: toggle_checklist(rule, current, update.requirement_id, update.checked),
+        )
+    except KeyError as exc:
+        raise HTTPException(422, "현재 졸업요건에 없는 체크리스트 항목입니다.") from exc
+    return build_progress(account.profile, records.completed_courses, records.nonacademic_records, rules)

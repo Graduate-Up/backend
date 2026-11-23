@@ -3,12 +3,13 @@ import hmac
 import secrets
 import sqlite3
 import time
+from collections.abc import Callable
 from contextlib import closing, contextmanager
 from functools import lru_cache
 from pathlib import Path
 
 from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
-from app.schemas.evaluation import StudentRecords
+from app.schemas.evaluation import NonacademicRecord, StudentRecords
 from app.schemas.course import Course
 
 SESSION_SECONDS = 8 * 60 * 60
@@ -127,17 +128,30 @@ class AccountStore:
                 (user_id, records.model_dump_json()),
             )
 
-    def append_courses(self, user_id: int, courses: list[Course]) -> int:
+    def append_courses(self, user_id: int, courses: list[Course]) -> tuple[int, int]:
+        """Add courses whose code is new and fill in missing grades of already saved courses.
+
+        Returns (added, grades_filled).
+        """
         with self.connect() as conn:
             conn.execute("BEGIN IMMEDIATE")
             row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
             records = StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
-            existing = {course.course_code for course in records.completed_courses}
+            incoming = {(course.course_code, course.semester): course for course in courses if course.grade}
+            filled = 0
+            saved = []
+            for course in records.completed_courses:
+                match = incoming.get((course.course_code, course.semester))
+                if course.grade is None and match is not None:
+                    course = course.model_copy(update={"grade": match.grade})
+                    filled += 1
+                saved.append(course)
+            existing = {course.course_code for course in saved}
             additions = [course for course in courses if course.course_code not in existing]
-            if not additions:
-                return 0
+            if not additions and not filled:
+                return 0, 0
             updated = StudentRecords(
-                completed_courses=[*records.completed_courses, *additions],
+                completed_courses=[*saved, *additions],
                 nonacademic_records=records.nonacademic_records,
             )
             conn.execute(
@@ -145,8 +159,27 @@ class AccountStore:
                 ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
                 (user_id, updated.model_dump_json()),
             )
-            return len(additions)
+            return len(additions), filled
 
+
+    def update_nonacademic(
+        self, user_id: int, change: Callable[[list[NonacademicRecord]], list[NonacademicRecord]],
+    ) -> StudentRecords:
+        """Replace only the nonacademic records atomically, keeping the course list untouched."""
+        with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+            records = StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
+            updated = StudentRecords(
+                completed_courses=records.completed_courses,
+                nonacademic_records=change(records.nonacademic_records),
+            )
+            conn.execute(
+                """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
+                ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
+                (user_id, updated.model_dump_json()),
+            )
+            return updated
 
 @lru_cache(maxsize=1)
 def get_account_store(path: Path) -> AccountStore:

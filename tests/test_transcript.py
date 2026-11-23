@@ -17,7 +17,20 @@ def test_portal_json_only_returns_course_data():
     assert preview.duplicates_removed == 1
     assert preview.completed_credits == 3
     assert preview.courses[0].semester == "2024-1"
-    assert not {"grade", "gpa", "studentName"} & preview.courses[0].model_dump().keys()
+    assert preview.courses[0].grade == "B0"
+    assert not {"gpa", "studentName"} & preview.courses[0].model_dump().keys()
+    # F is kept for the GPA (F counts as 0); U is a pass/fail result and is not.
+    assert [item.course_code for item in preview.failed_courses] == ["COMP0217"]
+    assert preview.failed_courses[0].grade == "F"
+
+
+def test_failed_course_retaken_and_passed_is_not_kept_as_failed():
+    preview = parse_transcript(json.dumps({"data": [
+        {"sbjetCd": "COMP0217", "crdit": 3, "year": 2022, "semester": 1, "grade": "F"},
+        {"sbjetCd": "COMP0217", "crdit": 3, "year": 2023, "semester": 1, "grade": "B+"},
+    ]}))
+    assert preview.failed_courses == []
+    assert preview.courses[0].grade == "B+"
 
 
 def test_visible_table_preserves_transcript_category():

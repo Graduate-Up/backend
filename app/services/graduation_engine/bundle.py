@@ -153,9 +153,10 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
     if liberal.get("rule"):
         notes.append(liberal["rule"])
 
-    def record(key, name, minimum, section, *, unit=None, details=()):
+    def record(key, name, minimum, section, *, unit=None, details=(), course_credits=None, course_codes=()):
         records.append(NonacademicRequirement(
             id=key, name=name, minimum=minimum, unit=unit, details=list(details), sources=cite(section),
+            course_credits=course_credits or {}, course_codes=list(course_codes),
         ))
 
     def confirm(key, name, section):
@@ -205,7 +206,8 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
     if "software" not in exempt:
         software = qualifications["software"]
         record("software", "소프트웨어 졸업자격인정", 1, software,
-               details=[software["rule"], "인정 대체 과목: " + ", ".join(software["department_substitute_codes"])])
+               details=[software["rule"], "인정 대체 과목: " + ", ".join(software["department_substitute_codes"])],
+               course_codes=software["department_substitute_codes"])
     if "counseling" not in exempt:
         counseling = qualifications["counseling"]
         record("counseling", "지도교수 상담", counseling["min_sessions"], counseling, unit="회")
@@ -222,9 +224,10 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
     if abeek:
         for key, name in (("basic_literacy", "기본소양"), ("msc", "전공기반"), ("engineering_major", "공학전공"),
                           ("design_min", "설계")):
+            design = key == "design_min"
             record("abeek-" + key, "ABEEK " + name, abeek[key], abeek, unit="학점",
                    details=[", ".join(f"{code} {amount}학점" for code, amount in abeek["design_courses"].items())]
-                   if key == "design_min" else [])
+                   if design else [], course_credits=abeek["design_courses"] if design else None)
         cap = liberal.get("excess_cap")
         if cap and cap["applies_to_admission_years"][0] <= student.admission_year <= cap["applies_to_admission_years"][1]:
             notes.append(f"기본소양·전공기반을 제외한 교양은 최대 {cap['max_counted_toward_total']}학점 인정")
