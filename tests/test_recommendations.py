@@ -38,6 +38,20 @@ def test_recommendation_uses_saved_courses_and_falls_back_without_openai(monkeyp
         with_program = client.post(path, headers=headers, json={"career": "ai_data"})
         monkeypatch.setattr(recommendations, "programs_catalog", load_programs)
         with_uploaded_catalog = client.post(path, headers=headers, json={"career": "ai_data"})
+
+        def rank_candidates(url, **kwargs):
+            candidates = json.loads(kwargs["json"]["input"])["candidates"]
+            assert len(candidates) >= 2
+            order = [item["id"] for item in reversed(candidates)]
+            return httpx.Response(200, request=httpx.Request("POST", url), json={
+                "status": "completed", "output": [{"type": "message", "content": [{
+                    "type": "output_text", "text": json.dumps({"ids": order}),
+                }]}],
+            })
+
+        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+        monkeypatch.setattr(recommendations.httpx, "post", rank_candidates)
+        with_ai = client.post(path, headers=headers, json={"career": "ai_data", "use_ai": True})
     assert response.status_code == 200, response.text
     data = response.json()
     assert response.headers["cache-control"] == "no-store"
@@ -54,9 +68,12 @@ def test_recommendation_uses_saved_courses_and_falls_back_without_openai(monkeyp
     assert uploaded["program_data_available"] is True
     ai_politics = next(program for program in uploaded["programs"] if program["id"] == "ai-politics")
     assert ai_politics["overlapping_course_codes"] == ["COME0331"]
+    assert with_ai.status_code == 200, with_ai.text
+    assert with_ai.json()["ranking"] == "openai"
+    assert with_ai.json()["recommended"][0]["course_code"] != uploaded["recommended"][0]["course_code"]
 
 
-def test_openai_ranking_accepts_only_candidate_permutations(monkeypatch):
+def test_openai_ranking_accepts_only_candidate_permutations(monkeypatch, caplog):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     candidates = [recommendations.CourseRecommendation(
         course_code=code, course_name=name, credits=3, curriculum_category="전공",
@@ -78,3 +95,11 @@ def test_openai_ranking_accepts_only_candidate_permutations(monkeypatch):
     assert recommendations.openai_order(candidates, "ai_data", {"ai_data": 1}) == order
     order[0] = "FAKE0001"
     assert recommendations.openai_order(candidates, "ai_data", {}) == []
+    assert "no valid candidate order" in caplog.text
+
+    def rate_limited(url, **kwargs):
+        return httpx.Response(429, request=httpx.Request("POST", url))
+
+    monkeypatch.setattr(recommendations.httpx, "post", rate_limited)
+    assert recommendations.openai_order(candidates, "ai_data", {}) == []
+    assert "HTTP 429" in caplog.text

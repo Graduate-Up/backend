@@ -88,9 +88,13 @@ def programs_catalog() -> list[Program]:
 
 
 def openai_order(courses: list[CourseRecommendation], career: CareerTag, interests: Counter) -> list[str]:
-    key = os.getenv("OPENAI_API_KEY", "").strip()
-    if not key or len(courses) < 2:
+    if len(courses) < 2:
         return []
+    key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not key:
+        logger.warning("OpenAI recommendation skipped: OPENAI_API_KEY is missing")
+        return []
+    model = os.getenv("JOLUP_OPENAI_MODEL", "").strip() or DEFAULT_MODEL
     candidates = [{"id": item.course_code, "name": item.course_name, "tags": item.career_tags} for item in courses]
     ids = [item.course_code for item in courses]
     try:
@@ -98,22 +102,29 @@ def openai_order(courses: list[CourseRecommendation], career: CareerTag, interes
             "https://api.openai.com/v1/responses",
             headers={"Authorization": f"Bearer {key}"},
             json={
-                "model": os.getenv("JOLUP_OPENAI_MODEL", DEFAULT_MODEL),
+                "model": model,
                 "store": False,
-                "max_output_tokens": 350,
+                "max_output_tokens": 1024,
                 "instructions": "Rank all candidates by career fit and continuity with the interest tags. "
                                 "Return each supplied id exactly once. Use only the data supplied.",
                 "input": json.dumps({"career": career, "interest_tags": interests, "candidates": candidates},
                                     ensure_ascii=False),
                 "text": {"format": {"type": "json_schema", "name": "course_order", "strict": True, "schema": {
-                    "type": "object", "properties": {"ids": {"type": "array", "items": {"type": "string", "enum": ids}}},
+                    "type": "object", "properties": {"ids": {"type": "array", "items": {"type": "string"}}},
                     "required": ["ids"], "additionalProperties": False,
                 }}},
             },
-            timeout=6,
+            timeout=httpx.Timeout(15.0, connect=3.0),
         )
         response.raise_for_status()
         payload = response.json()
+        if payload["status"] == "incomplete":
+            reason = (payload.get("incomplete_details") or {}).get("reason")
+            if reason == "max_output_tokens":
+                logger.warning("OpenAI recommendation fallback: output token limit reached")
+            else:
+                logger.warning("OpenAI recommendation fallback: response incomplete")
+            return []
         if payload["status"] == "completed":
             for item in payload["output"]:
                 if item["type"] != "message":
@@ -123,8 +134,15 @@ def openai_order(courses: list[CourseRecommendation], career: CareerTag, interes
                         order = json.loads(content["text"])["ids"]
                         if isinstance(order, list) and sorted(order) == sorted(ids):
                             return order
-    except (httpx.HTTPError, ValueError, KeyError, TypeError):
-        logger.warning("OpenAI recommendation ranking unavailable")
+        logger.warning("OpenAI recommendation fallback: no valid candidate order")
+    except httpx.HTTPStatusError as exc:
+        logger.warning("OpenAI recommendation fallback: HTTP %s", exc.response.status_code)
+    except httpx.TimeoutException:
+        logger.warning("OpenAI recommendation fallback: request timed out")
+    except httpx.HTTPError:
+        logger.warning("OpenAI recommendation fallback: connection or transport error")
+    except (ValueError, KeyError, TypeError):
+        logger.warning("OpenAI recommendation fallback: unexpected response format")
     return []
 
 
