@@ -297,7 +297,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         "NC-TRANSFER-MINOR1": status in {"general_transfer", "bachelor_transfer"} and multi == "minor_1_only",
         "NC-GLSOP-800-EQUIV": english.department_min_toeic == 800 and not variant,
         "NC-PLSOP-ABEEK-BACH-BASIC": status == "bachelor_transfer",
-        # 교양 영역은 공식 '이수영역별 교양과목 목록(2025)'으로 판정한다 (data/course_classification/liberal_areas.csv).
+        # 교양 영역은 수강 학기의 분류(data/curricula/raw/cltr_areas.json)와 2025 공식 목록으로 판정한다.
         "NC-LIB-AREA-MAP": False,
         "NC-CURR-GLSOP-OLD": not curriculum_is_sourced("glsop", student.admission_year),
         "NC-CURR-PLSOP-OLD": not curriculum_is_sourced("plsop", student.admission_year),

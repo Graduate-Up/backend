@@ -5,7 +5,7 @@ SDG 교양, 창업교과목(글솝 기술창업역량)을 과목코드 매핑표
 스타트업 창업은 과목으로 충족이 확인되면 자동 체크한다.
 
 - 전공·학번별 교육과정표: data/curricula/curricula.csv (scripts/build_curricula.py로 생성)
-- 교양 영역(학기별): data/curricula/raw/cltr_required.json (knuin 수업시간표·강의계획서 조회, 2019~2026)
+- 교양 영역(학기별): data/curricula/raw/cltr_areas.json (knuin 수업시간표·강의계획서 조회, 2019~2026)
 - 교양 영역(2025 공식 목록)·SDG·창업교과목: data/course_classification/
 """
 
@@ -24,7 +24,7 @@ from .gpa import semester_key
 ROOT = Path(__file__).resolve().parents[3]
 DATA_DIRECTORY = ROOT / "data" / "course_classification"
 CURRICULA_FILE = ROOT / "data" / "curricula" / "curricula.csv"
-LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_required.json"
+LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_areas.json"
 
 ABEEK_AREAS = {"abeek-basic_literacy": "basic", "abeek-msc": "msc", "abeek-engineering_major": "major"}
 ABEEK_DESIGN_ID = "abeek-design_min"
@@ -122,7 +122,10 @@ def liberal_terms() -> dict[str, list[tuple[LiberalArea, frozenset[str]]]]:
     data = json.loads(LIBERAL_TERMS_FILE.read_text(encoding="utf-8"))
     terms: dict[str, list[tuple[LiberalArea, frozenset[str]]]] = {}
     for item in data["courses"]:
-        group, area = item["area"][0], AREA_ALIASES.get(item["area"][1], item["area"][1])
+        # 경로: [첨성인일반] · [첨성인소양, 예술과표현] · [첨성인핵심, 인문사회, 인간과사회]
+        path = item["area"]
+        group = path[0]
+        area = AREA_ALIASES.get(path[1], path[1]) if len(path) > 1 else group
         terms.setdefault(item["code"], []).append(
             (LiberalArea(item["name"], group, area, False), frozenset(item["offered"])))
     return terms

@@ -117,3 +117,16 @@ def test_each_course_shows_its_area_for_the_major_and_admission_year():
     assert course_labels(course("CLTR0011", "2022-1"), "glsop", 2022)[-1] == "첨성인핵심(인문·사회)"
     assert course_labels(course("CLTR0011", "2024-1"), "glsop", 2023)[-1] == "첨성인기초(외국어)"
     assert course_labels(course("GLSO0218", "2024-1"), "glsop", 2023) == []  # 2023 표에서 삭제
+
+
+def test_all_four_liberal_groups_are_loaded_by_semester():
+    data = json.loads((CURRICULA_FILE.parent / "raw" / "cltr_areas.json").read_text(encoding="utf-8"))
+    assert {item["area"][0] for item in data["courses"]} == {"첨성인기초", "첨성인핵심", "첨성인소양", "첨성인일반"}
+    from app.services.graduation_engine.course_areas import course_labels
+
+    assert course_labels(course("CLTR0069", "2020-1"), "glsop", 2020)[-1] == "첨성인일반"  # 인간과성
+    assert course_labels(course("CLTR0180", "2024-1"), "glsop", 2023)[-1] == "첨성인소양(생활과건강)"  # 골프
+    # 실용화법: 2023~2025 PDF는 '첨성인핵심(예술과 표현)'이나 수업시간표 공식 분류는 첨성인소양 예술과표현
+    assert liberal_area_of(course("CLTR0003", "2024-1")).group == "첨성인소양"
+    # 소양·일반 과목은 기초·핵심 영역 요건으로 세지 않는다
+    assert liberal_result(requirement("core_humanities"), [course("CLTR0180", "2024-1")]).status == "unsatisfied"

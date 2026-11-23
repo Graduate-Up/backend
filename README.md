@@ -12,7 +12,7 @@
 | `app/core/config.py`, `data/graduation_rules/` | 공식 규칙 경로와 데이터 위치 |
 | `tests/`, `tests/fixtures/` | pytest, 테스트 전용 앱, 가상 JSON 규칙 |
 | `jolup_rules_all/` | 졸업요건 규칙 데이터 폴더. 저장소 가장 바깥(루트)에 있어야 합니다 |
-| `data/curricula/` | 전공·학번별 교육과정표 `curricula.csv`와 원본(`raw/`: courses.json, 학기별 교양 영역 cltr_required.json, 수집 스크립트). `scripts/build_curricula.py`로 생성 |
+| `data/curricula/` | 전공·학번별 교육과정표 `curricula.csv`와 원본(`raw/`: courses.json, 학기별 교양 영역 cltr_areas.json(첨성인기초·핵심·소양·일반 747건), 수집 스크립트). `scripts/build_curricula.py`로 생성 |
 | `data/course_classification/` | 교양 영역(2025 공식 목록)·SDG, 창업교과목 매핑표 (출처 포함) |
 | `render.yaml` | Render 배포 설정 |
 
@@ -122,7 +122,7 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 | 글솝 | 2017~2019 → 2021 표(추정) · 2020~2021 → 2021 표 · 2022 · 2023 · 2024(2023과 동일) · 2025 | 학부 교육과정 PDF/JPG, courses.json global_2023·2025 |
 | 인컴 | 2023·2026 → 기존 카탈로그 · 2024·2025 → ai_2025 표 (2024는 학부 확인 항목 유지) | courses.json ai_2025 (catalog/aicom_2023-2026.csv와 동일) |
 
-교양 영역은 **수강한 학기의 분류**로 판정합니다 (`raw/cltr_required.json`, knuin 수업시간표·강의계획서 조회 2019~2026). 2023 영역 개편으로 같은 과목도 학기에 따라 영역이 다릅니다 (예: 중국어1은 2022년까지 첨성인핵심 인문사회, 2023년부터 첨성인기초 외국어). 그 학기 분류가 없으면 같은 시기의 가장 가까운 학기 분류, 2025 공식 목록, 성적표 교과구분 순으로 찾습니다.
+교양 영역은 **수강한 학기의 분류**로 판정합니다 (`raw/cltr_areas.json`, 첨성인기초·핵심·소양·일반 전 영역, knuin 수업시간표·강의계획서 조회 2019~2026). 2023 영역 개편으로 같은 과목도 학기에 따라 영역이 다릅니다 (예: 중국어1은 2022년까지 첨성인핵심 인문사회, 2023년부터 첨성인기초 외국어). 그 학기 분류가 없으면 같은 시기의 가장 가까운 학기 분류, 2025 공식 목록, 성적표 교과구분 순으로 찾습니다.
 
 | 요건 | 매핑 근거 | 판정 |
 | --- | --- | --- |
