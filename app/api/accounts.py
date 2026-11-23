@@ -1,13 +1,15 @@
+import logging
 from collections.abc import Callable
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response
 from fastapi.security import APIKeyCookie, HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
 from app.core.config import account_db_path
 from app.schemas.account import (
-    AccountResponse, Credentials, EmailCodeRequest, MeResponse, Registration, SessionResponse, StudentSettings,
+    AccountResponse, Credentials, EmailCodeRequest, MeResponse, PasswordReset, Registration, SessionResponse,
+    StudentSettings,
 )
 from app.schemas.course import Course
 from app.schemas.evaluation import ChecklistUpdate, EvaluationResponse, ProgressResponse, StudentRecords
@@ -23,6 +25,7 @@ from app.services.transcript import TranscriptImportInput, TranscriptInput, Tran
 
 from .requirements import get_rule_provider
 
+logger = logging.getLogger(__name__)
 router = APIRouter(tags=["accounts"])
 bearer = HTTPBearer(auto_error=False)
 SESSION_COOKIE = "jolup_session"
@@ -89,16 +92,32 @@ AUTH_ERROR = {401: {"model": ErrorResponse, "description": "유효한 로그인 
 @router.post("/auth/email-code", status_code=204, responses={
     429: {"model": ErrorResponse}, 503: {"model": ErrorResponse},
 })
-def send_email_code(payload: EmailCodeRequest, store: Store, request: Request) -> Response:
+def send_email_code(
+    payload: EmailCodeRequest, store: Store, request: Request, background: BackgroundTasks,
+) -> Response:
+    """인증번호를 보낸다. purpose=reset이면 가입된 이메일일 때만 실제로 보내지만, 가입 여부와 관계없이
+    같은 응답(204)을 돌려준다. 재설정 메일은 응답 뒤에 보내서 응답 시간으로도 가입 여부가 드러나지 않는다."""
     try:
         send = email_sender()
-        code = store.issue_email_code(payload.email, request.client.host if request.client else "", email_secret())
-        send(payload.email, code)
+        issuer = request.client.host if request.client else ""
+        code = store.issue_email_code(payload.email, issuer, email_secret(), payload.purpose)
+        if payload.purpose == "reset":
+            if code is not None:
+                background.add_task(send_quietly, send, payload.email, code)
+        else:
+            send(payload.email, code)
     except EmailCodeRateLimit as exc:
         raise HTTPException(429, "인증번호 요청이 너무 많습니다. 잠시 뒤 다시 시도해 주세요.") from exc
     except EmailUnavailable as exc:
         raise HTTPException(503, str(exc)) from exc
     return Response(status_code=204)
+
+
+def send_quietly(send: Callable[[str, str], None], email: str, code: str) -> None:
+    try:
+        send(email, code)
+    except EmailUnavailable as exc:
+        logger.warning("비밀번호 재설정 인증번호 발송 실패: %s", exc)
 
 
 @router.post("/auth/register", status_code=201, responses={
@@ -117,11 +136,27 @@ def register(credentials: Registration, store: Store) -> AccountResponse:
         raise HTTPException(503, str(exc)) from exc
 
 
+@router.post("/auth/password-reset", responses={400: {"model": ErrorResponse}, 503: {"model": ErrorResponse}})
+def reset_password(reset: PasswordReset, store: Store, request: Request, response: Response) -> SessionResponse:
+    """재설정 인증번호(email-code purpose=reset)가 맞으면 비밀번호를 바꾸고 기존 세션을 모두 끊은 뒤 바로 로그인한다."""
+    try:
+        session = store.reset_password(reset, email_secret())
+    except InvalidEmailCode as exc:
+        raise HTTPException(400, "인증번호가 틀렸거나 만료됐습니다. 필요한 경우 다시 발급받아 주세요.") from exc
+    except EmailUnavailable as exc:
+        raise HTTPException(503, str(exc)) from exc
+    return start_session(session, request, response)
+
+
 @router.post("/auth/login", responses=AUTH_ERROR)
 def login(credentials: Credentials, store: Store, request: Request, response: Response) -> SessionResponse:
     session = store.login(credentials)
     if session is None:
         raise unauthorized("학교 이메일 또는 비밀번호가 올바르지 않습니다.")
+    return start_session(session, request, response)
+
+
+def start_session(session: SessionResponse, request: Request, response: Response) -> SessionResponse:
     origin = request.headers.get("origin")
     if origin is None or origin == f"{request.url.scheme}://{request.url.netloc}":
         response.set_cookie(

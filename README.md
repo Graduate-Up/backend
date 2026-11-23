@@ -73,7 +73,8 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 | 메서드와 경로 | 입력과 응답 |
 | --- | --- |
-| `POST /api/v1/auth/email-code` | JSON `email`. 요청을 수락하면 204, 재발급 제한은 429, 발송 설정이나 연결 문제는 503 |
+| `POST /api/v1/auth/email-code` | JSON `email`, 선택 입력 `purpose`(`register` 기본, 비밀번호 재설정은 `reset`). 요청을 수락하면 204, 재발급 제한은 429, 발송 설정이나 연결 문제는 503. `reset`은 가입된 이메일일 때만 실제로 보내지만 가입 여부와 관계없이 같은 응답을 줍니다 |
+| `POST /api/v1/auth/password-reset` | JSON `email`, `code`(재설정 인증번호), `password`(새 비밀번호). 200과 로그인 응답(`access_token` 등)을 반환하고 기존 세션은 모두 끊습니다. 틀리거나 만료된 인증번호는 400(5회까지) |
 | `POST /api/v1/auth/register` | JSON `email`, `password`, `code`, 선택 입력 `legacy_username`. 201과 계정 ID·학교 이메일을 담은 `username` 반환 |
 | `POST /api/v1/auth/login` | JSON `email`, `password`. 200과 `access_token`, `token_type`, `expires_in` 반환. 잘못된 자격 증명은 401 |
 | `GET /api/v1/me` | 계정과 저장된 `profile` 반환. 첫 로그인에서 `profile`은 `null` |
