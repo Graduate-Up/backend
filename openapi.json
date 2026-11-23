@@ -1847,6 +1847,14 @@
             "type": "boolean",
             "title": "Major Approval Required",
             "default": false
+          },
+          "course_areas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Course Areas",
+            "description": "입학년도 교육과정표·수강 학기 교양 영역 기준 구분. 예: 기본소양, 공학전공, 설계, 첨성인기초(글쓰기), 첨성인핵심(인문·사회), 첨성인일반, SDG, 창업교과목"
           }
         },
         "type": "object",

@@ -334,6 +334,40 @@ def startup_result(requirement: NonacademicRequirement, courses: list[Course]) -
                   reason="창업교과목 인정목록(2023~2026)과 과목명 '창업' 포함 여부로 계산")
 
 
+ABEEK_NAMES = {area: name for name, area in ABEEK_CATEGORIES.items()}
+
+
+def course_labels(course: Course, major: str, admission_year: int) -> list[str]:
+    """과목 하나가 어느 구분에 해당하는지 (화면 표시용).
+
+    - 입학년도 교육과정표의 이수구분: 플솝은 기본소양·전공기반·공학전공·교직, 그 외는 교양·전공·일반선택
+      (+ 필수, 설계)
+    - 교양은 수강 학기 기준 영역: 첨성인기초·첨성인핵심·첨성인일반·첨성인소양 (+ 세부 영역)
+    - SDG 교양, 글솝은 창업교과목 여부
+    """
+    labels = []
+    code = course.course_code
+    if major in curricula():
+        own = curriculum(major, admission_year)
+        entry = own.get(code)
+        if entry is None and major == "plsop":
+            area, renamed = abeek_area(code, admission_year)
+            entry = own.get(renamed) if area else None
+        if entry is not None:
+            labels.append(entry.category)
+            labels.extend(flag for flag, on in (("필수", entry.required), ("설계", entry.design)) if on)
+    if is_liberal(course) and (area := liberal_area_of(course)):
+        if area.group and area.area and area.area != area.group:
+            labels.append(f"{area.group}({area.area})")
+        else:
+            labels.append(area.group or area.area)
+        if area.sdg:
+            labels.append("SDG")
+    if major == "glsop" and not course.prior_institution and is_startup_course(course):
+        labels.append("창업교과목")
+    return labels
+
+
 def area_results(rule: GraduationRule, courses: list[Course], equivalents: dict[str, str],
                  admission_year: int) -> list[RequirementResult]:
     done = completed_courses(courses, equivalents)
