@@ -8,8 +8,8 @@
 
 실행:
     pip install requests
-    python scripts/collect_cltr_areas.py --from-year 2019 --to-year 2026
-결과: data/cltr_areas.json
+    python data/curricula/raw/collect_cltr_areas.py --from-year 2019 --to-year 2026
+결과: data/curricula/raw/cltr_areas.json
 """
 
 import argparse
@@ -79,7 +79,7 @@ def main():
     p.add_argument("--from-year", type=int, default=2019)
     p.add_argument("--to-year", type=int, default=2026)
     p.add_argument("--delay", type=float, default=0.3, help="요청 사이 대기(초)")
-    p.add_argument("--out", default="data/cltr_areas.json")
+    p.add_argument("--out", default="data/curricula/raw/cltr_areas.json")
     args = p.parse_args()
 
     leaves = area_leaves()

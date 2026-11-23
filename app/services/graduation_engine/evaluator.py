@@ -7,7 +7,7 @@ from app.schemas.evaluation import (
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 from app.schemas.student import StudentProfile
 
-from .course_areas import COMPUTED_IDS, area_results, auto_satisfied
+from .course_areas import COMPUTED_IDS, area_results, auto_satisfied, course_labels
 from .credit_checker import check_credits
 from .gpa import GPA_REQUIREMENT_ID, gpa_result
 from .required_course_checker import check_required_courses
@@ -57,6 +57,8 @@ def evaluate_course_requirements(
     """Requirements decided only by the student's course list: credits, required courses, GPA and areas."""
     equivalents = equivalent_codes(rule)
     requirements, entries = check_credits(completed_courses, rule, equivalents)
+    for entry, course in zip(entries, completed_courses, strict=True):
+        entry.course_areas = course_labels(course, rule.major, admission_year)
     requirements.extend(check_required_courses(completed_courses, item, equivalents)
                         for item in rule.course_requirements)
     requirements.extend(gpa_result(item, completed_courses, equivalents)

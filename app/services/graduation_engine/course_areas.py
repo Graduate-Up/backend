@@ -5,7 +5,7 @@ SDG 교양, 창업교과목(글솝 기술창업역량)을 과목코드 매핑표
 스타트업 창업은 과목으로 충족이 확인되면 자동 체크한다.
 
 - 전공·학번별 교육과정표: data/curricula/curricula.csv (scripts/build_curricula.py로 생성)
-- 교양 영역(학기별): data/curricula/raw/cltr_required.json (knuin 수업시간표·강의계획서 조회, 2019~2026)
+- 교양 영역(학기별): data/curricula/raw/cltr_areas.json (knuin 수업시간표·강의계획서 조회, 2019~2026)
 - 교양 영역(2025 공식 목록)·SDG·창업교과목: data/course_classification/
 """
 
@@ -24,7 +24,7 @@ from .gpa import semester_key
 ROOT = Path(__file__).resolve().parents[3]
 DATA_DIRECTORY = ROOT / "data" / "course_classification"
 CURRICULA_FILE = ROOT / "data" / "curricula" / "curricula.csv"
-LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_required.json"
+LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_areas.json"
 
 ABEEK_AREAS = {"abeek-basic_literacy": "basic", "abeek-msc": "msc", "abeek-engineering_major": "major"}
 ABEEK_DESIGN_ID = "abeek-design_min"
@@ -122,7 +122,10 @@ def liberal_terms() -> dict[str, list[tuple[LiberalArea, frozenset[str]]]]:
     data = json.loads(LIBERAL_TERMS_FILE.read_text(encoding="utf-8"))
     terms: dict[str, list[tuple[LiberalArea, frozenset[str]]]] = {}
     for item in data["courses"]:
-        group, area = item["area"][0], AREA_ALIASES.get(item["area"][1], item["area"][1])
+        # 경로: [첨성인일반] · [첨성인소양, 예술과표현] · [첨성인핵심, 인문사회, 인간과사회]
+        path = item["area"]
+        group = path[0]
+        area = AREA_ALIASES.get(path[1], path[1]) if len(path) > 1 else group
         terms.setdefault(item["code"], []).append(
             (LiberalArea(item["name"], group, area, False), frozenset(item["offered"])))
     return terms
@@ -341,6 +344,40 @@ def startup_result(requirement: NonacademicRequirement, courses: list[Course]) -
     details = ["인정: " + ", ".join(map(describe, counted)) if counted else "인정된 창업교과목 없음"]
     return result(requirement, current, uncertain=[], details=details,
                   reason="창업교과목 인정목록(2023~2026)과 과목명 '창업' 포함 여부로 계산")
+
+
+ABEEK_NAMES = {area: name for name, area in ABEEK_CATEGORIES.items()}
+
+
+def course_labels(course: Course, major: str, admission_year: int) -> list[str]:
+    """과목 하나가 어느 구분에 해당하는지 (화면 표시용).
+
+    - 입학년도 교육과정표의 이수구분: 플솝은 기본소양·전공기반·공학전공·교직, 그 외는 교양·전공·일반선택
+      (+ 필수, 설계)
+    - 교양은 수강 학기 기준 영역: 첨성인기초·첨성인핵심·첨성인일반·첨성인소양 (+ 세부 영역)
+    - SDG 교양, 글솝은 창업교과목 여부
+    """
+    labels = []
+    code = course.course_code
+    if major in curricula():
+        own = curriculum(major, admission_year)
+        entry = own.get(code)
+        if entry is None and major == "plsop":
+            area, renamed = abeek_area(code, admission_year)
+            entry = own.get(renamed) if area else None
+        if entry is not None:
+            labels.append(entry.category)
+            labels.extend(flag for flag, on in (("필수", entry.required), ("설계", entry.design)) if on)
+    if is_liberal(course) and (area := liberal_area_of(course)):
+        if area.group and area.area and area.area != area.group:
+            labels.append(f"{area.group}({area.area})")
+        else:
+            labels.append(area.group or area.area)
+        if area.sdg:
+            labels.append("SDG")
+    if major == "glsop" and not course.prior_institution and is_startup_course(course):
+        labels.append("창업교과목")
+    return labels
 
 
 def area_results(rule: GraduationRule, courses: list[Course], equivalents: dict[str, str],

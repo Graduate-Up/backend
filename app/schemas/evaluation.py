@@ -75,6 +75,11 @@ class CreditEntry(BaseModel):
     excluded_credits: Amount = 0
     reason: str | None = None
     major_approval_required: bool = False
+    course_areas: list[str] = Field(
+        default_factory=list,
+        description="입학년도 교육과정표·수강 학기 교양 영역 기준 구분. 예: 기본소양, 공학전공, 설계, "
+                    "첨성인기초(글쓰기), 첨성인핵심(인문·사회), 첨성인일반, SDG, 창업교과목",
+    )
 
 
 class RequirementCounts(BaseModel):
