@@ -1,0 +1,187 @@
+{
+  "items": [
+    {
+      "id": "NC-AICOM-ENG-EXEMPT",
+      "question": "실용영어 면제 신분(편입·장애·외국인 ~21)은 인컴 영어 요건도 면제인지",
+      "applied_default": "면제 (추정, '실용영어로 갈음' 그대로 적용)",
+      "sources": [
+        "S1",
+        "S13",
+        "S14"
+      ],
+      "applies_to": [
+        "aicom_2023",
+        "aicom_2024-2025",
+        "aicom_2026"
+      ]
+    },
+    {
+      "id": "NC-AICOM-MAJOR-AREA",
+      "question": "인컴 졸업자격인정제 '전공영역' 항목이 무엇인지",
+      "applied_default": "학부 졸업요건 충족으로 갈음",
+      "sources": [
+        "S1",
+        "S10"
+      ],
+      "applies_to": [
+        "aicom_2023",
+        "aicom_2024-2025",
+        "aicom_2026"
+      ]
+    },
+    {
+      "id": "NC-CHUMCOM-ENG",
+      "question": "첨컴 영어 기준이 심화컴퓨팅과 같은 TOEIC 700인지",
+      "applied_default": "700 (추정)",
+      "sources": [
+        "S26"
+      ],
+      "applies_to": [
+        "chumcom_2026"
+      ]
+    },
+    {
+      "id": "NC-CURR-AICOM-2024",
+      "question": "2024·2025학년도 인컴 교육과정이 2023·2026 기준표와 같은지 (교육과정조회 1O0208)",
+      "applied_default": "2026 기준표 과목 목록 사용",
+      "sources": [
+        "S5",
+        "S6"
+      ],
+      "applies_to": [
+        "aicom_2024-2025"
+      ]
+    },
+    {
+      "id": "NC-CURR-GLSOP-OLD",
+      "question": "글솝 2025 이전 입학생 교육과정표가 2025 기준표와 어떻게 다른지 (학부 홈페이지 2021·2022·2023 PDF)",
+      "applied_default": "2025 기준표 과목 목록 사용",
+      "sources": [
+        "S29"
+      ],
+      "applies_to": [
+        "glsop_2017",
+        "glsop_2018-2021",
+        "glsop_2022",
+        "glsop_2023",
+        "glsop_2024-2025"
+      ]
+    },
+    {
+      "id": "NC-CURR-PLSOP-OLD",
+      "question": "플솝 2025 이전 입학생 교육과정표가 2025 기준표와 어떻게 다른지 (학부 홈페이지 2021·2022·2023 PDF)",
+      "applied_default": "2025 기준표 과목 목록 사용",
+      "sources": [
+        "S30"
+      ],
+      "applies_to": [
+        "plsop_abeek_2017-2020",
+        "plsop_abeek_2021-2022",
+        "plsop_abeek_2023-2025",
+        "plsop_2017",
+        "plsop_2018-2020",
+        "plsop_2021-2022",
+        "plsop_2023",
+        "plsop_2024-2025"
+      ]
+    },
+    {
+      "id": "NC-FP-SCOPE",
+      "question": "현장실습 대체 기준(S9)이 인컴 외 전공(글솝·플솝·심화·첨컴)에도 똑같이 적용되는지",
+      "applied_default": "학부 공통 기준으로 보고 전 전공에 적용",
+      "sources": [
+        "S9"
+      ],
+      "applies_to": [
+        "common (전 전공)"
+      ]
+    },
+    {
+      "id": "NC-GLSOP-800-EQUIV",
+      "question": "TOEIC 800에 상응하는 다른 시험 점수표",
+      "applied_default": "TOEIC 원점수만 인정, 그 외 시험은 needs_confirmation",
+      "sources": [
+        "S14"
+      ],
+      "applies_to": [
+        "common (전 전공)"
+      ]
+    },
+    {
+      "id": "NC-LIB-AREA-MAP",
+      "question": "교양 과목코드 → 영역(독서와토론·글쓰기·수리 등) 매핑표",
+      "applied_default": "성적표의 영역 표기를 그대로 사용, 없으면 needs_confirmation",
+      "sources": [
+        "S3"
+      ],
+      "applies_to": [
+        "common (전 전공)"
+      ]
+    },
+    {
+      "id": "NC-PLSOP-ABEEK-BACH-BASIC",
+      "question": "ABEEK 이수 학사편입생의 기본소양 15학점이 전적대 교양으로 인정되는지",
+      "applied_default": "인정 (추정)",
+      "sources": [
+        "S10",
+        "S13"
+      ],
+      "applies_to": [
+        "plsop_abeek_2017-2020",
+        "plsop_abeek_2021-2022",
+        "plsop_abeek_2023-2025"
+      ]
+    },
+    {
+      "id": "NC-PLSOP-ABEEK-OLD65",
+      "question": "2022학번 이전 ABEEK 이수자의 학교 기준 전공학점도 65인지",
+      "applied_default": "65 (추정)",
+      "sources": [
+        "S10",
+        "S14"
+      ],
+      "applies_to": [
+        "plsop_abeek_2017-2020",
+        "plsop_abeek_2021-2022"
+      ]
+    },
+    {
+      "id": "NC-RETAKE-GRADE",
+      "question": "재이수 시 어느 성적이 남는지와 재수강 성적 상한(학교 학칙)",
+      "applied_default": "마지막 이수 성적만 인정, 이전 성적·학점 삭제",
+      "sources": [
+        "S7"
+      ],
+      "applies_to": [
+        "common (전 전공)"
+      ]
+    },
+    {
+      "id": "NC-SIMCOM-ASSESS",
+      "question": "심화컴퓨팅 전공 학업역량평가 방식·합격 기준",
+      "applied_default": "통과 여부만 사용자 입력",
+      "sources": [
+        "S25"
+      ],
+      "applies_to": [
+        "simcom_2026"
+      ]
+    },
+    {
+      "id": "NC-TRANSFER-MINOR1",
+      "question": "편입생이 부전공 1개만 하면 66인지 (학교 '단,' 조항을 편입생에도 적용)",
+      "applied_default": "66 (추정)",
+      "sources": [
+        "S2",
+        "S13"
+      ],
+      "applies_to": [
+        "aicom_2023",
+        "aicom_2024-2025",
+        "aicom_2026",
+        "simcom_2026",
+        "chumcom_2026"
+      ]
+    }
+  ]
+}
