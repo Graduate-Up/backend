@@ -23,6 +23,16 @@ def done(code, credits=3, category="교양", prior=None, semester="2024-1"):
                   status="completed", prior_institution=prior)
 
 
+def test_portal_summary_replaces_course_mapping_for_required_liberal_areas():
+    summary = {"독서와토론": 0, "사고교육": 0, "글쓰기": 3, "외국어": 0, "수리": 3,
+               "기초과학": 0, "인문·사회": 6, "자연과학": 3}
+    for key, credits in (("foundation_a", 3), ("foundation_b", 3), ("core_humanities", 6), ("core_science", 3)):
+        evaluation = liberal_result(requirement(key), [done("TEST0999", 9)], summary)
+        assert (evaluation.status, evaluation.current) == ("satisfied", credits)
+    evaluation = liberal_result(requirement("core_science"), [], {**summary, "자연과학": 0})
+    assert (evaluation.status, evaluation.current) == ("unsatisfied", 0)
+
+
 @pytest.mark.parametrize("name", ["abeek_plsop.csv", "liberal_areas.csv"])
 def test_mapping_files_are_well_formed_and_sourced(name):
     with open(DATA_DIRECTORY / name, encoding="utf-8") as file:

@@ -83,11 +83,17 @@
     }
   },
   "deadline": {
-    "qualification_form": "2026-12-31 (이후 추가 접수 연장 예정)",
-    "department_requirements": "최종 계절학기 성적 확정일",
-    "source": [
-      "S13",
-      "S14"
-    ]
+    "qualification_form": [
+      {
+        "graduation": "2027-02",
+        "date": "2026-12-31",
+        "note": "이후 추가 접수 연장 예정",
+        "source": ["S13", "S11"]
+      }
+    ],
+    "department_requirements": {
+      "label": "최종 계절학기 성적 확정일까지",
+      "source": ["S13"]
+    }
   }
 }

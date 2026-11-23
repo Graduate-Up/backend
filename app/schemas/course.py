@@ -5,6 +5,7 @@ from pydantic import AfterValidator, BaseModel, ConfigDict, Field, StringConstra
 Code = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1), AfterValidator(str.upper)]
 Amount = Annotated[float, Field(ge=0, allow_inf_nan=False)]
 Category = Literal["major", "liberal_arts", "general"]
+MAJOR_TRANSCRIPT_CATEGORIES = ("전공", "전공필수", "전공선택")
 
 # 경북대 4.3 만점 등급별 평점. P/NP는 평점 계산에서 제외한다.
 GRADE_POINTS = {

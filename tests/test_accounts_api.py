@@ -54,7 +54,12 @@ def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp
         assert client.post("/api/v1/me/transcript/import", headers=headers, json={**transcript, "expected": 2}).status_code == 409
         assert client.get("/api/v1/me/records", headers=headers).json()["completed_courses"] == []
         assert client.post("/api/v1/me/transcript/import", headers=headers, json={**transcript, "expected": 1}).json()["added"] == 1
-        assert client.post("/api/v1/me/transcript/import", headers=headers, json={**transcript, "expected": 1}).json()["added"] == 0
+        summary = {"독서와토론": 0, "사고교육": 0, "글쓰기": 3, "외국어": 0, "수리": 3,
+                   "기초과학": 0, "인문·사회": 6, "자연과학": 3}
+        reimport = client.post("/api/v1/me/transcript/import", headers=headers,
+                               json={**transcript, "expected": 1, "liberal_summary": summary}).json()
+        assert reimport["added"] == 0
+        assert reimport["liberal_summary_saved"] is True
         newer = {"text": transcript["text"].replace('"year":2024', '"year":2025')}
         assert client.post("/api/v1/me/transcript/import", headers=headers, json={**newer, "expected": 1}).json()["added"] == 0
         mixed = {"text": '{"data":[{"sbjetCd":"TEST0124","crdit":3,"year":2024,"semester":"동계계절학기",'
@@ -80,6 +85,7 @@ def test_profile_is_restored_on_relogin_and_isolated_by_account(monkeypatch, tmp
         assert client.get("/api/v1/me", headers=headers).json()["profile"] == saved
         assert client.get("/api/v1/me/requirements", headers=headers).json()["id"] == "test-aicom"
         assert client.get("/api/v1/me/records", headers=headers).json()["completed_courses"][0]["course_code"] == "TEST001"
+        assert client.get("/api/v1/me/records", headers=headers).json()["liberal_summary"] == summary
         evaluation = client.get("/api/v1/me/evaluation", headers=headers).json()
         assert 0 < evaluation["progress"] < 100
         assert evaluation["credit_entries"][0]["course_name"] == "Test course"

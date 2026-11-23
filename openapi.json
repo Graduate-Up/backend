@@ -82,6 +82,27 @@
         }
       }
     },
+    "/api/v1/graduation/schedule": {
+      "get": {
+        "tags": [
+          "requirements"
+        ],
+        "summary": "Graduation Schedule",
+        "operationId": "graduation_schedule_api_v1_graduation_schedule_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraduationSchedule"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/requirements/tracks": {
       "get": {
         "tags": [
@@ -1639,6 +1660,11 @@
             "type": "boolean",
             "title": "Accept Equivalent Codes",
             "default": true
+          },
+          "match_by_course_name": {
+            "type": "boolean",
+            "title": "Match By Course Name",
+            "default": false
           }
         },
         "additionalProperties": false,
@@ -1937,6 +1963,66 @@
           "category"
         ],
         "title": "CreditTreatment"
+      },
+      "DepartmentDeadline": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "sources"
+        ],
+        "title": "DepartmentDeadline"
+      },
+      "EarlyGraduationPolicy": {
+        "properties": {
+          "min_semesters": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Min Semesters"
+          },
+          "min_gpa": {
+            "type": "number",
+            "maximum": 4.3,
+            "minimum": 0.0,
+            "title": "Min Gpa"
+          },
+          "rule": {
+            "type": "string",
+            "title": "Rule"
+          },
+          "not_for_transfer": {
+            "type": "boolean",
+            "title": "Not For Transfer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "min_semesters",
+          "min_gpa",
+          "rule",
+          "not_for_transfer",
+          "sources"
+        ],
+        "title": "EarlyGraduationPolicy"
       },
       "ErrorResponse": {
         "properties": {
@@ -2258,6 +2344,30 @@
           "nonacademic_requirements"
         ],
         "title": "GraduationRule"
+      },
+      "GraduationSchedule": {
+        "properties": {
+          "qualification_deadlines": {
+            "items": {
+              "$ref": "#/components/schemas/QualificationDeadline"
+            },
+            "type": "array",
+            "title": "Qualification Deadlines"
+          },
+          "department_deadline": {
+            "$ref": "#/components/schemas/DepartmentDeadline"
+          },
+          "early_graduation": {
+            "$ref": "#/components/schemas/EarlyGraduationPolicy"
+          }
+        },
+        "type": "object",
+        "required": [
+          "qualification_deadlines",
+          "department_deadline",
+          "early_graduation"
+        ],
+        "title": "GraduationSchedule"
       },
       "HTTPValidationError": {
         "properties": {
@@ -2678,6 +2788,45 @@
         ],
         "title": "ProgressResponse"
       },
+      "QualificationDeadline": {
+        "properties": {
+          "graduation": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-(02|08)$",
+            "title": "Graduation"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "graduation",
+          "date",
+          "sources"
+        ],
+        "title": "QualificationDeadline"
+      },
       "RequiredCourseResult": {
         "properties": {
           "course_code": {
@@ -3032,6 +3181,35 @@
             "type": "array",
             "maxItems": 500,
             "title": "Nonacademic Records"
+          },
+          "liberal_summary": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0.0
+                },
+                "propertyNames": {
+                  "enum": [
+                    "독서와토론",
+                    "사고교육",
+                    "글쓰기",
+                    "외국어",
+                    "수리",
+                    "기초과학",
+                    "인문·사회",
+                    "자연과학"
+                  ]
+                },
+                "type": "object",
+                "maxProperties": 8,
+                "minProperties": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liberal Summary"
           }
         },
         "additionalProperties": false,
@@ -3316,6 +3494,35 @@
             "maximum": 500.0,
             "minimum": 1.0,
             "title": "Expected"
+          },
+          "liberal_summary": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0.0
+                },
+                "propertyNames": {
+                  "enum": [
+                    "독서와토론",
+                    "사고교육",
+                    "글쓰기",
+                    "외국어",
+                    "수리",
+                    "기초과학",
+                    "인문·사회",
+                    "자연과학"
+                  ]
+                },
+                "type": "object",
+                "maxProperties": 8,
+                "minProperties": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Liberal Summary"
           }
         },
         "additionalProperties": false,
@@ -3348,6 +3555,11 @@
             "type": "integer",
             "title": "Grades Filled",
             "default": 0
+          },
+          "liberal_summary_saved": {
+            "type": "boolean",
+            "title": "Liberal Summary Saved",
+            "default": false
           }
         },
         "type": "object",

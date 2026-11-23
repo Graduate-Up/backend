@@ -1,6 +1,14 @@
-from app.schemas.course import Course
+from unicodedata import normalize
+
+from app.schemas.course import MAJOR_TRANSCRIPT_CATEGORIES, Course
 from app.schemas.evaluation import RequiredCourseResult, RequirementResult
 from app.schemas.rules import CourseRequirement
+
+from .credit_checker import NON_MAJOR_CATEGORIES
+
+
+def _name_key(name: str) -> str:
+    return "".join(normalize("NFKC", name).split()).casefold()
 
 
 def check_required_courses(
@@ -8,13 +16,32 @@ def check_required_courses(
 ) -> RequirementResult:
     if not requirement.accept_equivalent_codes:
         equivalents = {}
+    accepted = [
+        {equivalents.get(code, code) for code in (option.course_code, *option.substitutes)}
+        for option in requirement.courses
+    ]
+    known_codes = set().union(*accepted)
+    codes_by_name = {
+        _name_key(option.course_name): equivalents.get(option.course_code, option.course_code)
+        for option in requirement.courses if requirement.match_by_course_name
+    }
+
+    def matched_code(course: Course) -> str:
+        code = equivalents.get(course.course_code, course.course_code)
+        if code in known_codes or not course.course_name:
+            return code
+        return codes_by_name.get(_name_key(course.course_name), code)
+
     completed = set()
     verification = set()
     approval = set()
     for course in courses:
         if course.status != "completed":
             continue
-        code = equivalents.get(course.course_code, course.course_code)
+        code = matched_code(course)
+        if code not in known_codes:
+            continue
+        category = course.transcript_category.strip()
         if course.credits < requirement.minimum_course_credits:
             continue
         if requirement.reject_transfer_courses:
@@ -25,20 +52,19 @@ def check_required_courses(
                 continue
         if requirement.require_department and course.offered_by_computer_science is False:
             continue
-        if requirement.require_department and course.offered_by_computer_science is None:
-            verification.add(code)
-        elif requirement.required_transcript_category and (
-            course.transcript_category.strip() != requirement.required_transcript_category
-        ):
-            if course.transcript_category.strip() != "다중전공":
+        if requirement.require_department and not requirement.match_by_course_name and category in NON_MAJOR_CATEGORIES:
+            continue
+        required_category = requirement.required_transcript_category
+        if required_category and category != required_category and (required_category, category) != ("전공필수", "전공"):
+            if category not in NON_MAJOR_CATEGORIES:
                 approval.add(code)
+        elif requirement.require_department and course.offered_by_computer_science is None and (
+            category not in MAJOR_TRANSCRIPT_CATEGORIES and not requirement.match_by_course_name
+        ):
+            verification.add(code)
         else:
             completed.add(code)
-    in_progress = {equivalents.get(c.course_code, c.course_code) for c in courses if c.status == "in_progress"}
-    accepted = [
-        {equivalents.get(code, code) for code in (option.course_code, *option.substitutes)}
-        for option in requirement.courses
-    ]
+    in_progress = {matched_code(course) for course in courses if course.status == "in_progress"}
     assignments: dict[str, int] = {}
 
     # Reassign a shared substitute when another completed course can fill its current slot.
@@ -82,6 +108,6 @@ def check_required_courses(
     return RequirementResult(
         id=requirement.id, name=requirement.name, status=status,
         current=count, required=requirement.choose, shortfall=shortfall,
-        reason="Matched course codes and applicable offering and transcript classification rules",
+        reason="Matched course codes or configured names and applied transcript classification rules",
         sources=requirement.sources, required_courses=details,
     )

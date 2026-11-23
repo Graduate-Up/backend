@@ -275,7 +275,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
                 id="track-" + key, name=item["text"], courses=options, choose=1,
                 minimum_course_credits=item.get("min_credits", 0), require_department=True, sources=cite(section),
                 reject_transfer_courses=status in {"general_transfer", "bachelor_transfer"},
-                accept_equivalent_codes=False,
+                accept_equivalent_codes=False, match_by_course_name=key == "capstone",
             ))
         else:
             record("track-" + key, item["text"], item.get("min_credits", 1), section,
