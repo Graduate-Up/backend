@@ -12,14 +12,15 @@ from app.services.graduation_engine.course_areas import (
 )
 from jolup_rules_all.app.rules import loader
 
-# (전공, 입학년도) → (적용 교육과정 학년도, 학번 표 존재 여부)
+# (전공, 입학년도) → (적용 교육과정 학년도, 그 학번 원문 존재 여부)
 EXPECTED = {
-    **{("plsop", year): (2021, year >= 2020) for year in range(2017, 2022)},
-    ("plsop", 2022): (2022, True), ("plsop", 2023): (2023, True),
-    ("plsop", 2024): (2024, True), ("plsop", 2025): (2025, True),
-    **{("glsop", year): (2021, year >= 2020) for year in range(2017, 2022)},
-    ("glsop", 2022): (2022, True), ("glsop", 2023): (2023, True),
-    ("glsop", 2024): (2024, True), ("glsop", 2025): (2025, True),
+    **{(major, year): (2019, year == 2019) for major in ("plsop", "glsop") for year in (2017, 2018, 2019)},
+    **{(major, year): (2021, True) for major in ("plsop", "glsop") for year in (2020, 2021)},  # 2020~2021 표
+    **{(major, year): (year, True) for major in ("plsop", "glsop") for year in (2022, 2023, 2024, 2025)},
+    ("plsop", 2026): (2025, False), ("glsop", 2026): (2025, False),
+    ("aicom", 2023): (2023, True), ("aicom", 2024): (2023, False),  # 24학번 원문 없음 → 2023 표
+    ("aicom", 2025): (2025, True), ("aicom", 2026): (2026, True),
+    ("simcom", 2026): (2026, True), ("chumcom", 2026): (2026, True),
 }
 
 
@@ -32,7 +33,7 @@ def test_table_sizes_and_categories():
     counts = {}
     with open(CURRICULA_FILE, encoding="utf-8") as file:
         for row in csv.DictReader(file):
-            key = (row["major"], int(row["curriculum_year"]), row["category"])
+            key = (row["major"], int(row["admission_year"]), row["category"])
             counts[key] = counts.get(key, 0) + 1
             assert row["source"].strip()
     assert {key[2] for key in counts if key[0] == "plsop"} == {"기본소양", "전공기반", "공학전공", "교직"}
@@ -40,6 +41,10 @@ def test_table_sizes_and_categories():
     assert counts["plsop", 2021, "공학전공"] == 47 and counts["plsop", 2022, "공학전공"] == 54
     assert counts["glsop", 2021, "전공"] == 46 and counts["glsop", 2022, "전공"] == 54
     assert counts["glsop", 2023, "전공"] == counts["glsop", 2025, "전공"] == 48
+    assert counts["plsop", 2020, "공학전공"] == counts["plsop", 2021, "공학전공"]  # 2020~2021 공통 표
+    assert sum(n for (major, year, _), n in counts.items() if (major, year) == ("plsop", 2019)) == 75
+    assert sum(n for (major, year, _), n in counts.items() if (major, year) == ("glsop", 2019)) == 60
+    assert {major for major, _, _ in counts} == {"plsop", "glsop", "aicom", "simcom", "chumcom"}
 
 
 def test_plsop_year_differences():
@@ -56,7 +61,10 @@ def test_plsop_year_differences():
 def test_plsop_design_flags_match_rule_design_courses():
     design = json.loads((loader.RULES_DIR / "base/plsop_abeek_2023-2025.json").read_text())["credits"]["abeek"]
     for year, table in curricula()["plsop"].items():
-        assert {code for code, course in table.items() if course.design} == set(design["design_courses"]), year
+        flagged = {code for code, course in table.courses.items() if course.design}
+        # 2019 표는 소프트웨어공학(COMP0422)에도 설계 표시가 있으나 규칙에는 설계학점이 없다 (학부 확인 필요)
+        expected = set(design["design_courses"]) | ({"COMP0422"} if year == 2019 else set())
+        assert flagged == expected, year
 
 
 def test_glsop_tags_startup_and_liberal_division():
@@ -88,15 +96,35 @@ def test_liberal_area_follows_the_semester_taken():
     assert liberal_result(requirement("core_humanities"), [course("CLTR0003", "2024-1")]).status == "unsatisfied"
 
 
-@pytest.mark.parametrize(("year", "confirm"), [(2024, True), (2025, False)])
-def test_aicom_2024_2025_recognise_all_major_courses(year, confirm):
+@pytest.mark.parametrize(("major", "year", "majors", "confirm"), [
+    ("aicom", 2023, 50, False), ("aicom", 2024, 50, True), ("aicom", 2025, 50, False), ("aicom", 2026, 50, False),
+    ("simcom", 2026, None, False), ("chumcom", 2026, None, False),
+])
+def test_major_courses_come_from_the_admission_year_table(major, year, majors, confirm):
     from app.api.requirements import load_rules_from_default_directory
     from app.schemas.student import StudentProfile
     from app.services.graduation_engine.rule_selector import select_rules
 
-    rule = select_rules(StudentProfile(admission_year=year, major="aicom"), load_rules_from_default_directory())
-    assert len(rule.department_major_codes) == 50
+    rule = select_rules(StudentProfile(admission_year=year, major=major), load_rules_from_default_directory())
+    table = {code for code, row in curriculum(major, year).items() if row.category == "전공"}
+    assert table <= set(rule.department_major_codes)
+    if majors:
+        assert len(rule.department_major_codes) == majors
     assert any(item.id == "NC-CURR-AICOM-2024" for item in rule.verification_requirements) is confirm
+
+
+def test_2019_tables_and_aicom_year_differences():
+    # 2019학번 표: 교직·창의적창업모델개발이 있고 SW창업프로젝트는 없다 (2020~2021 표와 다름)
+    plsop = curriculum("plsop", 2019)
+    assert {"TCHR0499", "TCHR0593", "TCHR0594", "CLTR0763"} <= set(plsop) and "GLSO0229" not in plsop
+    assert plsop["CLTR0223"].required and not curriculum("plsop", 2020)["CLTR0223"].required
+    # 글솝 2019: 창업 교과목이 CLTR 교양 코드 (2020~2021 표는 STUP 일반선택)
+    assert curriculum("glsop", 2019)["CLTR0732"].category == "교양"
+    assert curriculum("glsop", 2021)["STUP0212"].category == "일반선택" and "CLTR0732" not in curriculum("glsop", 2021)
+    # 인컴: 23·24학번은 KNU미래설계 과목이 교양, 25학번부터 일반선택
+    assert curriculum("aicom", 2024)["FUTR0208"].category == "교양"
+    assert curriculum("aicom", 2025)["FUTR0208"].category == "일반선택"
+    assert "CLTR0264" in curriculum("aicom", 2025) and "CLTR0264" not in curriculum("aicom", 2026)
 
 
 def test_each_course_shows_its_area_for_the_major_and_admission_year():

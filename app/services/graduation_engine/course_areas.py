@@ -46,8 +46,6 @@ PRACTICAL_ENGLISH_AREA = "실용영어"
 # 이수 과목으로 계산하므로 체크리스트에서 빠지는 요건
 COMPUTED_IDS = {*ABEEK_AREAS, ABEEK_DESIGN_ID, *LIBERAL_AREAS, SDG_ID, STARTUP_CREDITS_ID}
 
-# 학부 홈페이지 교육과정표는 2020~2021학년도 표부터 있다. 그 이전 학번은 가장 이른 표로 추정한다.
-FIRST_SOURCED_YEAR = 2020
 ABEEK_CATEGORIES = {"기본소양": "basic", "전공기반": "msc", "공학전공": "major", "교직": "teaching"}
 LIBERAL_GROUPS = {"foundation_a": "첨성인기초", "foundation_b": "첨성인기초",
                   "core_humanities": "첨성인핵심", "core_science": "첨성인핵심"}
@@ -82,38 +80,49 @@ class CurriculumCourse:
     tags: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class Curriculum:
+    """한 학번에 적용되는 교육과정표."""
+    admission_year: int
+    curriculum_year: int  # 적용 교육과정 학년도 (예: 20학번 → 2021 '2020~2021' 표)
+    inferred: bool  # 그 학번 원문이 없어 다른 학년도 표를 적용한 경우
+    courses: dict[str, CurriculumCourse]
+
+
 @lru_cache(maxsize=1)
-def curricula() -> dict[str, dict[int, dict[str, CurriculumCourse]]]:
-    """major → 교육과정 학년도 → 과목코드 → 과목."""
-    tables: dict[str, dict[int, dict[str, CurriculumCourse]]] = {}
+def curricula() -> dict[str, dict[int, Curriculum]]:
+    """major → 학번(입학년도) → 교육과정표."""
+    tables: dict[str, dict[int, Curriculum]] = {}
     with open(CURRICULA_FILE, encoding="utf-8") as file:
         for row in csv.DictReader(file):
-            tables.setdefault(row["major"], {}).setdefault(int(row["curriculum_year"]), {})[row["code"]] = \
-                CurriculumCourse(row["code"], row["name"], float(row["credits"]), row["category"],
-                                 row["required"] == "true", row["design"] == "true",
-                                 tuple(tag for tag in row["tags"].split(",") if tag))
+            admission = int(row["admission_year"])
+            table = tables.setdefault(row["major"], {}).setdefault(admission, Curriculum(
+                admission, int(row["curriculum_year"]), row["inferred"] == "true", {}))
+            table.courses[row["code"]] = CurriculumCourse(
+                row["code"], row["name"], float(row["credits"]), row["category"], row["required"] == "true",
+                row["design"] == "true", tuple(tag for tag in row["tags"].split(",") if tag))
     return tables
 
 
+def curriculum_table(major: str, admission_year: int) -> Curriculum:
+    """입학년도(학번) 기준 교육과정표. 표가 없는 학번은 그 이전 가장 가까운 학번(없으면 가장 이른 학번) 표로 추정."""
+    tables = curricula()[major]
+    years = sorted(tables)
+    return tables[max([year for year in years if year <= admission_year] or [years[0]])]
+
+
 def curriculum_year(major: str, admission_year: int) -> int:
-    """교육과정은 입학년도(학번) 기준으로 적용한다: 입학년도 이하의 가장 최근 표."""
-    years = sorted(curricula()[major])
-    return max([year for year in years if year <= admission_year] or [years[0]])
+    return curriculum_table(major, admission_year).curriculum_year
 
 
 def curriculum(major: str, admission_year: int) -> dict[str, CurriculumCourse]:
-    return curricula()[major][curriculum_year(major, admission_year)]
-
-
-# 교육과정표가 적용되는 첫 학번. 학부 홈페이지의 2021학년도 표는 '2020~2021' 표다.
-TABLE_FIRST_ADMISSION = {2021: 2020}
+    return curriculum_table(major, admission_year).courses
 
 
 def curriculum_is_sourced(major: str, admission_year: int) -> bool:
-    """입학년도에 해당하는 학부 교육과정표가 있으면 True (없으면 가까운 표로 추정한 것)."""
-    years = curricula().get(major, {})
-    return admission_year >= FIRST_SOURCED_YEAR and any(
-        TABLE_FIRST_ADMISSION.get(year, year) <= admission_year for year in years)
+    """그 학번의 교육과정 원문이 있으면 True (없으면 다른 학번·학년도 표로 추정한 것)."""
+    table = curricula().get(major, {}).get(admission_year)
+    return table is not None and not table.inferred
 
 
 @lru_cache(maxsize=1)
@@ -145,14 +154,19 @@ def known_course_name(code: str) -> str | None:
     """학부 교육과정표에 있는 과목명 (최신 학년도 우선)."""
     for tables in curricula().values():
         for year in sorted(tables, reverse=True):
-            if code in tables[year]:
-                return tables[year][code].name
+            if code in tables[year].courses:
+                return tables[year].courses[code].name
     return None
 
 
 def major_courses(major: str, admission_year: int, categories: set[str]) -> dict[str, str]:
     return {code: course.name for code, course in curriculum(major, admission_year).items()
             if course.category in categories}
+
+
+# 전공학점으로 세는 교육과정 구분
+MAJOR_CATEGORIES = {"plsop": {"공학전공"}, "glsop": {"전공"}, "aicom": {"전공"}, "simcom": {"전공"},
+                    "chumcom": {"전공"}}
 
 
 def glsop_major_courses(admission_year: int) -> dict[str, str]:
@@ -179,8 +193,8 @@ def abeek_area(code: str, admission_year: int) -> tuple[str | None, str | None]:
     own = curriculum("plsop", admission_year)
     if code in own:
         return ABEEK_CATEGORIES[own[code].category], None
-    name = next((table[code].name for year, table in sorted(curricula()["plsop"].items(), reverse=True)
-                 if code in table), None)
+    name = next((table.courses[code].name for year, table in sorted(curricula()["plsop"].items(), reverse=True)
+                 if code in table.courses), None)
     if name is not None:
         for match in own.values():
             if same_name(match.name) == same_name(name):

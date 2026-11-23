@@ -1,10 +1,11 @@
 """전공·학번별 교육과정표를 data/curricula/curricula.csv 로 만든다.
 
-원본
-- data/curricula/raw/courses.json: 팀이 정리한 2023·2025 교육과정 (심컴=플솝, 글솝, 인컴)
-- 학부 홈페이지 교육과정 파일 (아래 SOURCES). 2020~2021·2022학년도 표는 courses.json에 없어
-  PDF/JPG를 보고 옮겼다. 2024학년도 표는 2023 표와 과목·구분이 같은 것을 확인했다.
-- 글솝 교양·일반선택의 영역/창업 표기(tags)는 학부 교육과정 파일에 인쇄된 그대로 옮겼다.
+원본: data/curricula/raw/curriculum_courses.csv (팀 정리, 학번별 적용 교육과정 판독본)
+- 같은 내용의 JSON(raw/courses.json)과 행 단위로 일치하는지 확인한다.
+- 학번마다 표를 하나씩 둔다. '적용교육과정'은 그 학번에 적용되는 학년도 표다
+  (예: 플솝 20학번 → 2021 표 '2020~2021', 인컴 24학번 → 2023 표).
+- 비고에 '원문 없음'이 있으면 그 학번 원문이 없어 다른 학년도 표로 추정한 것이다(inferred).
+- 글솝 2023·2025 표는 판독본에 교양 영역·창업 표기가 없어, 학부 교육과정 PDF에 인쇄된 표기를 덧붙인다.
 
 실행: python scripts/build_curricula.py
 """
@@ -14,313 +15,30 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RAW = ROOT / "data" / "curricula" / "raw" / "courses.json"
+RAW = ROOT / "data" / "curricula" / "raw"
+SOURCE_CSV = RAW / "curriculum_courses.csv"
+SOURCE_JSON = RAW / "courses.json"
 OUT = ROOT / "data" / "curricula" / "curricula.csv"
 
-SOURCES = {
-    ("plsop", 2021): "심화컴퓨터공학프로그램 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/simhwa_2021.pdf",
-    ("plsop", 2022): "심화컴퓨터공학프로그램 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/simhwa_2022.jpg",
-    ("plsop", 2023): "컴퓨터학부 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/simhwa_2023.pdf / courses.json simhwa_2023",
-    ("plsop", 2024): "심화컴퓨터공학프로그램 교육과정(2024학년도 기준, 2023 표와 동일) https://cse.knu.ac.kr/file/simhwa_2024.jpg",
-    ("plsop", 2025): "심화컴퓨터공학프로그램 교육과정(2025학년도 기준) https://cse.knu.ac.kr/file/simhwa_2025.pdf / courses.json simhwa_2025",
-    ("glsop", 2021): "글로벌SW융합전공 교육과정(2021학년도 기준, 2020~2021) https://cse.knu.ac.kr/file/global_2021.pdf",
-    ("glsop", 2022): "글로벌SW융합전공 교육과정(2022학년도 기준) https://cse.knu.ac.kr/file/global_2022.pdf",
-    ("glsop", 2023): "글로벌SW융합전공 교육과정(2023학년도 기준) https://cse.knu.ac.kr/file/global_2023.pdf / courses.json global_2023",
-    ("glsop", 2024): "글로벌SW융합전공 교육과정(2024학년도 기준, 2023 표와 동일) https://cse.knu.ac.kr/file/global_2024.jpg",
-    ("glsop", 2025): "글로벌SW융합전공 교육과정(2025학년도 기준) https://cse.knu.ac.kr/file/global_2025.pdf / courses.json global_2025",
-    ("aicom", 2025): "인공지능컴퓨팅전공 교육과정 courses.json ai_2025 (catalog/aicom_2023-2026.csv와 동일)",
+MAJORS = {"심화컴퓨터공학(ABEEK)": "plsop", "글로벌SW융합": "glsop", "인공지능컴퓨팅": "aicom",
+          "심화컴퓨팅": "simcom", "첨단컴퓨팅연구": "chumcom"}
+JSON_KEYS = {"plsop": "simhwa", "glsop": "global", "aicom": "ai", "simcom": "hpc", "chumcom": "adv"}
+
+# 학부 홈페이지 교육과정 파일 (적용 교육과정 학년도 기준)
+FILES = {
+    ("plsop", 2021): "https://cse.knu.ac.kr/file/simhwa_2021.pdf",
+    ("plsop", 2022): "https://cse.knu.ac.kr/file/simhwa_2022.jpg",
+    ("plsop", 2023): "https://cse.knu.ac.kr/file/simhwa_2023.pdf",
+    ("plsop", 2024): "https://cse.knu.ac.kr/file/simhwa_2024.jpg",
+    ("plsop", 2025): "https://cse.knu.ac.kr/file/simhwa_2025.pdf",
+    ("glsop", 2021): "https://cse.knu.ac.kr/file/global_2021.pdf",
+    ("glsop", 2022): "https://cse.knu.ac.kr/file/global_2022.pdf",
+    ("glsop", 2023): "https://cse.knu.ac.kr/file/global_2023.pdf",
+    ("glsop", 2024): "https://cse.knu.ac.kr/file/global_2024.jpg",
+    ("glsop", 2025): "https://cse.knu.ac.kr/file/global_2025.pdf",
 }
 
-# 학년-학기 | 교과구분 | 과목코드 | 과목명 | 학점 | 표기(필수, 설계, 영역·창업 등 쉼표 구분)
-TRANSCRIBED = {
-    ("plsop", 2021): """
-1-1|기본소양|CLTR0263|문화기술개론|3|
-1-1|기본소양|COMP0210|대화형프로그래밍기초|3|
-1-2|기본소양|CLTR0003|실용화법|3|
-1-2|기본소양|CLTR0205|대학글쓰기|3|
-1-2|기본소양|CLTR0264|소셜네트워크|3|
-1-1|전공기반|CLTR0211|수학 I|3|필수
-1-1|전공기반|CLTR0213|물리학 I|3|필수
-1-1|전공기반|CLTR0223|물리학실험 1|1|
-1-2|전공기반|COME0301|이산수학|3|필수
-1-1|공학전공|COMP0209|소프트웨어와 문제해결|3|
-1-1|공학전공|ITEC0201|컴퓨터학개론|3|
-1-2|공학전공|COMP0204|프로그래밍기초|6|필수
-1-2|공학전공|COMP0205|기초창의공학설계|3|필수,설계
-2-1|기본소양|CLTR0689|미래산업과 직업선택|3|
-2-1|기본소양|COMP0329|SW융합커뮤니케이션|3|
-2-1|기본소양|COMP0417|컴퓨터윤리|3|
-2-1|전공기반|CLTR0246|일반생명과학1|3|
-2-1|전공기반|ENGR0211|공학수학1|3|
-2-2|전공기반|COME0311|확률 및 통계|3|
-2-2|전공기반|MTED0231|선형대수|3|
-2-1|공학전공|COME0331|자료구조|3|필수
-2-1|공학전공|COMP0216|자료구조응용|3|
-2-1|공학전공|COMP0217|자바프로그래밍|3|필수,설계
-2-1|공학전공|COMP0315|오토마타 및 형식언어|3|
-2-1|공학전공|ELEC0247|논리회로|3|
-2-2|공학전공|COMP0224|소프트웨어설계|3|설계
-2-2|공학전공|COMP0225|디지털설계 및 실험|3|설계
-2-2|공학전공|COMP0411|컴퓨터구조|3|필수
-2-2|공학전공|COMP0432|소프트웨어 특강|2|
-2-2|공학전공|ELEC0462|시스템프로그래밍|3|필수,설계
-2-2|공학전공|ITEC0423|자료구조프로그래밍|3|
-3-1|기본소양|CLTR0086|기업가정신과 벤처창업|3|
-3-1|기본소양|CLTR0208|심화글쓰기|3|
-3-2|기본소양|COMP0330|SW프로젝트관리기법|3|
-3-1|전공기반|ITEC0419|데이터과학기초|3|
-3-2|전공기반|STAT0452|수치해석|3|
-3-1|공학전공|COMP0312|운영체제|3|필수
-3-1|공학전공|COMP0319|알고리즘1|3|필수
-3-1|공학전공|COMP0321|컴파일러|3|
-3-1|공학전공|COMP0422|소프트웨어공학|3|
-3-1|공학전공|EECS0312|네트워크프로그래밍|3|
-3-2|공학전공|COMP0320|알고리즘2|3|
-3-2|공학전공|COMP0322|데이터베이스|3|
-3-2|공학전공|COMP0323|데이터통신|3|
-3-2|공학전공|COMP0328|모바일앱프로그래밍1|3|
-3-2|공학전공|COMP0423|프로그래밍언어론|3|
-3-2|공학전공|ITEC0401|종합설계프로젝트1|4|필수,설계
-4-1|기본소양|CLTR0045|논리와 비판적 사고|3|
-4-1|기본소양|ITEC0403|IT지식재산권|3|
-4-2|기본소양|CLTR0043|서양의 역사와 문화|3|
-4-2|기본소양|COMP0428|IT기술경영개론|3|
-4-1|공학전공|COMP0324|인공지능|3|
-4-1|공학전공|COMP0413|컴퓨터그래픽스|3|
-4-1|공학전공|COMP0414|컴퓨터망|3|
-4-1|공학전공|COMP0419|정보검색|3|
-4-1|공학전공|COMP0420|모바일앱프로그래밍2|3|
-4-1|공학전공|ITEC0402|종합설계프로젝트2|4|필수,설계
-4-1|공학전공|ITEC0414|소프트웨어테스팅이론|3|
-4-1|공학전공|ITEC0415|고급문제해결|3|
-4-1|공학전공|ITEC0416|고급웹프로그래밍|3|
-4-1|공학전공|ITEC0420|모바일로봇프로그래밍|3|
-4-1|공학전공|ITEC0413|인간과 컴퓨터 상호작용 설계|3|
-4-2|공학전공|COME0368|정보보호론|3|
-4-2|공학전공|COMP0424|무선네트워크|3|
-4-2|공학전공|GLSO0229|SW창업프로젝트|3|
-4-2|공학전공|ITEC0418|대규모병렬컴퓨팅|3|
-4-2|공학전공|ITEC0421|소프트웨어디자인패턴|3|
-4-2|공학전공|ITEC0425|컴퓨터게임제작|3|
-4-2|공학전공|COMP0435|디지털미디어아트|3|
-4-2|공학전공|ITEC0417|기계학습개론|3|
-4-2|공학전공|ITEC0422|의료융합소프트웨어|3|
-4-2|공학전공|ITEC0424|컴퓨터비전|3|
-""",
-    ("plsop", 2022): """
-1-1|기본소양|CLTR0045|논리와 비판적 사고|3|
-1-1|기본소양|CLTR0264|소셜네트워크|3|
-1-2|기본소양|CLTR0003|실용화법|3|
-1-2|기본소양|CLTR0205|대학글쓰기|3|
-1-1|전공기반|CLTR0211|수학 I|3|필수
-1-1|전공기반|CLTR0213|물리학 I|3|필수
-1-1|전공기반|CLTR0223|물리학실험 I|1|
-1-2|전공기반|COME0301|이산수학|3|필수
-1-1|공학전공|COMP0453|컴퓨팅사고와 SW코딩|3|
-1-1|공학전공|ITEC0201|컴퓨터학개론|3|
-1-2|공학전공|COMP0204|프로그래밍기초|6|필수
-1-2|공학전공|COMP0205|기초창의공학설계|3|필수,설계
-2-1|기본소양|CLTR0689|미래산업과 직업선택|3|
-2-1|전공기반|CLTR0246|일반생명과학 I|3|
-2-1|전공기반|COMP0454|인공지능수학기초|3|
-2-2|전공기반|COME0311|확률및통계|3|
-2-2|전공기반|ITEC0419|데이터과학기초|3|
-2-2|전공기반|MTED0231|선형대수|3|
-2-1|공학전공|COMP0217|자바프로그래밍|3|필수,설계
-2-1|공학전공|COMP0315|오토마타및형식언어|3|
-2-1|공학전공|ELEC0247|논리회로|3|
-2-1|공학전공|COME0331|자료구조|3|필수
-2-1|공학전공|COMP0216|자료구조응용|3|
-2-2|공학전공|COMP0224|소프트웨어설계|3|설계
-2-2|공학전공|COMP0225|디지털설계및실험|3|설계
-2-2|공학전공|COMP0411|컴퓨터구조|3|필수
-2-2|공학전공|COMP0432|소프트웨어 특강|2|
-2-2|공학전공|ELEC0462|시스템프로그래밍|3|필수,설계
-3-1|기본소양|CLTR0086|기업가정신과 벤처창업|3|
-3-2|기본소양|CLTR0732|창업과 경영|3|
-3-2|전공기반|STAT0452|수치해석|3|
-3-1|교직|TCHR0499|컴퓨터 논리 및 논술지도|3|
-3-2|교직|TCHR0593|컴퓨터교육론|3|
-3-2|교직|TCHR0594|컴퓨터교재연구및지도법|3|
-3-1|공학전공|COMP0312|운영체제|3|필수
-3-1|공학전공|COMP0319|알고리즘1|3|필수
-3-1|공학전공|COMP0321|컴파일러|3|
-3-1|공학전공|COMP0323|데이타통신|3|
-3-1|공학전공|COMP0324|인공지능|3|
-3-1|공학전공|COMP0422|소프트웨어공학|3|
-3-2|공학전공|COMP0320|알고리즘2|3|
-3-2|공학전공|COMP0322|데이타베이스|3|
-3-2|공학전공|COMP0328|모바일앱프로그래밍1|3|
-3-2|공학전공|COMP0423|프로그래밍언어론|3|
-3-2|공학전공|EECS0312|네트워크프로그래밍|3|
-3-2|공학전공|ITEC0417|기계학습개론|3|
-3-2|공학전공|ITEC0401|종합설계프로젝트1|4|필수,설계
-4-1|기본소양|ITEC0403|IT지식재산권|3|
-4-1|기본소양|COMP0417|컴퓨터윤리|3|
-4-2|기본소양|CLTR0043|서양의역사와문화|3|
-4-2|기본소양|COMP0428|IT기술경영개론|3|
-4-1|교직|TCHR0522|학교현장실습|2|
-4-1|공학전공|COMP0413|컴퓨터그래픽스|3|
-4-1|공학전공|COMP0414|컴퓨터망|3|
-4-1|공학전공|COMP0419|정보검색|3|
-4-1|공학전공|COMP0420|모바일앱프로그래밍2|3|
-4-1|공학전공|COMP0462|데이터마이닝이론및응용|3|
-4-1|공학전공|COMP0460|문제해결기반 공학연수실습(컴퓨터학)|2|
-4-1|공학전공|GLSO0215|오픈소스프로그래밍|3|
-4-1|공학전공|GLSO0224|사물인터넷|3|
-4-1|공학전공|ITEC0402|종합설계프로젝트2|4|필수,설계
-4-1|공학전공|ITEC0414|소프트웨어테스팅 이론|3|
-4-1|공학전공|ITEC0415|고급문제해결|3|
-4-1|공학전공|ITEC0416|고급웹프로그래밍|3|
-4-1|공학전공|MBIO0402|생물정보학개론|3|
-4-1|공학전공|MOBI0224|딥러닝|3|
-4-2|공학전공|CAIB0211|자연어처리개론|3|
-4-2|공학전공|COME0368|정보보호론|3|
-4-2|공학전공|COMP0435|디지털미디어아트|3|
-4-2|공학전공|COMP0436|증강현실|3|
-4-2|공학전공|COMP0455|지능HCI|3|
-4-2|공학전공|COMP0457|의료인공지능|3|
-4-2|공학전공|COMP0458|모바일네트워크|3|
-4-2|공학전공|COMP0461|문제해결기반 공학연수실습(심화컴퓨터학)|2|
-4-2|공학전공|GLSO0227|클라우드컴퓨팅|3|
-4-2|공학전공|GLSO0229|SW창업프로젝트|3|
-4-2|공학전공|ITEC0418|대규모병렬컴퓨팅|3|
-4-2|공학전공|ITEC0424|컴퓨터비전|3|
-4-2|공학전공|ITEC0425|컴퓨터게임제작|3|
-""",
-    ("glsop", 2021): """
-1-1|교양|CLTR0211|수학 I|3|첨성인핵심(자연과학)
-1-1|교양|CLTR0266|SW사고기법|3|첨성인기초(소프트웨어)
-1-2|교양|CLTR0003|실용화법|3|첨성인핵심(인문사회),인문교양
-1-2|교양|CLTR0205|대학글쓰기|3|첨성인기초(글쓰기),인문교양
-1-1|전공|COME0301|이산수학|3|
-1-1|전공|COMP0204|프로그래밍기초|6|필수
-1-1|전공|GLSO0211|SW실용영어|3|
-1-2|전공|COME0331|자료구조|3|필수
-1-2|전공|COMP0216|자료구조응용|3|
-1-2|전공|GLSO0212|소프트웨어수학|3|
-1-2|전공|GLSO0213|창의융합설계|3|
-2-1|교양|CLTR0086|기업가정신과 벤처창업|3|첨성인일반,창업
-2-1|교양|CLTR0689|미래산업과 직업선택|3|첨성인일반
-2-2|교양|CLTR0043|서양의역사와문화|3|첨성인핵심(인문사회),인문교양
-2-2|일반선택|STUP0212|창업과 경영|3|창업
-2-1|전공|COME0311|확률및통계|3|
-2-1|전공|COMP0217|자바프로그래밍|3|
-2-1|전공|GLSO0214|SW진로설계|3|
-2-1|전공|GLSO0215|오픈소스프로그래밍|3|
-2-1|전공|GLSO0216|알고리즘실습|3|필수
-2-2|전공|COMP0224|소프트웨어설계|3|
-2-2|전공|COMP0312|운영체제|3|필수
-2-2|전공|COMP0322|데이터베이스|3|
-2-2|전공|GLSO0217|컴퓨터망프로그래밍|3|
-2-2|전공|ITEC0419|데이터과학기초|3|
-3-1|교양|CLTR0208|심화글쓰기|3|첨성인기초(글쓰기),인문교양
-3-2|교양|CLTR0089|회계와사회생활|3|첨성인핵심(인문사회),창업
-3-1|일반선택|STUP0224|나의 첫 사업제안서|3|창업
-3-2|일반선택|STUP0217|글로벌창업실습개론|3|창업
-3-1|전공|GLSO0218|SW융합설계1|3|
-3-1|전공|GLSO0219|SW공학및테스팅|3|
-3-1|전공|GLSO0220|소프트웨어융합특강1|1|
-3-2|전공|COMP0328|모바일앱프로그래밍1|3|
-3-2|전공|GLSO0221|SW융합설계2|3|
-3-2|전공|GLSO0222|소프트웨어융합특강2|1|
-4-1|일반선택|STUP0218|창조성개발과 혁신창업|3|창업
-4-2|일반선택|STUP0214|알기쉬운 창업마케팅과스피치|3|창업
-4-1|전공|COMP0321|컴파일러|3|
-4-1|전공|COMP0324|인공지능|3|
-4-1|전공|COMP0413|컴퓨터그래픽스|3|
-4-1|전공|COMP0420|모바일앱프로그래밍2|3|
-4-1|전공|GLSO0223|스타트업설계|3|창업
-4-1|전공|GLSO0224|사물인터넷|3|
-4-1|전공|GLSO0225|소프트웨어융합특강3|1|
-4-1|전공|ITEC0403|IT지식재산권|3|창업
-4-1|전공|ITEC0413|인간과 컴퓨터 상호작용 설계|3|
-4-1|전공|ITEC0415|고급문제해결|3|
-4-1|전공|ITEC0416|고급웹프로그래밍|3|
-4-1|전공|ITEC0420|모바일로봇프로그래밍|3|
-4-2|전공|COME0368|정보보호론|3|
-4-2|전공|COMP0411|컴퓨터구조|3|
-4-2|전공|COMP0423|프로그래밍언어론|3|
-4-2|전공|COMP0428|IT기술경영개론|3|창업
-4-2|전공|GLSO0227|클라우드컴퓨팅|3|
-4-2|전공|GLSO0228|소프트웨어융합특강4|1|
-4-2|전공|GLSO0229|SW창업프로젝트|3|창업
-4-2|전공|ITEC0418|대규모병렬컴퓨팅|3|
-4-2|전공|ITEC0421|소프트웨어디자인패턴|3|
-4-2|전공|ITEC0424|컴퓨터비전|3|
-4-2|전공|ITEC0425|컴퓨터게임제작|3|
-""",
-    ("glsop", 2022): """
-1-1|교양|CLTR0211|수학 I|3|첨성인핵심(자연과학)
-1-1|교양|CLTR0266|SW 사고기법|3|첨성인기초(소프트웨어)
-1-2|교양|CLTR0003|실용화법|3|첨성인핵심(인문사회),인문교양
-1-2|교양|CLTR0205|대학글쓰기|3|첨성인기초(글쓰기),인문교양
-1-1|전공|COMP0204|프로그래밍기초|6|필수
-1-1|전공|COME0301|이산수학|3|
-1-1|전공|ITEC0201|컴퓨터학개론|3|
-1-2|전공|COME0331|자료구조|3|필수
-1-2|전공|COMP0216|자료구조응용|3|
-1-2|전공|COMP0453|컴퓨팅사고와 SW코딩|3|
-1-2|전공|GLSO0213|창의융합설계|3|
-2-1|교양|CLTR0086|기업가정신과 벤처창업|3|창업
-2-1|교양|CLTR0689|미래산업과 직업선택|3|
-2-2|교양|CLTR0043|서양의 역사와 문화|3|첨성인핵심(인문사회),인문교양
-2-2|교양|CLTR0732|창업과 경영|3|창업
-2-1|전공|GLSO0216|알고리즘실습|3|필수
-2-1|전공|COME0311|확률및통계|3|
-2-1|전공|COMP0217|자바프로그래밍|3|
-2-1|전공|COMP0411|컴퓨터구조|3|
-2-1|전공|ELEC0462|시스템프로그래밍|3|
-2-1|전공|GLSO0214|SW진로설계|3|
-2-2|전공|COMP0312|운영체제|3|필수
-2-2|전공|COMP0224|소프트웨어설계|3|
-2-2|전공|COMP0323|데이타통신|3|
-2-2|전공|COMP0324|인공지능|3|
-2-2|전공|GLSO0212|소프트웨어수학|3|
-3-1|교양|CLTR0779|나의 첫 사업제안서|3|창업
-3-2|교양|CLTR0089|회계와 사회생활|3|첨성인핵심(인문사회),창업
-3-1|전공|COMP0432|소프트웨어 특강|2|
-3-1|전공|EECS0312|네트워크프로그래밍|3|
-3-1|전공|GLSO0219|SW공학및테스팅|3|
-3-1|전공|ITEC0415|고급문제해결|3|
-3-1|전공|ITEC0419|데이터과학기초|3|
-3-2|전공|COMP0322|데이터베이스|3|
-3-2|전공|COMP0328|모바일앱프로그래밍1|3|
-3-2|전공|COMP0414|컴퓨터망|3|
-3-2|전공|COMP0460|문제해결기반 공학연수실습(컴퓨터학)|2|
-3-2|전공|ITEC0417|기계학습개론|3|
-4-1|교양|CLTR0761|창조성개발과 혁신창업|3|창업
-4-2|교양|CLTR0790|알기쉬운 창업마케팅과 스피치|3|창업
-4-1|전공|COMP0321|컴파일러|3|
-4-1|전공|COMP0413|컴퓨터그래픽스|3|
-4-1|전공|COMP0420|모바일앱프로그래밍2|3|
-4-1|전공|COMP0462|데이터마이닝이론및응용|3|
-4-1|전공|COMP0461|문제해결기반 공학연수실습(심화컴퓨터학)|2|
-4-1|전공|GLSO0215|오픈소스프로그래밍|3|
-4-1|전공|GLSO0223|스타트업설계|3|창업
-4-1|전공|GLSO0224|사물인터넷|3|
-4-1|전공|ITEC0401|종합설계프로젝트1|4|
-4-1|전공|ITEC0403|IT지식재산권|3|창업
-4-1|전공|ITEC0416|고급웹프로그래밍|3|
-4-1|전공|MBIO0402|생물정보학개론|3|
-4-1|전공|MOBI0224|딥러닝|3|
-4-2|전공|CAIB0211|자연어처리개론|3|
-4-2|전공|COME0368|정보보호론|3|
-4-2|전공|COMP0423|프로그래밍언어론|3|
-4-2|전공|COMP0428|IT기술경영개론|3|창업
-4-2|전공|COMP0436|증강현실|3|
-4-2|전공|COMP0455|지능HCI|3|
-4-2|전공|COMP0457|의료인공지능|3|
-4-2|전공|GLSO0227|클라우드컴퓨팅|3|
-4-2|전공|GLSO0229|SW창업프로젝트|3|창업
-4-2|전공|ITEC0402|종합설계프로젝트2|4|
-4-2|전공|ITEC0418|대규모병렬컴퓨팅|3|
-4-2|전공|ITEC0424|컴퓨터비전|3|
-4-2|전공|ITEC0425|컴퓨터게임제작|3|
-""",
-}
-
-# courses.json 표에 없는 학부 교육과정 표기 (글솝 2023·2024·2025 파일에 인쇄된 영역·창업 표기)
+# 판독본에 표기가 없는 글솝 2023·2025 교육과정 PDF의 영역·창업 표기
 GLSOP_TAGS_2023 = {
     "CLTR0205": "첨성인기초(글쓰기),인문교양", "CLTR0819": "첨성인기초(수리)",
     "CLTR0003": "첨성인핵심(예술과 표현),인문교양", "CLTR0211": "첨성인핵심(자연과학)",
@@ -331,58 +49,58 @@ GLSOP_TAGS_2023 = {
 }
 GLSOP_TAGS_2025 = {**GLSOP_TAGS_2023, "CLTR0205": "첨성인기초(글쓰기)", "CLTR0003": "첨성인핵심(예술과 표현),SDG",
                    "CLTR0043": "첨성인핵심(인문사회),SDG"}
-# courses.json simhwa_2023은 CLTR0264 구분이 비어 있음. 2023 PDF 3학년 1학기 기본소양.
-FIXES = {("plsop", 2023, "CLTR0264"): {"category": "기본소양", "grade_year": 3, "semester": 1}}
+EXTRA_TAGS = {("glsop", 2023): GLSOP_TAGS_2023, ("glsop", 2025): GLSOP_TAGS_2025}
+# 판독본에 학점이 비어 있는 과목: 같은 과목의 다른 표 학점(3-3-0)
+MISSING_CREDITS = {"COMP0454": "3"}
 
-FIELDS = ["major", "curriculum_year", "code", "name", "credits", "grade_year", "semester", "category",
-          "required", "design", "tags", "source"]
-
-
-def transcribed(major, year, text):
-    for line in text.strip().splitlines():
-        term, category, code, name, credits, flags = line.split("|")
-        grade, semester = term.split("-")
-        marks = [flag for flag in flags.split(",") if flag]
-        yield dict(major=major, curriculum_year=year, code=code, name=name, credits=credits, grade_year=grade,
-                   semester=semester, category=category, required="필수" in marks, design="설계" in marks,
-                   tags=",".join(mark for mark in marks if mark not in ("필수", "설계")), source=SOURCES[major, year])
+FIELDS = ["major", "admission_year", "curriculum_year", "code", "name", "credits", "grade_year", "semester",
+          "category", "required", "design", "tags", "inferred", "source"]
 
 
-def from_json(data, key, major, year, tags=None):
-    for row in data["curricula"][key]:
-        info = data["courses"][row["code"]]
-        item = dict(major=major, curriculum_year=year, code=row["code"], name=info["name"], credits=info["credit"],
-                    grade_year=row["year"], semester=row["semester"], category=row["category"],
-                    required=row["required"], design=row["design"], tags=(tags or {}).get(row["code"], ""),
-                    source=SOURCES[major, year])
-        item.update(FIXES.get((major, year, row["code"]), {}))
-        yield item
+def build_rows():
+    rows = []
+    with SOURCE_CSV.open(encoding="utf-8-sig") as file:
+        for item in csv.DictReader(file):
+            major = MAJORS[item["전공"]]
+            admission, applied = 2000 + int(item["학번"]), int(item["적용교육과정"])
+            code = item["학수번호"]
+            tags = item["교양태그"].replace(";", ",") or EXTRA_TAGS.get((major, applied), {}).get(code, "")
+            source = item["출처"] + (f" ({item['비고']})" if item["비고"] else "")
+            if (major, applied) in FILES:
+                source += " " + FILES[major, applied]
+            rows.append(dict(
+                major=major, admission_year=admission, curriculum_year=applied, code=code, name=item["과목명"],
+                credits=item["학점"] or MISSING_CREDITS[code], grade_year=item["학년"], semester=item["학기"],
+                category=item["구분"], required=str(item["필수"] == "Y").lower(),
+                design=str(item["설계"] == "Y").lower(), tags=tags,
+                inferred=str("원문 없음" in item["비고"]).lower(), source=source,
+            ))
+    return rows
+
+
+def check_against_json(rows):
+    data = json.loads(SOURCE_JSON.read_text(encoding="utf-8"))
+    from_csv = {(r["major"], r["admission_year"], r["code"], r["category"], r["required"], r["design"],
+                 int(r["grade_year"]), int(r["semester"])) for r in rows}
+    from_json = set()
+    for key, items in data["curricula"].items():
+        prefix, year = key.rsplit("_", 1)
+        major = next(m for m, p in JSON_KEYS.items() if p == prefix)
+        from_json |= {(major, int(year), x["code"], x["category"], str(x["required"]).lower(),
+                       str(x["design"]).lower(), x["year"], x["semester"]) for x in items}
+    assert from_csv == from_json, (sorted(from_csv - from_json)[:5], sorted(from_json - from_csv)[:5])
 
 
 def main():
-    data = json.loads(RAW.read_text(encoding="utf-8"))
-    rows = []
-    for (major, year), text in TRANSCRIBED.items():
-        rows += transcribed(major, year, text)
-    rows += from_json(data, "simhwa_2023", "plsop", 2023)
-    rows += [{**row, "curriculum_year": 2024, "source": SOURCES["plsop", 2024]}
-             for row in from_json(data, "simhwa_2023", "plsop", 2023)]
-    rows += from_json(data, "simhwa_2025", "plsop", 2025)
-    rows += from_json(data, "global_2023", "glsop", 2023, GLSOP_TAGS_2023)
-    rows += [{**row, "curriculum_year": 2024, "source": SOURCES["glsop", 2024]}
-             for row in from_json(data, "global_2023", "glsop", 2023, GLSOP_TAGS_2023)]
-    rows += from_json(data, "global_2025", "glsop", 2025, GLSOP_TAGS_2025)
-    rows += from_json(data, "ai_2025", "aicom", 2025)
-
+    rows = build_rows()
+    check_against_json(rows)
     seen = set()
     for row in rows:
-        key = (row["major"], row["curriculum_year"], row["code"])
+        key = (row["major"], row["admission_year"], row["code"])
         assert key not in seen, key
         seen.add(key)
-        assert row["category"], key
-        row["required"] = "true" if row["required"] in (True, "true") else "false"
-        row["design"] = "true" if row["design"] in (True, "true") else "false"
-    rows.sort(key=lambda r: (r["major"], r["curriculum_year"], int(r["grade_year"]), int(r["semester"]), r["code"]))
+        assert row["category"] and float(row["credits"]) > 0, key
+    rows.sort(key=lambda r: (r["major"], r["admission_year"], int(r["grade_year"]), int(r["semester"]), r["code"]))
     with OUT.open("w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=FIELDS)
         writer.writeheader()

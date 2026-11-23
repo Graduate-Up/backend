@@ -14,7 +14,7 @@ from app.schemas.rules import (
 from app.schemas.student import StudentProfile
 
 from .course_areas import (
-    curriculum_is_sourced, curriculum_year, glsop_major_courses, known_course_name, major_courses, plsop_major_courses,
+    MAJOR_CATEGORIES, curricula, curriculum_is_sourced, curriculum_year, known_course_name, major_courses,
 )
 
 STATUS_LABELS = {"portfolio": "졸업 포트폴리오", "interview": "졸업 면담", "topcit": "TOPCIT",
@@ -162,11 +162,11 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
 
     records = []
     verification = []
-    if student.major in ("plsop", "glsop"):
+    if student.major in curricula():
         table = curriculum_year(student.major, student.admission_year)
         sourced = curriculum_is_sourced(student.major, student.admission_year)
-        notes = [f"{table}학년도 기준 교육과정표 적용 (학부 홈페이지)" + ("" if sourced else
-                 f", {student.admission_year}학번 표가 없어 추정")]
+        notes = [f"{student.admission_year}학번: {table}학년도 기준 교육과정표 적용" + ("" if sourced else
+                 f" ({student.admission_year}학번 원문이 없어 추정)")]
     else:
         notes = [curriculum["basis"]]
     if liberal.get("rule"):
@@ -302,7 +302,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         "NC-CURR-GLSOP-OLD": not curriculum_is_sourced("glsop", student.admission_year),
         "NC-CURR-PLSOP-OLD": not curriculum_is_sourced("plsop", student.admission_year),
         # 2025학년도 표(ai_2025)로 확인됨. 2024학년도 표만 미확인
-        "NC-CURR-AICOM-2024": student.admission_year == 2024,
+        "NC-CURR-AICOM-2024": student.major == "aicom" and not curriculum_is_sourced("aicom", student.admission_year),
     }
     for item in loader._read("needs_confirmation.json")["items"]:
         key = item["id"]
@@ -331,15 +331,10 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         caps.append(CreditCap(maximum=liberal["max_counted"], category="liberal_arts"))
 
     major_codes = {item["code"] for item in required["all_of"] if not item["code"].startswith("CLTR")}
-    if student.major == "glsop":
-        # 본인 입학년도 기준 글솝 교육과정의 전공 교과목만 전공으로 인정 (글솝 공지 28594)
-        major_codes.update(glsop_major_courses(student.admission_year))
-    elif student.major == "plsop":
-        # 본인 입학년도 기준 플솝(심화컴퓨터공학) 교육과정의 공학전공 교과목
-        major_codes.update(plsop_major_courses(student.admission_year))
-    elif student.major == "aicom" and curriculum.get("inferred"):
-        # 2024·2025학번: 팀 정리 ai_2025 표(2023·2026 기준표와 과목·구분 동일)의 전공 교과목
-        major_codes.update(major_courses("aicom", student.admission_year, {"전공"}))
+    if student.major in curricula():
+        # 본인 학번에 적용되는 교육과정표의 전공 교과목만 전공으로 인정 (글솝 공지 28594).
+        # 플솝(심화컴퓨터공학 ABEEK)은 공학전공, 그 외 전공은 '전공' 구분.
+        major_codes.update(major_courses(student.major, student.admission_year, MAJOR_CATEGORIES[student.major]))
     elif not curriculum.get("inferred"):
         major_codes.update(code for code, row in catalog.items() if row["counts_toward"] == "major")
     treatments = {}
