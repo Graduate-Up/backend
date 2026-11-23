@@ -49,19 +49,18 @@ def check_credits(
 
         category = course.transcript_category.strip()
         treatment = rule.transcript_categories.get(category)
-        if category in NON_MAJOR_CATEGORIES or not rule.department_major_codes:
-            return treatment, None
-        known_major = canonical in rule.department_major_codes
-        if not known_major and category not in rule.major_transcript_categories:
+        if category in NON_MAJOR_CATEGORIES:
             return treatment, None
         general = CreditTreatment(category="general")
+        if category in rule.major_transcript_categories:
+            return (general if course.offered_by_computer_science is False else CreditTreatment(category="major")), None
+        if canonical not in rule.department_major_codes:
+            return treatment, None
         if course.offered_by_computer_science is False:
             return general, None
-        if not known_major or course.offered_by_computer_science is None:
-            return treatment or general, "verification_required"
-        if category not in rule.major_transcript_categories:
+        if course.offered_by_computer_science is True:
             return treatment or general, "approval_required"
-        return CreditTreatment(category="major"), None
+        return treatment or general, None
     cap_codes = [
         {equivalents.get(code, code) for code in cap.course_codes} if cap.course_codes is not None else None
         for cap in rule.credit_caps

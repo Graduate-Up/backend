@@ -34,6 +34,7 @@ class TranscriptImportResponse(BaseModel):
     excluded_failed: int
     needs_review: int
     grades_filled: int = 0
+    liberal_summary_saved: bool = False
 
 
 def account_store() -> AccountStore:
@@ -155,19 +156,18 @@ def import_transcript(payload: TranscriptImportInput, account: Account, store: S
         for item, status in candidates if item.semester and item.transcript_category and item.credits is not None
     ]
     try:
-        added, grades_filled = store.append_courses(account.account.id, courses)
+        added, grades_filled = store.append_courses(account.account.id, courses, payload.liberal_summary)
     except ValueError as exc:
         raise HTTPException(409, "저장할 수 있는 이수 내역 수를 초과했습니다.") from exc
     return TranscriptImportResponse(
         added=added, scanned=count, excluded_failed=preview.excluded_failed, needs_review=preview.needs_review,
-        grades_filled=grades_filled,
+        grades_filled=grades_filled, liberal_summary_saved=payload.liberal_summary is not None,
     )
 
 
 @router.put("/me/records", responses=AUTH_ERROR, description="과목과 비교과 기록 전체를 교체합니다.")
 def save_records(records: StudentRecords, account: Account, store: Store) -> StudentRecords:
-    store.save_records(account.account.id, records)
-    return records
+    return store.save_records(account.account.id, records)
 
 
 @router.get("/me/evaluation", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}})
@@ -175,7 +175,9 @@ def my_evaluation(account: Account, store: Store, provide_rules: Rules) -> Evalu
     if account.profile is None:
         raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
     records = store.get_records(account.account.id)
-    return evaluate_graduation(account.profile, records.completed_courses, records.nonacademic_records, provide_rules())
+    return evaluate_graduation(
+        account.profile, records.completed_courses, records.nonacademic_records, provide_rules(), records.liberal_summary,
+    )
 
 
 @router.get(
@@ -188,7 +190,9 @@ def my_progress(account: Account, store: Store, provide_rules: Rules) -> Progres
     if account.profile is None:
         raise HTTPException(409, "학생 설정을 먼저 저장해 주세요.")
     records = store.get_records(account.account.id)
-    return build_progress(account.profile, records.completed_courses, records.nonacademic_records, provide_rules())
+    return build_progress(
+        account.profile, records.completed_courses, records.nonacademic_records, provide_rules(), records.liberal_summary,
+    )
 
 
 @router.put(
@@ -207,4 +211,6 @@ def save_checklist(update: ChecklistUpdate, account: Account, store: Store, prov
         )
     except KeyError as exc:
         raise HTTPException(422, "현재 졸업요건에 없는 체크리스트 항목입니다.") from exc
-    return build_progress(account.profile, records.completed_courses, records.nonacademic_records, rules)
+    return build_progress(
+        account.profile, records.completed_courses, records.nonacademic_records, rules, records.liberal_summary,
+    )

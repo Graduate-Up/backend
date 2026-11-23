@@ -10,6 +10,38 @@ from app.services.graduation_engine.rule_selector import available_majors, selec
 
 loader = pytest.importorskip("jolup_rules_all.app.rules.loader")
 
+
+def test_graduation_schedule_exposes_only_known_dates_and_sources():
+    with TestClient(app) as client:
+        response = client.get("/api/v1/graduation/schedule")
+    assert response.status_code == 200, response.text
+    data = response.json()
+    assert [(item["graduation"], item["date"]) for item in data["qualification_deadlines"]] == [
+        ("2027-02", "2026-12-31"),
+    ]
+    assert data["department_deadline"]["label"] == "최종 계절학기 성적 확정일까지"
+    assert data["early_graduation"]["min_semesters"] == 6
+    assert data["early_graduation"]["min_gpa"] == 3.7
+    assert data["early_graduation"]["not_for_transfer"] is True
+    assert all(item["sources"] for item in [
+        *data["qualification_deadlines"], data["department_deadline"], data["early_graduation"],
+    ])
+
+
+@pytest.mark.parametrize("name", ["SW융합설계1", "SW 융합설계 2", "종합설계프로젝트1", "종합설계프로젝트 2"])
+def test_glsop_capstone_accepts_transcript_name(name):
+    with TestClient(app) as client:
+        response = client.post("/api/v1/evaluations/preview", json={
+            "student_profile": {"major": "glsop", "admission_year": 2023, "track": "multi_major"},
+            "completed_courses": [{
+                "course_code": "TEST0999", "course_name": name, "semester": "2025-1",
+                "credits": 3, "transcript_category": "전공", "status": "completed",
+            }],
+        })
+    assert response.status_code == 200, response.text
+    capstone = next(item for item in response.json()["requirements"] if item["id"] == "track-capstone")
+    assert (capstone["status"], capstone["current"], capstone["required"]) == ("satisfied", 1, 1)
+
 def test_every_bundled_year_major_track_status_and_multi_major_resolves():
     bundle = RuleBundle()
     entries = loader.load_index()

@@ -16,7 +16,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from app.schemas.course import Course
-from app.schemas.evaluation import RequirementResult
+from app.schemas.evaluation import LiberalSummary, RequirementResult
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 
 from .gpa import semester_key
@@ -307,8 +307,17 @@ def liberal_area_of(course: Course) -> LiberalArea | None:
     return LiberalArea(course.course_name or "", "", area, False) if area else None
 
 
-def liberal_result(requirement: NonacademicRequirement, courses: list[Course]) -> RequirementResult:
+def liberal_result(
+    requirement: NonacademicRequirement, courses: list[Course], liberal_summary: LiberalSummary | None = None,
+) -> RequirementResult:
     targets = LIBERAL_AREAS[requirement.id]
+    if liberal_summary is not None:
+        areas = [(area, credits) for area, credits in liberal_summary.items() if area in targets]
+        return result(
+            requirement, sum(credits for _, credits in areas), uncertain=[],
+            reason="통합정보시스템 첨성인 교양과목 이수현황의 영역별 학점으로 계산",
+            details=[f"{area} {credits:g}학점" for area, credits in areas],
+        )
     counted, unknown = [], []
     for course in courses:
         if course.prior_institution or not is_liberal(course):
@@ -386,7 +395,7 @@ def course_labels(course: Course, major: str, admission_year: int) -> list[str]:
 
 
 def area_results(rule: GraduationRule, courses: list[Course], equivalents: dict[str, str],
-                 admission_year: int) -> list[RequirementResult]:
+                 admission_year: int, liberal_summary: LiberalSummary | None = None) -> list[RequirementResult]:
     done = completed_courses(courses, equivalents)
     results = []
     for requirement in rule.nonacademic_requirements:
@@ -395,7 +404,7 @@ def area_results(rule: GraduationRule, courses: list[Course], equivalents: dict[
         elif requirement.id == ABEEK_DESIGN_ID:
             results.append(design_result(requirement, done))
         elif requirement.id in LIBERAL_AREAS:
-            results.append(liberal_result(requirement, done))
+            results.append(liberal_result(requirement, done, liberal_summary))
         elif requirement.id == SDG_ID:
             results.append(sdg_result(requirement, done))
         elif requirement.id == STARTUP_CREDITS_ID:

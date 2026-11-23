@@ -64,6 +64,7 @@ class CourseRequirement(Requirement):
     reject_transfer_courses: bool = False
     minimum_course_credits: Amount = 0
     accept_equivalent_codes: bool = True
+    match_by_course_name: bool = False
 
     @model_validator(mode="after")
     def validate_options(self):

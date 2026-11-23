@@ -1,10 +1,12 @@
 from collections.abc import Callable
+from datetime import date
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.core.config import RULE_DIRECTORY
+from app.schemas.evaluation import Source
 from app.schemas.rules import GraduationRule
 from app.schemas.student import Major, StudentProfile
 from app.services.graduation_engine.bundle import RuleBundle, get_bundle_loader, matching_entries
@@ -12,6 +14,59 @@ from app.services.graduation_engine.rule_loader import RuleDataError, RuleUnavai
 from app.services.graduation_engine.rule_selector import RuleSource, candidate_rules, select_rules, validate_major
 
 router = APIRouter(tags=["requirements"])
+
+
+class QualificationDeadline(BaseModel):
+    graduation: str = Field(pattern=r"^[0-9]{4}-(02|08)$")
+    date: date
+    note: str | None = None
+    sources: list[Source]
+
+
+class DepartmentDeadline(BaseModel):
+    label: str
+    sources: list[Source]
+
+
+class EarlyGraduationPolicy(BaseModel):
+    min_semesters: int = Field(ge=1)
+    min_gpa: float = Field(ge=0, le=4.3)
+    rule: str
+    not_for_transfer: bool
+    sources: list[Source]
+
+
+class GraduationSchedule(BaseModel):
+    qualification_deadlines: list[QualificationDeadline]
+    department_deadline: DepartmentDeadline
+    early_graduation: EarlyGraduationPolicy
+
+
+@router.get("/graduation/schedule")
+def graduation_schedule() -> GraduationSchedule:
+    try:
+        loader = get_bundle_loader()
+        deadline = loader.load_common("graduation_qualification")["deadline"]
+        early = loader.load_common("policies")["early_graduation"]
+        sources = {
+            item["id"]: Source(title=item["title"], url=item.get("url"), reference=item.get("date"))
+            for item in loader.load_common("sources")["sources"]
+        }
+
+        def cited(item):
+            return {**item, "sources": [sources[key] for key in item["source"]]}
+
+        return GraduationSchedule(
+            qualification_deadlines=[QualificationDeadline(**cited(item)) for item in deadline["qualification_form"]],
+            department_deadline=DepartmentDeadline(**cited(deadline["department_requirements"])),
+            early_graduation=EarlyGraduationPolicy(
+                **cited(early), not_for_transfer={"general_transfer", "bachelor_transfer"} <= set(early["not_for"]),
+            ),
+        )
+    except (ModuleNotFoundError, FileNotFoundError) as exc:
+        raise RuleUnavailableError("졸업 일정에 필요한 공통 규칙 파일이 없습니다.") from exc
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise RuleDataError("졸업 일정 공통 규칙을 읽을 수 없습니다.") from exc
 
 
 def get_rule_provider() -> Callable[[], RuleSource]:

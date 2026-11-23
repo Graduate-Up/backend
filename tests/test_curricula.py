@@ -59,7 +59,9 @@ def test_plsop_year_differences():
 
 
 def test_plsop_design_flags_match_rule_design_courses():
-    design = json.loads((loader.RULES_DIR / "base/plsop_abeek_2023-2025.json").read_text())["credits"]["abeek"]
+    design = json.loads(
+        (loader.RULES_DIR / "base/plsop_abeek_2023-2025.json").read_text(encoding="utf-8")
+    )["credits"]["abeek"]
     for year, table in curricula()["plsop"].items():
         flagged = {code for code, course in table.courses.items() if course.design}
         # 2019 표는 소프트웨어공학(COMP0422)에도 설계 표시가 있으나 규칙에는 설계학점이 없다 (학부 확인 필요)

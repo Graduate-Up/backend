@@ -23,6 +23,30 @@
         .map(cell => (cell.innerText || cell.textContent || "").trim()));
   }
 
+  function readLiberalSummary(doc) {
+    const term = label => label.replace(/[\s·ㆍ]/g, "");
+    const columns = ["독서와토론", "사고교육", "글쓰기", "외국어", "수리", "기초과학", "인문·사회", "자연과학"];
+    for (const {root, doc: owner} of tables) {
+      if (owner !== doc) continue;
+      const rows = visibleRows(root);
+      const headerIndex = rows.findIndex(row => columns.every(label => row.map(term).includes(term(label))));
+      if (headerIndex < 0) continue;
+      const header = rows[headerIndex].map(term);
+      const previousHeader = rows[headerIndex - 1]?.map(term) || [];
+      if (!header.includes("소프트웨어") || !header.includes("실용영어")) continue;
+      const hasNumber = /^(?:No\.?|번호)$/i.test(header[0]);
+      const grouped = previousHeader.includes("첨성인기초") && previousHeader.includes("첨성인핵심");
+      if (!hasNumber && !grouped) continue;
+      // The serial-number cell spans both header rows in the grouped table.
+      const offset = hasNumber ? 0 : 1;
+      const matches = rows.slice(headerIndex + 1).filter(row =>
+        row[0] === "1" && columns.every(label => /^\d+(?:\.\d+)?$/.test(row[header.indexOf(term(label)) + offset] || "")));
+      if (matches.length !== 1) continue;
+      return Object.fromEntries(columns.map(label => [label, Number(matches[0][header.indexOf(term(label)) + offset])]));
+    }
+    return null;
+  }
+
   function webSquareGrid(root, doc) {
     const view = doc.defaultView;
     const ids = new Set();
@@ -71,6 +95,7 @@
     return;
   }
   const initialRows = found.data.length;
+  const liberalSummary = readLiberalSummary(found.doc);
   let scrollTargets = 0;
   let wheelAttempts = 0;
   let gridMoves = 0;
@@ -174,6 +199,7 @@
     source: "jolup-visible-transcript",
     scanned: found.data.length,
     expected: found.expected,
+    liberal_summary: liberalSummary,
     diagnostics: {initialRows, scrollTargets, wheelAttempts, gridMoves},
     data: found.data.map(row => {
       // 평점평균 계산을 위해 등급(A+ ~ F, P/NP)은 그대로 보내고, 그 밖의 값은 비운다.

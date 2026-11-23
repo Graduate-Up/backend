@@ -7,7 +7,7 @@ toggles them and recomputes the overall percentage with the same formula as ``ov
 
 from app.schemas.course import Course
 from app.schemas.evaluation import (
-    NonacademicRecord, ProgressItem, ProgressNotice, ProgressResponse, RequirementResult,
+    LiberalSummary, NonacademicRecord, ProgressItem, ProgressNotice, ProgressResponse, RequirementResult,
 )
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 from app.schemas.student import StudentProfile
@@ -83,9 +83,12 @@ def build_progress(
     completed_courses: list[Course],
     nonacademic_records: list[NonacademicRecord],
     rules: RuleSource,
+    liberal_summary: LiberalSummary | None = None,
 ) -> ProgressResponse:
     rule = select_rules(student_profile, rules)
-    results, entries = evaluate_course_requirements(completed_courses, rule, student_profile.admission_year)
+    results, entries = evaluate_course_requirements(
+        completed_courses, rule, student_profile.admission_year, liberal_summary,
+    )
     equivalents = equivalent_codes(rule)
     course_items = [course_item(result) for result in results]
     items = course_items + [

@@ -9,6 +9,8 @@
     ]
   },
   "early_graduation": {
+    "min_semesters": 6,
+    "min_gpa": 3.7,
     "rule": "졸업요건 충족 + 등록 6학기 이상 + 평점평균 3.7 이상(4.3 만점) + 졸업자격인정 + 신청서",
     "not_for": [
       "general_transfer",

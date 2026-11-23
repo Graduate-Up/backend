@@ -8,6 +8,8 @@ from .student import StudentProfile
 CreditArea = Literal["total", "major", "liberal_arts"]
 
 Status = Literal["satisfied", "unsatisfied", "approval_required", "verification_required"]
+LiberalAreaKey = Literal["독서와토론", "사고교육", "글쓰기", "외국어", "수리", "기초과학", "인문·사회", "자연과학"]
+LiberalSummary = dict[LiberalAreaKey, Amount]
 
 
 class Source(BaseModel):
@@ -39,6 +41,7 @@ class StudentRecords(BaseModel):
 
     completed_courses: list[Course] = Field(default_factory=list, max_length=500)
     nonacademic_records: list[NonacademicRecord] = Field(default_factory=list, max_length=500)
+    liberal_summary: LiberalSummary | None = Field(default=None, min_length=8, max_length=8)
 
 
 class RequiredCourseResult(BaseModel):

@@ -492,18 +492,21 @@
         capture.scanned === capture.expected && capture.data.length === capture.expected;
       if (complete) {
         try {
-          const result = await api("/me/transcript/import", "POST", {text, expected: capture.expected});
+          const result = await api("/me/transcript/import", "POST", {
+            text, expected: capture.expected, liberal_summary: capture.liberal_summary || null,
+          });
           records = await api("/me/records");
           renderCourseRecords();
           resetCourseForm();
           transcriptPreview.hidden = true;
           courseRecords.hidden = false;
+          const summaryMessage = result.liberal_summary_saved ? " 첨성인 교양 영역별 이수학점도 저장했습니다." : "";
           if (result.needs_review) {
             await previewTranscript(text, capture, true);
-            return "새 과목 " + result.added + "개를 저장했습니다. 아래 " + result.needs_review + "개만 확인해 주세요.";
+            return "새 과목 " + result.added + "개를 저장했습니다. 아래 " + result.needs_review + "개만 확인해 주세요." + summaryMessage;
           }
           const filled = result.grades_filled ? " 기존 과목 " + result.grades_filled + "개의 성적등급을 채웠습니다." : "";
-          return result.scanned + "건을 확인해 새 과목 " + result.added + "개를 자동 저장했습니다." + filled;
+          return result.scanned + "건을 확인해 새 과목 " + result.added + "개를 자동 저장했습니다." + filled + summaryMessage;
         } catch (error) {
           if (error.status !== 409) throw error;
         }

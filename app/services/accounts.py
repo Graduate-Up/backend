@@ -9,7 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from app.schemas.account import AccountResponse, Credentials, MeResponse, SessionResponse, StudentSettings
-from app.schemas.evaluation import NonacademicRecord, StudentRecords
+from app.schemas.evaluation import LiberalSummary, NonacademicRecord, StudentRecords
 from app.schemas.course import Course
 
 SESSION_SECONDS = 8 * 60 * 60
@@ -120,15 +120,23 @@ class AccountStore:
             row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
         return StudentRecords.model_validate_json(row["records_json"]) if row is not None else StudentRecords()
 
-    def save_records(self, user_id: int, records: StudentRecords) -> None:
+    def save_records(self, user_id: int, records: StudentRecords) -> StudentRecords:
         with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            if "liberal_summary" not in records.model_fields_set:
+                row = conn.execute("SELECT records_json FROM student_records WHERE user_id = ?", (user_id,)).fetchone()
+                if row is not None:
+                    records.liberal_summary = StudentRecords.model_validate_json(row["records_json"]).liberal_summary
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
                 ON CONFLICT(user_id) DO UPDATE SET records_json = excluded.records_json""",
                 (user_id, records.model_dump_json()),
             )
+        return records
 
-    def append_courses(self, user_id: int, courses: list[Course]) -> tuple[int, int]:
+    def append_courses(
+        self, user_id: int, courses: list[Course], liberal_summary: LiberalSummary | None = None,
+    ) -> tuple[int, int]:
         """Add courses whose code is new and fill in missing grades of already saved courses.
 
         Returns (added, grades_filled).
@@ -148,11 +156,12 @@ class AccountStore:
                 saved.append(course)
             existing = {course.course_code for course in saved}
             additions = [course for course in courses if course.course_code not in existing]
-            if not additions and not filled:
+            if not additions and not filled and (liberal_summary is None or liberal_summary == records.liberal_summary):
                 return 0, 0
             updated = StudentRecords(
                 completed_courses=[*saved, *additions],
                 nonacademic_records=records.nonacademic_records,
+                liberal_summary=liberal_summary if liberal_summary is not None else records.liberal_summary,
             )
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
@@ -173,6 +182,7 @@ class AccountStore:
             updated = StudentRecords(
                 completed_courses=records.completed_courses,
                 nonacademic_records=change(records.nonacademic_records),
+                liberal_summary=records.liberal_summary,
             )
             conn.execute(
                 """INSERT INTO student_records (user_id, records_json) VALUES (?, ?)
