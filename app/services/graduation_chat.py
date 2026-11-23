@@ -42,7 +42,13 @@ def answer_graduation_question(
 ) -> GraduationAnswer:
     key = os.getenv("OPENAI_API_KEY", "").strip()
     if not key:
+        logger.warning("OpenAI graduation chat unavailable: OPENAI_API_KEY is missing")
         raise ChatUnavailable
+    model = (
+        os.getenv("JOLUP_OPENAI_CHAT_MODEL", "").strip()
+        or os.getenv("JOLUP_OPENAI_MODEL", "").strip()
+        or DEFAULT_MODEL
+    )
 
     normalized_question = normalize("NFKC", question).casefold()
     question_tokens = set(re.findall(r"[a-z0-9]+", normalized_question))
@@ -87,9 +93,9 @@ def answer_graduation_question(
             "https://api.openai.com/v1/responses",
             headers={"Authorization": f"Bearer {key}"},
             json={
-                "model": os.getenv("JOLUP_OPENAI_CHAT_MODEL", DEFAULT_MODEL),
+                "model": model,
                 "store": False,
-                "max_output_tokens": 1200,
+                "max_output_tokens": 2400,
                 "instructions": (
                     "You are 졸UP's graduation requirements assistant. Answer in Korean using only the "
                     "provided evaluation, applicable rule, schedule and course credit evidence. "
@@ -117,11 +123,17 @@ def answer_graduation_question(
                     },
                 }},
             },
-            timeout=20,
+            timeout=httpx.Timeout(30.0, connect=5.0),
         )
         response.raise_for_status()
         payload = response.json()
-        if payload["status"] == "completed":
+        if payload["status"] == "incomplete":
+            reason = (payload.get("incomplete_details") or {}).get("reason")
+            if reason == "max_output_tokens":
+                logger.warning("OpenAI graduation chat unavailable: output token limit reached")
+            else:
+                logger.warning("OpenAI graduation chat unavailable: incomplete response")
+        elif payload["status"] == "completed":
             for item in payload["output"]:
                 if item["type"] != "message":
                     continue
@@ -133,6 +145,25 @@ def answer_graduation_question(
                             rule_id=evaluation.rule_id,
                             sources=[sources[i] for i in dict.fromkeys(result.source_ids) if 0 <= i < len(sources)],
                         )
-    except (httpx.HTTPError, ValueError, KeyError, TypeError):
-        logger.warning("OpenAI graduation chat request failed")
+            logger.warning("OpenAI graduation chat unavailable: no answer in completed response")
+        else:
+            logger.warning("OpenAI graduation chat unavailable: generation did not complete")
+    except httpx.HTTPStatusError as exc:
+        error_code = None
+        try:
+            error_code = exc.response.json()["error"]["code"]
+        except (ValueError, KeyError, TypeError):
+            pass
+        if error_code not in (
+            "insufficient_quota", "rate_limit_exceeded", "invalid_api_key", "model_not_found",
+            "context_length_exceeded",
+        ):
+            error_code = "unspecified"
+        logger.warning("OpenAI graduation chat unavailable: HTTP %s (%s)", exc.response.status_code, error_code)
+    except httpx.TimeoutException:
+        logger.warning("OpenAI graduation chat unavailable: request timed out")
+    except httpx.HTTPError:
+        logger.warning("OpenAI graduation chat unavailable: connection or transport error")
+    except (ValueError, KeyError, TypeError, AttributeError):
+        logger.warning("OpenAI graduation chat unavailable: unexpected response format")
     raise ChatUnavailable
