@@ -38,6 +38,31 @@
         }
       }
     },
+    "/api/v1/convergence-programs": {
+      "get": {
+        "tags": [
+          "majors"
+        ],
+        "summary": "Get Convergence Programs",
+        "operationId": "get_convergence_programs_api_v1_convergence_programs_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProgramSummary"
+                  },
+                  "type": "array",
+                  "title": "Response Get Convergence Programs Api V1 Convergence Programs Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/majors": {
       "get": {
         "tags": [
@@ -3605,6 +3630,40 @@
         ],
         "title": "ProgramRecommendation"
       },
+      "ProgramSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "convergence",
+              "double_major"
+            ],
+            "title": "Kind"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "source"
+        ],
+        "title": "ProgramSummary"
+      },
       "ProgressItem": {
         "properties": {
           "id": {
@@ -4601,6 +4660,19 @@
             "minLength": 1,
             "pattern": "^[0-9]+$",
             "title": "Student Number"
+          },
+          "convergence_program": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Convergence Program",
+            "description": "ID from GET /api/v1/convergence-programs. Send null to clear."
           }
         },
         "additionalProperties": false,

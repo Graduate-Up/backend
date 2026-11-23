@@ -43,6 +43,9 @@ class PasswordReset(Credentials):
 
 class StudentSettings(StudentProfile):
     student_number: StudentNumber
+    convergence_program: str | None = Field(
+        default=None, min_length=1, description="ID from GET /api/v1/convergence-programs. Send null to clear.",
+    )
 
 
 class AccountResponse(BaseModel):

@@ -229,9 +229,16 @@ class AccountStore:
         profile = StudentSettings.model_validate_json(row["profile_json"]) if row["profile_json"] is not None else None
         return MeResponse(account=AccountResponse(id=row["id"], username=row["username"]), profile=profile)
 
-    def save_profile(self, user_id: int, profile: StudentSettings) -> None:
+    def save_profile(self, user_id: int, profile: StudentSettings) -> StudentSettings:
         with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            if "convergence_program" not in profile.model_fields_set:
+                row = conn.execute("SELECT profile_json FROM users WHERE id = ?", (user_id,)).fetchone()
+                if row is not None and row["profile_json"] is not None:
+                    saved = StudentSettings.model_validate_json(row["profile_json"])
+                    profile.convergence_program = saved.convergence_program
             conn.execute("UPDATE users SET profile_json = ? WHERE id = ?", (profile.model_dump_json(), user_id))
+        return profile
 
     def logout(self, token: str) -> None:
         with self.connect() as conn:
