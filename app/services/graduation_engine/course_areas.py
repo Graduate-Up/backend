@@ -11,12 +11,13 @@ SDG 교양, 창업교과목(글솝 기술창업역량)을 과목코드 매핑표
 
 import csv
 import json
+import re
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
 from app.schemas.course import Course
-from app.schemas.evaluation import LiberalSummary, RequirementResult
+from app.schemas.evaluation import LiberalSummary, RequirementResult, Source
 from app.schemas.rules import GraduationRule, NonacademicRequirement
 
 from .gpa import semester_key
@@ -24,6 +25,20 @@ from .gpa import semester_key
 ROOT = Path(__file__).resolve().parents[3]
 DATA_DIRECTORY = ROOT / "data" / "course_classification"
 CURRICULA_FILE = ROOT / "data" / "curricula" / "curricula.csv"
+CURRICULUM_NAMES = {
+    "glsop": "글솝", "plsop": "플솝", "aicom": "인공지능컴퓨팅전공",
+    "simcom": "심화컴퓨팅전공", "chumcom": "첨단컴퓨팅연구전공",
+}
+# 원본 주소가 CSV의 출처 열에 들어 있지 않은 표.
+CURRICULUM_SOURCE_URLS = {
+    ("glsop", 2019): "https://aicollege.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&sca=%EA%B8%80%EC%86%9D&wr_id=25970",
+    ("plsop", 2019): "https://cse.knu.ac.kr/bbs/board.php?bo_table=eng5_1&wr_id=25834",
+    ("aicom", 2023): "https://cse.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&wr_id=27117",
+    ("aicom", 2025): "https://cse.knu.ac.kr/file/ai_2025.pdf",
+    ("aicom", 2026): "https://cse.knu.ac.kr/sub3_4_b.php",
+    ("simcom", 2026): "https://cse.knu.ac.kr/sub3_2_b.php",
+    ("chumcom", 2026): "https://cse.knu.ac.kr/sub3_3_b.php",
+}
 LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_areas.json"
 
 ABEEK_AREAS = {"abeek-basic_literacy": "basic", "abeek-msc": "msc", "abeek-engineering_major": "major"}
@@ -39,6 +54,7 @@ SOFTWARE_ID = "software"
 PRACTICAL_ENGLISH_ID = "practical-english"
 STARTUP_CREDITS_ID = "track-startup_credits"
 STARTUP_ACTIVITY_ID = "track-startup_activity"
+FIELD_PRACTICE_ID = "field-practice"
 # 스타트업 창업 대체 ⓔ: 창업교과목 총 15학점 이상 (기술창업역량의 9학점과 통합 인정, 글솝 공지 28591)
 STARTUP_ACTIVITY_CREDITS = 15
 SOFTWARE_AREA = "소프트웨어"
@@ -78,6 +94,9 @@ class CurriculumCourse:
     required: bool
     design: bool
     tags: tuple[str, ...]
+    grade_year: str
+    semester: str
+    note: str | None
 
 
 @dataclass(frozen=True)
@@ -87,6 +106,7 @@ class Curriculum:
     curriculum_year: int  # 적용 교육과정 학년도 (예: 20학번 → 2021 '2020~2021' 표)
     inferred: bool  # 그 학번 원문이 없어 다른 학년도 표를 적용한 경우
     courses: dict[str, CurriculumCourse]
+    source: Source
 
 
 @lru_cache(maxsize=1)
@@ -95,12 +115,23 @@ def curricula() -> dict[str, dict[int, Curriculum]]:
     tables: dict[str, dict[int, Curriculum]] = {}
     with open(CURRICULA_FILE, encoding="utf-8") as file:
         for row in csv.DictReader(file):
+            major = row["major"]
             admission = int(row["admission_year"])
-            table = tables.setdefault(row["major"], {}).setdefault(admission, Curriculum(
-                admission, int(row["curriculum_year"]), row["inferred"] == "true", {}))
+            by_year = tables.setdefault(major, {})
+            if admission not in by_year:
+                year = int(row["curriculum_year"])
+                url = re.search(r"https://[^\s]+", row["source"])
+                label = "2020~2021학년도" if year == 2021 and major in {"glsop", "plsop"} else f"{year}학년도"
+                source = Source(
+                    title=f"{CURRICULUM_NAMES[major]} 교육과정 ({label} 기준)",
+                    url=url.group() if url else CURRICULUM_SOURCE_URLS.get((major, year)),
+                )
+                by_year[admission] = Curriculum(admission, year, row["inferred"] == "true", {}, source)
+            table = by_year[admission]
             table.courses[row["code"]] = CurriculumCourse(
                 row["code"], row["name"], float(row["credits"]), row["category"], row["required"] == "true",
-                row["design"] == "true", tuple(tag for tag in row["tags"].split(",") if tag))
+                row["design"] == "true", tuple(tag for tag in row["tags"].split(",") if tag),
+                row["grade_year"], row["semester"], row["source"].partition(" https://")[0] or None)
     return tables
 
 
@@ -345,11 +376,24 @@ def sdg_result(requirement: NonacademicRequirement, courses: list[Course]) -> Re
 
 def is_startup_course(course: Course) -> bool:
     """창업교과목: 인정목록의 과목 또는 학내 개설 교과목 중 과목명에 '창업'이 포함된 과목 (글솝 공지 28591)."""
-    return course.course_code in startup_courses() or "창업" in (course.course_name or "")
+    return (course.course_code.startswith("FUTR") or course.course_code in startup_courses()
+            or "창업" in (course.course_name or ""))
 
 
 def startup_credit_courses(courses: list[Course]) -> list[Course]:
     return [course for course in courses if not course.prior_institution and is_startup_course(course)]
+
+
+def field_practice_courses(courses: list[Course], equivalents: dict[str, str]) -> list[Course]:
+    recognized = []
+    for course in completed_courses(courses, equivalents):
+        # 창업현장실습은 별도의 대체 승인으로만 인정한다.
+        if course.course_code == "STUP0311" or course.credits <= 0:
+            continue
+        name = "".join((course.course_name or "").split())
+        if course.transcript_category.strip() == "현장실습" or "현장실습" in name or "인턴십" in name:
+            recognized.append(course)
+    return recognized
 
 
 def startup_result(requirement: NonacademicRequirement, courses: list[Course]) -> RequirementResult:

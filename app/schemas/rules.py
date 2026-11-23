@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .course import Amount, Category, Code
-from .evaluation import CreditArea, Source
+from .evaluation import CreditArea, EarlyGraduationPolicy, Source
 from .student import Major, MultiMajor
 
 Identifier = Annotated[str, Field(min_length=1)]
@@ -134,6 +134,7 @@ class GraduationRule(RuleModel):
     review_equivalences: dict[Code, list[Code]] = Field(default_factory=dict)
     transfer_credit_max: Amount | None = None
     credit_caps: list[CreditCap] = Field(default_factory=list)
+    early_graduation: EarlyGraduationPolicy | None = None
 
     @model_validator(mode="after")
     def validate_rule(self):

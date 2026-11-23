@@ -70,5 +70,6 @@ def test_imported_preview_checks_offering_classification_and_caps():
     assert required["COMP0454"] == "missing"
     assert required["COME0331"] == "completed"
     assert required["COMP0319"] == "approval_required"
-    assert requirements["NC-CURR-AICOM-2024"]["status"] == "verification_required"
+    assert "NC-CURR-AICOM-2024" not in requirements
+    assert "NC-CURR-AICOM-2024" in {item["id"] for item in result["notices"]}
     assert sum(item["excluded_credits"] for item in result["credit_entries"]) == 3

@@ -3,6 +3,7 @@ from unicodedata import normalize
 from app.schemas.course import MAJOR_TRANSCRIPT_CATEGORIES, Course
 from app.schemas.evaluation import RequiredCourseResult, RequirementResult
 from app.schemas.rules import CourseRequirement
+from app.services.course_metadata import computer_science_offering
 
 from .credit_checker import NON_MAJOR_CATEGORIES
 
@@ -44,13 +45,14 @@ def check_required_courses(
         category = course.transcript_category.strip()
         if course.credits < requirement.minimum_course_credits:
             continue
+        department = computer_science_offering(course.course_code, course.offered_by_computer_science)
         if requirement.reject_transfer_courses:
             if course.prior_institution is True:
                 continue
-            if course.prior_institution is None and course.offered_by_computer_science is not True:
+            if course.prior_institution is None and department is not True:
                 verification.add(code)
                 continue
-        if requirement.require_department and course.offered_by_computer_science is False:
+        if requirement.require_department and department is False:
             continue
         if requirement.require_department and not requirement.match_by_course_name and category in NON_MAJOR_CATEGORIES:
             continue
@@ -58,7 +60,7 @@ def check_required_courses(
         if required_category and category != required_category and (required_category, category) != ("전공필수", "전공"):
             if category not in NON_MAJOR_CATEGORIES:
                 approval.add(code)
-        elif requirement.require_department and course.offered_by_computer_science is None and (
+        elif requirement.require_department and department is None and (
             category not in MAJOR_TRANSCRIPT_CATEGORIES and not requirement.match_by_course_name
         ):
             verification.add(code)

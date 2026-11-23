@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from jolup_rules_all.app.rules import loader
 
-from app.schemas.evaluation import Source
+from app.schemas.evaluation import EarlyGraduationPolicy, Source
 from app.schemas.rules import (
     CourseOption, CourseRequirement, CreditCap, CreditRequirement, CreditTreatment,
     GraduationRule, NonacademicRequirement, VerificationRequirement,
@@ -14,7 +14,7 @@ from app.schemas.rules import (
 from app.schemas.student import StudentProfile
 
 from .course_areas import (
-    MAJOR_CATEGORIES, curricula, curriculum_is_sourced, curriculum_year, known_course_name, major_courses,
+    MAJOR_CATEGORIES, curricula, curriculum_is_sourced, curriculum_table, known_course_name, major_courses,
 )
 
 STATUS_LABELS = {"portfolio": "졸업 포트폴리오", "interview": "졸업 면담", "topcit": "TOPCIT",
@@ -24,8 +24,18 @@ STATUS_LABELS = {"portfolio": "졸업 포트폴리오", "interview": "졸업 면
 # 붙지 않도록 학생 전공의 공지와 학교 학사안내(S11)를 함께 인용한다.
 MAJOR_NOTICES = {"glsop": ["S16", "S17"], "plsop": ["S22", "S10"], "aicom": ["S1", "S27"],
                  "simcom": ["S25"], "chumcom": ["S26"]}
+SOURCE_SCOPES = {
+    "aicom": {"S1", "S2", "S3", "S4", "S5", "S6", "S27"},
+    "glsop": {"S16", "S17", "S18", "S19", "S20", "S28", "S29", "S33"},
+    "plsop": {"S10", "S22", "S23", "S24", "S30"},
+    "simcom": {"S25", "S31"},
+    "chumcom": {"S26", "S32"},
+}
+SOURCE_MAJORS = {key: {major} for major, keys in SOURCE_SCOPES.items() for key in keys}
+SOURCE_MAJORS["S21"] = {"aicom", "glsop"}
+CURRICULUM_SOURCE_IDS = {"S5", "S6", "S29", "S30", "S31", "S32"}
 QUALIFICATION_SOURCE = "S11"  # 경북대 학사안내: 졸업자격인정제
-QUALIFICATION_CRITERIA_SOURCE = "S34"  # IT대학 컴퓨터학부 졸업요건 [붙임3] (인정영역별 기준, SW 지정 대체과목)
+QUALIFICATION_CRITERIA_SOURCE = "S34"  # 컴퓨터학부 졸업자격인정원 공통 안내 및 영역별 첨부
 MULTI_MAJOR_KEYS = {"double_major": "double_or_linked_or_convergence",
                    "interdisciplinary": "double_or_linked_or_convergence", "minor": "minor_1_only"}
 
@@ -48,6 +58,13 @@ def matching_entries(student: StudentProfile) -> list[loader.RuleSetEntry]:
     loader = get_bundle_loader()
     return [entry for entry in loader.load_index()
             if entry.major == student.major and entry.admission_from <= student.admission_year <= entry.admission_to]
+
+
+def early_graduation_policy(early: dict, sources: list[Source]) -> EarlyGraduationPolicy:
+    return EarlyGraduationPolicy(
+        min_semesters=early["min_semesters"], min_gpa=early["min_gpa"], rule=early["rule"],
+        not_for_transfer={"general_transfer", "bachelor_transfer"} <= set(early["not_for"]), sources=sources,
+    )
 
 
 def student_status(student: StudentProfile) -> loader.Status:
@@ -76,14 +93,6 @@ def _catalog(path: str) -> dict[str, dict]:
     loader = get_bundle_loader()
     with (loader.RULES_DIR / path).open(encoding="utf-8-sig", newline="") as stream:
         return {row["code"]: row for row in csv.DictReader(stream)}
-
-
-def find_catalog(entries: list[loader.RuleSetEntry]) -> tuple[dict, list[dict]]:
-    loader = get_bundle_loader()
-    curricula = [loader.load_rule_set(entry.id)["curriculum"] for entry in entries]
-    if len({item["catalog_file"] for item in curricula}) != 1:
-        raise ValueError("The selected cohort has multiple different catalogs")
-    return curricula[0], list(_catalog(curricula[0]["catalog_file"]).values())
 
 
 def _retake_pairs() -> dict[str, list[str]]:
@@ -126,12 +135,21 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
     source_items = loader.load_common("sources")["sources"]
     sources = {item["id"]: Source(title=item["title"], url=item.get("url"), reference=item.get("date"))
                for item in source_items}
+    table = curriculum_table(student.major, student.admission_year) if student.major in curricula() else None
 
     def course_name(code):
+        if table and code in table.courses:
+            return table.courses[code].name
         return catalog.get(code, {}).get("name") or known_course_name(code) or code
 
-    def cite(section):
-        return [sources[key] for key in section.get("source", raw["sources"])]
+    def cite(section, *, uses_curriculum=False):
+        keys = [key for key in section.get("source", raw["sources"])
+                if key not in SOURCE_MAJORS or student.major in SOURCE_MAJORS[key]]
+        cited = [table.source if table and key in CURRICULUM_SOURCE_IDS else sources[key]
+                 for key in keys or MAJOR_NOTICES[student.major]]
+        if uses_curriculum and table:
+            cited.append(table.source)
+        return list({item.title: item for item in cited}.values())
 
     credits = raw["credits"]
     liberal = credits["liberal_arts"]
@@ -162,10 +180,9 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
 
     records = []
     verification = []
-    if student.major in curricula():
-        table = curriculum_year(student.major, student.admission_year)
+    if table:
         sourced = curriculum_is_sourced(student.major, student.admission_year)
-        notes = [f"{student.admission_year}학번: {table}학년도 기준 교육과정표 적용" + ("" if sourced else
+        notes = [f"{student.admission_year}학번: {table.source.title} 적용" + ("" if sourced else
                  f" ({student.admission_year}학번 원문이 없어 추정)")]
     else:
         notes = [curriculum["basis"]]
@@ -216,7 +233,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
 
     exempt = resolved.qualification_exempt
     notices = MAJOR_NOTICES.get(student.major, [])
-    # 졸업자격인정제는 학교 공통 제도: 학교 학사안내 + 컴퓨터학부 졸업요건 붙임3 + 본인 전공 공지
+    # 학교 학사안내, 컴퓨터학부 공통 안내 및 본인 전공 공지를 인용한다.
     qualification = {"source": [QUALIFICATION_SOURCE, QUALIFICATION_CRITERIA_SOURCE, *notices]}
     practical = qualifications["practical_english"]
     if english.topik4_instead:
@@ -309,7 +326,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         if key in active and relevant.get(key, True):
             cited = item["sources"]
             if student.major != "plsop" and "S10" in cited:
-                # 플솝 공지에 실린 붙임3(학부 공통 졸업자격인정 기준)은 붙임3 자체와 본인 전공 공지로 인용
+                # 플솝 공지에 실린 공통 자격인정 기준은 학부 공통 안내와 본인 전공 공지로 인용한다.
                 cited = [QUALIFICATION_CRITERIA_SOURCE if ref == "S10" else ref for ref in cited] + notices
             confirm(key, item["question"], {"source": cited})
     if resolved.field_practice_credits and student.major != "aicom":
@@ -345,7 +362,7 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
         CreditRequirement(id="total", name="총 졸업학점", area="total", minimum=resolved.total_credits,
                           sources=cite(credits["total"])),
         CreditRequirement(id="major", name="전공학점", area="major", minimum=resolved.major_credits,
-                          sources=cite(credits["major"])),
+                          sources=cite(credits["major"], uses_curriculum=True)),
     ]
     if resolved.liberal_arts_min is not None:
         credit_requirements.append(CreditRequirement(
@@ -377,4 +394,5 @@ def _build_rule(student, status, multi, raw, resolved, track, variant, program_e
                            "CLTR": CreditTreatment(category="liberal_arts")},
         equivalent_courses=equivalent, review_equivalences=_retake_pairs(), credit_caps=caps,
         transfer_credit_max=resolved.total_credits / 2 if transfer else None,
+        early_graduation=early_graduation_policy(policies["early_graduation"], cite(policies["early_graduation"])),
     )
