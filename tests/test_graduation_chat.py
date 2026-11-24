@@ -1,6 +1,7 @@
 import json
 
 import httpx
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -95,7 +96,7 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     monkeypatch.delenv("JOLUP_AI_PROVIDER", raising=False)
     path = "/api/v1/me/graduation-chat"
-    question = {"question": "내 융합전공을 분석하고 다음에 들으면 좋을 수업 추천해줘"}
+    question = {"question": "내 융합전공을 분석해줘"}
     with TestClient(app) as client:
         assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
@@ -123,8 +124,6 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
                 {"code": "COME0331", "name": "자료구조"},
             ]
             assert chat_input["convergence_program"]["source_ids"]
-            courses = chat_input["course_recommendations"]["courses"]
-            assert courses and all(course["course_code"] != "COME0331" for course in courses)
             assert PROFILE["student_number"] not in json.dumps(body, ensure_ascii=False)
             assert CREDENTIALS["email"] not in json.dumps(body, ensure_ascii=False)
             config = body["generationConfig"]
@@ -148,6 +147,19 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
         response = client.post(path, headers=headers, json=question)
         assert response.status_code == 200, response.text
         assert response.json() == {"answer": "제미나이 답변", "rule_id": evaluation["rule_id"], "sources": [first_source]}
+
+        expected = client.post("/api/v1/me/recommendations", headers=headers, json={}).json()["recommended"]
+        assert expected
+
+        def unexpected_ai_call(*args, **kwargs):
+            pytest.fail("Course recommendations should use the filtered list without a free-text AI call")
+
+        monkeypatch.setattr(ai_client.httpx, "post", unexpected_ai_call)
+        recommended = client.post(path, headers=headers, json={"question": "과목 추천해줘"})
+        assert recommended.status_code == 200, recommended.text
+        answer = recommended.json()["answer"]
+        assert "COME0331" not in answer
+        assert all(f'{course["course_name"]} ({course["course_code"]})' in answer for course in expected)
 
         def cut_off(url, **kwargs):
             return httpx.Response(200, request=httpx.Request("POST", url), json={"candidates": [{
