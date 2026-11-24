@@ -28,6 +28,11 @@ services:
       # 챗봇·과목 추천 AI. Google AI Studio에서 발급한 Gemini API 키 (무료 등급 사용 가능)
       - key: GEMINI_API_KEY
         sync: false
+      # 시연용 데모 계정 (둘 다 넣으면 서버 시작 시 가상 학생 계정을 만든다). @knu.ac.kr 이메일, 8자 이상 비밀번호
+      - key: JOLUP_DEMO_EMAIL
+        sync: false
+      - key: JOLUP_DEMO_PASSWORD
+        sync: false
       # 프런트 배포 주소(Vercel)와 개발 서버 주소. 프런트 주소가 바뀌면 쉼표로 추가한다.
       - key: JOLUP_FRONTEND_ORIGINS
         value: https://frontend-xi-indol-43.vercel.app,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,http://127.0.0.1:5173

@@ -18,6 +18,7 @@ from app.services.accounts import (
     AccountStore, DuplicateUsername, EmailCodeRateLimit, InvalidEmailCode, InvalidLegacyAccount, get_account_store,
 )
 from app.services.course_metadata import CareerTag
+from app.services.demo_account import is_demo_email
 from app.services.email_delivery import EmailUnavailable, email_secret, email_sender
 from app.services.graduation_chat import ChatUnavailable, GraduationAnswer, GraduationQuestion, answer_graduation_question
 from app.services.graduation_engine.evaluator import evaluate_graduation, evaluate_selected_rule
@@ -114,7 +115,8 @@ def send_email_code(
         issuer = request.client.host if request.client else ""
         code = store.issue_email_code(payload.email, issuer, email_secret(), payload.purpose)
         if payload.purpose == "reset":
-            if code is not None:
+            # 데모 계정은 여럿이 같이 쓰므로 비밀번호를 바꿀 수 없게 한다 (응답은 똑같이 204)
+            if code is not None and not is_demo_email(payload.email):
                 background.add_task(send_quietly, send, payload.email, code)
         else:
             send(payload.email, code)
