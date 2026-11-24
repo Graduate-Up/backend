@@ -1,0 +1,368 @@
+{
+  "_comment": "시연용 가상 학생 (2024학번 글로벌SW융합전공, 3학년 2학기 재학 중). 교육과정표 1~3학년 권장 과목 기준. 실제 학생 정보가 아님.",
+  "profile": {
+    "student_number": "2024000000",
+    "admission_year": 2024,
+    "major": "glsop",
+    "track": "multi_major",
+    "expected_graduation_date": "2028-02",
+    "registered_semesters": 5
+  },
+  "records": {
+    "completed_courses": [
+      {
+        "course_code": "CLTR0205",
+        "course_name": "대학글쓰기",
+        "semester": "2024-1",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "CLTR0819",
+        "course_name": "기초수학2",
+        "semester": "2024-1",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "COME0301",
+        "course_name": "이산수학",
+        "semester": "2024-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "COMP0204",
+        "course_name": "프로그래밍기초",
+        "semester": "2024-1",
+        "credits": 6,
+        "transcript_category": "전공필수",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "ITEC0201",
+        "course_name": "컴퓨터학개론",
+        "semester": "2024-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "CLTR0003",
+        "course_name": "실용화법",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "B0"
+      },
+      {
+        "course_code": "CLTR0211",
+        "course_name": "수학 I",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "COME0331",
+        "course_name": "자료구조",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "전공필수",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "COMP0216",
+        "course_name": "자료구조응용",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "COMP0453",
+        "course_name": "컴퓨팅사고와 SW코딩",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "GLSO0213",
+        "course_name": "창의융합설계",
+        "semester": "2024-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "COME0311",
+        "course_name": "확률및통계",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "COMP0217",
+        "course_name": "자바프로그래밍",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "COMP0411",
+        "course_name": "컴퓨터구조",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "ELEC0462",
+        "course_name": "시스템프로그래밍",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "FUTR0201",
+        "course_name": "기업가정신과 벤처창업",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "일반선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "FUTR0208",
+        "course_name": "미래산업과 직업선택",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "일반선택",
+        "status": "completed",
+        "grade": "B0"
+      },
+      {
+        "course_code": "GLSO0214",
+        "course_name": "SW진로설계",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "GLSO0216",
+        "course_name": "알고리즘실습",
+        "semester": "2025-1",
+        "credits": 3,
+        "transcript_category": "전공필수",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "CLTR0043",
+        "course_name": "서양의 역사와 문화",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "COMP0224",
+        "course_name": "소프트웨어설계",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "COMP0312",
+        "course_name": "운영체제",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "전공필수",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "COMP0323",
+        "course_name": "데이타통신",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "COMP0324",
+        "course_name": "인공지능",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "FUTR0214",
+        "course_name": "창업과 경영",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "일반선택",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "GLSO0212",
+        "course_name": "소프트웨어수학",
+        "semester": "2025-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "CLTR0264",
+        "course_name": "소셜네트워크",
+        "semester": "2026-1",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "COMP0432",
+        "course_name": "소프트웨어 특강",
+        "semester": "2026-1",
+        "credits": 2,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "B0"
+      },
+      {
+        "course_code": "EECS0312",
+        "course_name": "네트워크프로그래밍",
+        "semester": "2026-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "GLSO0219",
+        "course_name": "SW공학및테스팅",
+        "semester": "2026-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "B+"
+      },
+      {
+        "course_code": "ITEC0415",
+        "course_name": "고급문제해결",
+        "semester": "2026-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A+"
+      },
+      {
+        "course_code": "ITEC0419",
+        "course_name": "데이터과학기초",
+        "semester": "2026-1",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "completed",
+        "grade": "A0"
+      },
+      {
+        "course_code": "CLTR0089",
+        "course_name": "회계와 사회생활",
+        "semester": "2026-2",
+        "credits": 3,
+        "transcript_category": "교양",
+        "status": "in_progress"
+      },
+      {
+        "course_code": "COMP0322",
+        "course_name": "데이타베이스",
+        "semester": "2026-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "in_progress"
+      },
+      {
+        "course_code": "COMP0328",
+        "course_name": "모바일앱프로그래밍1",
+        "semester": "2026-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "in_progress"
+      },
+      {
+        "course_code": "COMP0414",
+        "course_name": "컴퓨터망",
+        "semester": "2026-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "in_progress"
+      },
+      {
+        "course_code": "COMP0460",
+        "course_name": "문제해결기반 공학연수실습(컴퓨터학)",
+        "semester": "2026-2",
+        "credits": 2,
+        "transcript_category": "전공선택",
+        "status": "in_progress"
+      },
+      {
+        "course_code": "ITEC0417",
+        "course_name": "기계학습개론",
+        "semester": "2026-2",
+        "credits": 3,
+        "transcript_category": "전공선택",
+        "status": "in_progress"
+      }
+    ],
+    "nonacademic_records": [
+      {
+        "requirement_id": "counseling",
+        "amount": 5,
+        "status": "satisfied"
+      },
+      {
+        "requirement_id": "department-english",
+        "amount": 650,
+        "status": "satisfied",
+        "english_test": {
+          "test_type": "TOEIC",
+          "raw_score": 650,
+          "taken_month": "2026-07"
+        }
+      }
+    ]
+  }
+}

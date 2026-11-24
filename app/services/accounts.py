@@ -204,6 +204,29 @@ class AccountStore:
             conn.execute("DELETE FROM registration_codes WHERE email = ?", (credentials.email,))
             return AccountResponse(id=user_id, username=credentials.email)
 
+    def create_verified_account(
+        self, credentials: Credentials, profile: StudentSettings, records: StudentRecords,
+    ) -> bool:
+        """이메일 인증 없이 인증된 계정을 학적·이수 내역과 함께 만든다 (데모 계정용).
+
+        같은 이메일 계정이 이미 있으면 아무것도 바꾸지 않고 False를 돌려준다.
+        """
+        salt = secrets.token_bytes(16)
+        password_hash = _password_digest(credentials.password.get_secret_value(), salt, PASSWORD_ROUNDS)
+        with self.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            if conn.execute("SELECT 1 FROM users WHERE username = ?", (credentials.email,)).fetchone():
+                return False
+            user_id = conn.execute(
+                """INSERT INTO users (username, password_salt, password_hash, password_rounds, profile_json)
+                VALUES (?, ?, ?, ?, ?)""",
+                (credentials.email, salt, password_hash, PASSWORD_ROUNDS, profile.model_dump_json()),
+            ).lastrowid
+            conn.execute("INSERT INTO verified_accounts (user_id) VALUES (?)", (user_id,))
+            conn.execute("INSERT INTO student_records (user_id, records_json) VALUES (?, ?)",
+                         (user_id, records.model_dump_json()))
+            return True
+
     def login(self, credentials: Credentials) -> SessionResponse | None:
         with self.connect() as conn:
             user = self._verified_user(conn, credentials.email)
