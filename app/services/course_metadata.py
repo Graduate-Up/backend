@@ -5,6 +5,8 @@ from app.schemas.evaluation import Source
 
 # 컴퓨터학부 공지 28590. 개설 학부와 학번별 주전공 인정 여부는 별도다.
 CSE_CAPSTONE_CODES = {"ITEC0401", "ITEC0402", "GLSO0218", "GLSO0221"}
+# 컴퓨터학부 글솝 교육과정에 있는 COMP 이외의 교과목 코드.
+CSE_ADDITIONAL_CODES = {"COME0301", "ITEC0201"}
 
 
 def computer_science_offering(
@@ -12,7 +14,9 @@ def computer_science_offering(
 ) -> bool | None:
     if prior_institution is not True and course_code in CSE_CAPSTONE_CODES:
         return True
-    if recorded is None and prior_institution is not True and re.fullmatch(r"COMP[0-9]{4}", course_code):
+    if recorded is None and prior_institution is not True and (
+        course_code in CSE_ADDITIONAL_CODES or re.fullmatch(r"COMP[0-9]{4}", course_code)
+    ):
         return True
     return recorded
 

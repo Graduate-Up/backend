@@ -27,14 +27,17 @@ def register(client, mailbox, credentials=CREDENTIALS):
     return client.post("/api/v1/auth/register", json={**credentials, "code": mailbox[email.lower()]})
 
 
-def test_saved_courses_fill_missing_comp_offering_without_overriding_records(monkeypatch, tmp_path, verification_mailbox):
+def test_saved_courses_fill_missing_cse_offering_without_overriding_records(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     courses = [
         {"course_code": code, "semester": "2025-2", "credits": 3, "transcript_category": "전공",
          "status": "completed", **metadata}
         for code, metadata in (
             ("COMP0224", {}),
+            ("COME0301", {}),
+            ("ITEC0201", {}),
             ("COMP0312", {"offered_by_computer_science": False}),
+            ("COME0301", {"offered_by_computer_science": False}),
             ("COMP0323", {"prior_institution": True}),
             ("CLTR0043", {}),
         )
@@ -48,7 +51,7 @@ def test_saved_courses_fill_missing_comp_offering_without_overriding_records(mon
         for response in (saved, loaded):
             assert response.status_code == 200, response.text
             assert [item["offered_by_computer_science"] for item in response.json()["completed_courses"]] == [
-                True, False, None, None,
+                True, True, True, False, False, None, None,
             ]
 
 
