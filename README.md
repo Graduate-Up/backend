@@ -24,6 +24,13 @@
 - 무료 플랜은 디스크가 유지되지 않아 **재배포·재시작 때 계정과 이수 내역(SQLite)이 초기화됩니다.** 데이터를 유지하려면 유료 디스크를 붙이거나 PostgreSQL로 옮겨야 합니다.
 - 프런트 주소는 Render 대시보드의 Environment에서 `JOLUP_FRONTEND_ORIGINS`에 쉼표로 추가합니다. 기본값은 `localhost:3000`, `localhost:5173`입니다.
 
+### 시연용 데모 계정
+
+재배포할 때마다 DB가 비므로, Render Environment에 `JOLUP_DEMO_EMAIL`(`@knu.ac.kr` 형식, 예: `jolup-demo@knu.ac.kr`)과 `JOLUP_DEMO_PASSWORD`(8자 이상)를 넣으면 서버가 시작될 때 이메일 인증 없이 데모 계정을 만듭니다. 학적·이수 내역은 [data/demo/demo_student.json](data/demo/demo_student.json)의 가상 학생(2024학번 글솝 다중전공, 3학년 2학기 재학, 교육과정표 권장 과목 98학점 이수)이 들어갑니다.
+
+- 계정이 이미 있으면 그대로 둡니다. 데모 사용자가 바꾼 내용은 다음 재배포 전까지 유지됩니다.
+- 여럿이 같이 쓰는 계정이라 비밀번호 재설정 메일은 보내지 않습니다.
+
 ### Render 무료 플랜에서 학교 이메일 인증
 
 Render 무료 웹서비스는 SMTP 포트를 막으므로 Brevo HTTPS API를 사용합니다. Brevo 계정에서 발송 주소를 인증하고 메일 발송 권한이 있는 **API 키**를 만든 뒤, Render의 **Environment**에 다음 값을 설정하세요. 기존 서비스에도 직접 설정할 수 있습니다. [Brevo 발송 주소 설정](https://help.brevo.com/hc/en-us/articles/208836149-Create-a-new-sender-From-name-and-From-email) · [API 키 발급](https://help.brevo.com/hc/en-us/articles/209467485-Create-and-manage-your-API-keys)

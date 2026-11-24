@@ -1,4 +1,5 @@
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Request
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 
 from app.api import accounts, courses, evaluation, majors, requirements
+from app.services.demo_account import seed_demo_account
 from app.services.graduation_engine.rule_loader import RuleDataError, RuleUnavailableError
 from app.services.graduation_engine.rule_selector import ProfileError
 
@@ -68,8 +70,15 @@ async def private_account_responses(request: Request, call_next):
     return response
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    seed_demo_account()
+    yield
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
+        lifespan=lifespan,
         title="졸UP Backend API",
         description="경북대학교 컴퓨터학부 졸업요건 도우미",
         version="0.1.0",
