@@ -3,7 +3,7 @@
 기본은 Google Gemini API(무료 등급 사용 가능)이며, OpenAI Responses API도 쓸 수 있다.
 - JOLUP_AI_PROVIDER: gemini | openai. 비우면 GEMINI_API_KEY가 있으면 gemini, 없고 OPENAI_API_KEY가 있으면 openai.
 - Gemini: GEMINI_API_KEY, 모델 JOLUP_GEMINI_MODEL (기본 gemini-flash-latest: 최신 Flash 모델 별칭)
-  기본 모델이 503/429 등으로 실패하면 JOLUP_GEMINI_FALLBACK_MODEL (기본 gemini-flash-lite-latest)로 한 번 더 시도.
+  일시적인 HTTP 오류, 연결 실패 또는 출력 한도 초과 시 예비 모델(JOLUP_GEMINI_FALLBACK_MODEL)로 한 번 더 시도.
   비워 두면 예비 모델을 쓰지 않는다.
 - OpenAI: OPENAI_API_KEY, 모델은 호출하는 쪽이 정한 환경변수 (기본 gpt-5.4-mini)
 
@@ -21,13 +21,17 @@ logger = logging.getLogger(__name__)
 GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 GEMINI_DEFAULT_MODEL = "gemini-flash-latest"
 GEMINI_FALLBACK_MODEL = "gemini-flash-lite-latest"
-RETRYABLE_STATUS = {429, 500, 503, 504}
+RETRYABLE_STATUS = {408, 429, 500, 502, 503, 504}
 OPENAI_URL = "https://api.openai.com/v1/responses"
 OPENAI_DEFAULT_MODEL = "gpt-5.4-mini"
 
 
 class AIUnavailable(Exception):
     """AI 답변을 얻지 못함. 메시지는 로그용 원인 (예: "gemini HTTP 429 RESOURCE_EXHAUSTED")."""
+
+
+class AIOutputLimit(AIUnavailable):
+    """The model ran out of output tokens before completing an answer."""
 
 
 def ai_provider() -> str | None:
@@ -87,18 +91,25 @@ def gemini_models() -> list[str]:
 
 
 def _gemini(name, instructions, text, schema, max_output_tokens, timeout) -> str:
-    """기본 모델이 붐비거나(503) 그 모델 한도가 찼으면(429) 예비 모델로 한 번 더 시도한다."""
+    """일시적인 실패는 설정된 예비 모델로 한 번 더 시도한다."""
     key = _key("GEMINI_API_KEY")
     models = gemini_models()
+    if len(models) > 1:
+        timeout = httpx.Timeout(timeout.read / len(models), connect=timeout.connect)
     for index, model in enumerate(models):
         try:
             return _gemini_once(model, key, instructions, text, schema, max_output_tokens, timeout)
         except httpx.HTTPStatusError as exc:
             status = exc.response.status_code
-            if status not in RETRYABLE_STATUS or index == len(models) - 1:
+            if status not in RETRYABLE_STATUS or index + 1 == len(models):
                 raise
             logger.warning("gemini HTTP %s %s on %s; retrying with %s",
                            status, _error_code(exc.response), model, models[index + 1])
+        except (httpx.TimeoutException, httpx.NetworkError, AIOutputLimit) as exc:
+            if index + 1 == len(models):
+                raise
+            logger.warning("gemini %s on %s; retrying with %s",
+                           type(exc).__name__, model, models[index + 1])
     raise AIUnavailable("gemini no model configured")
 
 
@@ -127,7 +138,7 @@ def _gemini_once(model, key, instructions, text, schema, max_output_tokens, time
              if "text" in part and not part.get("thought")]
     finish = candidate.get("finishReason")
     if finish == "MAX_TOKENS":
-        raise AIUnavailable("gemini output token limit reached")
+        raise AIOutputLimit("gemini output token limit reached")
     if not parts or finish not in (None, "STOP"):
         raise AIUnavailable(f"gemini generation did not complete ({finish})")
     return "".join(parts)

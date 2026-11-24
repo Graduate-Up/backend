@@ -189,6 +189,25 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
         assert calls == ["gemini-flash-latest:generateContent"]
         monkeypatch.delenv("JOLUP_GEMINI_FALLBACK_MODEL")
 
+        def timeout_then_lite(url, **kwargs):
+            assert kwargs["timeout"].read == 30.0
+            if "lite" not in url:
+                raise httpx.ReadTimeout("provider timeout")
+            return gemini(url.replace("gemini-flash-lite-latest", "gemini-flash-latest"), **kwargs)
+
+        monkeypatch.setattr(ai_client.httpx, "post", timeout_then_lite)
+        retried = client.post(path, headers=headers, json=question)
+        assert retried.status_code == 200, retried.text
+        assert "ReadTimeout on gemini-flash-latest; retrying with gemini-flash-lite-latest" in caplog.text
+
+        def cut_off_then_lite(url, **kwargs):
+            if "lite" not in url:
+                return cut_off(url, **kwargs)
+            return gemini(url.replace("gemini-flash-lite-latest", "gemini-flash-latest"), **kwargs)
+
+        monkeypatch.setattr(ai_client.httpx, "post", cut_off_then_lite)
+        assert client.post(path, headers=headers, json=question).status_code == 200
+
         monkeypatch.setattr(ai_client.httpx, "post", cut_off)
         assert client.post(path, headers=headers, json=question).status_code == 503
         assert "gemini output token limit reached" in caplog.text
