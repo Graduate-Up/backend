@@ -45,7 +45,9 @@ def check_required_courses(
         category = course.transcript_category.strip()
         if course.credits < requirement.minimum_course_credits:
             continue
-        department = computer_science_offering(course.course_code, course.offered_by_computer_science)
+        department = computer_science_offering(
+            course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+        )
         if requirement.reject_transfer_courses:
             if course.prior_institution is True:
                 continue

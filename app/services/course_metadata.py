@@ -1,3 +1,4 @@
+import re
 from typing import Literal
 
 from app.schemas.evaluation import Source
@@ -6,8 +7,14 @@ from app.schemas.evaluation import Source
 CSE_CAPSTONE_CODES = {"ITEC0401", "ITEC0402", "GLSO0218", "GLSO0221"}
 
 
-def computer_science_offering(course_code: str, recorded: bool | None = None) -> bool | None:
-    return True if course_code in CSE_CAPSTONE_CODES else recorded
+def computer_science_offering(
+    course_code: str, recorded: bool | None = None, *, prior_institution: bool | None = None,
+) -> bool | None:
+    if prior_institution is not True and course_code in CSE_CAPSTONE_CODES:
+        return True
+    if recorded is None and prior_institution is not True and re.fullmatch(r"COMP[0-9]{4}", course_code):
+        return True
+    return recorded
 
 
 CareerTag = Literal["ai_data", "backend", "security", "graduate_study"]
