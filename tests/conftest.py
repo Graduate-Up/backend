@@ -10,7 +10,8 @@ from tests.demo_app import demo_rules
 def verification_mailbox(monkeypatch):
     mailbox = {}
     monkeypatch.setenv("JOLUP_EMAIL_CODE_SECRET", "a" * 32)
-    for name in ("GEMINI_API_KEY", "OPENAI_API_KEY", "JOLUP_AI_PROVIDER", "JOLUP_GEMINI_MODEL"):
+    for name in ("GEMINI_API_KEY", "OPENAI_API_KEY", "JOLUP_AI_PROVIDER", "JOLUP_GEMINI_MODEL",
+                 "JOLUP_GEMINI_FALLBACK_MODEL"):
         monkeypatch.delenv(name, raising=False)
     monkeypatch.setattr(accounts, "email_sender", lambda: mailbox.__setitem__)
     return mailbox

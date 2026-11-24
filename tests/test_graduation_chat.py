@@ -131,6 +131,29 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
                 "finishReason": "MAX_TOKENS", "content": {"parts": [{"text": "{\"answer\": \"잘린"}]},
             }]})
 
+        calls = []
+
+        def overloaded_then_lite(url, **kwargs):
+            calls.append(url.rsplit("/", 1)[-1])
+            if "lite" not in url:
+                return httpx.Response(503, request=httpx.Request("POST", url), json={"error": {
+                    "code": 503, "status": "UNAVAILABLE", "message": "The model is overloaded.",
+                }})
+            return gemini(url.replace("gemini-flash-lite-latest", "gemini-flash-latest"), **kwargs)
+
+        monkeypatch.setattr(ai_client.httpx, "post", overloaded_then_lite)
+        retried = client.post(path, headers=headers, json=question)
+        assert retried.status_code == 200, retried.text
+        assert retried.json()["answer"] == "제미나이 답변"
+        assert calls == ["gemini-flash-latest:generateContent", "gemini-flash-lite-latest:generateContent"]
+        assert "gemini HTTP 503 UNAVAILABLE on gemini-flash-latest; retrying with gemini-flash-lite-latest" in caplog.text
+
+        monkeypatch.setenv("JOLUP_GEMINI_FALLBACK_MODEL", "")
+        calls.clear()
+        assert client.post(path, headers=headers, json=question).status_code == 503
+        assert calls == ["gemini-flash-latest:generateContent"]
+        monkeypatch.delenv("JOLUP_GEMINI_FALLBACK_MODEL")
+
         monkeypatch.setattr(ai_client.httpx, "post", cut_off)
         assert client.post(path, headers=headers, json=question).status_code == 503
         assert "gemini output token limit reached" in caplog.text
