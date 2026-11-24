@@ -57,6 +57,8 @@ def test_catalog_distinguishes_required_and_recommended_prerequisites():
         assert design["offered_by_computer_science"] is True
         assert design["prerequisite_kind"] == "required"
         assert design["prerequisite_groups"] == [["COMP0205"], ["COMP0217"]]
+        for code in ("COMP0217", "ELEC0462"):
+            assert catalog("plsop", 2025, code, abeek=True)["prerequisite_groups"] == [["COMP0205"]]
         assert catalog("plsop", 2025, "ITEC0401", abeek=False)["prerequisite_groups"] is None
         security = catalog("simcom", 2026, "COMP0341")
         assert security["career_tags"] == ["security"]

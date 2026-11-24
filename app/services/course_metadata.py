@@ -44,6 +44,8 @@ ABEEK_PREREQUISITES = {
     "ITEC0423": [["COME0331"]],
     "COMP0319": [["COME0331"]],
     "COMP0320": [["COMP0319"]],
+    "COMP0217": [["COMP0205"]],
+    "ELEC0462": [["COMP0205"]],
     "ITEC0401": [["COMP0205"], ["COMP0217"]],
     "ITEC0402": [["ITEC0401"]],
 }

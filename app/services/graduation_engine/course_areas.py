@@ -43,6 +43,10 @@ LIBERAL_TERMS_FILE = ROOT / "data" / "curricula" / "raw" / "cltr_areas.json"
 
 ABEEK_AREAS = {"abeek-basic_literacy": "basic", "abeek-msc": "msc", "abeek-engineering_major": "major"}
 ABEEK_DESIGN_ID = "abeek-design_min"
+ABEEK_SEASONAL_SOURCE = Source(
+    title="컴퓨터학부 ABEEK 인정 과목 안내",
+    url="https://aicollege.knu.ac.kr/bbs/board.php?bo_table=sub6_1_a&sca=%EC%8B%AC%EC%BB%B4&wr_id=27581",
+)
 LIBERAL_AREAS = {
     "foundation_a": {"독서와토론", "사고교육", "글쓰기", "외국어"},
     "foundation_b": {"수리", "기초과학"},
@@ -282,27 +286,46 @@ def result(requirement: NonacademicRequirement, current: float, *, uncertain: li
 def abeek_result(requirement: NonacademicRequirement, courses: list[Course], admission_year: int) -> RequirementResult:
     area = ABEEK_AREAS[requirement.id]
     own = abeek_table_year(admission_year)
-    counted, borrowed = [], []
+    table = curriculum("plsop", admission_year)
+    counted, borrowed, seasonal, uncertain = [], [], [], []
+    seasonal_review = False
     for course in courses:
         found, renamed = abeek_area(course.course_code, admission_year)
-        if found == area:
-            counted.append(course)
-            if renamed:
-                borrowed.append(f"{course.course_code}(= {renamed})")
+        if found != area:
+            continue
+        if course.offered_by_computer_science is False and course.prior_institution is not True:
+            if course.semester.partition("-")[2] not in {"summer", "winter"}:
+                continue
+            catalog_course = table.get(course.course_code)
+            seasonal_review = True
+            if (
+                catalog_course is None or not course.course_name
+                or same_name(course.course_name) != same_name(catalog_course.name)
+                or course.transcript_category.strip() != catalog_course.category
+            ):
+                uncertain.append(f"{course.course_code} 계절학기 과목명·교과구분 또는 학부 승인 확인 필요")
+                continue
+            seasonal.append(course.course_code)
+        counted.append(course)
+        if renamed:
+            borrowed.append(f"{course.course_code}(= {renamed})")
     current = sum(course.credits for course in counted)
     reason = f"플솝 {own}학년도 기준 교육과정의 ABEEK 영역 표로 계산"
-    uncertain = []
     if not curriculum_is_sourced("plsop", admission_year):
         uncertain.append(f"{admission_year}학번 교육과정표가 학부 사이트에 없어 {own}학년도 표로 추정했어요")
     details = ["인정: " + ", ".join(map(describe, counted)) if counted else "인정된 과목 없음"]
     if borrowed:
         details.append("과목코드만 바뀐 같은 과목으로 인정: " + ", ".join(borrowed))
+    if seasonal:
+        details.append("타학부 계절학기 예외 인정: " + ", ".join(seasonal))
+    if seasonal_review:
+        requirement = requirement.model_copy(update={"sources": [*requirement.sources, ABEEK_SEASONAL_SOURCE]})
     return result(requirement, current, uncertain=uncertain, reason=reason, details=details)
 
 
 def design_result(requirement: NonacademicRequirement, courses: list[Course]) -> RequirementResult:
     counted = [(course, requirement.course_credits[course.course_code]) for course in courses
-               if course.course_code in requirement.course_credits]
+               if course.course_code in requirement.course_credits and course.offered_by_computer_science is not False]
     current = sum(amount for _, amount in counted)
     details = ["인정: " + ", ".join(f"{course.course_code} 설계 {amount:g}학점" for course, amount in counted)
                if counted else "인정된 설계 과목 없음"]

@@ -77,6 +77,20 @@ def test_design_credits_come_from_rule():
     assert result.current == 6 and result.status == "unsatisfied"
 
 
+def test_abeek_other_department_seasonal_course_requires_matching_catalog():
+    course = done("COMP0217", category="공학전공", semester="2025-summer").model_copy(update={
+        "course_name": "자바프로그래밍", "offered_by_computer_science": False,
+    })
+    engineering = requirement("abeek-engineering_major")
+    assert abeek_result(engineering, [course], 2025).status == "satisfied"
+    for override in ({"course_name": "다른 과목"}, {"transcript_category": "일반선택"}):
+        result = abeek_result(engineering, [course.model_copy(update=override)], 2025)
+        assert (result.current, result.status) == (0, "verification_required")
+    regular = course.model_copy(update={"semester": "2025-1"})
+    assert abeek_result(engineering, [regular], 2025).current == 0
+    assert design_result(requirement("abeek-design_min", course_credits={"COMP0217": 2}), [course]).current == 0
+
+
 def test_liberal_area_mapping_transcript_label_and_unknown_courses():
     writing = requirement("foundation_a")
     assert liberal_result(writing, [done("CLTR0205")]).status == "satisfied"
