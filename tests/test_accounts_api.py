@@ -27,6 +27,31 @@ def register(client, mailbox, credentials=CREDENTIALS):
     return client.post("/api/v1/auth/register", json={**credentials, "code": mailbox[email.lower()]})
 
 
+def test_saved_courses_fill_missing_comp_offering_without_overriding_records(monkeypatch, tmp_path, verification_mailbox):
+    monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    courses = [
+        {"course_code": code, "semester": "2025-2", "credits": 3, "transcript_category": "전공",
+         "status": "completed", **metadata}
+        for code, metadata in (
+            ("COMP0224", {}),
+            ("COMP0312", {"offered_by_computer_science": False}),
+            ("COMP0323", {"prior_institution": True}),
+            ("CLTR0043", {}),
+        )
+    ]
+    with TestClient(create_demo_app()) as client:
+        assert register(client, verification_mailbox).status_code == 201
+        headers = sign_in(client)
+        path = "/api/v1/me/records"
+        saved = client.put(path, headers=headers, json={"completed_courses": courses})
+        loaded = client.get(path, headers=headers)
+        for response in (saved, loaded):
+            assert response.status_code == 200, response.text
+            assert [item["offered_by_computer_science"] for item in response.json()["completed_courses"]] == [
+                True, False, None, None,
+            ]
+
+
 def test_english_test_details_survive_a_new_login(monkeypatch, tmp_path, verification_mailbox):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     test = {"test_type": "OPIc", "raw_score": "IM2", "taken_month": "2026-11"}

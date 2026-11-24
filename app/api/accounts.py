@@ -17,7 +17,7 @@ from app.schemas.rules import GraduationRule
 from app.services.accounts import (
     AccountStore, DuplicateUsername, EmailCodeRateLimit, InvalidEmailCode, InvalidLegacyAccount, get_account_store,
 )
-from app.services.course_metadata import CareerTag
+from app.services.course_metadata import CareerTag, computer_science_offering
 from app.services.demo_account import is_demo_email
 from app.services.email_delivery import EmailUnavailable, email_secret, email_sender
 from app.services.graduation_chat import ChatUnavailable, GraduationAnswer, GraduationQuestion, answer_graduation_question
@@ -212,9 +212,19 @@ def my_requirements(account: Account, provide_rules: Rules) -> GraduationRule:
     return select_rules(account.profile, provide_rules())
 
 
+def records_with_course_offerings(records: StudentRecords) -> StudentRecords:
+    courses = [
+        course.model_copy(update={"offered_by_computer_science": computer_science_offering(
+            course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+        )})
+        for course in records.completed_courses
+    ]
+    return records.model_copy(update={"completed_courses": courses})
+
+
 @router.get("/me/records", responses=AUTH_ERROR)
 def my_records(account: Account, store: Store) -> StudentRecords:
-    return store.get_records(account.account.id)
+    return records_with_course_offerings(store.get_records(account.account.id))
 
 
 @router.post("/me/transcript/parse", responses=AUTH_ERROR, description="복사한 성적표를 파싱합니다. 원문을 저장하지 않습니다.")
@@ -249,7 +259,7 @@ def import_transcript(payload: TranscriptImportInput, account: Account, store: S
 
 @router.put("/me/records", responses=AUTH_ERROR, description="과목과 비교과 기록 전체를 교체합니다.")
 def save_records(records: StudentRecords, account: Account, store: Store) -> StudentRecords:
-    return store.save_records(account.account.id, records)
+    return records_with_course_offerings(store.save_records(account.account.id, records))
 
 
 @router.get("/me/evaluation", responses={**AUTH_ERROR, 409: {"model": ErrorResponse}})

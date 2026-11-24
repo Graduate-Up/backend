@@ -17,7 +17,9 @@ def check_credits(
     entries = [
         CreditEntry(course_code=c.course_code, course_name=c.course_name,
                     semester=c.semester, transcript_category=c.transcript_category,
-                    offered_by_computer_science=computer_science_offering(c.course_code, c.offered_by_computer_science))
+                    offered_by_computer_science=computer_science_offering(
+                        c.course_code, c.offered_by_computer_science, prior_institution=c.prior_institution,
+                    ))
         for c in courses
     ]
     totals = defaultdict(Decimal)
@@ -54,7 +56,9 @@ def check_credits(
         if category in NON_MAJOR_CATEGORIES:
             return treatment, None
         general = CreditTreatment(category="general")
-        department = computer_science_offering(course.course_code, course.offered_by_computer_science)
+        department = computer_science_offering(
+            course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+        )
         if category in rule.major_transcript_categories:
             return (general if department is False else CreditTreatment(category="major")), None
         if canonical not in rule.department_major_codes:
