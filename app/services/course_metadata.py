@@ -1,24 +1,53 @@
 import re
+from functools import lru_cache
 from typing import Literal
+from unicodedata import normalize
 
 from app.schemas.evaluation import Source
+from app.services.graduation_engine.course_areas import MAJOR_CATEGORIES, curricula
 
 # 컴퓨터학부 공지 28590. 개설 학부와 학번별 주전공 인정 여부는 별도다.
 CSE_CAPSTONE_CODES = {"ITEC0401", "ITEC0402", "GLSO0218", "GLSO0221"}
-# 컴퓨터학부 글솝 교육과정에 있는 COMP 이외의 교과목 코드.
-CSE_ADDITIONAL_CODES = {"COME0301", "ITEC0201"}
+COURSE_CODE_PATTERN = re.compile(r"([A-Z]{4})[0-9]{4}")
+
+
+def course_name_key(name: str) -> str:
+    return "".join(normalize("NFKC", name).casefold().split())
+
+
+@lru_cache(maxsize=1)
+def curriculum_offering_index() -> tuple[set[str], set[tuple[str, str]]]:
+    codes, names_by_prefix = set(), set()
+    for major, tables in curricula().items():
+        for table in tables.values():
+            for course in table.courses.values():
+                if course.category not in MAJOR_CATEGORIES[major]:
+                    continue
+                code_match = COURSE_CODE_PATTERN.fullmatch(course.code)
+                if code_match:
+                    codes.add(course.code)
+                    names_by_prefix.add((code_match[1], course_name_key(course.name)))
+    return codes, names_by_prefix
 
 
 def computer_science_offering(
     course_code: str, recorded: bool | None = None, *, prior_institution: bool | None = None,
+    course_name: str | None = None,
 ) -> bool | None:
     if prior_institution is not True and course_code in CSE_CAPSTONE_CODES:
         return True
-    if recorded is None and prior_institution is not True and (
-        course_code in CSE_ADDITIONAL_CODES or re.fullmatch(r"COMP[0-9]{4}", course_code)
-    ):
+    if recorded is not None or prior_institution is True:
+        return recorded
+    code_match = COURSE_CODE_PATTERN.fullmatch(course_code)
+    if code_match is None:
+        return None
+    try:
+        codes, names_by_prefix = curriculum_offering_index()
+    except FileNotFoundError:
+        return None
+    if course_code in codes or (course_name and (code_match[1], course_name_key(course_name)) in names_by_prefix):
         return True
-    return recorded
+    return None
 
 
 CareerTag = Literal["ai_data", "backend", "security", "graduate_study"]

@@ -36,6 +36,11 @@ def test_saved_courses_fill_missing_cse_offering_without_overriding_records(monk
             ("COMP0224", {}),
             ("COME0301", {}),
             ("ITEC0201", {}),
+            ("EECS0312", {}),
+            ("GLSO0219", {}),
+            ("EECS9999", {"course_name": "네트워크 프로그래밍"}),
+            ("EECS9998", {"course_name": "다른 과목"}),
+            ("ABCD9999", {"course_name": "네트워크프로그래밍"}),
             ("COMP0312", {"offered_by_computer_science": False}),
             ("COME0301", {"offered_by_computer_science": False}),
             ("COMP0323", {"prior_institution": True}),
@@ -51,7 +56,7 @@ def test_saved_courses_fill_missing_cse_offering_without_overriding_records(monk
         for response in (saved, loaded):
             assert response.status_code == 200, response.text
             assert [item["offered_by_computer_science"] for item in response.json()["completed_courses"]] == [
-                True, True, True, False, False, None, None,
+                True, True, True, True, True, True, None, None, False, False, None, None,
             ]
 
 

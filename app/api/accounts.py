@@ -216,6 +216,7 @@ def records_with_course_offerings(records: StudentRecords) -> StudentRecords:
     courses = [
         course.model_copy(update={"offered_by_computer_science": computer_science_offering(
             course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+            course_name=course.course_name,
         )})
         for course in records.completed_courses
     ]

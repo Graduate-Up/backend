@@ -19,6 +19,7 @@ def check_credits(
                     semester=c.semester, transcript_category=c.transcript_category,
                     offered_by_computer_science=computer_science_offering(
                         c.course_code, c.offered_by_computer_science, prior_institution=c.prior_institution,
+                        course_name=c.course_name,
                     ))
         for c in courses
     ]
@@ -58,6 +59,7 @@ def check_credits(
         general = CreditTreatment(category="general")
         department = computer_science_offering(
             course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+            course_name=course.course_name,
         )
         if category in rule.major_transcript_categories:
             return (general if department is False else CreditTreatment(category="major")), None
