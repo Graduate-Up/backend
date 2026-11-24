@@ -1,4 +1,6 @@
+import logging
 import os
+import re
 import smtplib
 import ssl
 from collections.abc import Callable
@@ -8,6 +10,7 @@ import httpx
 
 BREVO_SEND_URL = "https://api.brevo.com/v3/smtp/email"
 EMAIL_SUBJECT = "졸UP 가입 인증번호"
+logger = logging.getLogger("uvicorn.error")
 
 
 class EmailUnavailable(RuntimeError):
@@ -57,6 +60,15 @@ def brevo_sender() -> Callable[[str, str], None]:
         except httpx.RequestError as exc:
             raise EmailUnavailable("인증 메일 발송 서비스에 연결할 수 없습니다.") from exc
         if response.status_code == 201:
+            try:
+                payload = response.json()
+            except ValueError:
+                payload = None
+            message_id = payload.get("messageId") if isinstance(payload, dict) else None
+            if isinstance(message_id, str) and re.fullmatch(r"[A-Za-z0-9<>@.+_=-]{1,256}", message_id):
+                logger.info("Brevo accepted verification email message_id=%s", message_id)
+            else:
+                logger.info("Brevo accepted verification email without a usable message ID")
             return
         if response.status_code in {401, 403}:
             raise EmailUnavailable("Brevo가 발송 요청을 거절했습니다. API 키와 계정의 발송 권한을 확인해 주세요.")

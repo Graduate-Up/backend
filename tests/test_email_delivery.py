@@ -1,3 +1,5 @@
+import logging
+
 import httpx
 import pytest
 
@@ -11,7 +13,8 @@ def brevo_transport(monkeypatch):
     monkeypatch.setenv("JOLUP_BREVO_FROM", "sender@example.com")
 
 
-def test_brevo_sends_code_over_https(monkeypatch, brevo_transport):
+def test_brevo_sends_code_over_https(monkeypatch, brevo_transport, caplog):
+    caplog.set_level(logging.INFO, logger="uvicorn.error")
     def post(url, **kwargs):
         assert url == "https://api.brevo.com/v3/smtp/email"
         assert kwargs["headers"]["api-key"] == "test-key"
@@ -19,10 +22,12 @@ def test_brevo_sends_code_over_https(monkeypatch, brevo_transport):
         assert kwargs["json"]["sender"]["email"] == "sender@example.com"
         assert kwargs["json"]["to"] == [{"email": "student@knu.ac.kr"}]
         assert "001234" in kwargs["json"]["textContent"]
-        return httpx.Response(201)
+        return httpx.Response(201, json={"messageId": "<123@relay.example.com>"})
 
     monkeypatch.setattr(email_delivery.httpx, "post", post)
     email_delivery.email_sender()("student@knu.ac.kr", "001234")
+    assert "message_id=<123@relay.example.com>" in caplog.text
+    assert all(value not in caplog.text for value in ("student@knu.ac.kr", "001234", "test-key"))
 
 
 @pytest.mark.parametrize("status", [301, 401, 429, 500])
