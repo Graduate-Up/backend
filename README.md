@@ -130,13 +130,15 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 `POST /api/v1/me/recommendations`에 로그인 토큰과 `{"career":"ai_data","use_ai":true}`를 보냅니다. 진로는 `ai_data`, `backend`, `security`, `graduate_study` 또는 `null`(아직 모름)입니다. 특정 수강 학기를 알려줄 때는 `target_semester`에 `2027-1` 같은 값을 보냅니다. 응답의 `recommended`는 카드 3개까지, `alternatives`는 나머지 후보이며, `gains`는 과목 하나를 이수했다고 가정했을 때 줄어드는 부족량입니다. 여러 후보의 효과를 단순 합산하지 마세요. `curriculum_source`와 `inferred`는 화면의 교육과정 출처·추정 여부에 사용합니다.
 
-OpenAI Responses API의 `gpt-5.4-mini`는 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 백엔드 환경의 `OPENAI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 선택적으로 `JOLUP_OPENAI_MODEL`로 설정합니다.
+생성형 AI가 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 기본은 Google Gemini API(`gemini-flash-latest`, 무료 등급 사용 가능)이고, 백엔드 환경의 `GEMINI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. AI가 순서를 정하면 `ranking: "ai"`, 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 `JOLUP_GEMINI_MODEL`로 바꿀 수 있습니다. OpenAI를 쓰려면 `JOLUP_AI_PROVIDER=openai`와 `OPENAI_API_KEY`(모델 `JOLUP_OPENAI_MODEL`)를 설정합니다.
+
+Gemini 무료 등급은 요청 한도가 낮고, 무료 등급으로 보낸 내용은 Google 서비스 개선에 쓰일 수 있습니다. [Gemini API 가격·무료 등급](https://ai.google.dev/pricing)
 
 ### 졸업요건 챗봇
 
 `POST /api/v1/me/graduation-chat`에 로그인 토큰과 `{"question":"전공학점이 얼마나 부족해요?"}`를 보냅니다. 저장된 프로필과 기록으로 판정한 결과를 근거로 `answer`, `sources`, `rule_id`를 반환합니다. 질문은 최대 2,000자이며 요청마다 독립적으로 처리합니다. 프로필이 없으면 409, AI 설정이 없거나 답변을 얻지 못하면 503으로 응답합니다.
 
-추천 기능과 같은 `OPENAI_API_KEY`를 사용합니다. 챗봇 모델은 기본 `gpt-5.4-mini`이며 `JOLUP_OPENAI_CHAT_MODEL`로 바꿀 수 있습니다. OpenAI에는 질문, 적용 규칙(대체과목·예외 포함), 판정 요약, 졸업 일정, 질문에 과목코드나 이름이 언급된 이수 과목의 인정 근거를 보냅니다. 계정 식별자와 성적표 전체는 요청에 포함하지 않습니다.
+추천 기능과 같은 AI 설정(`GEMINI_API_KEY`, 또는 `JOLUP_AI_PROVIDER=openai`와 `OPENAI_API_KEY`)을 사용합니다. OpenAI 챗봇 모델은 `JOLUP_OPENAI_CHAT_MODEL`로 바꿀 수 있습니다. AI에는 질문, 적용 규칙(대체과목·예외 포함), 판정 요약, 졸업 일정, 질문에 과목코드나 이름이 언급된 이수 과목의 인정 근거를 보냅니다. 계정 식별자와 성적표 전체는 요청에 포함하지 않습니다. 답변을 받지 못하면 서버 로그에 `AI graduation chat unavailable: <원인>`(예: `GEMINI_API_KEY ... is missing`, `gemini HTTP 429 RESOURCE_EXHAUSTED`)을 남깁니다.
 
 융합·복수전공 자료를 추가할 때는 `data/recommendation_programs.json`에 배열을 저장하고 백엔드를 다시 시작합니다. 각 전공에 `id`, `name`, `kind`(`convergence` 또는 `double_major`), `source`(`title`, `url`), `courses`(과목별 `code`, `name`, `credits`, 선택 `career_tags`)를 넣습니다. `programs`는 이미 이수한 과목과 관련 분야를 근거로 제시하는 탐색 후보입니다. 해당 전공의 선발 여부와 중복 학점 인정은 이 데이터로 확정하지 않습니다.
 

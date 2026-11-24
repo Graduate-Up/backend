@@ -4212,9 +4212,10 @@
             "type": "string",
             "enum": [
               "rules",
-              "openai"
+              "ai"
             ],
             "title": "Ranking",
+            "description": "rules: 졸업요건 규칙으로 정렬, ai: 생성형 AI(Gemini 등)가 진로에 맞춰 순서 조정",
             "default": "rules"
           }
         },
