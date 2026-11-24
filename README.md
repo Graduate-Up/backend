@@ -130,7 +130,7 @@ $env:JOLUP_FRONTEND_ORIGINS = 'http://localhost:3000'
 
 `POST /api/v1/me/recommendations`에 로그인 토큰과 `{"career":"ai_data","use_ai":true}`를 보냅니다. 진로는 `ai_data`, `backend`, `security`, `graduate_study` 또는 `null`(아직 모름)입니다. 특정 수강 학기를 알려줄 때는 `target_semester`에 `2027-1` 같은 값을 보냅니다. 응답의 `recommended`는 카드 3개까지, `alternatives`는 나머지 후보이며, `gains`는 과목 하나를 이수했다고 가정했을 때 줄어드는 부족량입니다. 여러 후보의 효과를 단순 합산하지 마세요. `curriculum_source`와 `inferred`는 화면의 교육과정 출처·추정 여부에 사용합니다.
 
-생성형 AI가 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 기본은 Google Gemini API(`gemini-flash-latest`, 무료 등급 사용 가능)이고, 백엔드 환경의 `GEMINI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. AI가 순서를 정하면 `ranking: "ai"`, 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 `JOLUP_GEMINI_MODEL`로 바꿀 수 있습니다. OpenAI를 쓰려면 `JOLUP_AI_PROVIDER=openai`와 `OPENAI_API_KEY`(모델 `JOLUP_OPENAI_MODEL`)를 설정합니다.
+생성형 AI가 졸업요건 기여도가 같은 상위 후보를 진로에 맞춰 재정렬합니다. 기본은 Google Gemini API(`gemini-flash-latest`, 무료 등급 사용 가능)이고, 백엔드 환경의 `GEMINI_API_KEY`와 요청의 `use_ai: true`로 활성화합니다. API 입력은 추천 후보의 과목코드·이름·분야 태그, 선택한 진로, 이수 분야 태그의 집계입니다. AI가 순서를 정하면 `ranking: "ai"`, 키가 없거나 요청이 실패하면 `ranking: "rules"`로 응답합니다. 모델은 `JOLUP_GEMINI_MODEL`로 바꿀 수 있고, 기본 모델이 붐비거나(503) 한도가 차면(429) `JOLUP_GEMINI_FALLBACK_MODEL`(기본 `gemini-flash-lite-latest`)로 한 번 더 시도합니다. OpenAI를 쓰려면 `JOLUP_AI_PROVIDER=openai`와 `OPENAI_API_KEY`(모델 `JOLUP_OPENAI_MODEL`)를 설정합니다.
 
 Gemini 무료 등급은 요청 한도가 낮고, 무료 등급으로 보낸 내용은 Google 서비스 개선에 쓰일 수 있습니다. [Gemini API 가격·무료 등급](https://ai.google.dev/pricing)
 

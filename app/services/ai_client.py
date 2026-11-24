@@ -3,18 +3,25 @@
 기본은 Google Gemini API(무료 등급 사용 가능)이며, OpenAI Responses API도 쓸 수 있다.
 - JOLUP_AI_PROVIDER: gemini | openai. 비우면 GEMINI_API_KEY가 있으면 gemini, 없고 OPENAI_API_KEY가 있으면 openai.
 - Gemini: GEMINI_API_KEY, 모델 JOLUP_GEMINI_MODEL (기본 gemini-flash-latest: 최신 Flash 모델 별칭)
+  기본 모델이 503/429 등으로 실패하면 JOLUP_GEMINI_FALLBACK_MODEL (기본 gemini-flash-lite-latest)로 한 번 더 시도.
+  비워 두면 예비 모델을 쓰지 않는다.
 - OpenAI: OPENAI_API_KEY, 모델은 호출하는 쪽이 정한 환경변수 (기본 gpt-5.4-mini)
 
 응답은 정해 둔 JSON 스키마로만 받는다. 실패하면 원인을 담은 AIUnavailable을 던진다(키·본문은 담지 않는다).
 """
 
 import json
+import logging
 import os
 
 import httpx
 
+logger = logging.getLogger(__name__)
+
 GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
 GEMINI_DEFAULT_MODEL = "gemini-flash-latest"
+GEMINI_FALLBACK_MODEL = "gemini-flash-lite-latest"
+RETRYABLE_STATUS = {429, 500, 503, 504}
 OPENAI_URL = "https://api.openai.com/v1/responses"
 OPENAI_DEFAULT_MODEL = "gpt-5.4-mini"
 
@@ -73,9 +80,29 @@ def _key(env: str) -> str:
     return key
 
 
+def gemini_models() -> list[str]:
+    primary = os.getenv("JOLUP_GEMINI_MODEL", "").strip() or GEMINI_DEFAULT_MODEL
+    fallback = os.getenv("JOLUP_GEMINI_FALLBACK_MODEL", GEMINI_FALLBACK_MODEL).strip()
+    return list(dict.fromkeys(model for model in (primary, fallback) if model))
+
+
 def _gemini(name, instructions, text, schema, max_output_tokens, timeout) -> str:
+    """기본 모델이 붐비거나(503) 그 모델 한도가 찼으면(429) 예비 모델로 한 번 더 시도한다."""
     key = _key("GEMINI_API_KEY")
-    model = os.getenv("JOLUP_GEMINI_MODEL", "").strip() or GEMINI_DEFAULT_MODEL
+    models = gemini_models()
+    for index, model in enumerate(models):
+        try:
+            return _gemini_once(model, key, instructions, text, schema, max_output_tokens, timeout)
+        except httpx.HTTPStatusError as exc:
+            status = exc.response.status_code
+            if status not in RETRYABLE_STATUS or index == len(models) - 1:
+                raise
+            logger.warning("gemini HTTP %s %s on %s; retrying with %s",
+                           status, _error_code(exc.response), model, models[index + 1])
+    raise AIUnavailable("gemini no model configured")
+
+
+def _gemini_once(model, key, instructions, text, schema, max_output_tokens, timeout) -> str:
     response = httpx.post(
         GEMINI_URL.format(model=model),
         headers={"x-goog-api-key": key},
