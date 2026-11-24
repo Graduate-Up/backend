@@ -1,14 +1,12 @@
-import json
 import logging
-import os
 from collections import Counter
 from functools import lru_cache
 from typing import Literal
 
-import httpx
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter
 
 from app.core.config import PROJECT_DIRECTORY
+from app.services.ai_client import AIUnavailable, generate_json
 from app.schemas.course import Amount, Code, Course
 from app.schemas.evaluation import Source, StudentRecords
 from app.schemas.rules import GraduationRule
@@ -18,7 +16,6 @@ from app.services.graduation_engine.course_areas import LIBERAL_AREAS, curriculu
 from app.services.graduation_engine.evaluator import equivalent_codes, evaluate_course_requirements
 
 logger = logging.getLogger(__name__)
-DEFAULT_MODEL = "gpt-5.4-mini"
 
 
 class ProgramCourse(BaseModel):
@@ -75,7 +72,9 @@ class Recommendations(BaseModel):
     alternatives: list[CourseRecommendation]
     programs: list[ProgramRecommendation]
     program_data_available: bool
-    ranking: Literal["rules", "openai"] = "rules"
+    ranking: Literal["rules", "ai"] = Field(
+        "rules", description="rules: 졸업요건 규칙으로 정렬, ai: 생성형 AI(Gemini 등)가 진로에 맞춰 순서 조정",
+    )
 
 
 @lru_cache(maxsize=1)
@@ -87,62 +86,32 @@ def programs_catalog() -> list[Program]:
         return []
 
 
-def openai_order(courses: list[CourseRecommendation], career: CareerTag, interests: Counter) -> list[str]:
+def ai_order(courses: list[CourseRecommendation], career: CareerTag, interests: Counter) -> list[str]:
+    """졸업요건 기여도가 같은 후보를 진로에 맞춰 AI가 다시 정렬한다. 실패하면 [] (규칙 순서 유지)."""
     if len(courses) < 2:
         return []
-    key = os.getenv("OPENAI_API_KEY", "").strip()
-    if not key:
-        logger.warning("OpenAI recommendation skipped: OPENAI_API_KEY is missing")
-        return []
-    model = os.getenv("JOLUP_OPENAI_MODEL", "").strip() or DEFAULT_MODEL
     candidates = [{"id": item.course_code, "name": item.course_name, "tags": item.career_tags} for item in courses]
     ids = [item.course_code for item in courses]
     try:
-        response = httpx.post(
-            "https://api.openai.com/v1/responses",
-            headers={"Authorization": f"Bearer {key}"},
-            json={
-                "model": model,
-                "store": False,
-                "max_output_tokens": 1024,
-                "instructions": "Rank all candidates by career fit and continuity with the interest tags. "
-                                "Return each supplied id exactly once. Use only the data supplied.",
-                "input": json.dumps({"career": career, "interest_tags": interests, "candidates": candidates},
-                                    ensure_ascii=False),
-                "text": {"format": {"type": "json_schema", "name": "course_order", "strict": True, "schema": {
-                    "type": "object", "properties": {"ids": {"type": "array", "items": {"type": "string"}}},
-                    "required": ["ids"], "additionalProperties": False,
-                }}},
+        result, _provider = generate_json(
+            name="course_order",
+            instructions="Rank all candidates by career fit and continuity with the interest tags. "
+                         "Return each supplied id exactly once. Use only the data supplied.",
+            payload={"career": career, "interest_tags": interests, "candidates": candidates},
+            schema={
+                "type": "object", "properties": {"ids": {"type": "array", "items": {"type": "string"}}},
+                "required": ["ids"], "additionalProperties": False,
             },
-            timeout=httpx.Timeout(15.0, connect=3.0),
+            max_output_tokens=2048,
+            timeout=20.0,
         )
-        response.raise_for_status()
-        payload = response.json()
-        if payload["status"] == "incomplete":
-            reason = (payload.get("incomplete_details") or {}).get("reason")
-            if reason == "max_output_tokens":
-                logger.warning("OpenAI recommendation fallback: output token limit reached")
-            else:
-                logger.warning("OpenAI recommendation fallback: response incomplete")
-            return []
-        if payload["status"] == "completed":
-            for item in payload["output"]:
-                if item["type"] != "message":
-                    continue
-                for content in item["content"]:
-                    if content["type"] == "output_text":
-                        order = json.loads(content["text"])["ids"]
-                        if isinstance(order, list) and sorted(order) == sorted(ids):
-                            return order
-        logger.warning("OpenAI recommendation fallback: no valid candidate order")
-    except httpx.HTTPStatusError as exc:
-        logger.warning("OpenAI recommendation fallback: HTTP %s", exc.response.status_code)
-    except httpx.TimeoutException:
-        logger.warning("OpenAI recommendation fallback: request timed out")
-    except httpx.HTTPError:
-        logger.warning("OpenAI recommendation fallback: connection or transport error")
-    except (ValueError, KeyError, TypeError):
-        logger.warning("OpenAI recommendation fallback: unexpected response format")
+    except AIUnavailable as exc:
+        logger.warning("AI recommendation fallback: %s", exc)
+        return []
+    order = result.get("ids")
+    if isinstance(order, list) and sorted(order) == sorted(ids):
+        return order
+    logger.warning("AI recommendation fallback: no valid candidate order")
     return []
 
 
@@ -222,7 +191,7 @@ def recommend(
                                   -sum(interests[tag] for tag in pair[1].career_tags), pair[1].course_code))
     items = [item for _, item in ranked]
     same_priority = [item for priority, item in ranked if priority == ranked[0][0]][:12] if ranked else []
-    order = openai_order(same_priority, career, interests) if use_ai and career else []
+    order = ai_order(same_priority, career, interests) if use_ai and career else []
     if order:
         positions = {code: index for index, code in enumerate(order)}
         items[:len(order)] = sorted(same_priority, key=lambda item: positions[item.course_code])
@@ -231,5 +200,5 @@ def recommend(
         missing_course_requirements=[RequirementGain(requirement_id=item.id, name=item.name, amount=item.shortfall)
                                      for item in shortfalls.values()],
         recommended=items[:3], alternatives=items[3:], programs=matched_programs,
-        program_data_available=bool(programs), ranking="openai" if order else "rules",
+        program_data_available=bool(programs), ranking="ai" if order else "rules",
     )

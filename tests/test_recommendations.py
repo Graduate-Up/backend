@@ -4,7 +4,7 @@ import httpx
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.services import recommendations
+from app.services import ai_client, recommendations
 from tests.test_accounts_api import register, sign_in
 
 
@@ -50,7 +50,7 @@ def test_recommendation_uses_saved_courses_and_falls_back_without_openai(monkeyp
             })
 
         monkeypatch.setenv("OPENAI_API_KEY", "test-key")
-        monkeypatch.setattr(recommendations.httpx, "post", rank_candidates)
+        monkeypatch.setattr(ai_client.httpx, "post", rank_candidates)
         with_ai = client.post(path, headers=headers, json={"career": "ai_data", "use_ai": True})
     assert response.status_code == 200, response.text
     data = response.json()
@@ -69,11 +69,11 @@ def test_recommendation_uses_saved_courses_and_falls_back_without_openai(monkeyp
     ai_politics = next(program for program in uploaded["programs"] if program["id"] == "ai-politics")
     assert ai_politics["overlapping_course_codes"] == ["COME0331"]
     assert with_ai.status_code == 200, with_ai.text
-    assert with_ai.json()["ranking"] == "openai"
+    assert with_ai.json()["ranking"] == "ai"
     assert with_ai.json()["recommended"][0]["course_code"] != uploaded["recommended"][0]["course_code"]
 
 
-def test_openai_ranking_accepts_only_candidate_permutations(monkeypatch, caplog):
+def test_ai_ranking_accepts_only_candidate_permutations(monkeypatch, caplog):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     candidates = [recommendations.CourseRecommendation(
         course_code=code, course_name=name, credits=3, curriculum_category="전공",
@@ -91,15 +91,39 @@ def test_openai_ranking_accepts_only_candidate_permutations(monkeypatch, caplog)
             }]}],
         })
 
-    monkeypatch.setattr(recommendations.httpx, "post", post)
-    assert recommendations.openai_order(candidates, "ai_data", {"ai_data": 1}) == order
+    monkeypatch.setattr(ai_client.httpx, "post", post)
+    assert recommendations.ai_order(candidates, "ai_data", {"ai_data": 1}) == order
     order[0] = "FAKE0001"
-    assert recommendations.openai_order(candidates, "ai_data", {}) == []
+    assert recommendations.ai_order(candidates, "ai_data", {}) == []
     assert "no valid candidate order" in caplog.text
 
     def rate_limited(url, **kwargs):
         return httpx.Response(429, request=httpx.Request("POST", url))
 
-    monkeypatch.setattr(recommendations.httpx, "post", rate_limited)
-    assert recommendations.openai_order(candidates, "ai_data", {}) == []
+    monkeypatch.setattr(ai_client.httpx, "post", rate_limited)
+    assert recommendations.ai_order(candidates, "ai_data", {}) == []
     assert "HTTP 429" in caplog.text
+
+
+def test_ai_ranking_with_gemini(monkeypatch, caplog):
+    monkeypatch.setenv("GEMINI_API_KEY", "gemini-key")
+    monkeypatch.setenv("JOLUP_GEMINI_MODEL", "gemini-test-model")
+    candidates = [recommendations.CourseRecommendation(
+        course_code=code, course_name=name, credits=3, curriculum_category="전공",
+        career_tags=["ai_data"], gains=[], reason="test",
+    ) for code, name in (("ITEC0419", "데이터과학기초"), ("ITEC0417", "기계학습개론"))]
+
+    def post(url, **kwargs):
+        assert url.endswith("/models/gemini-test-model:generateContent")
+        sent = json.loads(kwargs["json"]["contents"][0]["parts"][0]["text"])
+        assert [item["id"] for item in sent["candidates"]] == ["ITEC0419", "ITEC0417"]
+        return httpx.Response(200, request=httpx.Request("POST", url), json={"candidates": [{
+            "finishReason": "STOP", "content": {"parts": [{"text": json.dumps({"ids": ["ITEC0417", "ITEC0419"]})}]},
+        }]})
+
+    monkeypatch.setattr(ai_client.httpx, "post", post)
+    assert recommendations.ai_order(candidates, "ai_data", {}) == ["ITEC0417", "ITEC0419"]
+
+    monkeypatch.delenv("GEMINI_API_KEY")
+    assert recommendations.ai_order(candidates, "ai_data", {}) == []
+    assert "AI recommendation fallback: GEMINI_API_KEY (또는 OPENAI_API_KEY) is missing" in caplog.text
