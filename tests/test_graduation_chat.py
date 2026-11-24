@@ -3,6 +3,7 @@ import json
 import httpx
 from fastapi.testclient import TestClient
 
+from app.main import app
 from app.services import ai_client
 from tests.test_accounts_api import CREDENTIALS, PROFILE, create_demo_app, register, sign_in
 
@@ -12,8 +13,10 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(
 ):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("JOLUP_AI_PROVIDER", raising=False)
     path = "/api/v1/me/graduation-chat"
-    question = {"question": "test0123 과목은 어떻게 인정됐고 졸업 제출 기한은 언제예요?"}
+    question = {"question": "test0123 성적과 과목 인정, 졸업 제출 기한은 어떻게 돼요?"}
 
     with TestClient(create_demo_app()) as client:
         assert client.post(path, json=question).status_code == 401
@@ -24,8 +27,8 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(
         assert client.post(path, headers=headers, json={"question": " "}).status_code == 422
         records = {"completed_courses": [
             {"course_code": code, "course_name": name, "semester": "2024-1", "credits": 3,
-             "transcript_category": "전공", "status": "completed"}
-            for code, name in (("TEST0123", "테스트 과목"), ("TEST0456", "별도 과목"))
+             "transcript_category": "전공", "status": "completed", "grade": grade}
+            for code, name, grade in (("TEST0123", "테스트 과목", "A0"), ("TEST0456", "별도 과목", "B0"))
         ]}
         assert client.put("/api/v1/me/records", headers=headers, json=records).status_code == 200
         assert client.post(path, headers=headers, json=question).status_code == 503
@@ -54,6 +57,10 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(
                        for item in schedule["qualification_deadlines"])
             assert chat_input["course_credit_evidence"] == [
                 entry for entry in evaluation["credit_entries"] if entry["course_code"] == "TEST0123"
+            ]
+            assert chat_input["student_context"]["gpa"] == 3.5
+            assert chat_input["student_context"]["mentioned_course_grades"] == [
+                {"course_code": "TEST0123", "semester": "2024-1", "grade": "A0", "status": "completed"},
             ]
             return httpx.Response(200, request=httpx.Request("POST", url), json={
                 "status": "completed", "output": [{"type": "message", "content": [{
@@ -86,12 +93,20 @@ def test_chat_uses_authenticated_student_evaluation_and_verified_sources(
 
 def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verification_mailbox, caplog):
     monkeypatch.setenv("JOLUP_DB_PATH", str(tmp_path / "accounts.sqlite3"))
+    monkeypatch.delenv("JOLUP_AI_PROVIDER", raising=False)
     path = "/api/v1/me/graduation-chat"
-    question = {"question": "전공학점이 얼마나 부족해요?"}
-    with TestClient(create_demo_app()) as client:
+    question = {"question": "내 융합전공을 분석하고 다음에 들으면 좋을 수업 추천해줘"}
+    with TestClient(app) as client:
         assert register(client, verification_mailbox).status_code == 201
         headers = sign_in(client)
-        assert client.put("/api/v1/me/profile", headers=headers, json=PROFILE).status_code == 200
+        profile = {**PROFILE, "admission_year": 2023, "major": "glsop", "track": "multi_major",
+                   "convergence_program": "big-data"}
+        assert client.put("/api/v1/me/profile", headers=headers, json=profile).status_code == 200
+        records = {"completed_courses": [{
+            "course_code": "COME0331", "course_name": "자료구조", "semester": "2024-1",
+            "credits": 3, "transcript_category": "일반선택", "status": "completed", "grade": "B+",
+        }]}
+        assert client.put("/api/v1/me/records", headers=headers, json=records).status_code == 200
         evaluation = client.get("/api/v1/me/evaluation", headers=headers).json()
         first_source = next(item["sources"][0] for item in evaluation["requirements"] if item["sources"])
 
@@ -102,6 +117,14 @@ def test_chat_uses_gemini_when_its_key_is_set(monkeypatch, tmp_path, verificatio
             assert "graduation requirements assistant" in body["systemInstruction"]["parts"][0]["text"]
             chat_input = json.loads(body["contents"][0]["parts"][0]["text"])
             assert chat_input["question"] == question["question"]
+            assert chat_input["student_context"]["mentioned_course_grades"] == []
+            assert chat_input["convergence_program"]["name"] == "빅데이터융합전공"
+            assert chat_input["convergence_program"]["completed_catalog_matches"] == [
+                {"code": "COME0331", "name": "자료구조"},
+            ]
+            assert chat_input["convergence_program"]["source_ids"]
+            courses = chat_input["course_recommendations"]["courses"]
+            assert courses and all(course["course_code"] != "COME0331" for course in courses)
             assert PROFILE["student_number"] not in json.dumps(body, ensure_ascii=False)
             assert CREDENTIALS["email"] not in json.dumps(body, ensure_ascii=False)
             config = body["generationConfig"]

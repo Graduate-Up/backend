@@ -286,7 +286,7 @@ def my_graduation_chat(
         classification["major_department_code"] = classification.pop("major_department_codes").get(profile.major)
     try:
         return answer_graduation_question(
-            request.question, evaluation, rule, schedule_data, profile.expected_graduation_date,
+            request.question, evaluation, rule, schedule_data, profile, records,
         )
     except ChatUnavailable as exc:
         raise HTTPException(503, "지금은 졸업요건 AI 답변을 받을 수 없어요.") from exc
