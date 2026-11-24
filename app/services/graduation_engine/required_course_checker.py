@@ -47,6 +47,7 @@ def check_required_courses(
             continue
         department = computer_science_offering(
             course.course_code, course.offered_by_computer_science, prior_institution=course.prior_institution,
+            course_name=course.course_name,
         )
         if requirement.reject_transfer_courses:
             if course.prior_institution is True:
